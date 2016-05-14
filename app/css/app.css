@@ -1,0 +1,162 @@
+#doc-modal{
+	margin-top: 25px !important;
+}
+
+#app-main-sidebar{
+	background: white;
+	border-right: 7px solid #29a1e4;
+}
+.sidebar-button{
+  position: relative; right: 150px;
+  top: 15px;
+	height: 50px;
+	width: 50px;
+}
+#app-top-bar{
+	background: #2c3e50;
+	height: 80px;
+}
+.page-header{
+	width: 100%; background: #f7f9fb; height: 80px; margin-top: 30px;
+}
+.page-title{
+	font-family: "HelveticaNeueBold", Helvetica, Arial, sans-serif;
+    font-size: 1.8rem;
+    color: #404040;
+}
+.page-header-content{
+	margin-top: 20px;
+}
+#header-modal{
+	margin-bottom: 40px;
+	color: #29a1e4;
+	margin-left: 60px;
+	margin-right: 60px;
+}
+#footer-modal{
+	margin-top: 40px;
+	margin-left: 60px;
+	margin-right: 60px;
+}
+#add-dentist-modal>label{
+color: red;
+}
+.actions{
+	background: white !important;
+}
+#number-notif{
+	background: #29a1e4;
+}
+#circle{
+	width: 75px;
+	height: 75px;
+	background: #29a1e4;
+	position: relative;
+	left: 35%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	
+}
+.circle{
+	border-radius: 50%;
+    display: inline-block;
+    margin-right: 20px;
+}
+#app-avatar-initial{
+	color: white;
+	text-align: center;
+	margin-top: 20px;
+}
+.app-content{
+	margin-top: 50px;
+	margin-left: 30px;
+}
+.box{
+	height: 150px;
+}
+.case-number{
+	color: white;
+	font-size: 75px;
+	text-align: center;
+	padding-top: 25px;
+}
+#customer-card{
+	background: #27ae60;
+}
+#cases-card{
+	background: #8e44ad;
+}
+#supplier-card{
+	background: #29a1e4;
+}
+#inventory-card{
+	background: #e74c3c;
+}
+.brand{
+	position: relative;
+	right: 50px;
+}
+.brand>img{
+	height: 70px; width: 143;
+	margin-top: 5px;
+}
+.brand>p{
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	letter-spacing: 15px;
+	position: relative;
+	bottom: 20px;
+
+}
+#app-nav{
+	height: 35px;
+	margin-top: 25px;
+}
+#app-nav-search{
+	margin-top: 20px;
+}
+
+.grid {
+    background-color: #f7f9fb;
+    height: 100%;
+}
+.invoice-icon{
+	color: green !important;
+}
+.activities{
+	position: relative;
+	bottom: 50px;
+}
+.rectangle{
+	width: 420px;
+	height: 50px;
+	display: inline-block;
+	background: red;
+}
+
+.openInvoices{
+	background: #e67e22  !important;
+}
+.openInvoices>h3{
+	color: white !important;
+}
+.overdue>h3{
+	color: white !important;
+}
+.paid>h3{
+	color: white !important;
+}
+.partial>h3{
+	color: white !important;
+}
+.partial{
+	background: #29a1e4 !important;
+}
+.overdue{
+	background: #c0392b !important;
+}
+.paid{
+	background: #2ecc71 !important;
+}

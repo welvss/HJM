@@ -1,0 +1,22 @@
+{
+  "name": "HJM-semantic",
+  "authors": [
+    "Welvin Medina <welvs.medina@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.1.8",
+    "jquery": "^2.2.3",
+    "font-awesome": "^4.6.2"
+  }
+}
