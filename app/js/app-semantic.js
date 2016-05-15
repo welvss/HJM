@@ -33,15 +33,9 @@ $('.sidebar')
     
   $('.ui.dropdown').dropdown();
 
-$('.button')
-  .popup({
-    inline: true
-  })
-;
 $(".sidebar-button").click(function(){
     $('.sidebar')
   .sidebar('toggle')
 ;
   });
-
 });
