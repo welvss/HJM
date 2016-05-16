@@ -5,6 +5,7 @@
 	<title>HJM | Dental Laboratory</title>
 </head>
 <link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="../bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/hover-min.css">
 <link rel="shortcut icon" href="favicon.ico">
@@ -108,7 +109,297 @@
 					  </button>
 				 </div>
 	  	</div>
+	  </div>      
 	  </div>
+	  <div class="ui grid">
+	  	<div class="row">
+	  		<div class="thirteen wide column centered grid">
+	  		<div class="ui stacked segment">
+	  		<div class="row">
+	  			<div class="ui grid">
+	  				<div class="two column row">
+				    <div class="fourteen wide column">
+				    	<div class="ui search">
+						  <div class="ui icon input">
+						    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+						    <i class="search icon"></i>
+						  </div>
+						  <div class="results"></div>
+						</div>
+				    </div>
+				    <div class="two wide column">
+				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+				    	<a class="ui icon top left pointing dropdown">
+						  <i class="setting big icon"></i>
+						  <div class="menu">
+						    <div class="header">Columns</div>
+						    <div class="ui checkbox input">
+							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Phone</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui divider"></div>
+							<div class="item">
+								Close
+							</div>
+						  </div>
+						</a>
+				    </div>
+				    </div>
+	  			</div>
+	  		</div>
+	  		<br>
+	  			<table id="customer-table" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>CUSTOMER / COMPANY</th>
+	  						<th>PHONE</th>
+	  						<th>OPEN BALANCE</th>
+	  						<th>ACTION</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="#">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 0.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <i class="lab icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Walter White</a> 
+							            <div class="sub header">Meth Labs
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 13,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+	  							 <i class="treatment  icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Lawrence Pagayon</a> 
+							            <div class="sub header">Herbal Tooth 420
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="#">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 0.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <i class="lab icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Walter White</a> 
+							            <div class="sub header">Meth Labs
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 13,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+	  							 <i class="treatment  icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Lawrence Pagayon</a> 
+							            <div class="sub header">Herbal Tooth 420
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="#">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 0.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <i class="lab icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Walter White</a> 
+							            <div class="sub header">Meth Labs
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 13,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+	  							 <i class="treatment  icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Lawrence Pagayon</a> 
+							            <div class="sub header">Herbal Tooth 420
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="#">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 0.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <i class="lab icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Walter White</a> 
+							            <div class="sub header">Meth Labs
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 13,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+	  							 <i class="treatment  icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Lawrence Pagayon</a> 
+							            <div class="sub header">Herbal Tooth 420
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  				</tbody>
+	  			</table>
+	  		</div>
+	  		</div>
+	  	</div>
 	  </div>
 </div>
 <!--New Customer Modal-->
@@ -239,8 +530,10 @@
 			</button>
 		  </div>
 	</div>
+	
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="../bower_components/semantic/dist/semantic.min.js"></script>
+	<script src="../bower_components/datatables.net/js/jquery.dataTables.js"></script>
 	<script src="js/app-semantic.js"></script>
 </body>
 </html>

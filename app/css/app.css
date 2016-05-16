@@ -173,5 +173,6 @@ color: red;
 	position: relative;
 	top: 25px;
 }
-
-
+.dataTables_filter {
+     display: none;
+}
