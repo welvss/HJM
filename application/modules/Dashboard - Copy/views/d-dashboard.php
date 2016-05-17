@@ -33,9 +33,9 @@
 				<div class="large-6 columns">
 					<div id="doctor-dp-greeting">
 						<div class="dp">
-						<h1 id="initial-dp"><strong><?php echo substr($dentist->firstname, 0,1).substr($dentist->lastname, 0,1);?></strong></h1>
+						<h1 id="initial-dp"><strong><?php echo substr($dentists->firstname, 0,1).substr($dentists->lastname, 0,1);?></strong></h1>
 						</div>
-						<h1 id="greetings"><strong>Welcome</strong>, <?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1>
+						<h1 id="greetings"><strong>Welcome</strong>, <?php echo $dentists->title.' '.$dentists->firstname.' '.$dentists->lastname;?></h1>
 					</div>
 				</div>
 				<!--Clndr jquery Plugin-->
@@ -201,9 +201,9 @@
 	  	  		<div class="large-12 columns">
 					<div id="doctor-dp-greeting">
 						<div class="dp">
-						<h1 id="initial-dp"><strong><?php echo substr($dentist->firstname, 0,1).substr($dentist->lastname, 0,1);?></strong></h1>
+						<h1 id="initial-dp"><strong><?php echo substr($dentists->firstname, 0,1).substr($dentists->lastname, 0,1);?></strong></h1>
 						</div>
-						<h1 id="greetings"><?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1>
+						<h1 id="greetings"><?php echo $dentists->title.' '.$dentists->firstname.' '.$dentists->lastname;?></h1>
 					</div>
 				</div>
 		  	  	<div class="row expanded">
@@ -213,7 +213,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Full Name :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->firstname.' '.$dentist->middlename.' '.$dentist->lastname;?></p>
+								<p><?php echo $dentists->firstname.' '.$dentists->middlename.' '.$dentists->lastname;?></p>
 							</div>
 							<hr>
 						</div>
@@ -222,7 +222,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Email Address :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->email;?></p>
+								<p><?php echo $dentists->email;?></p>
 							</div>
 							<hr>
 						</div>
@@ -231,7 +231,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Telephone :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->telephone;?></p>
+								<p><?php echo $dentists->telephone;?></p>
 							</div>
 							<hr>
 						</div>
@@ -240,7 +240,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Mobile :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->mobile;?></p>
+								<p><?php echo $dentists->mobile;?></p>
 							</div>
 							<hr>
 						</div>
@@ -249,7 +249,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Website :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->website;?></p>
+								<p><?php echo $dentists->website;?></p>
 							</div>
 							<hr>
 						</div>
@@ -260,7 +260,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Billing Address :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></p>
+								<p><?php echo $dentists->bstreet.', '.$dentists->bbrgy.', '.$dentists->bcity;?></p>
 							</div>
 							<hr>
 						</div>
@@ -269,7 +269,7 @@
 								<label for="#" class="float-left cust-details-label"><p><strong>Shipping Address :</strong></p></label>
 							</div>
 							<div class="large-5 columns end">
-								<p><?php echo $dentist->shipstreet.', '.$dentist->shipbrgy.', '.$dentist->shipcity;?></p>
+								<p><?php echo $dentists->shipstreet.', '.$dentists->shipbrgy.', '.$dentists->shipcity;?></p>
 							</div>
 							<hr>
 						</div>

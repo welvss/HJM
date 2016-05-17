@@ -5,7 +5,7 @@
 	   		<br>
 	   		<div class="ui sizer vertical segment">
 			  <div class="ui huge header">Welcome, Administrator!</div>
-			  <p>Saturday, May 14 2016</p>
+			  <p><?php echo date('l, F d, Y');?></p>
 			</div>
 			<br><br>
 				<div class="ui link fluid cards">

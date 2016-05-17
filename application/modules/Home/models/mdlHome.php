@@ -12,7 +12,7 @@ class mdlHome extends CI_Model {
         $this->db->where('username', $this->input->post('username'));
         $this->db->where('password', md5($this->input->post('password')));
     
-        $query = $this->db->get('tbldentist');
+        $query = $this->db->get('tbluser');
         
         if($query->num_rows() == 1)
         {
@@ -27,8 +27,8 @@ class mdlHome extends CI_Model {
 
     public function check_id($data)
     {
-        $this->db->where('username', $this->input->post('username'));
-        $query = $this->db->get('tbldentist');
+        $this->db->where('username', $data);
+        $query = $this->db->get('tbluser');
         foreach ($query->result() as $row)
         {
             $user_id = $row->DentistID;
@@ -39,8 +39,8 @@ class mdlHome extends CI_Model {
     }
     public function check_privilege($data)
     {
-        $this->db->where('DentistID', $this->mdlHome->check_id($data));
-        $query = $this->db->get('tbldentist');
+        $this->db->where('username', $data);
+        $query = $this->db->get('tbluser');
         foreach($query->result() as $row)
         {
             $ps_id = $row->ps_id;
@@ -52,7 +52,7 @@ class mdlHome extends CI_Model {
     public function check_if_username_exists($username)
     {
         $this->db->where('username',$username);
-        $result = $this->db->get('tbldentist');
+        $result = $this->db->get('tbluser');
         if($result->num_rows()>0)
         {
             return false;

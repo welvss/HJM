@@ -1,49 +1,82 @@
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HJM</title>
-    <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/app.css">
-    
-  </head>
-  <body class="hjm-app">
-<div class="off-canvas-wrapper">
-<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
-  <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
-  <div class="row">
-    <div class="app-logo"></div>
-    <ul class="vertical menu app-menu">
-          <li><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
-          <li><a href="<?php echo base_url('Customer');?>"><i class="fa fa-user fa-fw"></i>Customer</a></li>
-          <li><a href="<?php echo base_url('Order');?>"><i class="fa fa fa-pencil-square-o fa-fw"></i>Orders</a></li>
-          <li><a href="#"><i class="fa fa-truck fa-fw"></i>Supplier</a></li>
-         
-        </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HJM | Dental Laboratory</title>
+</head>
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/css/app.css">
+<link rel="shortcut icon" href="<?php echo base_url();?>app/favicon.ico">
+<body class="app">
+<!--Sidebar-->
+  <div class="ui left vertical sidebar menu" id="app-main-sidebar">
+    <div class="app-avatar">
+      <div id="circle" class="circle">
+        <h1 id="app-avatar-initial"><?php echo substr($dentist->firstname, 0,1).substr($dentist->lastname, 0,1);?></h1>
+      </div>
+    </div>
+    <div class="ui right dropdown item">
+     <div class="ui sub header"><?php echo $dentist->firstname.' '.$dentist->lastname;?></div>
+          Admin
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="item"><i class="settings icon"></i>
+        Edit Username</div>
+        <div class="item"> <i class="user icon"></i>
+        Change Avatar</div>
+        <div class="divider"></div>
+        <div class="item"> <i class="browser icon"></i>
+        Manage Site</div>
+        <div class="item"> <i class="configure icon"></i>
+        Account settings</div>
+        <div class="item"> <i class="sign out icon"></i></a>
+       <a href="Dashboard/Logout"> Sign Out</a></div>
+      </div>
+    </div>
+    <hr>
+     <a href="index.html" class="active blue item">
+        <i class="large home icon"></i>
+        Home
+      </a>
+      <a href="app-customer.html" class="item">
+        <i class="large doctor icon"></i>
+        Customer
+      </a>
+      <a class="item">
+        <i class="large file text outline icon"></i>
+        <div class="ui left label" id="number-notif">3</div>
+        Cases
+      </a>
+      <a class="item">
+        <i class="large shipping icon"></i>
+        Suppliers
+      </a>
+      <a class="item">
+        <i class="large cubes icon"></i>
+        Inventory
+      </a>
   </div>
-  </div>
-  <div class="fixed">
-      <nav class="top-bar hjm-secondary" data-topbar role="navigation">
-       <div class="top-bar-right">
-        <ul class="dropdown menu" data-dropdown-menu id="admin-account-menu">
-          <li>
-            <a href="#">Hello Admin</a>
-            <ul class="menu">
-              <li><a href="#">Account Settings</a></li>
-              <hr>
-              <li><a href="Customer/Logout">Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
-       </div>
-      </nav>
+<!--Pusher-->
+<div class="pusher">
+  <div class="ui grid">
+  <!--Header-->
+    <div class="computer tablet only row">
+      <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
+        <button class="sidebar-button ui blue button">
+        <i class="icon inverted align justify big icon"></i>
+        </button>
+      <div class="brand">
+        <img src="<?php echo base_url('app/img/hjm.png');?>" alt="" style="">
+        <p style="display: inline-block;">DENTAL LABORATORY</p>
+      </div>
+      <div class="right menu">
+        <div class="ui fluid category search" id="app-nav-search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search HJM Dental Labs">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+      </div>
     </div>
-  <div class="off-canvas-content" data-off-canvas-content>
-    <div class="title-bar hide-for-large">
-    <div class="title-bar-left">
-    <button class="menu-icon" type="button" data-open="my-info"></button>
-    <div class="title-bar-title"><a href="#"><img src="<?php echo base_url();?>/assets/images/hjmlogo.png"><span>HJM Dental Laboratory</span></a></div>
-    </div>
-    </div>
-    

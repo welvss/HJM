@@ -1,0 +1,414 @@
+@charset 'utf-8';
+
+@import 'settings';
+@import 'foundation';
+@import 'motion-ui';
+
+@include foundation-global-styles;
+@include foundation-grid;
+// @include foundation-flex-grid;
+@include foundation-typography;
+@include foundation-button;
+@include foundation-forms;
+// @include foundation-range-input;
+@include foundation-accordion;
+@include foundation-accordion-menu;
+@include foundation-badge;
+@include foundation-breadcrumbs;
+@include foundation-button-group;
+@include foundation-callout;
+@include foundation-close-button;
+@include foundation-menu;
+@include foundation-menu-icon;
+@include foundation-drilldown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
+@include foundation-flex-video;
+@include foundation-label;
+@include foundation-media-object;
+@include foundation-off-canvas;
+@include foundation-orbit;
+@include foundation-pagination;
+@include foundation-progress-bar;
+// @include foundation-progress-element;
+// @include foundation-meter-element;
+@include foundation-slider;
+@include foundation-sticky;
+@include foundation-reveal;
+@include foundation-switch;
+@include foundation-table;
+@include foundation-tabs;
+@include foundation-thumbnail;
+@include foundation-title-bar;
+@include foundation-tooltip;
+@include foundation-top-bar;
+@include foundation-visibility-classes;
+@include foundation-float-classes;
+// @include foundation-flex-classes;
+
+@include motion-ui-transitions;
+@include motion-ui-animations;
+
+@import 'font-awesome';
+@import 'partials/variables';
+@import 'hover';
+@import 'partials/dataf';
+@import 'partials/responsive-data';
+@import 'partials/select';
+@import 'partials/data-button';
+@import 'partials/clndr';
+
+.hjm-app{
+	.off-canvas-wrapper,
+.off-canvas-wrapper-inner,
+.off-canvas,body, html{
+	height:100%;
+
+}
+.off-canvas-content
+{
+  overflow: hidden;
+	
+}
+.off-canvas{
+	
+}
+#logo-app{
+	margin: 0 auto;
+}
+.app-menu{
+	a{
+		color: $porcelain;
+		&:hover{
+			background: $hjm-blue;
+		}
+		width: 100%;
+	}
+
+}
+.app-logo{
+	background: rgba(255,255,255,0) url('../images/hjmlogo150.png') no-repeat 10px 10px;
+	height: 150px;
+	width: 150px;
+	
+}
+.title-bar{
+	background: $hjm-primary;
+	a{
+		span{
+			margin-left: 10px;
+			margin-top: 0px;
+		}
+		color: $porcelain;
+		&:hover{
+		}
+	}
+	
+}
+#add-modal{
+	margin-left: 15px;
+	i{
+		margin-right: 10px;
+	}
+}
+.hjm-primary{
+	background-color: $hjm-primary;
+}
+.hjm-secondary{
+	background-color: $hjm-secondary;
+}
+.tabs{
+	a{
+		color: black;
+	}
+	.is-active{
+		a{
+			color: white;
+		}
+	}
+}
+.title-callout{
+	margin-bottom: 50px;
+}
+.datatable{
+	margin: 15px;
+	a{
+		color: black;
+		&:hover{
+			text-decoration: underline;
+			color: $hjm-secondary;
+		}
+	}
+}
+.table-icon{
+	margin-right: 10px;
+}
+.dataTables_filter{
+display: none;
+}
+.data-dropdown-menu{
+	a{
+		color:gray;
+	}
+	a:hover{
+		background-color: $hjm-primary;
+		color: $porcelain;
+	}
+}
+#transaction-modal{
+	a{
+		color: black;
+	}
+	#new-case{
+		a:hover{
+			color: $porcelain;
+			background: $hjm-primary;
+		}
+	}
+	#new-invoice{
+		a:hover{
+			color: $porcelain;
+			background: $hjm-blue;
+		}
+	}
+	#new-inactive{
+		a:hover{
+			color: $porcelain;
+			background: #ec5840;
+		}
+	}
+}
+	.order-callout{
+		background: $sem-white;
+		border-top: 10px solid $hjm-secondary;
+		margin-top: 8px;
+	}
+	.order-nav{
+		a{
+			color: $hjm-gray;
+			&:hover{
+				color: $hjm-tertiary;
+			}
+		}
+		#new-order{
+			color: $hjm-gray;
+			&:hover{
+				color: $porcelain;
+				background: $hjm-primary;
+			}
+		}
+		#inProd-order{
+			color: $hjm-gray;
+			&:hover{
+				color: $porcelain;
+				background: $hjm-tertiary;
+			}
+		}
+		#complete-order{
+			color: $hjm-gray;
+			&:hover{
+				color: $porcelain;
+				background: $success-color;
+			}
+		}
+		#hold-order{
+			color: $hjm-gray;
+			&:hover{
+				color: $porcelain;
+				background: $alert-color;
+			}
+		}
+	}
+	.status-box{
+		height: 15px;
+		width: 105px;
+	}
+	#admin-account-menu{
+		background-color: transparent;
+		a{
+			color: black;
+		}
+	}
+	//HJM-app-end
+}
+
+//front page
+.hjm-site{
+	background-color: $hjm-bg-gray;
+	#mobile-icon{
+	color: gray;
+}
+#phone-icon{
+	color: $hjm-secondary;
+}
+#mapMarker-icon{
+	color: #247a26;
+}
+#envelope-icon{
+	color: #a40914;
+}
+.top-bar-icons{
+	margin-right: 10px;
+}
+
+.top-bar-header{
+	@include top-bar-container;
+	border-bottom: 10px solid $hjm-secondary;
+	height: 115px;
+}
+#site-nav{
+	background: transparent;
+	position: relative;
+	top: 50px;
+	a{
+		color: $hjm-gray;
+		&:hover{
+			color: $hjm-tertiary;
+		}
+	}
+}
+	#first-footer{
+		height: 300px;
+		background-color: $hjm-blue;
+	}
+	#second-footer{
+		height: 100px;
+		background-color: $hjm-lightGray;
+		text-align: center;
+		.menu{
+			 display: table;
+     margin: 0 auto;
+			position: relative;
+			top: 10px;
+		}
+		.dash{
+			color: white;
+		}
+		h6{
+			position: relative;
+			top: 5px;
+			color: $porcelain;
+		}
+	}
+	.footer-contact-menu{
+		color: $porcelain;
+		margin-top: 85px;
+		li{
+			margin-top: 10px;
+		}
+	}
+	#footer-logo-text{
+		color: $porcelain;
+		@media screen and (min-width: 0) {
+			text-align: center;
+		}
+		@media screen and (min-width: 640px) {
+			letter-spacing: .3rem;
+			text-align: center;
+		}
+		@media screen and (min-width: 1024px) {
+			margin-top: 9.5rem;
+			letter-spacing: .2rem;
+		}
+		@media screen and (min-width: 1354px) {
+			margin-top: 9.5rem;
+			letter-spacing: .3rem;
+		}
+		@media screen and (min-width: 1920px) {
+			margin-top: 9.5rem;
+			letter-spacing: .6rem;
+		}
+		font-family: 'Droid Sans', sans-serif;
+		font-weight: 600;
+	}
+	#footer-logo{
+		@media screen and (min-width: 640px) {	
+			text-align: center;
+			margin-top: 5px;
+			display: inline-block;
+			allign: middle;
+		}
+		@media screen and (min-width: 1024px) {
+					margin-top: 75px;
+		}
+
+	}
+	.panel-white{
+		margin: 0 auto;
+		height: 500px;
+		width: 80%;
+		background :white;	
+	}
+	#sign-in-panel{
+		-webkit-box-shadow: 14px 11px 28px -13px rgba(0,0,0,0.52);
+		-moz-box-shadow: 14px 11px 28px -13px rgba(0,0,0,0.52);
+		box-shadow: 14px 11px 28px -13px rgba(0,0,0,0.52);
+		font-family: 'Droid Sans', sans-serif;
+		text-align: center;
+		input{
+			margin: 0 auto;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			width: 300px;
+		}
+		h4{
+			margin-top: 25px;
+		}
+	}
+	#sign-in-content{
+		margin-top: 75px;
+		#sign-in-button{
+			margin-left: 230px
+		}
+	}
+	#main-header{
+		margin-bottom: 75px;
+	}
+	#main-footer{
+		margin-top: 75px;
+	}
+	
+	.dp{
+	 display: block;
+	  width: 200px;
+	  height: 200px;
+	  margin: 1em auto;
+	  background-color: $hjm-blue;
+	  background-size: cover;
+	  background-repeat: no-repeat;
+	  background-position: center center;
+	  -webkit-border-radius: 99em;
+	  -moz-border-radius: 99em;
+	  border-radius: 99em;
+	  border: 5px solid #eee;
+	  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3); 
+		
+	}
+	#initial-dp{
+		color: white;
+		font-size: 5.5rem;
+		text-align: center;
+		margin-top: 35px;
+		margin-bottom: 35px;
+	}
+	#greetings{
+		text-align: center;
+		color: $hjm-blue;
+	}
+	#doctor-dp-greeting{
+		@media screen and (min-width: 1024px) {
+			margin-top: 100px;
+		}
+	}
+	.doctor-tabs{
+		@include tabs-container;
+		
+	}
+	#doc-tabs{
+		a{
+			color: black;
+		}
+	}
+	
+//HJM-site end	
+}

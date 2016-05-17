@@ -1,0 +1,261 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HJM</title>
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body class="hjm-app">
+<div class="off-canvas-wrapper">
+<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+	<div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
+	<div class="row">
+		<div class="app-logo"></div>
+		<ul class="vertical menu app-menu">
+          <li><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
+          <li><a href="#"><i class="fa fa-user fa-fw"></i>Customer</a></li>
+          <li><a href="#"><i class="fa fa-truck fa-fw"></i>Supplier</a></li>
+          <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Inventory</a></li>
+        </ul>
+	</div>
+	</div>
+	<div class="off-canvas-content" data-off-canvas-content>
+		<div class="title-bar hide-for-large">
+		<div class="title-bar-left">
+		<button class="menu-icon" type="button" data-open="my-info"></button>
+		<div class="title-bar-title"><a href="#"><img src="images/hjmlogo.png"><span>HJM Dental Laboratory</span></a></div>
+		</div>
+		</div>
+		<div class="fixed">
+		  <nav class="top-bar hjm-secondary" data-topbar role="navigation">
+			 <div class="top-bar-right">
+			 	<ul class="dropdown menu" data-dropdown-menu id="admin-account-menu">
+			 		<li>
+			 			<a href="#">Hello Admin</a>
+						<ul class="menu">
+						  <li><a href="#">Account Settings</a></li>
+						  <hr>
+						  <li><a href="#">Log Out</a></li>
+						</ul>
+			 		</li>
+			 	</ul>
+			 </div>
+		  </nav>
+		</div>
+		<div class="callout fixed title-callout" style="background: #f7f9fb;">
+			<div class="row column">
+				<h4 class="float-left"><i class="fa fa-user fa-lg"></i><strong>Customer</strong></h4>
+				<a data-open="exampleModal1" class="button hjm-secondary float-right hvr-icon-hang">Add New Customer</a>
+			</div>
+			<!--Modal-->
+			<div class="row">
+				<div class="large reveal" id="exampleModal1" data-reveal data-animation-in="slide-in-down" data-animation-out="slide-out-up">
+				  <h3 id="add-modal"><i class="fa fa-user"></i><strong>Dentist Information</strong></h3>
+				  <!--Form-->
+					<form data-abide novalidate>
+						<hr>
+						<div class="row">
+							<div class="large-6 medium-12 columns">
+							 <div class="row">
+								<div class="large-2 medium-3 small-3 xsmall-2 columns">
+								  <label>Title
+									<select id="select" required>
+									  <option value=""></option>
+									  <option value="Mr.">Mr.</option>
+									  <option value="Ms.">Ms.</option>
+									  <option value="Mrs.">Mrs.</option>
+									  <option value="Dr.">Dr.</option>
+									  <option value="Dra.">Dra.</option>
+									</select>
+								  </label>
+								</div>
+
+							<div class="large-3 medium-12 small-12 columns">
+							  <label>First Name
+								<input type="text" name="cust-fname" aria-describedby="exampleHelpText" required pattern="text">
+							  </label>
+							</div>
+							<div class="large-4 medium-12 small-12 columns">
+							  <label>Middle Name
+								<input type="text" name="cust-mname" aria-describedby="exampleHelpText">
+							  </label>
+							</div>
+							<div class="large-3 medium-12 small-12 columns">
+							  <label>Last Name
+								<input type="text" name="cust-lname" aria-describedby="exampleHelpText" required pattern="text">
+							  </label>
+							</div>
+							 </div>
+							 <div class="row">
+								<div class="large-12 medium-12 small-12 columns">
+									  <label>Company
+										<input type="text" name="cust-company" placeholder="i.e. HJM Dental Laboratory" aria-describedby="exampleHelpText" required>
+									  </label>
+									</div>
+							 </div>
+							 <div class="row">
+								<div class="large-12 medium-12 small-12 columns">
+									  <label>Display Name As
+										<input type="text" aria-describedby="exampleHelpText">
+									  </label>
+									</div>
+							 </div>
+							</div>
+							<div class="large-6 medium-12 columns">
+								<div class="row">
+									<div class="large-12 medium-12 small-12 columns">
+									  <label>E-Mail
+										<input type="text" name="cust-email" placeholder="i.e. hjmdentallaboratory@gmail.com" aria-describedby="exampleHelpText" required>
+									  </label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="large-6 medium-6 small-12 columns">
+										 <label>Telephone
+										<input type="text" name="cust-telephone" aria-describedby="exampleHelpText">
+									  </label>
+									</div>
+									<div class="large-6 medium-6 small-12 columns columns">
+											 <label>Mobile
+										<input type="text" name="cust-mobile" aria-describedby="exampleHelpText" required pattern="number">
+									  </label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="large-12 medium-12 small-12 columns">
+									  <label>Website
+										<input type="text" name="cust-website" placeholder="i.e. www.hjmdentallaboratory.com" aria-describedby="exampleHelpText" required>
+									  </label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<ul class="tabs" data-tabs id="example-tabs">
+								  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Address</a></li>
+								  <li class="tabs-title"><a href="#panel2">Notes</a></li>
+								</ul>
+								<div class="tabs-content" data-tabs-content="example-tabs">
+								  <div class="tabs-panel is-active" id="panel1">
+									<div class="row">
+										<div class="large-6 columns">
+											<div class="row">
+												<div class="large-12 medium-12 small-12 columns">
+												  <label><strong>Billing Address</strong>
+													 <textarea name="b-street-address" rows="2" cols="50" placeholder="Street"></textarea>
+												  </label>
+											   </div>
+											</div>
+											<div class="row">
+												<div class="large-6 columns">
+												 <label>City / Province
+												<input name="b-city" type="text" aria-describedby="exampleHelpText" required>
+												 </label>
+
+												</div>
+												<div class="large-6 columns">
+												<label>Baranggay
+												<input name="b-baranggay" type="text" aria-describedby="exampleHelpText" required>
+												 </label>
+												</div>
+											</div>
+										 </div>
+										<div class="large-6 columns">
+											<div class="row">
+												<div class="large-12 medium-12 small-12 columns">
+												  <label><strong>Shipping Address </strong>
+													 <textarea name="ship-street" rows="2" cols="50" placeholder="Street" id="ship-street"></textarea>
+												  </label>
+											   </div>
+											</div>
+											<div class="row">
+												<div class="large-6 columns">
+												 <label>City / Province
+												<input type="text" name="ship-city" aria-describedby="exampleHelpText" class="ship-info" id="ship-city">
+												 </label>
+
+												</div>
+												<div class="large-6 columns">
+												<label>Baranggay
+												<input type="text" name="ship-city" aria-describedby="exampleHelpText" class="ship-info" id="ship-baranggay">
+												 </label>
+												</div>
+											</div>
+											<input id="same-as" type="checkbox"><label for="checkbox1">Same as Billing Address
+										</div>
+									</div>
+								  </div>
+								  <div class="tabs-panel" id="panel2">
+									<label for="notes"><strong>Notes</strong>
+									<textarea name="notes" id="" cols="30" rows="3"></textarea></label>
+								  </div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<hr>
+						<div class="row">
+							<fieldset class="float-left">
+							  <button class="button alert hvr-icon-back" data-close aria-label="Close modal" type="button">Cancel</button>
+							</fieldset>
+							<fieldset class="float-right">
+							  <button class="button success hvr-icon-forward" type="Submit" value="Submit">Submit</button>
+							</fieldset>
+							</div>
+					</form>
+				  <!--End Form-->
+					<button class="close-button" data-close aria-label="Close modal" type="button">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			</div>
+			<!--End Modal-->
+		</div>
+		<div class="datatable">
+		<label for="">Search
+			<input type="text" id="custom-searchbox">
+			</label>
+		
+			<table id="j-table" class="display responsive nowrap" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th style="width: 400px;"><i class="fa fa-user fa-lg table-icon"></i>Customer Name / Company
+						</th>
+						<th>Address</th>
+						<th>Contact Number</th>
+						<th style="width:50px;">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#"><h5><strong>Welvin Medina</strong></h5></a>
+						<p class="subheader">Dental Massage</p>
+						</td>
+						<td>Bunot Ipin Gang</td>
+						<td>09776343077</td>
+						<td>
+							<button class="small button" data-open="transaction-modal">New Transaction</button>
+						</td>
+					</tr>
+				</tbody>			
+			</table>
+			-
+		</div>
+	</div>
+</div>
+</div>
+
+	
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/what-input/what-input.js"></script>
+    <script src="bower_components/foundation-sites/dist/foundation.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="bower_components/datatables.net-zf/js/dataTables.foundation.js"></script>
+    <script src="bower_components/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="bower_components/datatables.net-responsive-zf/js/responsive.foundation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
