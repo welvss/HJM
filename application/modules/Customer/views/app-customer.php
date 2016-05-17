@@ -120,138 +120,131 @@
 	  </div>
 </div>
 <!--New Customer Modal-->
-	<div class="ui modal large">
-		  
+<div class="ui modal large">
 		  <div class="header" id="header-modal">
 		   <i class="large doctor icon"></i>
 		    Dentist Information
 		  </div>
-		  
+		  <?php echo form_open('Customer/AddDentist','class="ui form"');?>
 			<div class="ui grid" id="add-dentist-modal">
-			<?php echo form_open_multipart('Customer/AddDentist');?>
-			<div class="row">
-				<div class="one wide column hidden"></div>
-					<div class="seven wide column">
-
-						<div class="ui form">
-							  <div class="fields">
-							    <div class="five wide field">
-							      <label>First name</label>
-							      <input type="text" placeholder="First Name" name="firstname">
-							    </div>
-							    <div class="six wide field">
-							      <label>Middle name</label>
-							      <input type="text" placeholder="Middle Name">
-							    </div>
-							    <div class="five wide field">
-							      <label>Last name</label>
-							      <input type="text" placeholder="Last Name" name="lastname">
-							    </div>
-							  </div>
-							  <div class="field">
-							  	<label>Company Name</label>
-							  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
-							  </div>
-						</div>
-					</div>
-					<div class="seven wide column">
-						<div class="ui form">
-							    <div class="field">
-							      <label>Email</label>
-							      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
-							    </div>
-							    <div class="two fields">
-							    	<div class="field">
-							    		<label>Telephone</label>
-							    		<input type="text" name="telephone">
-							    	</div>
-							    	<div class="field">
-							    		<label>Mobile</label>
-							    		<input type="text" name="mobile" >
-							    	</div>
-							    </div>
-						</div>
-					</div>
-				<div class="one wide column hidden"></div>
-			</div>
-			<div class="row">
-				<div class="one wide column hidden"></div>
-				<div class="fourteen wide column">
-						<div class="ui top attached tabular menu">
-					  <a class="item active" data-tab="address">Address</a>
-					  <a class="item" data-tab="notes">Notes</a>
-					</div>
-					<div class="ui bottom attached tab segment active" data-tab="address">
-					 <div class="ui form">
-					 	<div class="row">
-						 	<div class="ui two column stackable grid">
-						 		<!--Billing Address -->
-						 		<div class="column">
-						 			<div class="ui form">
-									  <div class="field">
-									    <label>Billing Address</label>
-									    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
+				<div class="row">
+					<div class="one wide column hidden"></div>
+						<div class="fourteen wide column">
+							
+								  <div class="fields">
+								    <div class="three wide field">
+								      <label>First Name</label>
+								      <input type="text" placeholder="First Name" name="firstname">
+								    </div>
+								    <div class="two wide field">
+								      <label>Middle Name</label>
+								      <input type="text" placeholder="Middle Name" name="middlename">
+								    </div>
+								    <div class="three wide field">
+								      <label>Last Name</label>
+								      <input type="text" placeholder="Last Name" name="lastname">
+								    </div>
+								    <div class="eight wide field">
+								      <label>Email</label>
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
+								    </div>
+								  </div>
+								  <div class="fields">
+									  <div class="eight wide field">
+									  	<label>Company Name</label>
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
 									  </div>
-									  <div class="two fields">
-									  	<div class="field">
-									  		<input type="text" placeholder="City" name="bcity">
-									  	</div>
-									  	<div class="field">
-									  		<input type="text" placeholder="Baranggay" name="bbrgy">
-									  	</div>
-									  </div>
+									  <div class="four wide field">
+								    		<label>Telephone</label>
+								    		<input type="text" name="telephone">
+								    	</div>
+								    	<div class="four wide field">
+								    		<label>Mobile</label>
+								    		<input type="text" name="mobile">
+								    	</div>
+								  </div>
+								  <!--Tabs-->
+						<br>
+						<div class="row">
+							<div class="one wide column hidden"></div>
+							<div class="fourteen wide column">
+									<div class="ui top attached inverted blue tabular menu">
+								  <a class="item active" data-tab="address">Address</a>
+								  <a class="item" data-tab="notes">Notes</a>
+								</div>
+								<div class="ui bottom attached tab segment active" data-tab="address">
+								 	<div class="row">
+									 	<div class="ui two column stackable grid">
+									 		<!--Billing Address -->
+									 		<div class="column">
+												  <div class="field">
+												    <label>Billing Address</label>
+												    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
+												  </div>
+												  <div class="two fields">
+												  	<div class="field">
+												  		<input type="text" placeholder="City" name="bcity">
+												  	</div>
+												  	<div class="field">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy">
+												  	</div>
+												  </div>
+									 		</div>
+									 		<!--Shipping Address -->
+									 		<div class="column">
+												  <div class="field">
+												    <label>Shipping Address</label>
+												    <textarea rows="2" placeholder="Street" id="ship-street" name="shipstreet"></textarea>
+												  </div>
+												  <div class="two fields">
+												  	<div class="field">
+												  		<input type="text" placeholder="City" id="ship-city" name="shipcity">
+												  	</div>
+												  	<div class="field">
+												  		<input type="text" placeholder="Baranggay" id="ship-baranggay" name="shipbrgy">
+												  	</div>
+												  </div>
+												  <div class="ui checkbox">
+													  <input id="same-as"type="checkbox" name="same" value="true">
+													  <label>Same as Billing Address</label>
+												  </div>
+									 		</div>
+									 	</div>
+									 </div>
+								</div>
+								<div class="ui bottom attached tab segment" data-tab="notes">
+									<div class="ui form">
+										<div class="field">
+										<label>Notes</label>
+										<textarea rows="3" placeholder="Additional Notes" name="notes"></textarea>
+										</div>
 									</div>
-						 		</div>
-						 		<!--Shipping Address -->
-						 		<div class="column">
-						 			<div class="ui form">
-									  <div class="field">
-									    <label>Shipping Address</label>
-									    <textarea rows="2" placeholder="Street" id="ship-street" name="shipstreet"></textarea>
-									  </div>
-									  <div class="two fields">
-									  	<div class="field">
-									  		<input type="text" placeholder="City" id="ship-city" name="shipcity">
-									  	</div>
-									  	<div class="field">
-									  		<input type="text" placeholder="Baranggay" id="ship-baranggay" name="shipbrgy">
-									  	</div>
-									  </div>
-									  <div class="ui checkbox">
-										  <input id="same-as"type="checkbox" name="same" value="true">
-										  <label>Same as Billing Address</label>
-									  </div>
-									</div>
-						 		</div>
-						 	</div>
-						 </div>
-					 </div>
-					</div>
-					<div class="ui bottom attached tab segment" data-tab="notes">
-						<div class="ui form">
-							<div class="field">
-							<label>Notes</label>
-							<textarea rows="3" placeholder="Additional Notes" name="notes"></textarea>
+								</div>
 							</div>
+							<div class="one wide column"></div>
 						</div>
-					</div>
+						</div>
+				<div class="one wide column hidden"></div>
 				</div>
-				<div class="one wide column"></div>
-			</div>
-			</div>
-		  <div class="actions" id="footer-modal">
-		    <div class="ui grey deny button">
-		      Cancel
-		    </div>
-		    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
-			  <div class="visible content">Submit</div>
-			  <div class="hidden content">
-			    <i class="right arrow icon"></i>
-			  </div>
-			</button>
-		  </div>
-		
+				<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+				<br>
+			</div>  
+			</form>
+			<br>
 	</div>
-
-	
-	
