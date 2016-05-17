@@ -1,10 +1,12 @@
 $( document ).ready(function() {
  $(".mode").click(function(){
-  	$('.edit-customer.modal').modal('show');
+  	$('.edit-customer.modal')
+  	.modal('setting', 'transition', 'vertical flip')
+  	.modal('show');
   });
 
   $(".case-modal").click(function(){
-  		 $('.case.modal')
+  	 		 $('.case.modal')
  .modal('setting', 'transition', 'fade down')
  .modal('show')
  ;
