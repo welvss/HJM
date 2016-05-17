@@ -51,8 +51,7 @@ class Customer extends MX_Controller
 	public function AddDentist()
 	{
 	
-		if($this->input->post('submit'))
-		{
+		
 			if($_POST['same'] != Null)
 			{
 						$dentist = array(
@@ -99,11 +98,7 @@ class Customer extends MX_Controller
 						if($this->mdlCustomer->AddDentist($dentist))
 							redirect('Customer');
 			}
-		}
-		else
-		{
-			$this->load->view('users/register');
-		}
+		
 
 	}
 

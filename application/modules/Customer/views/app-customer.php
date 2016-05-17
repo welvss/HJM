@@ -106,9 +106,9 @@
 	  						<td>'.$dentist->mobile.'</td>
 	  						<td>PHP 0.00</td>
 	  						<td>
-	  							<button class="ui red  icon button">
+	  							<a href="Customer/DeleteDentist/'.$dentist->DentistID.'" class="ui red  icon button">
 	  								<i class="remove circle icon"></i>
-	  							</button>
+	  							</a>
 	  						</td>
 	  					</tr>';
 	  					}
@@ -120,28 +120,39 @@
 	  </div>
 </div>
 <!--New Customer Modal-->
-<div class="ui modal large">
+<!--New Customer Modal-->
+	<div class="ui modal fullscreen">
 		  <div class="header" id="header-modal">
 		   <i class="large doctor icon"></i>
 		    Dentist Information
 		  </div>
-		  <?php echo form_open('Customer/AddDentist','class="ui form"');?>
+		  <?php echo form_open('Customer/AddDentist', 'class="ui form"');?>
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
 						<div class="fourteen wide column">
 							
 								  <div class="fields">
-								    <div class="three wide field">
-								      <label>First Name</label>
+								  <div class="two wide field">
+								  	<label>Title</label>
+								  	<select name="title" class="ui fluid dropdown">
+									  	<option value="Dr.">Dr.</option>
+									  	<option value="Dra.">Dra.</option>
+								  		<option value="Mr.">Mr.</option>
+								  		<option value="Mrs.">Mrs.</option>
+								  		<option value="Ms.">Ms.</option>
+								  	</select>
+								  </div>
+								    <div class="two wide field">
+								      <label>First name</label>
 								      <input type="text" placeholder="First Name" name="firstname">
 								    </div>
 								    <div class="two wide field">
-								      <label>Middle Name</label>
+								      <label>Middle name</label>
 								      <input type="text" placeholder="Middle Name" name="middlename">
 								    </div>
-								    <div class="three wide field">
-								      <label>Last Name</label>
+								    <div class="two wide field">
+								      <label>Last name</label>
 								      <input type="text" placeholder="Last Name" name="lastname">
 								    </div>
 								    <div class="eight wide field">
@@ -162,6 +173,16 @@
 								    		<label>Mobile</label>
 								    		<input type="text" name="mobile">
 								    	</div>
+								  </div>
+								  <div class="fields">
+								  	<div class="eight wide field">
+									  	<label>Website</label>
+									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website">
+									  </div>
+									  <div class="eight wide field">
+									  	<label>Fax</label>
+									  	<input type="text" name="fax">
+									  </div>
 								  </div>
 								  <!--Tabs-->
 						<br>
@@ -205,7 +226,7 @@
 												  	</div>
 												  </div>
 												  <div class="ui checkbox">
-													  <input id="same-as"type="checkbox" name="same" value="true">
+													  <input id="same-as"type="checkbox" name="same">
 													  <label>Same as Billing Address</label>
 												  </div>
 									 		</div>
