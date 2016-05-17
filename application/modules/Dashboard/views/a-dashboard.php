@@ -1,15 +1,14 @@
-
-	  <!--App-content-->
-	  <div class="row app-content">
+<div class="ui grid home-grid">
+	  	  <div class="row app-content">
 	   		<div class="twelve wide column">
 	   		<br>
 	   		<div class="ui sizer vertical segment">
 			  <div class="ui huge header">Welcome, Administrator!</div>
-			  <p><?php echo date('l, F d, Y');?></p>
+			  <p><?php echo date('l F d, Y ');?></p>
 			</div>
 			<br><br>
-				<div class="ui link fluid cards">
-				  <div class="card">
+				<div class="ui four doubling cards">
+				  <div class="card hvr-grow">
 				   <div class="card-content">
 				      <div class="box" id="customer-card">
 				      	<h1 class="case-number"><i class="doctor icon"></i></h1>
@@ -17,11 +16,11 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Customer</div>
-				      <a href="#">View Customers
-				      <i class="arrow circle right icon"></i></a>
+				      <a href="<?php echo base_url('Customer');?>" class="hvr-icon-forward">View or Add New Customer
+				     </a>
 				    </div>
 				  </div>
-				  <div class="card">
+				  <div class="card hvr-grow">
 				    <div class="card-content">
 				      <div class="box" id="cases-card">
 				      	<h1 class="case-number"><i class="file text outline icon"></i></h1>
@@ -29,11 +28,11 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Cases</div>
-				      <a href="#">View Cases
-				      <i class="arrow circle right icon"></i></a>
+				        <a href="#" class="hvr-icon-forward">View or Add New Case
+				     </a>
 				    </div>
 				  </div>
-				  <div class="card">
+				  <div class="card hvr-grow">
 				    <div class="card-content">
 				      <div class="box" id="supplier-card">
 				      	<h1 class="case-number"><i class="truck icon"></i></h1>
@@ -41,11 +40,11 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Supplier</div>
-				      <a href="#">View Supplier
-				      <i class="arrow circle right icon"></i></a>
+				        <a href="#" class="hvr-icon-forward">View or Add New Supplier
+				     </a>
 				    </div>
 				  </div>
-				    <div class="card">
+				    <div class="card hvr-grow">
 				    <div class="card-content">
 				      <div class="box" id="inventory-card">
 				      	<h1 class="case-number"><i class="cubes icon"></i></h1>
@@ -53,8 +52,8 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Inventory</div>
-				      <a href="#">View Inventory
-				      <i class="arrow circle right icon"></i></a>
+				        <a href="#" class="hvr-icon-forward">View or Add New Stocks
+				     </a>
 				    </div>
 				  </div>
 				</div>
@@ -64,7 +63,7 @@
 						<div class="ui statistics">
 						  <div class="green statistic">
 						    <div class="value">
-						      <i class="file text outline icon"></i> 23
+						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
 						    </div>
 						    <div class="label">
 						      <a href="#">New Cases</a>
@@ -72,7 +71,7 @@
 						  </div>
 						  <div class="purple statistic">
 						    <div class="value">
-						      <i class="lab icon"></i> 11
+						      <i class="lab icon hvr-buzz-out"></i> 11
 						    </div>
 						    <div class="label">
 						      <a href="#">In Production</a>
@@ -80,7 +79,7 @@
 						  </div>
 						  <div class="blue statistic">
 						    <div class="value">
-						      <i class="circle check icon"></i> 5
+						      <i class="circle check icon hvr-float"></i> 5
 						    </div>
 						    <div class="label">
 						      <a href="#">Completed Cases</a>
@@ -88,7 +87,7 @@
 						  </div>
 						  <div class="red statistic">
 						    <div class="value">
-						      <i class="warning circle icon"></i> 5
+						      <i class="warning circle icon hvr-buzz"></i> 5
 						    </div>
 						    <div class="label">
 						    <a href="#">On Hold</a>
@@ -100,7 +99,7 @@
 						<div class="ui large header">Inventory</div>
 						<div class="ui statistics">
 							<div class="statistic">
-								<div class="value"><i class="cubes icon"></i>09</div>
+								<div class="value"><i class="cubes icon hvr-hang"></i>09</div>
 								<div class="label">
 									<a href="#">Running Low</a>
 								</div>
@@ -111,7 +110,7 @@
 				<div class="ui segment">
 				  <h4 class="ui large header">Income</h4>
 				 <div class="ui horizontal segments income">
-					  <div class="ui segment openInvoices">
+					  <div class="ui segment openInvoices ">
 					    <h3>7,000 PHP</h3>
 					  </div>
 					  <div class="ui segment partial">
@@ -125,10 +124,10 @@
 					  </div>
 				 </div>
 					<div class="ui four column grid">
-					  <div class="column"><h1>04</h1><p>OPEN INVOICES</p></div>
-					  <div class="column"><h1>02</h1><p>PARTIAL</p></div>
-					  <div class="column"><h1>02</h1><p>OVERDUE</p></div>
-					  <div class="column"><h1>17</h1><p>PAID LAST 30 DAYS </p></div>
+					  <div class="column"><h1>04</h1><a href="#">OPEN INVOICES</a></div>
+					  <div class="column"><h1>02</h1><a href="#">PARTIAL</a></div>
+					  <div class="column"><h1>02</h1><a href="#">OVERDUE</a></div>
+					  <div class="column"><h1>17</h1><a href="#">PAID LAST 30 DAYS </a></div>
 					</div>
 				</div>
 	   		</div>
@@ -252,6 +251,5 @@
 				</div>
 	   		</div>
 	  </div>
-	</div>
+	  </div>
 </div>
-	

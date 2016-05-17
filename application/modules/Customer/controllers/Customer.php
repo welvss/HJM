@@ -4,29 +4,32 @@ class Customer extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-		$this->load->view('template/header');
+		
 		$this->load->model('mdlCustomer');
-		$this->is_logged_in();
+		$this->headercheck();
 	}
-	public function logout()
-    {
-        $this->session->sess_destroy();
-        redirect('Home');
-    } 
-	public function is_logged_in()
-    {
-        $is_logged_in = $this->session->userdata('is_logged_in');
-        if( $this->session->userdata('is_logged_in') != true) 
-        {
-            redirect('Home');
-        }
-        if( $this->session->userdata('is_logged_in') == true && $this->session->userdata('ps_id')!=2) 
-        {
-            redirect('Dashboard');
-        }
-    }
+	
+	public function headercheck()
+	{
+		$data['active'] =2;
+		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		{
+			$this->load->view('template/header',$data);
+		}
+		else
+		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+			redirect('Dashboard');
+		}
+		else
+		if($this->session->userdata('is_logged_in') != TRUE)	
+		{
+			redirect('Home');
+		}	
+	}
 	public function index(){
-		$data['dentists'] = $this->mdlCustomer->getDentist(array());	
+		$data['dentists'] = $this->mdlCustomer->getDentist();	
 		$this->load->view('app-customer',$data);
 		$this->load->view('template/footer');
 	}
@@ -43,12 +46,7 @@ class Customer extends MX_Controller
 
 
 
-	public function login()
-	{
-		
-     	$this->load->view('users/login');
-  		 
-	}
+	
 
 	public function AddDentist()
 	{
@@ -212,28 +210,6 @@ class Customer extends MX_Controller
 		redirect('Customer');
 	}
 	
-	function validate_credentials()
-	{
-		$this->load->model('mdlHome');
-		$query=$this->mdlHome->validate();
-
-		if($query)
-		{
-			$data=array(
-				'username'=>$this->input->post('username'),
-				'is_logged_in' => true
-			);
-			$this->session->set_userdata($data);
-			redirect('Home/Register');
-
-
-		}
-		else
-		{
-			$this->login();
-		}
-
-
-	}
+	
 }
 ?>

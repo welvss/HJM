@@ -6,10 +6,19 @@ class Home extends MX_Controller
 		parent::__construct();
 		$this->load->view('template/frontheader');
 		$this->load->model('mdlHome');
+        $this->logincheck();
 
 	
 	}
-	
+	public function logincheck()
+    {
+        
+       
+        if($this->session->userdata('is_logged_in') == TRUE) 
+        {
+            redirect('Dashboard');
+        }       
+    }
 	public function index(){
 		
 		

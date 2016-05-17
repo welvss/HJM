@@ -33,15 +33,28 @@ $('.sidebar')
     
   $('.ui.dropdown').dropdown();
 
-$('.button')
-  .popup({
-    inline: true
-  })
-;
 $(".sidebar-button").click(function(){
     $('.sidebar')
   .sidebar('toggle')
 ;
   });
+ $('#customer-table').DataTable( {
+        "scrollY":        '40vh',
+        "scrollCollapse": true,
+        "paging":         false,
+        'aoColumnDefs': [{
+        'bSortable': false,
+        'aTargets': [-1, -2, -3] /* 1st one, start by the right */
+    }]
+    } );
 
+  var dataTable = $('#customer-table').dataTable();
+    $("#search-customer").keyup(function() {
+        dataTable.fnFilter(this.value);
+    });    
+
+    $('.popup')
+  .popup()
+;
+ //end
 });

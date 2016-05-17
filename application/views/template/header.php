@@ -5,7 +5,9 @@
   <title>HJM | Dental Laboratory</title>
 </head>
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/app.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/css/hover-min.css">
 <link rel="shortcut icon" href="<?php echo base_url();?>app/favicon.ico">
 <body class="app">
 <!--Sidebar-->
@@ -29,16 +31,16 @@
         Manage Site</div>
         <div class="item"> <i class="configure icon"></i>
         Account settings</div>
-        <div class="item"> <i class="sign out icon"></i></a>
-       <a href="Dashboard/Logout"> Sign Out</a></div>
+        <div class="item"> <a href="Dashboard/Logout"><i class="sign out icon"></i>
+        Sign Out</a></div>
       </div>
     </div>
     <hr>
-     <a href="index.html" class="active blue item">
+     <a href="<?php echo base_url('Dashboard');?>" class="<?php if($active==1){ echo "active blue";}?> item">
         <i class="large home icon"></i>
         Home
       </a>
-      <a href="app-customer.html" class="item">
+      <a href="<?php echo base_url('Customer');?>" class="<?php if($active==2){ echo "active blue";}?> item">
         <i class="large doctor icon"></i>
         Customer
       </a>
@@ -53,29 +55,26 @@
       </a>
       <a class="item">
         <i class="large cubes icon"></i>
+         <div class="ui left red label" id="number-notif">9</div>
         Inventory
       </a>
   </div>
 <!--Pusher-->
 <div class="pusher">
-  <div class="ui grid">
   <!--Header-->
     <div class="computer tablet only row">
       <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
-        <button class="sidebar-button ui blue button">
-        <i class="icon inverted align justify big icon"></i>
+        <button class="sidebar-button ui basic inverted button">
+        <i class="icon align justify big icon"></i>
         </button>
       <div class="brand">
-        <img src="<?php echo base_url('app/img/hjm.png');?>" alt="" style="">
+        <img src="<?php echo base_url();?>app/img/hjm.png" alt="" style="">
         <p style="display: inline-block;">DENTAL LABORATORY</p>
       </div>
       <div class="right menu">
-        <div class="ui fluid category search" id="app-nav-search">
-          <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Search HJM Dental Labs">
-            <i class="search icon"></i>
-          </div>
-          <div class="results"></div>
+        <div class="ui transparent inverted icon input">
+          <input type="text" placeholder="Search HJM Dental La..">
+          <i class="search icon"></i>
         </div>
       </div>
       </div>

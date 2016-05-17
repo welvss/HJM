@@ -1,4 +1,84 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HJM | Dental Laboratory</title>
+</head>
+<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/hover-min.css">
+<link rel="shortcut icon" href="favicon.ico">
+<body class="app">
+<!--Sidebar-->
+	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
+		<div class="app-avatar">
+			<div id="circle" class="circle">
+				<h1 id="app-avatar-initial">WM</h1>
+			</div>
+		</div>
+		<div class="ui right dropdown item">
+		 <div class="ui sub header">Welvin Medina</div>
+      		Admin
+	    <i class="dropdown icon"></i>
+	    <div class="menu">
+	      <div class="item"><i class="settings icon"></i>
+	      Edit Username</div>
+	      <div class="item"> <i class="user icon"></i>
+	      Change Avatar</div>
+	      <div class="divider"></div>
+	      <div class="item"> <i class="browser icon"></i>
+	      Manage Site</div>
+	      <div class="item"> <i class="configure icon"></i>
+	      Account settings</div>
+	      <div class="item"> <i class="sign out icon"></i>
+	      Sign Out</div>
+	    </div>
+    </div>
+  	<hr>
+		 <a href="index.html" class="item">
+		    <i class="large home icon"></i>
+		    Home
+		  </a>
+		  <a href="app-customer.html" class="active blue item">
+		    <i class="large doctor icon"></i>
+		    Customer
+		  </a>
+		  <a class="item">
+		    <i class="large file text outline icon"></i>
+		    <div class="ui left label" id="number-notif">3</div>
+		    Cases
+		  </a>
+		  <a class="item">
+		    <i class="large shipping icon"></i>
+		    Suppliers
+		  </a>
+		  <a class="item">
+		    <i class="large cubes icon"></i>
+		     <div class="ui left red label" id="number-notif">9</div>
+		    Inventory
+		  </a>
+	</div>
+<!--Pusher-->
+<div class="pusher">
+	<!--Header-->
+	  <div class="computer tablet only row">
+	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
+		    <button class="sidebar-button ui basic inverted button">
+		  	<i class="icon align justify big icon"></i>
+		    </button>
+			<div class="brand">
+				<img src="img/hjm.png" alt="" style="">
+				<p style="display: inline-block;">DENTAL LABORATORY</p>
+			</div>
+			<div class="right menu">
+				<div class="ui transparent inverted icon input">
+				  <input type="text" placeholder="Search HJM Dental La..">
+				  <i class="search icon"></i>
+				</div>
+			</div>
+	    </div>
+	  </div>
 	  <!--App-content--> 
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
@@ -87,32 +167,64 @@
 	  					</tr>
 	  				</thead>
 	  				<tbody>
-	  					
-	  				<?php
-	  					foreach ($dentists as $dentist) 
-	  					{
-	  					echo
-	  					'<tr>	
+	  					<tr>
 	  						<td>
 	  							<h4 class="ui image header">
 							          <img src="img/hjm-logo.png" class="ui mini rounded image">
 							          <div class="content">
-							            <a href="app-customer-info.html">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
-							            <div class="sub header">'.$dentist->company.'
+							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
 							          </div>
 							        </div>
 							    </h4>
 	  						</td>
-	  						<td>'.$dentist->mobile.'</td>
+	  						<td>09776443033</td>
 	  						<td>PHP 0.00</td>
 	  						<td>
 	  							<button class="ui red  icon button">
 	  								<i class="remove circle icon"></i>
 	  							</button>
 	  						</td>
-	  					</tr>';
-	  					}
-	  				?>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+							          <i class="lab icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Walter White</a> 
+							            <div class="sub header">Meth Labs
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td>PHP 13,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td>
+	  							<h4 class="ui image header">
+	  							 <i class="treatment  icon"></i>
+							          <div class="content">
+							           <a href="#">Dr. Lawrence Pagayon</a> 
+							            <div class="sub header">Herbal Tooth 420
+							          </div>
+							        </div>
+							    </h4>
+	  						</td>
+	  						<td>09776443033</td>
+	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
+	  						<td>
+	  							<button class="ui red  icon button">
+	  								<i class="remove circle icon"></i>
+	  							</button>
+	  						</td>
+	  					</tr>
+	  				</tbody>
 	  			</table>
 	  		</div>
 	  		</div>
@@ -121,23 +233,19 @@
 </div>
 <!--New Customer Modal-->
 	<div class="ui modal large">
-		  
 		  <div class="header" id="header-modal">
 		   <i class="large doctor icon"></i>
 		    Dentist Information
 		  </div>
-		  
 			<div class="ui grid" id="add-dentist-modal">
-			<?php echo form_open_multipart('Customer/AddDentist');?>
 			<div class="row">
 				<div class="one wide column hidden"></div>
 					<div class="seven wide column">
-
-						<div class="ui form">
+						<form class="ui form">
 							  <div class="fields">
 							    <div class="five wide field">
 							      <label>First name</label>
-							      <input type="text" placeholder="First Name" name="firstname">
+							      <input type="text" placeholder="First Name" name="first-name">
 							    </div>
 							    <div class="six wide field">
 							      <label>Middle name</label>
@@ -145,32 +253,32 @@
 							    </div>
 							    <div class="five wide field">
 							      <label>Last name</label>
-							      <input type="text" placeholder="Last Name" name="lastname">
+							      <input type="text" placeholder="Last Name" name="last-name">
 							    </div>
 							  </div>
 							  <div class="field">
 							  	<label>Company Name</label>
-							  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
+							  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
 							  </div>
-						</div>
+						</form>
 					</div>
 					<div class="seven wide column">
-						<div class="ui form">
+						<form class="ui form">
 							    <div class="field">
 							      <label>Email</label>
-							      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
+							      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
 							    </div>
 							    <div class="two fields">
 							    	<div class="field">
 							    		<label>Telephone</label>
-							    		<input type="text" name="telephone">
+							    		<input type="text">
 							    	</div>
 							    	<div class="field">
 							    		<label>Mobile</label>
-							    		<input type="text" name="mobile" >
+							    		<input type="text" name="mobile">
 							    	</div>
 							    </div>
-						</div>
+						</form>
 					</div>
 				<div class="one wide column hidden"></div>
 			</div>
@@ -190,14 +298,14 @@
 						 			<div class="ui form">
 									  <div class="field">
 									    <label>Billing Address</label>
-									    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
+									    <textarea rows="2" placeholder="Street"></textarea>
 									  </div>
 									  <div class="two fields">
 									  	<div class="field">
-									  		<input type="text" placeholder="City" name="bcity">
+									  		<input type="text" placeholder="City">
 									  	</div>
 									  	<div class="field">
-									  		<input type="text" placeholder="Baranggay" name="bbrgy">
+									  		<input type="text" placeholder="Baranggay">
 									  	</div>
 									  </div>
 									</div>
@@ -207,18 +315,18 @@
 						 			<div class="ui form">
 									  <div class="field">
 									    <label>Shipping Address</label>
-									    <textarea rows="2" placeholder="Street" id="ship-street" name="shipstreet"></textarea>
+									    <textarea rows="2" placeholder="Street" id="ship-street"></textarea>
 									  </div>
 									  <div class="two fields">
 									  	<div class="field">
-									  		<input type="text" placeholder="City" id="ship-city" name="shipcity">
+									  		<input type="text" placeholder="City" id="ship-city">
 									  	</div>
 									  	<div class="field">
-									  		<input type="text" placeholder="Baranggay" id="ship-baranggay" name="shipbrgy">
+									  		<input type="text" placeholder="Baranggay" id="ship-baranggay">
 									  	</div>
 									  </div>
 									  <div class="ui checkbox">
-										  <input id="same-as"type="checkbox" name="same" value="true">
+										  <input id="same-as"type="checkbox" name="example">
 										  <label>Same as Billing Address</label>
 									  </div>
 									</div>
@@ -231,7 +339,7 @@
 						<div class="ui form">
 							<div class="field">
 							<label>Notes</label>
-							<textarea rows="3" placeholder="Additional Notes" name="notes"></textarea>
+							<textarea rows="3" placeholder="Additional Notes"></textarea>
 							</div>
 						</div>
 					</div>
@@ -250,8 +358,11 @@
 			  </div>
 			</button>
 		  </div>
-		
 	</div>
-
 	
-	
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/semantic/dist/semantic.min.js"></script>
+	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
+	<script src="js/app-semantic.js"></script>
+</body>
+</html>
