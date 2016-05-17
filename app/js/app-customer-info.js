@@ -2,12 +2,10 @@ $( document ).ready(function() {
  $(".mode").click(function(){
   	$('.edit-customer.modal').modal('show');
   });
- 	$('.edit-customer.modal')
- 	.modal('show');
 
   $(".case-modal").click(function(){
   		 $('.case.modal')
- .modal('setting', 'transition', 'vertical flip')
+ .modal('setting', 'transition', 'fade down')
  .modal('show')
  ;
   });
@@ -71,5 +69,7 @@ $(".sidebar-button").click(function(){
     $('.popup')
   .popup()
 ;
-
+$('.ui.checkbox')
+  .checkbox()
+;
 });
