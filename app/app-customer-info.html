@@ -108,8 +108,46 @@
 			<div class="one wide column hidden"></div>
 	  </div>
 	  <div class="row">
-	  	<div class="twelve wide column hidden"></div>
-	  	<div class="four wide column">
+	  	<div class="one wide column hidden"></div>
+	  	<div class="eight wide column">
+	  	<br>
+	  		<div class="ui tiny statistics">
+						  <div class="green statistic">
+						    <div class="value">
+						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+						    </div>
+						    <div class="label">
+						      <a href="#">New Cases</a>
+						    </div>
+						  </div>
+						  <div class="purple statistic">
+						    <div class="value">
+						      <i class="lab icon hvr-buzz-out"></i> 11
+						    </div>
+						    <div class="label">
+						      <a href="#">In Production</a>
+						    </div>
+						  </div>
+						  <div class="blue statistic">
+						    <div class="value">
+						      <i class="circle check icon hvr-float"></i> 5
+						    </div>
+						    <div class="label">
+						      <a href="#">Completed Cases</a>
+						    </div>
+						  </div>
+						  <div class="red statistic">
+						    <div class="value">
+						      <i class="warning circle icon hvr-buzz"></i> 5
+						    </div>
+						    <div class="label">
+						    <a href="#">On Hold</a>
+						    </div>
+						  </div>
+			</div>
+	  	</div>
+	  	<div class="six wide right aligned column">
+	  	<br><br>
 		  	<div class="ui horizontal list">
 		  		<div class="item">
 		  			<h2 class="ui header">
@@ -131,73 +169,251 @@
 		  		</div>
 		  	</div>
 	  	</div>
+	  </div>    
 	  </div>
-	  <div class="row header">
-	  	
-	  </div>      
-	  </div>
+	  <!--Tab-->
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="fourteen wide column centered grid">
 	  		<div class="ui stacked segment">
-	  		<div class="row">
-	  			<div class="ui grid">
-	  				<div class="two column row">
-				    <div class="left floated column eight wide column">
-				    	<div class="ui search">
-						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
-						    <i class="search icon"></i>
-						  </div>
-						  <div class="results"></div>
-						</div>
-				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
-				    </div>
-				    </div>
-	  			</div>
-	  		</div>
-	  		<br>
-	  			<table id="customer-table" class="display ui blue table" cellspacing="0" width="100%">
-	  				<thead>
-	  					<tr>
-	  						<th>CUSTOMER / COMPANY</th>
-	  						<th>PHONE</th>
-	  						<th>OPEN BALANCE</th>
-	  						<th>ACTION</th>
-	  					</tr>
-	  				</thead>
-	  				<tbody>
-	  					<tr></tr>
-	  					<tr></tr>
-	  					<tr></tr>
-	  					<tr></tr>
-	  				</tbody>
-	  			</table>
+	  			<div class="ui top attached inverted teal tabular menu">
+					  <a class="item" data-tab="first">Transaction List</a>
+					  <a class="item active" data-tab="second">Customer Details</a>
+					  <a class="item" data-tab="third">Case History</a>
+					</div>
+					<div class="ui bottom attached tab segment" data-tab="first">
+					  	<div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+	  					<br>
+			  			<table id="transaction-history" class="display ui blue table" cellspacing="0" width="100%">
+			  				<thead>
+			  					<tr>
+			  						<th>DATE</th>
+			  						<th>NO.</th>
+			  						<th>DUE DATE</th>
+			  						<th>BALANCE</th>
+			  						<th>STATUS</th>
+			  						<th>ACTION</th>
+			  					</tr>
+			  				</thead>
+			  				<tbody>
+			  					<tr>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>02</td>
+			  						<td>Su 06/20/2016 10 Am</td>
+			  						<td></td>
+			  						<td></td>
+			  						<td></td>
+			  					</tr>
+			  				</tbody>
+			  			</table>
+					</div>
+					<div class="ui bottom attached tab segment active" data-tab="second">
+					<br>
+					  <div class="ui grid">
+					  	<div class="two column row">
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Customer Name</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>Dr. Mark Serojihos</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Email</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#">markserojihos@gmail.com</a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Phone</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>899 66 988</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Mobile</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p></p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Website</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#">www.hjmdentallaboratory.com</a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Notes</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<div class="ui form">
+											  <div class="field">
+											    <textarea rows="2"></textarea>
+											  </div>
+											</div>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Billing Address</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Shipping Address</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  </div>
+					</div>
+					<div class="ui bottom attached tab segment" data-tab="third" id="tabs">
+					<!--Case History-->
+					  <div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+	  					<br>
+			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
+			  				<thead>
+			  					<tr>
+			  						<th>INVOICE</th>
+			  						<th>PATIENT</th>
+			  						<th>DATE</th>
+			  						<th>DUE</th>
+			  						<th>STATUS</th>
+			  						<th>LAB SLIP</th>
+			  						<th>ACTION</th>
+			  					</tr>
+			  				</thead>
+			  				<tbody>
+			  					<tr>
+			  						<td><a href="#">420</a></td>
+			  						<td>Ralph Pagayon</td>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>Su 06/10/2016 10 Am</td>
+			  						<td>
+			  							
+			  						</td>
+			  						<td>
+			  							<a href="#">
+			  							<i class="file icon"></i>
+			  								View
+			  							</a>
+			  						</td>
+			  						<td></td>
+			  					</tr>
+			  				</tbody>
+			  			</table>
+				</div>
 	  		</div>
 	  		</div>
 	  	</div>
@@ -335,6 +551,6 @@
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="../bower_components/semantic/dist/semantic.min.js"></script>
 	<script src="../bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/app-semantic.js"></script>
+	<script src="js/app-customer-info.js"></script>
 </body>
 </html>
