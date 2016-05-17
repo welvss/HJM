@@ -97,13 +97,24 @@
 		   		</h1>
 	   		</div>
 	   		<div class="four wide column">
-	   		<button class="ui grey button mode">
+	   		<button class="ui blue button mode">
 					  Edit
 			</button>
-			<button class="ui primary right labeled icon button mode">
-			<i class="add icon"></i>
-					  New Transaction
-			</button>
+			<div class="ui icon top teal right labeled pointing dropdown button">
+			  <i class="add icon"></i>
+			  New Transaction
+			  <div class="menu">
+			    <div class="item case-modal">
+			    <i class="large file text outline icon blue"></i>
+			    Case</div>
+			    <div class="item">
+			    <i class="icons">
+				  <i class="large file outline dont icon"></i>
+				  <i class="green small dollar icon"></i>
+				</i>
+			    Invoice</div>
+			  </div>
+			</div>
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
@@ -175,7 +186,7 @@
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="fourteen wide column centered grid">
-	  		<div class="ui stacked segment">
+	  		<div class="ui stacked inverted teal segment">
 	  			<div class="ui top attached inverted teal tabular menu">
 					  <a class="item" data-tab="first">Transaction List</a>
 					  <a class="item active" data-tab="second">Customer Details</a>
@@ -188,7 +199,7 @@
 							    <div class="left floated column eight wide column">
 							    	<div class="ui search">
 									  <div class="ui icon input">
-									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-transaction">
 									    <i class="search icon"></i>
 									  </div>
 									  <div class="results"></div>
@@ -346,7 +357,7 @@
 							    <div class="left floated column eight wide column">
 							    	<div class="ui search">
 									  <div class="ui icon input">
-									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-case">
 									    <i class="search icon"></i>
 									  </div>
 									  <div class="results"></div>
@@ -401,7 +412,15 @@
 			  						<td>Fr 05/20/2016 10 Am</td>
 			  						<td>Su 06/10/2016 10 Am</td>
 			  						<td>
-			  							
+			  							<div class="ui selection dropdown" style="height: 5px;">
+										  <input type="hidden" name="gender">
+										  <i class="dropdown icon"></i>
+										  <div class="default text">Gender</div>
+										  <div class="menu">
+										    <div class="item" data-value="1">Male</div>
+										    <div class="item" data-value="0">Female</div>
+										  </div>
+										</div>
 			  						</td>
 			  						<td>
 			  							<a href="#">
@@ -409,7 +428,17 @@
 			  								View
 			  							</a>
 			  						</td>
-			  						<td></td>
+			  						<td>
+			  							<a href="#" class="green">
+			  								<i class="green check icon"></i>
+			  								Update
+			  							</a>
+			  							&nbsp;
+			  							<a href="#">
+			  								<i class="orange write icon"></i>
+			  								Edit
+			  							</a>
+			  						</td>
 			  					</tr>
 			  				</tbody>
 			  			</table>
@@ -420,7 +449,7 @@
 	  </div>
 </div>
 <!--New Customer Modal-->
-	<div class="ui modal large">
+	<div class="ui modal large edit-customer">
 		  <div class="header" id="header-modal">
 		   <i class="large doctor icon"></i>
 		    Dentist Information
@@ -428,44 +457,40 @@
 			<div class="ui grid" id="add-dentist-modal">
 			<div class="row">
 				<div class="one wide column hidden"></div>
-					<div class="seven wide column">
+					<div class="fourteen wide column">
 						<form class="ui form">
 							  <div class="fields">
-							    <div class="five wide field">
+							    <div class="three wide field">
 							      <label>First name</label>
 							      <input type="text" placeholder="First Name" name="first-name">
 							    </div>
-							    <div class="six wide field">
+							    <div class="two wide field">
 							      <label>Middle name</label>
 							      <input type="text" placeholder="Middle Name">
 							    </div>
-							    <div class="five wide field">
+							    <div class="three wide field">
 							      <label>Last name</label>
 							      <input type="text" placeholder="Last Name" name="last-name">
 							    </div>
-							  </div>
-							  <div class="field">
-							  	<label>Company Name</label>
-							  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
-							  </div>
-						</form>
-					</div>
-					<div class="seven wide column">
-						<form class="ui form">
-							    <div class="field">
+							    <div class="eight wide field">
 							      <label>Email</label>
 							      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
 							    </div>
-							    <div class="two fields">
-							    	<div class="field">
+							  </div>
+							  <div class="fields">
+								  <div class="eight wide field">
+								  	<label>Company Name</label>
+								  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
+								  </div>
+								  <div class="four wide field">
 							    		<label>Telephone</label>
 							    		<input type="text">
 							    	</div>
-							    	<div class="field">
+							    	<div class="four wide field">
 							    		<label>Mobile</label>
 							    		<input type="text" name="mobile">
 							    	</div>
-							    </div>
+							  </div>
 						</form>
 					</div>
 				<div class="one wide column hidden"></div>
@@ -473,12 +498,12 @@
 			<div class="row">
 				<div class="one wide column hidden"></div>
 				<div class="fourteen wide column">
-						<div class="ui top attached tabular menu">
+						<div class="ui top attached inverted blue tabular menu">
 					  <a class="item active" data-tab="address">Address</a>
 					  <a class="item" data-tab="notes">Notes</a>
 					</div>
 					<div class="ui bottom attached tab segment active" data-tab="address">
-					 <div class="ui form">
+					 <form class="ui form">
 					 	<div class="row">
 						 	<div class="ui two column stackable grid">
 						 		<!--Billing Address -->
@@ -521,7 +546,7 @@
 						 		</div>
 						 	</div>
 						 </div>
-					 </div>
+					 </form>
 					</div>
 					<div class="ui bottom attached tab segment" data-tab="notes">
 						<div class="ui form">
@@ -546,6 +571,32 @@
 			  </div>
 			</button>
 		  </div>
+	</div>
+	<!--New Case-->
+	<div class="ui modal case">
+	  <div class="header">
+	  <i class="large file text outline icon"></i>
+		    New Case
+	  </div>
+	  <div class="image content">
+	    <div class="ui large image">
+	      <img src="img/teeth-structure.png">
+	    </div>
+	    <div class="description">
+	      <div class="ui header">We've auto-chosen a profile image for you.</div>
+	      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+	      <p>Is it okay to use this photo?</p>
+	    </div>
+	  </div>
+	  <div class="actions">
+	    <div class="ui black deny button">
+	      Nope
+	    </div>
+	    <div class="ui positive right labeled icon button">
+	      Yep, that's me
+	      <i class="checkmark icon"></i>
+	    </div>
+	  </div>
 	</div>
 	
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>

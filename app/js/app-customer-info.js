@@ -1,6 +1,15 @@
 $( document ).ready(function() {
  $(".mode").click(function(){
-  	$('.ui.modal').modal('show');
+  	$('.edit-customer.modal').modal('show');
+  });
+ 	$('.edit-customer.modal')
+ 	.modal('show');
+
+  $(".case-modal").click(function(){
+  		 $('.case.modal')
+ .modal('setting', 'transition', 'vertical flip')
+ .modal('show')
+ ;
   });
   $('.menu .item')
   .tab()
@@ -38,22 +47,24 @@ $(".sidebar-button").click(function(){
 ;
   });
  $('#case-history').DataTable( {
-        "paging":         false,
         'aoColumnDefs': [{
         'bSortable': false,
-        'aTargets': [-1, -2, -3] /* 1st one, start by the right */
+        'aTargets': [-1, -2] /* 1st one, start by the right */
     }]
     } );
   $('#transaction-history').DataTable( {
-        "paging":         false,
         'aoColumnDefs': [{
         'bSortable': false,
-        'aTargets': [-1, -2, -3] /* 1st one, start by the right */
+        'aTargets': [-1] /* 1st one, start by the right */
     }]
     } );
 
-  var dataTable = $('#customer-table').dataTable();
-    $("#search-customer").keyup(function() {
+  var dataTable = $('#case-history').dataTable();
+    $("#search-case").keyup(function() {
+        dataTable.fnFilter(this.value);
+    });    
+  var dataTable = $('#transaction-history').dataTable();
+    $("#search-transaction").keyup(function() {
         dataTable.fnFilter(this.value);
     });    
 
