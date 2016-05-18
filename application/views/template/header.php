@@ -44,9 +44,8 @@
         <i class="large doctor icon"></i>
         Customer
       </a>
-      <a class="item">
+      <a class="item" id="new_count_order">
         <i class="large file text outline icon"></i>
-        <div class="ui left label" id="number-notif">3</div>
         Cases
       </a>
       <a class="item">
@@ -59,6 +58,10 @@
         Inventory
       </a>
   </div>
+
+   <script src="<?php echo base_url();?>app/bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="<?php echo base_url();?>node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
+   <script src="<?php echo base_url();?>app/js/socketio.js"></script>
 <!--Pusher-->
 <div class="pusher">
   <!--Header-->

@@ -95,9 +95,9 @@
 	  					'<tr>	
 	  						<td>
 	  							<h4 class="ui image header">
-							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
 							          <div class="content">
-							            <a href="app-customer-info.html">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+							            <a href="Customer/Info/'.$dentist->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
 							            <div class="sub header">'.$dentist->company.'
 							          </div>
 							        </div>
@@ -119,7 +119,6 @@
 	  	</div>
 	  </div>
 </div>
-<!--New Customer Modal-->
 <!--New Customer Modal-->
 	<div class="ui modal fullscreen">
 		  <div class="header" id="header-modal">

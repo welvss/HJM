@@ -26,12 +26,12 @@ class Order extends MX_Controller
 	public function AddOrder()
 	{
 	
-		$config['upload_path'] = './assets/file';
+		/*$config['upload_path'] = './assets/file';
         $config['allowed_types'] = 'jpeg|png|jpg';
         $config['max_size']    = '30720';
 
         //load upload class library
-        $this->load->library('upload', $config);
+        $this->load->library('upload', $config);*/
 
         /*if (!$this->upload->do_upload('filename'))
         {
@@ -43,10 +43,17 @@ class Order extends MX_Controller
         {
             // case - success
            $upload_data = $this->upload->data();*/
-			if($this->input->post('submit'))
-			{
 			
-						$case = array(
+			
+						$data['DentistID'] = $this->input->post('DentistID');
+						$data['patient'] = $this->input->post('patient');
+						$data['duedate'] = $this->input->post('duedate');
+						$data['duetime'] = $this->input->post('duetime');
+						$data['gender'] = $this->input->post('gender');
+						$data['age'] = $this->input->post('age');
+						$data['notes'] = $this->input->post('notes');
+									
+								/*$data=array(
 									'DentistID'=>$_POST['DentistID'],
 									'patient'=>$_POST['patient'],
 									'duedate' => $_POST['due-date'],
@@ -55,23 +62,32 @@ class Order extends MX_Controller
 									'age' => $_POST['age'],
 									'notes' => $_POST['notes'],
 									//'file' => $upload_data['file_name']
-									);
+								);*/
 						
-						if($this->mdlOrder->AddOrder($case))
+						if($this->mdlOrder->AddOrder($data))
 						{
-							$data['success'] = true;
-							$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
+							$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
 							
+							$data['CaseID'] = $info->CaseID;
+							$data['patient'] = $info->patient;
+							$data['orderdatetime'] = $info->orderdatetime;
+							$data['duedate'] = $info->duedate;
+							$data['duetime'] = $info->duetime;
+							$data['status'] = $info->status;
+							$data['success'] = true;
+							$data['new_count_order'] = $this->db->where('status','New')->count_all_results('tblcase');
+						}
+						else
+						{
+							$data['success'] = false;
 						}
 						echo json_encode($data);
-			}
-			else
-			{
-				$this->load->view('users/register');
-			}
+			
+			
 		//}
 
 	}
+
 	public function UpdateOrderStatus()
 	{
 	

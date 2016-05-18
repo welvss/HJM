@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HJM Dental Laboratory</title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/app.css">
+
   </head>
   <body class="hjm-site">
 	  <header id="main-header">

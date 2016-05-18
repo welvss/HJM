@@ -6,6 +6,11 @@ class mdlOrder extends CI_Model {
 		parent:: __construct();
 	}
 	
+	function countOrder($options=array())
+	{
+		$this->db->where('status','New');
+		return $query = $this->db->count_all_results('tblcase');
+	}
 	function getOrder($options = array())
 	{
 		//verification

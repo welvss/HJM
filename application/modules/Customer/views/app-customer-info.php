@@ -1,633 +1,690 @@
-		<div class="callout fixed title-callout" style="background: #f7f9fb;">
-			<div class="row expanded">
-				<div class="large-8 small-12 columns">
-					<div class="row">
-							<div class="medium-12 columns">
-									<h4 class="app-customer-name"><strong><?php echo $dentists->title.' '.$dentists->firstname.' '.$dentists->lastname;?></strong></h4>
-							</div>
-					</div>
-					<div class="row">
-						<div class="small-12 columns">
-							<p class="subheader" id="customer-company-display"><?php echo $dentists->company;?></p>
-						</div>
-			            <div class="small-12 columns">
-			            	  <p class="subheader"><?php echo $dentists->bstreet.', '.$dentists->bbrgy.', '.$dentists->bcity;?></p>
-						</div>
-			        </div>
-				</div>
-				<div class="large-4 small-12 columns">
-				<!--Edit Info-->
-					<div class="row">
-						<div class="small-6 columns">
-							<a data-open="edit-info" class="button secondary">Edit Information</a>
-						</div>
-						<div class="small-6 columns">
-							<a class="button hvr-icon-hang" data-open="transaction-modal">New Transaction</a>
-						</div>
-						<!--Transaction Modal-->
-						<div class="reveal" id="transaction-modal" data-reveal>
-							<ul class="menu vertical">
-									<h3><strong>New Transaction</strong></h3>
-							  <li id="new-case"><a href="#" data-open="order-modal"><i class="fa fa-pencil-square-o fa-2x" ></i>New Case</a></li>
-							  <hr>
-							  <li id="new-invoice"><a href="#"><i class="fa fa-clipboard fa-2x"></i>Make Invoice</a></li>
-							  <hr>
-							  <li id="new-inactive"><a href="#" data-open="inactive-modal" ><i class="fa fa-ban fa-2x"></i>Make Account Inactive</a></li>
-							</ul>
-								  <button class="close-button" data-close aria-label="Close modal" type="button">
-									<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<!--Inactive Modal-->
-						<div class="reveal" id="inactive-modal" data-reveal>
-						 <i class="fa fa-exclamation-triangle fa-3x" style="color: red; margin: 0 auto;"></i><p>Are you sure you want to make Welvin Olamit Medina inactive?</p>
-						  <hr>
-						  <button data-close class="button float-left hvr-icon-back success" >No</button>
-						  <button class="button float-right hvr-icon-forward alert" type="submit">Yes</button>
-						  <button class="close-button" data-close aria-label="Close reveal" type="button">
-							<span aria-hidden="true">&times;</span>
-						  </button>
-						</div>
-						<!--New Case Modal -->
-						<div class="small reveal" id="order-modal" data-reveal>
-								<h3><i class="fa fa-pencil-square-o"></i><strong>New Case</strong></h3>
-								<hr>
-								<?php echo form_open_multipart('Order/AddOrder');?>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="text" name="patient">
-										</div>
-										<?php echo form_hidden('DentistID',$this->uri->segment(3));?>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Date:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="date" name="due-date" required>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Time:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="time" name="due-time" required>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Gender:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <select id="select" name='gender' required>
-									  			<option value="Male">Male</option>
-									  			<option value="Female">Female</option>
-									  		</select>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Age:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="age">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Shade:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="shade">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Crown:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <a href="#">[+] Add a crown or bridge</a>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Notes:</strong></label>
-										</div>
-										<div class="medium-9 small-12 columns end">
-										  <textarea name="notes" id="" cols="30" rows="5"required></textarea>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Attachment:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-									    <label for="exampleFileUpload" class="button">Upload File</label>
-										    <input type="file" id="exampleFileUpload" class="show-for-sr" name="filename" required/>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<fieldset class="float-left">
-										  <button class="button alert hvr-icon-back" data-close aria-label="Close modal" type="button"> Cancel</button>
-										</fieldset>
-										<fieldset class="float-right">
-										  <?php echo form_submit('submit', 'Submit','class="button success hvr-icon-forward"');?>
-										</fieldset>
-									</div>
-								
-									<button class="close-button" data-close aria-label="Close modal" type="button">
-									<span aria-hidden="true">&times;</span>
-								  	</button>
-								</form>
-							</div>
-					</div>
-				</div>
+
+	  <!--App-content--> 
+	  <div class="ui grid home-grid">
+	  <div class="row app-content page-header header">
+	  		<div class="one wide column hidden"></div>
+	   		<div class="eleven wide column">
+		   		<h1 class="ui header">
+		   		<img src="<?php echo base_url();?>app/img/hjm-logo.png" class="ui circular image">
+		   		<div class="content">
+		   			<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?> 
+		   			<div class="sub header">
+		   			<span><?php echo $dentist->company;?></span>
+		   			&nbsp;&nbsp; | &nbsp;&nbsp;
+		   			<span><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></span>
+		   			</div>
+		   		</div>
+		   		</h1>
+	   		</div>
+	   		<div class="four wide column">
+	   		<button class="ui blue button mode">
+					  Edit
+			</button>
+			<div class="ui icon top teal right labeled pointing dropdown button">
+			  <i class="add icon"></i>
+			  New Transaction
+			  <div class="menu">
+			    <div class="item case-modal">
+			    <i class="large file text outline icon blue"></i>
+			    Case</div>
+			    <div class="item">
+			    <i class="icons">
+				  <i class="large file outline dont icon"></i>
+				  <i class="green small dollar icon"></i>
+				</i>
+			    Invoice</div>
+			  </div>
 			</div>
-			<!--Modal-->
-			<div class="row">
-				<div class="large reveal" id="edit-info" data-reveal data-animation-in="slide-in-down" data-animation-out="slide-out-up">
-				  <h3 id="add-modal"><i class="fa fa-user"></i><strong>Dentist Information</strong></h3>
-				  <!--Form-->
-					<?php echo form_open('Customer/EditDentist'); ?>
-					
-						<hr>
-						<div class="row">
-							<div class="large-6 medium-12 columns">
-							 <div class="row">
-								<div class="large-2 medium-3 small-3 xsmall-2 columns">
-								  <label>Title
-									<select id="select" name='title' required>
-									  <option value="<?php echo $dentists->title;?>">
-									  <?php echo $dentists->title;?></option>
-									  <option value="Mr.">Mr.</option>
-									  <option value="Ms.">Ms.</option>
-									  <option value="Mrs.">Mrs.</option>
-									  <option value="Dr.">Dr.</option>
-									  <option value="Dra.">Dra.</option>
-									</select>
-								  </label>
-								</div>
-							<?php echo form_hidden('DentistID', $this->uri->segment(3));?>
-							<div class="large-3 medium-12 small-12 columns">
-							  <label>First Name
-								<input type="text" name="firstname" aria-describedby="exampleHelpText" value="<?php echo $dentists->firstname;?>">
-							  </label>
-							</div>
-							<div class="large-4 medium-12 small-12 columns">
-							  <label>Middle Name
-								<input type="text" name="middlename" aria-describedby="exampleHelpText" value="<?php echo $dentists->middlename;?>">
-							  </label>
-							</div>
-							<div class="large-3 medium-12 small-12 columns">
-							  <label>Last Name
-								<input type="text" name="lastname" aria-describedby="exampleHelpText" value="<?php echo $dentists->lastname;?>">
-							  </label>
-							</div>
-							 </div>
-							 <div class="row">
-								<div class="large-12 medium-12 small-12 columns">
-									  <label>Company
-										<input type="text" name="company" placeholder="i.e. HJM Dental Laboratory" aria-describedby="exampleHelpText" value="<?php echo $dentists->company;?>" required>
-									  </label>
+			</div>
+			<div class="one wide column hidden"></div>
+	  </div>
+	  <div class="row">
+	  	<div class="one wide column hidden"></div>
+	  	<div class="eight wide column">
+	  	<br>
+	  		<div class="ui tiny statistics">
+						  <div class="green statistic">
+						    <div class="value">
+						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+						    </div>
+						    <div class="label">
+						      <a href="#">New Cases</a>
+						    </div>
+						  </div>
+						  <div class="purple statistic">
+						    <div class="value">
+						      <i class="lab icon hvr-buzz-out"></i> 11
+						    </div>
+						    <div class="label">
+						      <a href="#">In Production</a>
+						    </div>
+						  </div>
+						  <div class="blue statistic">
+						    <div class="value">
+						      <i class="circle check icon hvr-float"></i> 5
+						    </div>
+						    <div class="label">
+						      <a href="#">Completed Cases</a>
+						    </div>
+						  </div>
+						  <div class="red statistic">
+						    <div class="value">
+						      <i class="warning circle icon hvr-buzz"></i> 5
+						    </div>
+						    <div class="label">
+						    <a href="#">On Hold</a>
+						    </div>
+						  </div>
+			</div>
+	  	</div>
+	  	<div class="six wide right aligned column">
+	  	<br><br>
+		  	<div class="ui horizontal list">
+		  		<div class="item">
+		  			<h2 class="ui header">
+				<a class="ui orange circular label"></a>
+				<div class="content">
+						  PHP 0.00
+				  <div class="sub header">Open Balance</div>
+				</div>
+				</h2>
+		  		</div>
+		  		<div class="item">
+		  			<h2 class="ui header">
+				<a class="ui red circular label"></a>
+				<div class="content">
+						  PHP 0.00
+				  <div class="sub header">Overdue</div>
+				</div>
+				</h2>
+		  		</div>
+		  	</div>
+	  	</div>
+	  </div>    
+	  </div>
+	  <!--Tab-->
+	  <div class="ui grid">
+	  	<div class="row">
+	  		<div class="fourteen wide column centered grid">
+	  		<div class="ui stacked inverted teal segment">
+	  			<div class="ui top attached inverted teal tabular menu">
+					  <a class="item" data-tab="first">Transaction List</a>
+					  <a class="item active" data-tab="second">Customer Details</a>
+					  <a class="item" data-tab="third">Case History</a>
+					</div>
+					<div class="ui bottom attached tab segment" data-tab="first">
+					  	<div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-transaction">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
 									</div>
-							 </div>
-							 <div class="row">
-								<div class="large-12 medium-12 small-12 columns">
-									  <label>Display Name As
-										<input type="text" aria-describedby="exampleHelpText">
-									  </label>
-									</div>
-							 </div>
-							</div>
-							<div class="large-6 medium-12 columns">
-								<div class="row">
-									<div class="large-12 medium-12 small-12 columns">
-									  <label>E-Mail
-										<input type="text" name="email" placeholder="i.e. hjmdentallaboratory@gmail.com" aria-describedby="exampleHelpText" value="<?php echo $dentists->email;?>" required>
-									  </label>
-									</div>
-								</div>
-								<div class="row">
-									<div class="large-6 medium-6 small-12 columns">
-										 <label>Telephone
-										<input type="text" name="telephone" aria-describedby="exampleHelpText" value="<?php echo $dentists->telephone;?>">
-									  </label>
-									</div>
-									<div class="large-6 medium-6 small-12 columns columns">
-											 <label>Mobile
-										<input type="text" name="mobile" aria-describedby="exampleHelpText" required value="<?php echo $dentists->mobile;?>">
-									  </label>
-									</div>
-								</div>
-								<div class="row">
-									<div class="large-12 medium-12 small-12 columns">
-									  <label>Website
-										<input type="text" name="website" placeholder="i.e. www.hjmdentallaboratory.com" aria-describedby="exampleHelpText" value="<?php echo $dentists->website;?>">
-									  </label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="large-12 columns">
-								<ul class="tabs" data-tabs id="example-tabs">
-								  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Address</a></li>
-								  <li class="tabs-title"><a href="#panel2">Notes</a></li>
-								</ul>
-								<div class="tabs-content" data-tabs-content="example-tabs">
-								  <div class="tabs-panel is-active" id="panel1">
-									<div class="row">
-										<div class="large-6 columns">
-											<div class="row">
-												<div class="large-12 medium-12 small-12 columns">
-												  <label><strong>Billing Address</strong>
-													 <textarea name="bstreet" rows="2" cols="50" placeholder="Street"><?php echo $dentists->bstreet;?></textarea>
-												  </label>
-											   </div>
-											</div>
-											<div class="row">
-												<div class="large-6 columns">
-												 <label>City / Province
-												<input name="bcity" type="text" aria-describedby="exampleHelpText" required value="<?php echo $dentists->bcity;?>">
-												 </label>
-
-												</div>
-												<div class="large-6 columns">
-												<label>Brgy.
-												<input name="bbrgy" type="text" aria-describedby="exampleHelpText" required value="<?php echo $dentists->bbrgy;?>">
-												 </label>
-												</div>
-											</div>
-										 </div>
-										<div class="large-6 columns">
-											<div class="row">
-												<div class="large-12 medium-12 small-12 columns">
-												  <label><strong>Shipping Address </strong>
-													 <textarea name="shipstreet" rows="2" cols="50" placeholder="Street" id="ship-street"><?php echo $dentists->shipstreet;?></textarea>
-												  </label>
-											   </div>
-											</div>
-											<div class="row">
-												<div class="large-6 columns">
-												 <label>City / Province
-												<input type="text" name="shipcity" aria-describedby="exampleHelpText" class="ship-info" id="ship-city" value="<?php echo $dentists->shipcity;?>">
-												 </label>
-
-												</div>
-												<div class="large-6 columns">
-												<label>Brgy.
-												<input type="text" name="shipbrgy" aria-describedby="exampleHelpText" class="ship-info" id="ship-baranggay" value="<?php echo $dentists->shipbrgy;?>">
-												 </label>
-												</div>
-											</div>
-											<input id="same-as" type="checkbox" name="same" value="true"><label for="checkbox1">Same as Billing Address
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
 										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+	  					<br>
+			  			<table id="transaction-history" class="display ui blue table" cellspacing="0" width="100%">
+			  				<thead>
+			  					<tr>
+			  						<th>DATE</th>
+			  						<th>NO.</th>
+			  						<th>DUE DATE</th>
+			  						<th>BALANCE</th>
+			  						<th>STATUS</th>
+			  						<th>ACTION</th>
+			  					</tr>
+			  				</thead>
+			  				<tbody>
+			  					<tr>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>02</td>
+			  						<td>Su 06/20/2016 10 Am</td>
+			  						<td></td>
+			  						<td></td>
+			  						<td></td>
+			  					</tr>
+			  				</tbody>
+			  			</table>
+					</div>
+					<div class="ui bottom attached tab segment active" data-tab="second">
+					<br>
+					  <div class="ui grid">
+					  	<div class="two column row">
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Customer Name</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?> </p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Email</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#"><?php echo $dentist->email;?></a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Phone</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->telephone;?> </p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Mobile</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->mobile;?> </p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Website</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#"><?php echo $dentist->website;?> </a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Notes</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<div class="ui form">
+											  <div class="field">
+											    <textarea rows="2" readonly><?php echo $dentist->notes;?></textarea>
+											  </div>
+											</div>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  			<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Fax</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->fax;?> </p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Billing Address</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Shipping Address</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p><?php echo $dentist->shipstreet.', '.$dentist->shipbrgy.', '.$dentist->shipcity;?></p>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  </div>
+					</div>
+					<div class="ui bottom attached tab segment" data-tab="third" id="tabs">
+					<!--Case History-->
+					  <div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-case">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
 									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+	  					<br>
+			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
+			  				<thead>
+			  					<tr>
+			  						<th>INVOICE</th>
+			  						<th>PATIENT</th>
+			  						<th>DATE</th>
+			  						<th>DUE</th>
+			  						<th>STATUS</th>
+			  						<th>LAB SLIP</th>
+			  						<th>ACTION</th>
+			  					</tr>
+			  				</thead>
+			  				<tbody>
+			  					<tr>
+			  						<td><a href="#">420</a></td>
+			  						<td>Ralph Pagayon</td>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>Su 06/10/2016 10 Am</td>
+			  						<td>
+									   <div class="ui form">
+										  <div class="ten wide field">
+										    <select>
+										      <option value="New">New</option>
+										      <option value="In Production">In Production<i class="green check icon"></i></option>
+										      <option value="Completed">Completed</option>
+										      <option value="On Hold">On Hold</option>
+										    </select>
+										  </div>
+										</div>
+			  						</td>
+			  						<td>
+			  							<a href="#">
+			  							<i class="file icon"></i>
+			  								View
+			  							</a>
+			  						</td>
+			  						<td>
+			  							<a href="#" class="green">
+			  								<i class="green check icon"></i>
+			  								Update
+			  							</a>
+			  							&nbsp;
+			  							<a href="#">
+			  								<i class="orange write icon"></i>
+			  								Edit
+			  							</a>
+			  						</td>
+			  					</tr>
+			  				</tbody>
+			  			</table>
+				</div>
+	  		</div>
+	  		</div>
+	  	</div>
+	  </div>
+</div>
+<!--New Customer Modal-->
+	<div class="ui modal fullscreen edit-customer">
+		  <div class="header" id="header-modal">
+		   <i class="large doctor icon"></i>
+		    Dentist Information
+		  </div>
+		  <?php echo form_open('Customer/EditDentist', 'class="ui form"').form_hidden('DentistID',$this->uri->segment(3));?>
+			<div class="ui grid" id="add-dentist-modal">
+				<div class="row">
+					<div class="one wide column hidden"></div>
+						<div class="fourteen wide column">
+							
+								  <div class="fields">
+								  <div class="two wide field">
+								  	<label>Title</label>
+								  	<select name="title" class="ui fluid dropdown">
+									  	<option value="Dr."<?php if($dentist->title=="Dr."){echo 'selected';}?>>Dr.</option>
+									  	<option value="Dra."<?php if($dentist->title=="Dra."){echo 'selected';}?>>Dra.</option>
+								  		<option value="Mr."<?php if($dentist->title=="Mr."){echo 'selected';}?>>Mr.</option>
+								  		<option value="Mrs."<?php if($dentist->title=="Mrs."){echo 'selected';}?>>Mrs.</option>
+								  		<option value="Ms."<?php if($dentist->title=="Ms."){echo 'selected';}?>>Ms.</option>
+								  	</select>
 								  </div>
-								  <div class="tabs-panel" id="panel2">
-									<label for="notes"><strong>Notes</strong>
-									<textarea name="notes" id="" cols="30" rows="3" ><?php echo $dentists->notes;?></textarea></label>
+								    <div class="two wide field">
+								      <label>First name</label>
+								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $dentist->firstname;?>">
+								    </div>
+								    <div class="two wide field">
+								      <label>Middle name</label>
+								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $dentist->middlename;?>">
+								    </div>
+								    <div class="two wide field">
+								      <label>Last name</label>
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $dentist->lastname;?>">
+								    </div>
+								    <div class="eight wide field">
+								      <label>Email</label>
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $dentist->email;?>">
+								    </div>
 								  </div>
-								</div>
-							</div>
-						</div>
+								  <div class="fields">
+									  <div class="eight wide field">
+									  	<label>Company Name</label>
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company" value="<?php echo $dentist->company;?>">
+									  </div>
+									  <div class="four wide field">
+								    		<label>Telephone</label>
+								    		<input type="text" name="telephone" value="<?php echo $dentist->telephone;?>">
+								    	</div>
+								    	<div class="four wide field">
+								    		<label>Mobile</label>
+								    		<input type="text" name="mobile" value="<?php echo $dentist->mobile;?>">
+								    	</div>
+								  </div>
+								  <div class="fields">
+								  	<div class="eight wide field">
+									  	<label>Website</label>
+									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" value="<?php echo $dentist->website;?>">
+									  </div>
+									  <div class="eight wide field">
+									  	<label>Fax</label>
+									  	<input type="text" name="fax" value="<?php echo $dentist->fax;?>">
+									  </div>
+								  </div>
+								  <!--Tabs-->
 						<br>
-						<hr>
 						<div class="row">
-							<fieldset class="float-left">
-							  <button class="button alert hvr-icon-back" data-close aria-label="Close modal" type="button">Cancel</button>
-							</fieldset>
-							<fieldset class="float-right">
-							    <?php echo form_submit('submit', 'Submit', 'class="button success hvr-icon-forward"');?>
-							</fieldset>
+							<div class="one wide column hidden"></div>
+							<div class="fourteen wide column">
+									<div class="ui top attached inverted blue tabular menu">
+								  <a class="item active" data-tab="address">Address</a>
+								  <a class="item" data-tab="notes">Notes</a>
+								</div>
+								<div class="ui bottom attached tab segment active" data-tab="address">
+								 	<div class="row">
+									 	<div class="ui two column stackable grid">
+									 		<!--Billing Address -->
+									 		<div class="column">
+												  <div class="field">
+												    <label>Billing Address</label>
+												    <textarea rows="2" placeholder="Street" name="bstreet"><?php echo $dentist->bstreet;?></textarea>
+												  </div>
+												  <div class="two fields">
+												  	<div class="field">
+												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $dentist->bcity;?>">
+												  	</div>
+												  	<div class="field">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $dentist->bbrgy;?>">
+												  	</div>
+												  </div>
+									 		</div>
+									 		<!--Shipping Address -->
+									 		<div class="column">
+												  <div class="field">
+												    <label>Shipping Address</label>
+												    <textarea rows="2" placeholder="Street" id="ship-street" name="shipstreet"><?php echo $dentist->shipstreet;?></textarea>
+												  </div>
+												  <div class="two fields">
+												  	<div class="field">
+												  		<input type="text" placeholder="City" id="ship-city" name="shipcity" value="<?php echo $dentist->shipcity;?>">
+												  	</div>
+												  	<div class="field">
+												  		<input type="text" placeholder="Baranggay" id="ship-baranggay" name="shipbrgy" value="<?php echo $dentist->shipbrgy;?>">
+												  	</div>
+												  </div>
+												  <div class="ui checkbox">
+													  <input id="same-as"type="checkbox" name="same">
+													  <label>Same as Billing Address</label>
+												  </div>
+									 		</div>
+									 	</div>
+									 </div>
+								</div>
+								<div class="ui bottom attached tab segment" data-tab="notes">
+									<div class="ui form">
+										<div class="field">
+										<label>Notes</label>
+										<textarea rows="3" placeholder="Additional Notes" name="notes" ><?php echo $dentist->notes;?></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="one wide column"></div>
 						</div>
-					</form>
-				  <!--End Form-->
-					<button class="close-button" data-close aria-label="Close modal" type="button">
-					<span aria-hidden="true">&times;</span>
-				  </button>
+						</div>
+				<div class="one wide column hidden"></div>
 				</div>
-			</div>
-			<!--End Modal-->
-		</div>
-		<!--Body Content-->
-		<div class="app-body-content">
-			<ul class="tabs" data-tabs id="customer-info">
-			  <li class="tabs-title <?php if($this->uri->segment(4) == null){ echo "is-active";}?>"><a href="#customer-details" ><strong>Case History</strong></a></li>
-			  <li class="tabs-title"><a href="#customer-inCases"><strong>Customer Details</strong></a></li>
-			 
-			<?php
-			if($this->uri->segment(4) != null)
-			{
-			  echo
-			  '<li class="tabs-title is-active"><a href="#customer-edit-case"><strong>Edit Case</strong></a></li>';
-			}
-			?>
-			</ul>
-			 <div class="tabs-content" data-tabs-content="customer-info">
-			 <?php 
-			 if($this->uri->segment(4) == null)
-			 {
-			 	echo ' <div class="tabs-panel is-active" id="customer-details">';
-			 }
-			 else
-				echo ' <div class="tabs-panel" id="customer-details">';
-			 ?>
-				<!-- -->
-			
-			<div class="row expanded">
-				<div class="column medium-12 medium-order-2 large-10 large-order-1">
-					<table id="j-table" class="display responsive" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Invoice</th>
-							<th>Patient</th>
-							<th><center>Ordered Date</center></th>
-							<th><center>Due Date</center></th>
-							<th><center>Status</center></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php
-					$ctr=1;
-					foreach($cases as $case)
-					{
-						echo
-						'<tr>
-							<td></td>
-							<td>'.$ctr.'</td>
-							<td>'.$case->patient.'</td>
-							<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
-							<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
-							<td>
-							'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).'
-
-							<select name="status" class="status-box">
-								<option selected="'.$case->status.'">'.$case->status.'</option>
-								<option value="New">New</option>
-								<option value="In Production">In Production</option>
-								<option value="Complete">Complete</option>
-								<option value="On Hold">On Hold</option>
-							</select>
-							<br>
-							'.form_submit('submit','Submit','class="button success "').'
-							</form>
-							</td>
-							<td><a href="#">Lab Slip</a></td>
-							<td><a href="'.base_url().'Customer/CustomerInfo/'.$dentists->DentistID.'/'.$case->CaseID.'">Edit</a></td>
-						</tr>';
-						$ctr++;
-					}
-					?>
-					</tbody>
-				</table>
+				<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
 				</div>
-				<div class="column medium-12 medium-order-2 large-2 large-order-1">
-					<div class="row">
-						<div class="callout order-callout">
-							<label for="">Search
-								<input type="text" id="custom-searchbox">
-							</label>
-							<a href="#">Advanced Search</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="callout order-callout">
-							<h6><strong>Orders</strong></h6>
-							<ul class="menu">
-								<li><a href="#">Active Orders</a></li>
-								<hr>
-								<li><a href="#">New Orders</a></li>
-								<hr>
-								<li><a href="#">Order History</a></li>
-								<hr>
-								<li><a href="#">Hold Orders</a></li>
-								<hr>
-								<li><a id="notes">Filter</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			  </div>
-			  <div class="tabs-panel" id="customer-inCases">
-			  	<div class="tabs-content" data-tabs-content="customer-info">
-			  
-				<div class="row expanded">
-					<div class="large-6 columns">
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Customer Name :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->title.' '.$dentists->firstname.' '.$dentists->lastname;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Email Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->email;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Telephone :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->telephone;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Mobile :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->mobile;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Website :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->website;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Notes:</strong></p></label>
-							</div>
-							<div class="large-8 columns">
-								<textarea name="" id="" cols="30" rows="2" readonly="true"><?php echo $dentists->notes;?></textarea>
-							</div>
-							<hr>
-						</div>
-					</div>
-					<div class="large-6 columns">
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Billing Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->bstreet.', '.$dentists->bbrgy.', '.$dentists->bcity;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Shipping Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentists->shipstreet.', '.$dentists->shipbrgy.', '.$dentists->shipcity;?>
-							</div>
-							<hr>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-			
-			 <?php
-			 if($this->uri->segment(4) != null)
-			 {
-			 	echo '<div class="tabs-panel is-active" id="customer-edit-case">';
-			 }
-			 else
-				echo ' <div class="tabs-panel" id="customer-edit-case">';
-			 ?>
-			   
-			  	<h3 style="text-align: center;"><i class="fa fa-pencil-square-o"></i><strong>In Case</strong></h3>
-								<hr>
-								<?php echo form_open_multipart('Order/EditOrder');
-								foreach ($cases as $case) 
-								{
-								if($case->CaseID == $this->uri->segment(4))
-								{
-									echo
-								'<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Ordered Date:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    
-										    <input type="text" value="'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'" readonly>
-										</div>
-									</div>
-									  '.form_hidden('DentistID',$this->uri->segment(3)).
-									  									  form_hidden('CaseID',$this->uri->segment(4)).'
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="patient" value="'.$case->patient.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Date:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="date" name="due-date" value="'.$case->duedate.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Time:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="time" name="due-time" value="'.$case->duetime.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Gender:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <select id="select" name="gender">
-										    	<option value="' .$case->gender.'">'.$case->gender.'</option>
-									  			<option value="Male">Male</option>
-									  			<option value="Female">Female</option>
-									  		</select>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Age:</strong></label>
-										</div>
-										<div class="medium-1 small-12 columns end">
-										    <input type="text" name="age" value="'.$case->age.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Shade:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="text" name="shade">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Crown:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <a href="#">[+] Add a crown or bridge</a>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Notes:</strong></label>
-										</div>
-										<div class="medium-5 small-12 columns end">
-										  <textarea name="notes" id="" cols="30" rows="5">'.$case->notes.'</textarea>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Attachment:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-									    <label for="exampleFileUpload" class="button">Upload File</label>
-										    <input name="filename" type="file" id="exampleFileUpload" class="show-for-sr" value="'.$case->file.'">
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<fieldset class="float-left">
-										  <a  href="'.base_url('Customer/CustomerInfo/'.$dentists->DentistID).'"class="button alert hvr-icon-back" data-close aria-label="Close modal" type="button">Cancel</a>
-										</fieldset>
-										<fieldset class="float-right">
-											'.form_submit('submit', 'Update Order', 'class="button success hvr-icon-forward"').'
-										
-										</fieldset>
-									</div>';
-								}
-								}?>
-								</form>
-			  </div>
-			  <!-- End-Edit-Case-->
-		</div>
-		</div>
-			  
-		
-	<!--End Of Body Content -->
+				<br>
+			</div>  
+			</form>
+			<br>
 	</div>
-</div>
-</div>
-
+	<!--New Case-->
+	<div class="ui modal fullscreen case">
+	  <div class="header">
+	  <i class="large teal file text outline icon"></i>
+		    New Case Entry
+	  </div>
+	  <br>
+	  <form class="ui form">
+	  <div class="ui column centered grid">
+	  	<div class="row">
+	  		<div class="fifteen wide column">
+	  		<div class="ui inverted red segment">
+	  			<div class="ui header">
+	  				Information
+	  			</div>
+	  		</div>
+		      	  <div class="field">
+				    <label>Patient</label>
+				    <input type="text" name="first-name" placeholder="First Name">
+				  </div>
+				  <div class="field">
+				    <label>Due Date</label>
+				    <input type="date" name="last-name" placeholder="Last Name">
+				  </div>
+				  <div class="field">
+				    <label>Due Time</label>
+				    <input type="time" name="last-name" placeholder="Last Name">
+				  </div>
+				  <div class="field">
+					  <div class="field">
+					  <label>Gender</label>
+					    <select>
+					      <option value="">Gender</option>
+					      <option value="1">Male</option>
+					      <option value="0">Female</option>
+					    </select>
+					  </div>
+				  </div>
+				   <div class="field">
+				    <label>Age</label>
+				    <input type="text" name="last-name">
+				  </div>
+				  <div class="field">
+				    <label>Shade</label>
+				    <input type="text" name="last-name" placeholder="Shade">
+				  </div>
+				  <div class="field">
+				    <label>Instruction</label>
+				    <textarea rows="2"></textarea>
+				  </div>
+				  <div class="field">
+				  	<label>Teeth</label>
+				  	<select name="skills" multiple="" class="ui fluid dropdown">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+					<option value="32">32</option>
+					</select>
+				  </div>
+				  <h3 class="ui header">Return:</h3>
+				  <div class="field">
+				  	 <div class="ui checkbox">
+				      <input type="checkbox" tabindex="0" class="hidden">
+				      <label>Tray</label>
+				    </div>
+				  </div>
+				    <div class="field">
+				    	<div class="ui checkbox">
+				      <input type="checkbox" tabindex="0" class="hidden">
+				      <label>Shade Guide</label>
+				    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Bite Wax</label>
+					    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Model Cast</label>
+					    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Opposing Cast</label>
+					    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Photos</label>
+					    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Articulator</label>
+					    </div>
+				    </div>
+				    <div class="field">
+					    <div class="ui checkbox">
+					      <input type="checkbox" tabindex="0" class="hidden">
+					      <label>Old Denture</label>
+					    </div>
+				    </div>
+	  		</div>
+	  	</div>
+	  			<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	  </div>
+	  <br>
+	</form>
+	</div>
+	
+	

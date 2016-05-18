@@ -7,8 +7,13 @@ class Customer extends MX_Controller
 		
 		$this->load->model('mdlCustomer');
 		$this->headercheck();
+	
 	}
 	
+	public function footer($data)
+	{
+		$this->load->view('template/footer',$data);
+	}
 	public function headercheck()
 	{
 		$data['active'] =2;
@@ -31,15 +36,17 @@ class Customer extends MX_Controller
 	public function index(){
 		$data['dentists'] = $this->mdlCustomer->getDentist();	
 		$this->load->view('app-customer',$data);
-		$this->load->view('template/footer');
+		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
+		$this->footer($data);
 	}
 	
 	public function CustomerInfo()
 	{
-		$data['cases'] = $this->mdlCustomer->getOrder(array('DentistID'=>$this->uri->segment(3)));
-		$data['dentists'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
-		$html=$this->load->view('app-customer-info',$data);
-		$this->load->view('template/footer');
+		
+		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
+		$this->load->view('app-customer-info',$data);
+		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
+		$this->footer($data);
 	
 	
 	}
@@ -63,6 +70,7 @@ class Customer extends MX_Controller
 									'email' => $_POST['email'],
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
+									'fax' => $_POST['fax'],
 									'website' => $_POST['website'],
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
@@ -86,6 +94,7 @@ class Customer extends MX_Controller
 									'email' => $_POST['email'],
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
+									'fax' => $_POST['fax'],
 									'website' => $_POST['website'],
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
@@ -111,8 +120,7 @@ class Customer extends MX_Controller
 	public function EditDentist()
 	{
 	
-		if($this->input->post('submit'))
-		{
+		
 			if($_POST['same'] != Null)
 			{
 						$dentist = array(
@@ -126,6 +134,7 @@ class Customer extends MX_Controller
 									'email' => $_POST['email'],
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
+									'fax' => $_POST['fax'],
 									'website' => $_POST['website'],
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
@@ -136,8 +145,9 @@ class Customer extends MX_Controller
 									'notes' => $_POST['notes'] );
 						
 						if($this->mdlCustomer->modifyDentist($dentist))
-							redirect('Customer/CustomerInfo/'.$_POST['DentistID']);
-						redirect('Customer/CustomerInfo/'.$_POST['DentistID']);
+							redirect('Customer/Info/'.$_POST['DentistID']);
+				redirect('Customer/Info/'.$_POST['DentistID']);
+			
 			}
 			else
 			{
@@ -152,6 +162,7 @@ class Customer extends MX_Controller
 									'email' => $_POST['email'],
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
+									'fax' => $_POST['fax'],
 									'website' => $_POST['website'],
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
@@ -162,42 +173,16 @@ class Customer extends MX_Controller
 									'notes' => $_POST['notes'] );
 						
 						if($this->mdlCustomer->modifyDentist($dentist))
-						redirect('Customer/CustomerInfo/'.$_POST['DentistID']);
-					redirect('Customer/CustomerInfo/'.$_POST['DentistID']);
+					redirect('Customer/Info/'.$_POST['DentistID']);
+				redirect('Customer/Info/'.$_POST['DentistID']);
 			}
-		}
-		else
-		{
-			$this->load->view('users/register');
-		}
+	
+		
 
 	}
 	
 	
-	public function edituser(){	
-		$this->load->model('mdlUsers');
-		
-		$data['page_title'] = "Modify Users";
-		
-		if($this->input->post('submit'))
-		{
-			$user = array(
-						'username'=>$_POST['username'],
-						'users_id'=>$_POST['users_id'],
-						'password'=>md5($_POST['username']),
-						'permission'=> $_POST['permission']
-						);
-
-			if($this->mdlUsers->modify($user))
-				redirect('Student_management');
-		}
-		else
-		{
-			$data['user'] = $this->mdlUsers->get(array('users_id'=>$this->uri->segment(3)));
-			//print_r($data['user']); die($this->db->last_query());
-			$this->load->view('users/edituser', $data);
-		}
-	}
+	
 	
 	public function deleteDentist()
 	{	

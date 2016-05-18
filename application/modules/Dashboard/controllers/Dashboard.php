@@ -8,8 +8,15 @@ class Dashboard extends MX_Controller
 		$this->load->model('mdlDashboard');
 		$this->headercheck();
 		
-	}
 		
+	}
+	
+	public function footer()
+	{
+		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
+		$this->load->view('template/footer',$data);
+	}
+
 	public function headercheck()
 	{
 		$data['active'] =1;
@@ -41,8 +48,8 @@ class Dashboard extends MX_Controller
 		if($this->session->userdata('ps_id')==2 )
 		{
 			$this->load->view('a-dashboard');
-			$this->load->view('template/footer');
-
+			$this->footer();
+			
 		}
 		else
 		if($this->session->userdata('ps_id')==1 )

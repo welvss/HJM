@@ -69,7 +69,7 @@
 		  <div class="tabs-panel" id="panel2">
 			<h3><i class="fa fa-pencil-square-o"></i><strong>New Case</strong></h3>
 								<hr>
-								<form>
+								<form action="">
 									<div class="row">
 										 <div class="small-2 columns">
 										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
@@ -149,9 +149,9 @@
 										</div>
 									</div>
 									<hr>
-									<div class="row columns">
+									<div class="row columns" id="messages">
 										<fieldset class="float-right">
-										  <button type="button" id="submit" value="submit" class="button success hvr-icon-forward">Submit Order</button>
+										  <button type="button" id="s" class="button success hvr-icon-forward">Submit Order</button>
 										</fieldset>
 									</div>
 								</form>
@@ -197,241 +197,8 @@
 				</div>
 			</div>
 		  </div>
-		  <div class="tabs-panel" id="panel5">
-	  	  		<div class="large-12 columns">
-					<div id="doctor-dp-greeting">
-						<div class="dp">
-						<h1 id="initial-dp"><strong><?php echo substr($dentist->firstname, 0,1).substr($dentist->lastname, 0,1);?></strong></h1>
-						</div>
-						<h1 id="greetings"><?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1>
-					</div>
-				</div>
-		  	  	<div class="row expanded">
-					<div class="large-6 large-offset-3 columns end">
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Full Name :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->firstname.' '.$dentist->middlename.' '.$dentist->lastname;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Email Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->email;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Telephone :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->telephone;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Mobile :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->mobile;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Website :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->website;?></p>
-							</div>
-							<hr>
-						</div>
-					</div>
-					<div class="large-6 large-offset-3 columns end">
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Billing Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></p>
-							</div>
-							<hr>
-						</div>
-						<div class="row">
-							<div class="large-4 columns">
-								<label for="#" class="float-left cust-details-label"><p><strong>Shipping Address :</strong></p></label>
-							</div>
-							<div class="large-5 columns end">
-								<p><?php echo $dentist->shipstreet.', '.$dentist->shipbrgy.', '.$dentist->shipcity;?></p>
-							</div>
-							<hr>
-						</div>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="large-12 columns">
-						<h3>Change your password: </h3>
-						<form>
-							<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Old Password:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="password" name="old-pass">
-										</div>
-							</div>
-							<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>New Password:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="password" name="new-pass" >
-										</div>
-							</div>
-							<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Repeat New Password:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="password" name="repeat-new-pass">
-										</div>
-							</div>
-							<fieldset class="float-right">
-										  <button class="button warning hvr-icon-forward" type="Submit" value="Submit">Update</button>
-										</fieldset>
-						</form>
-					</div>
-				</div>
-		  </div>
-			<?php
-			 if($this->uri->segment(3) != null)
-			 {
-			 	echo '<<div class="tabs-panel is-active" id="panel6">';
-			 }
-			 else
-				echo ' <div class="tabs-panel" id="panel6">';
-			 ?>
-		
-			<h3><i class="fa fa-pencil-square-o"></i><strong>Edit Case</strong></h3>
-								<hr>
-								<?php echo form_open_multipart('Order/EditOrder');
-								foreach ($cases as $case) 
-								{
-								if($case->CaseID == $this->uri->segment(3))
-								{
-									echo
-								'<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Ordered Date:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    
-										    <input type="text" value="'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'" readonly>
-										</div>
-									</div>
-									  '.form_hidden('DentistID',$this->session->userdata('DentistID')).
-									  									  form_hidden('CaseID',$this->uri->segment(3)).'
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="patient" value="'.$case->patient.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Date:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="date" name="due-date" value="'.$case->duedate.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Time:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="time" name="due-time" value="'.$case->duetime.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Gender:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <select id="select" name="gender">
-										    	<option value="' .$case->gender.'">'.$case->gender.'</option>
-									  			<option value="Male">Male</option>
-									  			<option value="Female">Female</option>
-									  		</select>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Age:</strong></label>
-										</div>
-										<div class="medium-1 small-12 columns end">
-										    <input type="text" name="age" value="'.$case->age.'">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Shade:</strong></label>
-										</div>
-										<div class="medium-2 small-12 columns end">
-										    <input type="text" name="shade">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Crown:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <a href="#">[+] Add a crown or bridge</a>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Notes:</strong></label>
-										</div>
-										<div class="medium-5 small-12 columns end">
-										  <textarea name="notes" id="" cols="30" rows="5">'.$case->notes.'</textarea>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Attachment:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-									    <label for="exampleFileUpload" class="button">Upload File</label>
-										    <input name="file" type="file" id="exampleFileUpload" class="show-for-sr" >
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<fieldset class="float-left">
-										  <a  href="'.base_url('Dashboard').'"class="button alert hvr-icon-back" data-close aria-label="Close modal" type="button">Cancel</a>
-										</fieldset>
-										<fieldset class="float-right">
-											'.form_submit('submit', 'Update Order', 'class="button success hvr-icon-forward"').'
-										
-										</fieldset>
-									</div>';
-								
-								}
-								}?>
-							<?php form_close();?>
-								
-		</div>
+		  
+
 		</div>
 	   <div class="row">
 

@@ -69,7 +69,7 @@
 		  <div class="tabs-panel" id="panel2">
 			<h3><i class="fa fa-pencil-square-o"></i><strong>New Case</strong></h3>
 								<hr>
-								<form>
+								<form class="">
 									<div class="row">
 										 <div class="small-2 columns">
 										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
@@ -151,11 +151,12 @@
 									<hr>
 									<div class="row columns">
 										<fieldset class="float-right">
-										  <button type="button" id="submit" value="submit" class="button success hvr-icon-forward">Submit Order</button>
+										  <button type="button" id="submitorder"  class="button success hvr-icon-forward">Submit Order</button>
 										</fieldset>
 									</div>
 								</form>
 		  </div>
+
 		  <div class="tabs-panel" id="panel3">
 		  
 		  	<div class="row expanded">
