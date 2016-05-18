@@ -3,7 +3,7 @@ var socket = io.connect( 'http://'+window.location.hostname+':3000' );
 
 socket.on( 'new_count_order', function( data ) {
 		  
-		$( "#new_count_order" ).append( '<div class="ui left label" id="number-notif" id="number-notif ">'+data.new_count_order+'</div>' );
+		$( "#new_count_order" ).html(data.new_count_order);
 		    		  
 
 });

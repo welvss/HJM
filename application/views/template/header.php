@@ -44,8 +44,10 @@
         <i class="large doctor icon"></i>
         Customer
       </a>
-      <a class="item" id="new_count_order">
-        <i class="large file text outline icon"></i>
+      <a class="item"  >
+        <i class="large file text outline icon" ></i>
+     <div class="ui left label" id="new_count_order"><?php echo $this->db->where('status','New')->count_all_results('tblcase');?></div>
+    
         Cases
       </a>
       <a class="item">
@@ -59,10 +61,7 @@
       </a>
   </div>
 
-   <script src="<?php echo base_url();?>app/bower_components/jquery/dist/jquery.min.js"></script>
- <script src="<?php echo base_url();?>node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
-   <script src="<?php echo base_url();?>app/js/socketio.js"></script>
-<!--Pusher-->
+
 <div class="pusher">
   <!--Header-->
     <div class="computer tablet only row">

@@ -4,7 +4,7 @@ class Order extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-		$this->load->view('template/header');
+		
 		$this->load->model('mdlOrder');
 	}
 	
