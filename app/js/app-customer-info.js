@@ -6,11 +6,12 @@ $( document ).ready(function() {
   });
 
   $(".case-modal").click(function(){
-  	 		 $('.case.modal')
+  	
+  });
+   		 $('.case.modal')
  .modal('setting', 'transition', 'fade down')
  .modal('show')
  ;
-  });
   $('.menu .item')
   .tab()
 ;
