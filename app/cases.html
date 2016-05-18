@@ -40,11 +40,11 @@
 		    <i class="large home icon"></i>
 		    Home
 		  </a>
-		  <a href="app-customer.html" class="active blue item">
+		  <a href="app-customer.html" class="item">
 		    <i class="large doctor icon"></i>
 		    Customer
 		  </a>
-		  <a href="cases.html" class="item">
+		  <a href="cases.html"class="active blue item">
 		    <i class="large file text outline icon"></i>
 		    <div class="ui left label" id="number-notif">3</div>
 		    Cases
@@ -82,21 +82,11 @@
 	  <!--App-content--> 
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
-	  		<div class="one wide column hidden"></div>
-	   		<div class="eleven wide column">
-		   		<h1 class="ui header">
-		   		<img src="img/hjm-logo.png" class="ui circular image">
-		   		<div class="content">
-		   			Dr. Mark Serojihos 
-		   			<div class="sub header">
-		   			<span>HJM Dental Laboratory</span>
-		   			&nbsp;&nbsp; | &nbsp;&nbsp;
-		   			<span> #28 Inocencio, Pasay City</span>
-		   			</div>
-		   		</div>
-		   		</h1>
+	  		<div class="two wide column hidden"></div>
+	   		<div class="seven wide column">
+		   		<h1><i class="file text outline icon"></i>Cases</h1>
 	   		</div>
-	   		<div class="four wide column">
+	   		<div class="five wide right aligned column">
 	   		<button class="ui blue button mode">
 					  Edit
 			</button>
@@ -183,279 +173,55 @@
 	  </div>    
 	  </div>
 	  <!--Tab-->
-	  <div class="ui grid">
-	  	<div class="row">
-	  		<div class="fourteen wide column centered grid">
-	  		<div class="ui stacked inverted teal segment">
-	  			<div class="ui top attached inverted teal tabular menu">
-					  <a class="item" data-tab="first">Transaction List</a>
-					  <a class="item active" data-tab="second">Customer Details</a>
-					  <a class="item" data-tab="third">Case History</a>
-					</div>
-					<div class="ui bottom attached tab segment" data-tab="first">
-					  	<div class="row">
-				  			<div class="ui grid">
-				  				<div class="two column row">
-							    <div class="left floated column eight wide column">
-							    	<div class="ui search">
-									  <div class="ui icon input">
-									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-transaction">
-									    <i class="search icon"></i>
-									  </div>
-									  <div class="results"></div>
-									</div>
-							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
-							    </div>
-				  			</div>
-				  		</div>
-	  					<br>
-			  			<table id="transaction-history" class="display ui blue table" cellspacing="0" width="100%">
-			  				<thead>
-			  					<tr>
-			  						<th>DATE</th>
-			  						<th>NO.</th>
-			  						<th>DUE DATE</th>
-			  						<th>BALANCE</th>
-			  						<th>STATUS</th>
-			  						<th>ACTION</th>
-			  					</tr>
-			  				</thead>
-			  				<tbody>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>02</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td></td>
-			  						<td></td>
-			  						<td></td>
-			  					</tr>
-			  				</tbody>
-			  			</table>
-					</div>
-					<div class="ui bottom attached tab segment active" data-tab="second">
-					<br>
-					  <div class="ui grid">
-					  	<div class="two column row">
-					  		<div class="eight wide column">
-					  			<div class="ui grid">
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Customer Name</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>Dr. Mark Serojihos</p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Email</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<a href="#">markserojihos@gmail.com</a>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Phone</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>899 66 988</p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Mobile</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p></p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Website</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<a href="#">www.hjmdentallaboratory.com</a>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Notes</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<div class="ui form">
-											  <div class="field">
-											    <textarea rows="2"></textarea>
-											  </div>
-											</div>
-					  					</div>
-					  				</div>
-					  			</div>
-					  		</div>
-					  		<div class="eight wide column">
-					  			<div class="ui grid">
-					  			<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Fax</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>20930293290</p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Billing Address</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Shipping Address</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
-					  					</div>
-					  				</div>
-					  			</div>
-					  		</div>
-					  	</div>
-					  </div>
-					</div>
-					<div class="ui bottom attached tab segment" data-tab="third" id="tabs">
-					<!--Case History-->
-					  <div class="row">
-				  			<div class="ui grid">
-				  				<div class="two column row">
-							    <div class="left floated column eight wide column">
-							    	<div class="ui search">
-									  <div class="ui icon input">
-									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-case">
-									    <i class="search icon"></i>
-									  </div>
-									  <div class="results"></div>
-									</div>
-							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
-							    </div>
-				  			</div>
-				  		</div>
-	  					<br>
-			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
-			  				<thead>
-			  					<tr>
-			  						<th>INVOICE</th>
-			  						<th>PATIENT</th>
-			  						<th>DATE</th>
-			  						<th>DUE</th>
-			  						<th>STATUS</th>
-			  						<th>LAB SLIP</th>
-			  						<th>ACTION</th>
-			  					</tr>
-			  				</thead>
-			  				<tbody>
-			  					<tr>
-			  						<td><a href="#">420</a></td>
-			  						<td>Ralph Pagayon</td>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Su 06/10/2016 10 Am</td>
-			  						<td>
-									   <div class="ui form">
-										  <div class="ten wide field">
-										    <select>
-										      <option value="New">New</option>
-										      <option value="In Production">In Production<i class="green check icon"></i></option>
-										      <option value="Completed">Completed</option>
-										      <option value="On Hold">On Hold</option>
-										    </select>
-										  </div>
-										</div>
-			  						</td>
-			  						<td>
-			  							<a href="#">
-			  							<i class="file icon"></i>
-			  								View
-			  							</a>
-			  						</td>
-			  						<td>
-			  							<a href="#" class="green">
-			  								<i class="green check icon"></i>
-			  								Update
-			  							</a>
-			  							&nbsp;
-			  							<a href="#">
-			  								<i class="orange write icon"></i>
-			  								Edit
-			  							</a>
-			  						</td>
-			  					</tr>
-			  				</tbody>
-			  			</table>
-				</div>
-	  		</div>
-	  		</div>
-	  	</div>
+	  <div class="ui centered grid">
+	  <div class="twelve wide column">
+	  	<table id="case-new" class="display ui blue table" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>INVOICE</th>
+					<th>CUSTOMER/COMPANY</th>
+					<th>PATIENT</th>
+					<th>Ordered Date</th>
+					<th>DUE</th>
+					<th>LAB SLIP</th>
+					<th>ACTION</th>
+				</tr>
+			</thead>
+			<tbody>
+					<td>420</td>
+					<td>
+						<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+					</td>
+					<td> Prince Kenneth Rufino</td>
+					<td>Fr 05/20/2016 10 Am</td>
+					<td>Fr 05/20/2016 10 Am</td>
+					<td>
+						<a href="#">
+			  			<i class="file icon"></i>
+			  			View
+			  			</a>				
+					</td>
+					<td>
+						<a href="#" class="green">
+			  			<i class="green check icon"></i>
+			  			Update
+			  			</a>
+			  			&nbsp;
+			  			<a href="#">
+			  			<i class="orange write icon"></i>
+			  			Edit
+			  			</a>
+					</td>
+			</tbody>
+		</table>
+	  </div>
 	  </div>
 </div>
 <!--New Customer Modal-->
