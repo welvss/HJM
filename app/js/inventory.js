@@ -38,7 +38,7 @@ $(".sidebar-button").click(function(){
   .sidebar('toggle')
 ;
   });
- $('#customer-table').DataTable( {
+ $('#inventory-table').DataTable( {
         "scrollY":        '40vh',
         "scrollCollapse": true,
         "paging":         false,
@@ -48,7 +48,7 @@ $(".sidebar-button").click(function(){
     }]
     } );
 
-  var dataTable = $('#customer-table').dataTable();
+  var dataTable = $('#inventory-table').dataTable();
     $("#search-customer").keyup(function() {
         dataTable.fnFilter(this.value);
     });    

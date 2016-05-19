@@ -85,32 +85,15 @@
 	  		<div class="two wide column hidden"></div>
 	   		<div class="seven wide column"><h1><i class="cubes icon"></i>Inventory</h1></div>
 	   		<div class="five wide right aligned column">
-	   		<button class="ui primary circular icon button mode">
+	   		<button class="ui orange circular icon button mode">
 			  		<i class="plus icon"></i>
 			</button>
 			Add New Item
 			</div>
 			<div class="one wide column hidden"></div>
+	  </div>  
 	  </div>
-	  <div class="row header">
-	  	<div class="thirteen wide column centered grid">
-				 <div class="ui horizontal segments income">
-					  <button class="ui segment openInvoices hvr-sweep-to-bottom">
-					    <h3>PHP 13, 000</h3>
-					    <p class="sub-header"><span><strong>0</strong></span> OPEN INVOICES</p>
-					  </button>
-					  <button class="ui segment overdue hvr-sweep-to-bottom">
-					    <h3>PHP 14, 000</h3>
-					     <p class="sub-header"><span><strong>0</strong></span> OVERDUE</p>
-					  </button>
-					  <button class="ui segment paid hvr-sweep-to-bottom">
-					    <h3>43,000 PHP</h3>
-					     <p class="sub-header"><span><strong>23</strong></span> PAID LAST 30 DAYS</p>
-					  </button>
-				 </div>
-	  	</div>
-	  </div>      
-	  </div>
+	  <br><br><br><br>
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="thirteen wide column centered grid">
@@ -157,72 +140,23 @@
 	  			</div>
 	  		</div>
 	  		<br>
-	  			<table id="customer-table" class="display ui blue table" cellspacing="0" width="100%">
+	  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
 	  				<thead>
 	  					<tr>
-	  						<th>CUSTOMER / COMPANY</th>
-	  						<th>PHONE</th>
-	  						<th>OPEN BALANCE</th>
-	  						<th>ACTION</th>
+	  						<th>Item Code</th>
+	  						<th>Item</th>
+	  						<th>Cost</th>
+	  						<th>Current Qty</th>
+	  						<th>asas</th>
 	  					</tr>
 	  				</thead>
 	  				<tbody>
 	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-							          <img src="img/hjm-logo.png" class="ui mini rounded image">
-							          <div class="content">
-							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
-							            <div class="sub header">HJM Dental Laboratory
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td>PHP 0.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-							          <i class="lab icon"></i>
-							          <div class="content">
-							           <a href="#">Dr. Walter White</a> 
-							            <div class="sub header">Meth Labs
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td>PHP 13,000.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-	  							 <i class="treatment  icon"></i>
-							          <div class="content">
-							           <a href="#">Dr. Lawrence Pagayon</a> 
-							            <div class="sub header">Herbal Tooth 420
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
+	  						<td>2212</td>
+	  						<td>Emax</td>
+	  						<td>500</td>
+	  						<td>80</td>
+	  						<td>asa</td>
 	  					</tr>
 	  				</tbody>
 	  			</table>
@@ -231,9 +165,9 @@
 	  	</div>
 	  </div>
 </div>
-<!--New Customer Modal-->
-	<div class="ui modal fullscreen">
-		  <div class="header" id="header-modal">
+<!--New Item Modal-->
+	<div class="ui modal small">
+		  <div class="ui orange header">
 		   <i class="large cube icon"></i>
 		    Item Information
 		  </div>
@@ -251,7 +185,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
