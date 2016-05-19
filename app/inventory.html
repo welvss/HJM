@@ -53,7 +53,7 @@
 		    <i class="large shipping icon"></i>
 		    Suppliers
 		  </a>
-		  <a href="inventory.html" class="item">
+		  <a href="inventory.html"class="item">
 		    <i class="large cubes icon"></i>
 		     <div class="ui left red label" id="number-notif">9</div>
 		    Inventory
@@ -83,12 +83,12 @@
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="two wide column hidden"></div>
-	   		<div class="seven wide column"><h1><i class="doctor icon"></i>Customer</h1></div>
+	   		<div class="seven wide column"><h1><i class="cubes icon"></i>Inventory</h1></div>
 	   		<div class="five wide right aligned column">
 	   		<button class="ui primary circular icon button mode">
 			  		<i class="plus icon"></i>
 			</button>
-			Add New Customer
+			Add New Item
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
@@ -234,129 +234,15 @@
 <!--New Customer Modal-->
 	<div class="ui modal fullscreen">
 		  <div class="header" id="header-modal">
-		   <i class="large doctor icon"></i>
-		    Dentist Information
+		   <i class="large cube icon"></i>
+		    Item Information
 		  </div>
 		  <form class="ui form">
-			<div class="ui grid" id="add-dentist-modal">
-				<div class="row">
-					<div class="one wide column hidden"></div>
-						<div class="fourteen wide column">
-							
-								  <div class="fields">
-								  <div class="two wide field">
-								  	<label>Title</label>
-								  	<select name="title" class="ui fluid dropdown">
-									  	<option value="Mr.">Dr.</option>
-									  	<option value="Mr.">Dra.</option>
-								  		<option value="Mr.">Mr.</option>
-								  		<option value="Mr.">Mrs.</option>
-								  		<option value="Mr.">Ms.</option>
-								  	</select>
-								  </div>
-								    <div class="two wide field">
-								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="first-name">
-								    </div>
-								    <div class="two wide field">
-								      <label>Middle name</label>
-								      <input type="text" placeholder="Middle Name">
-								    </div>
-								    <div class="two wide field">
-								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="last-name">
-								    </div>
-								    <div class="eight wide field">
-								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
-								    </div>
-								  </div>
-								  <div class="fields">
-									  <div class="eight wide field">
-									  	<label>Company Name</label>
-									  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
-									  </div>
-									  <div class="four wide field">
-								    		<label>Telephone</label>
-								    		<input type="text">
-								    	</div>
-								    	<div class="four wide field">
-								    		<label>Mobile</label>
-								    		<input type="text" name="mobile">
-								    	</div>
-								  </div>
-								  <div class="fields">
-								  	<div class="eight wide field">
-									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com">
-									  </div>
-									  <div class="eight wide field">
-									  	<label>Fax</label>
-									  	<input type="text">
-									  </div>
-								  </div>
-								  <!--Tabs-->
-						<br>
-						<div class="row">
-							<div class="one wide column hidden"></div>
-							<div class="fourteen wide column">
-									<div class="ui top attached inverted blue tabular menu">
-								  <a class="item active" data-tab="address">Address</a>
-								  <a class="item" data-tab="notes">Notes</a>
-								</div>
-								<div class="ui bottom attached tab segment active" data-tab="address">
-								 	<div class="row">
-									 	<div class="ui two column stackable grid">
-									 		<!--Billing Address -->
-									 		<div class="column">
-												  <div class="field">
-												    <label>Billing Address</label>
-												    <textarea rows="2" placeholder="Street"></textarea>
-												  </div>
-												  <div class="two fields">
-												  	<div class="field">
-												  		<input type="text" placeholder="City">
-												  	</div>
-												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay">
-												  	</div>
-												  </div>
-									 		</div>
-									 		<!--Shipping Address -->
-									 		<div class="column">
-												  <div class="field">
-												    <label>Shipping Address</label>
-												    <textarea rows="2" placeholder="Street" id="ship-street"></textarea>
-												  </div>
-												  <div class="two fields">
-												  	<div class="field">
-												  		<input type="text" placeholder="City" id="ship-city">
-												  	</div>
-												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" id="ship-baranggay">
-												  	</div>
-												  </div>
-												  <div class="ui checkbox">
-													  <input id="same-as"type="checkbox" name="example">
-													  <label>Same as Billing Address</label>
-												  </div>
-									 		</div>
-									 	</div>
-									 </div>
-								</div>
-								<div class="ui bottom attached tab segment" data-tab="notes">
-									<div class="ui form">
-										<div class="field">
-										<label>Notes</label>
-										<textarea rows="3" placeholder="Additional Notes"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="one wide column"></div>
-						</div>
-						</div>
-				<div class="one wide column hidden"></div>
+			<div class="ui grid" >
+				<div class="ui centered grid">
+					<div class="fifteen wide column">
+						
+					</div>
 				</div>
 				<div class="two column row">
 					<div class="nine wide column hidden"></div>
@@ -384,6 +270,6 @@
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="../bower_components/semantic/dist/semantic.min.js"></script>
 	<script src="../bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/app-semantic.js"></script>
+	<script src="js/inventory.js"></script>
 </body>
 </html>
