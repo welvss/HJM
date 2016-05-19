@@ -254,7 +254,19 @@
 						<tbody>
 							<tr>
 								<td>Emax</td>
-								<td>1,2,3,4</td>
+								<td>
+				  				<?php 
+				  					$ctr= count($teeth);
+				  					$i=0;
+				  					foreach ($teeth as $tooth) 
+				  					{
+					  					if(++$i != $ctr)
+					  						echo $tooth->teeth.', ';
+					  					else
+					  						echo $tooth->teeth;
+				  					}	
+				  				?>
+				  				</td>
 								<td>1</td>
 								<td>PHP 500.00</td>
 								<td></td>
@@ -353,7 +365,7 @@
  				  	$ctr= count($teeth);
  				  	$j=1;
  				  	$bool=false;
- 				  	$check=false;
+ 	 
  				  	while($i<=32)
  				  	{	
 
