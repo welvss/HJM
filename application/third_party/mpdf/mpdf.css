@@ -11,7 +11,51 @@ Need to add the following to do this, but also prevent margins in nested lists a
 
 ul, ol { margin-top: 0.83em; margin-bottom: 0.83em; }
 ul ul, ul ol, ol ul, ol ol { margin-top: 0; margin-bottom: 0; }
+.invoice-table{
+		position: relative;
+		top: 25px;
+	}
+	.total>h3{
+		display: inline;
+	}
+	.subtotal>p{
+		display: inline;
+	}
+	.invoice-table{
+		margin-top: 15px !important;
+	}
+	.right{
+		float: right;
+		margin-right: 15px;
+	}
+	.left{
+		float: left;
+	}
+	.invoice-body{
+		margin-top: 50px;
+		margin-left: 15px;
+	}
+		.wrapper{
+			width: 980px;
+			position: relative;
+			margin: 0 auto;
+		}
+.brand-info{
+	margin-left: 15px;
+}
+.brand>img{
+	height: 70px; width: 143;
+	margin-top: 5px;
+}
+.brand>p{
+	color: black;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	letter-spacing: 15px;
+	position: relative;
+	bottom: 20px;
 
+}
 
 
 

@@ -44,9 +44,11 @@
         <i class="large doctor icon"></i>
         Customer
       </a>
-      <a class="item"  >
+      <a href="<?php echo base_url('Order');?>" class="<?php if($active==3){ echo "active blue";}?> item" id="new_count_sidebar">
         <i class="large file text outline icon" ></i>
-     <div class="ui left label" id="new_count_order"><?php echo $this->db->where('status','New')->count_all_results('tblcase');?></div>
+        <?php if($this->mdlOrder->countOrder(array('status'=>'New'))!=0) echo
+     '<div class="ui left label" id="number-notif" >'.$this->mdlOrder->countOrder(array('status'=>'New')).'</div>';
+      ?>
     
         Cases
       </a>

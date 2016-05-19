@@ -159,9 +159,11 @@
 			  				<thead>
 			  					<tr>
 			  						<th>DATE</th>
-			  						<th>NO.</th>
+			  						<th>TYPE</th>
+			  						<th>No.</th>
 			  						<th>DUE DATE</th>
 			  						<th>BALANCE</th>
+			  						<th>TOTAL</th>
 			  						<th>STATUS</th>
 			  						<th>ACTION</th>
 			  					</tr>
@@ -169,10 +171,32 @@
 			  				<tbody>
 			  					<tr>
 			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>02</td>
+			  						<td>Invoice</td>
+			  						<td>420</td>
 			  						<td>Su 06/20/2016 10 Am</td>
+			  						<td>PHP 500.00</td>
+			  						<td>PHP 500.00</td>
+			  						<td>Open</td>
 			  						<td></td>
+			  					</tr>
+			  					<tr>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>Payment</td>
+			  						<td>420</td>
+			  						<td>Su 06/20/2016 10 Am</td>
+			  						<td>PHP 0.00</td>
+			  						<td>PHP -500.00</td>
+			  						<td>Closed</td>
 			  						<td></td>
+			  					</tr>
+			  					<tr>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>Invoice</td>
+			  						<td>420</td>
+			  						<td>Su 06/20/2016 10 Am</td>
+			  						<td>PHP 500.00</td>
+			  						<td>PHP 1000.00</td>
+			  						<td>Partial</td>
 			  						<td></td>
 			  					</tr>
 			  				</tbody>
@@ -325,6 +349,7 @@
 			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
 			  				<thead>
 			  					<tr>
+			  						<th>Case#</th>
 			  						<th>INVOICE</th>
 			  						<th>PATIENT</th>
 			  						<th>DATE</th>
@@ -336,6 +361,7 @@
 			  				</thead>
 			  				<tbody>
 			  					<tr>
+			  						<td><a href="#">#SERDS-M0KW1D</a></td>
 			  						<td><a href="#">420</a></td>
 			  						<td>Ralph Pagayon</td>
 			  						<td>Fr 05/20/2016 10 Am</td>

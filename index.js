@@ -29,12 +29,16 @@ io.on('connection', function (socket) {
     io.sockets.emit( 'new_order', {
     	CaseID :data.CaseID,
       patient : data.patient,
+      fullname: data.fullname,
+      company: data.company,
+      orderdatetime: data.orderdatetime,
       DentistID : data.DentistID,
       duedate : data.duedate ,
       duetime : data.duetime ,
       age : data.age,
       gender : data.gender,
-      notes : data.notes 
+      notes : data.notes,
+      status: data.status
     });
   });
 

@@ -5,7 +5,8 @@ class Dashboard extends MX_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('mdlDashboard');
+		
+		
 		$this->headercheck();
 		
 		
@@ -20,7 +21,7 @@ class Dashboard extends MX_Controller
 	public function headercheck()
 	{
 		$data['active'] =1;
-		$data['dentist'] = $this->mdlDashboard->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
@@ -47,7 +48,11 @@ class Dashboard extends MX_Controller
 	{
 		if($this->session->userdata('ps_id')==2 )
 		{
-			$this->load->view('a-dashboard');
+			$data['New'] = $this->mdlOrder->countOrder(array('status'=>'New'));
+			$data['IP'] = $this->mdlOrder->countOrder(array('status'=>'In Production'));
+			$data['Completed'] = $this->mdlOrder->countOrder(array('status'=>'Completed'));
+			$data['Hold'] = $this->mdlOrder->countOrder(array('status'=>'On Hold'));
+			$this->load->view('a-dashboard',$data);
 			$this->footer();
 			
 		}

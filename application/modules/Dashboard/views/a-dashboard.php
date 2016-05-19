@@ -28,7 +28,7 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Cases</div>
-				        <a href="#" class="hvr-icon-forward">View or Add New Case
+				        <a href="<?php echo base_url('Order');?>" class="hvr-icon-forward">View or Add New Case
 				     </a>
 				    </div>
 				  </div>
@@ -62,8 +62,8 @@
 						<div class="ui large header">Case Statistics</div>
 						<div class="ui statistics">
 						  <div class="green statistic">
-						    <div class="value">
-						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+						    <div class="value" id="new_count_dashboard">
+						      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $New;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">New Cases</a>
@@ -71,7 +71,7 @@
 						  </div>
 						  <div class="purple statistic">
 						    <div class="value">
-						      <i class="lab icon hvr-buzz-out"></i> 11
+						      <i class="lab icon hvr-buzz-out"></i>  <?php echo $IP;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">In Production</a>
@@ -79,7 +79,7 @@
 						  </div>
 						  <div class="blue statistic">
 						    <div class="value">
-						      <i class="circle check icon hvr-float"></i> 5
+						      <i class="circle check icon hvr-float"></i>  <?php echo $Completed;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">Completed Cases</a>
@@ -87,7 +87,7 @@
 						  </div>
 						  <div class="red statistic">
 						    <div class="value">
-						      <i class="warning circle icon hvr-buzz"></i> 5
+						      <i class="warning circle icon hvr-buzz"></i>  <?php echo $Hold;?>
 						    </div>
 						    <div class="label">
 						    <a href="#">On Hold</a>
