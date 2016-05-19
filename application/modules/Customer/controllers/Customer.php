@@ -44,6 +44,11 @@ class Customer extends MX_Controller
 	{
 		
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
+		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
+		$data['New'] = $this->mdlOrder->countOrder(array('status'=>'New','DentistID'=>$this->uri->segment(3)));
+		$data['IP'] = $this->mdlOrder->countOrder(array('status'=>'In Production','DentistID'=>$this->uri->segment(3)));
+		$data['Completed'] = $this->mdlOrder->countOrder(array('status'=>'Completed','DentistID'=>$this->uri->segment(3)));
+		$data['Hold'] = $this->mdlOrder->countOrder(array('status'=>'On Hold','DentistID'=>$this->uri->segment(3)));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
 		$this->footer($data);

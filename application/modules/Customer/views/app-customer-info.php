@@ -45,7 +45,7 @@
 	  		<div class="ui tiny statistics">
 						  <div class="green statistic">
 						    <div class="value">
-						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+						      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $New;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">New Cases</a>
@@ -53,7 +53,7 @@
 						  </div>
 						  <div class="purple statistic">
 						    <div class="value">
-						      <i class="lab icon hvr-buzz-out"></i> 11
+						      <i class="lab icon hvr-buzz-out"></i> <?php echo $IP;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">In Production</a>
@@ -61,7 +61,7 @@
 						  </div>
 						  <div class="blue statistic">
 						    <div class="value">
-						      <i class="circle check icon hvr-float"></i> 5
+						      <i class="circle check icon hvr-float"></i> <?php echo $Completed;?>
 						    </div>
 						    <div class="label">
 						      <a href="#">Completed Cases</a>
@@ -69,7 +69,7 @@
 						  </div>
 						  <div class="red statistic">
 						    <div class="value">
-						      <i class="warning circle icon hvr-buzz"></i> 5
+						      <i class="warning circle icon hvr-buzz"></i> <?php echo $Hold;?>
 						    </div>
 						    <div class="label">
 						    <a href="#">On Hold</a>
@@ -109,8 +109,8 @@
 	  		<div class="ui stacked inverted teal segment">
 	  			<div class="ui top attached inverted teal tabular menu">
 					  <a class="item" data-tab="first">Transaction List</a>
-					  <a class="item active" data-tab="second">Customer Details</a>
-					  <a class="item" data-tab="third">Case History</a>
+					  <a class="item <?php if($this->uri->segment(4)!="?") {echo "active";}?>" data-tab="second">Customer Details</a>
+					  <a class="item <?php if($this->uri->segment(4)=="?") {echo "active";}?>" data-tab="third">Case History</a>
 					</div>
 					<div class="ui bottom attached tab segment" data-tab="first">
 					  	<div class="row">
@@ -360,42 +360,54 @@
 			  					</tr>
 			  				</thead>
 			  				<tbody>
-			  					<tr>
-			  						<td><a href="#">#SERDS-M0KW1D</a></td>
-			  						<td><a href="#">420</a></td>
-			  						<td>Ralph Pagayon</td>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Su 06/10/2016 10 Am</td>
-			  						<td>
-									   <div class="ui form">
-										  <div class="ten wide field">
-										    <select>
-										      <option value="New">New</option>
-										      <option value="In Production">In Production<i class="green check icon"></i></option>
-										      <option value="Completed">Completed</option>
-										      <option value="On Hold">On Hold</option>
-										    </select>
-										  </div>
-										</div>
-			  						</td>
-			  						<td>
-			  							<a href="#">
-			  							<i class="file icon"></i>
-			  								View
-			  							</a>
-			  						</td>
-			  						<td>
-			  							<a href="#" class="green">
-			  								<i class="green check icon"></i>
-			  								Update
-			  							</a>
-			  							&nbsp;
-			  							<a href="#">
-			  								<i class="orange write icon"></i>
-			  								Edit
-			  							</a>
-			  						</td>
-			  					</tr>
+			  				<?php 
+								foreach ($cases as $case ) 
+								{
+									
+											echo
+										'<tr>
+											<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">#SERDS-'.$case->CaseID.'</a></td>
+											<td><a href="#">420</a></td>
+											<td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+											<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+											<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>';
+											echo
+											
+											'<td>
+												'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).form_hidden('DentistID',$this->uri->segment(3)).'
+						 						<div class="ui form">
+													<div class="ten wide field">
+													 <select name="status">
+													  <option value="New"';  if($case->status=="New")echo 'selected'; echo'>New</option>
+													  <option value="In Production"';  if($case->status=="In Production")echo 'selected'; echo'>In Production<i class="green check icon"></i></option>
+													  <option value="Completed"';  if($case->status=="Completed")echo 'selected'; echo'>Completed</option>
+													  <option value="On Hold"';  if($case->status=="On Hold")echo 'selected'; echo'>On Hold</option>
+													 </select>
+													</div>
+											    </div>	
+											    <button type="submit" class="ui blue button" value="submit">
+									  			<i class="green check icon"></i>
+									  			Update
+									  			</button>
+									  			</form>				
+											</td>
+											<td>
+												<a href="#">
+									  			<i class="file icon"></i>
+									  			View
+									  			</a>				
+											</td>
+											<td>
+					  							<a href="#">
+					  								<i class="orange write icon"></i>
+					  								Edit
+					  							</a>
+					  						</td>
+											
+
+										</tr>';
+								}
+								?>
 			  				</tbody>
 			  			</table>
 				</div>

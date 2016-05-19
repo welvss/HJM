@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>HJM | Dental Laboratory</title>
 </head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
-<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="../bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/hover-min.css">
 <link rel="shortcut icon" href="favicon.ico">
@@ -108,76 +108,100 @@
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
-	  <div class="row">
-	  	<div class="one wide column hidden"></div>
-	  	<div class="eight wide column">
-	  	<br>
-	  		<div class="ui tiny statistics">
-						  <div class="green statistic">
-						    <div class="value">
-						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
-						    </div>
-						    <div class="label">
-						      <a href="#">New Cases</a>
-						    </div>
-						  </div>
-						  <div class="purple statistic">
-						    <div class="value">
-						      <i class="lab icon hvr-buzz-out"></i> 11
-						    </div>
-						    <div class="label">
-						      <a href="#">In Production</a>
-						    </div>
-						  </div>
-						  <div class="blue statistic">
-						    <div class="value">
-						      <i class="circle check icon hvr-float"></i> 5
-						    </div>
-						    <div class="label">
-						      <a href="#">Completed Cases</a>
-						    </div>
-						  </div>
-						  <div class="red statistic">
-						    <div class="value">
-						      <i class="warning circle icon hvr-buzz"></i> 5
-						    </div>
-						    <div class="label">
-						    <a href="#">On Hold</a>
-						    </div>
-						  </div>
-			</div>
-	  	</div>
-	  	<div class="six wide right aligned column">
-	  	<br><br>
-		  	<div class="ui horizontal list">
-		  		<div class="item">
-		  			<h2 class="ui header">
-				<a class="ui orange circular label"></a>
-				<div class="content">
-						  PHP 0.00
-				  <div class="sub header">Open Balance</div>
+	  </div>
+	  <br><br><br><br>
+	  <div class="ui centered grid">
+		  <div class="ui teal segment">
+		  	 <div class="row">
+		  	<div class="eight wide column">
+		  	<br>
+		  		<div class="ui tiny statistics">
+							  <div class="green statistic">
+							    <div class="value">
+							      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+							    </div>
+							    <div class="label">
+							      <a href="#">New Cases</a>
+							    </div>
+							  </div>
+							  <div class="purple statistic">
+							    <div class="value">
+							      <i class="lab icon hvr-buzz-out"></i> 11
+							    </div>
+							    <div class="label">
+							      <a href="#">In Production</a>
+							    </div>
+							  </div>
+							  <div class="blue statistic">
+							    <div class="value">
+							      <i class="circle check icon hvr-float"></i> 5
+							    </div>
+							    <div class="label">
+							      <a href="#">Completed Cases</a>
+							    </div>
+							  </div>
+							  <div class="red statistic">
+							    <div class="value">
+							      <i class="warning circle icon hvr-buzz"></i> 5
+							    </div>
+							    <div class="label">
+							    <a href="#">On Hold</a>
+							    </div>
+							  </div>
 				</div>
-				</h2>
-		  		</div>
-		  		<div class="item">
-		  			<h2 class="ui header">
-				<a class="ui red circular label"></a>
-				<div class="content">
-						  PHP 0.00
-				  <div class="sub header">Overdue</div>
-				</div>
-				</h2>
-		  		</div>
 		  	</div>
-	  	</div>
-	  </div>    
+	  	  </div> 
+		  </div>
 	  </div>
 	  <!--Tab-->
 	  <div class="ui centered grid">
-	  <div class="twelve wide column">
-	  	<table id="case-new" class="display ui blue table" cellspacing="0" width="100%">
+	  <div class="fifteen wide column">
+	  <div class="row">
+	  			<div class="ui grid">
+	  				<div class="two column row">
+				    <div class="left floated column eight wide column">
+				    	<div class="ui search">
+						  <div class="ui icon input">
+						    <input class="prompt" type="text" placeholder="Find Case..." id="search-case">
+						    <i class="search icon"></i>
+						  </div>
+						  <div class="results"></div>
+						</div>
+				    </div>
+				    <div class="right floated right aligned eight wide column">
+				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+				    	<a class="ui icon top left pointing dropdown">
+						  <i class="setting big icon"></i>
+						  <div class="menu">
+						    <div class="header">Columns</div>
+						    <div class="ui checkbox input">
+							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Phone</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui divider"></div>
+							<div class="item">
+								Close
+							</div>
+						  </div>
+						</a>
+				    </div>
+				    </div>
+	  			</div>
+	  </div>
+	  <br>
+	  	<table id="main-case" class="display ui blue table" cellspacing="0" width="100%">
 			<thead>
 				<tr>
+					<th>Case#</th>
 					<th>INVOICE</th>
 					<th>CUSTOMER/COMPANY</th>
 					<th>PATIENT</th>
@@ -189,7 +213,8 @@
 				</tr>
 			</thead>
 			<tbody>
-					<td>420</td>
+					<td><a href="#">#SERDS-M0KW1D</a></td>
+					<td><a href="#">420</a></td>
 					<td>
 						<h4 class="ui image header">
 							          <img src="img/hjm-logo.png" class="ui mini rounded image">
@@ -543,9 +568,10 @@
 	</form>
 	</div>
 	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/semantic/dist/semantic.min.js"></script>
-	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/app-customer-info.js"></script>
+	
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/semantic/dist/semantic.min.js"></script>
+	<script src="../bower_components/datatables.net/js/jquery.dataTables.js"></script>
+	<script src="js/cases.js"></script>
 </body>
 </html>

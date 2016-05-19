@@ -8,7 +8,10 @@ class Order extends MX_Controller
 	
 		
 	}
-	
+	public function footer($data)
+	{
+		$this->load->view('template/footer',$data);
+	}
 	public function index(){
 		$data['active'] =3;
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
@@ -25,7 +28,7 @@ class Order extends MX_Controller
 
 			$this->load->view('app-orders',$data);
 			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
-			$this->load->view('template/footer',$data);
+			$this->footer($data);
 		}
 		else
 			redirect('Dashboard');
@@ -210,7 +213,12 @@ class Order extends MX_Controller
 							);
 				
 				if($this->mdlOrder->UpdateOrderStatus($order))
-					redirect('Order');
+				{
+					if( $_POST['DentistID']!=Null)
+						redirect('Customer/Info/'.$_POST['DentistID'].'/'.$_POST['Info']);
+					else
+						redirect('Order');
+				}
 			
 			
 		
@@ -279,6 +287,23 @@ class Order extends MX_Controller
 			}
 		//}
 
+	}
+	public function Info()
+	{	$data['active'] =3;
+		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		{
+			$this->load->view('template/header',$data);
+			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
+			$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
+			$this->load->view('app-orders-info',$data);
+			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
+			$this->footer($data);
+		}
+	
+	
 	}
 	
 	

@@ -12,11 +12,29 @@ class mdlOrder extends CI_Model {
 		$this->db->insert('tblcaseteeth', $options);	
 		return $this->db->insert_id();
 	}
+	function getCaseTeeth($options = array())
+	{
+		//verification
+		
+
+		if(isset($options['CaseID']))
+			$this->db->where('CaseID', $options['CaseID']);
+		
+		$query = $this->db->get("tblcaseteeth");
+		
+		
+		
+		//die($this->db->last_query());
+		return $query->result();
+	}
 	function countOrder($options=array())
 	{
-		
+		if(isset($options['DentistID']))
+			$this->db->where('DentistID',$options['DentistID']);
+
 		if(isset($options['status']))
 			$this->db->like('status',$options['status']);
+
 		return $query = $this->db->count_all_results('tblcase');
 	}
 	function getOrder($options = array())

@@ -53,7 +53,7 @@ $(".sidebar-button").click(function(){
         "paging":         false,
         'aoColumnDefs': [{
         'bSortable': false,
-        'aTargets': [-3, -4] /* 1st one, start by the right */
+        'aTargets': [-1, -2] /* 1st one, start by the right */
     }]
     } );
   var dataTable = $('#main-case').dataTable();
