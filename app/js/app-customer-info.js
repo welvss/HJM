@@ -11,6 +11,18 @@ $( document ).ready(function() {
  .modal('show')
  ;
   });
+  $(".invoice-modal").click(function(){
+                $('.invoice.modal')
+ .modal('setting', 'transition', 'fade down')
+ .modal('show')
+ ;
+  });
+  $(".payment-modal").click(function(){
+                        $('.payment.modal')
+ .modal('setting', 'transition', 'fade down')
+ .modal('show')
+ ;
+  });
 
   $('.menu .item')
   .tab()
