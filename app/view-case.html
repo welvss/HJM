@@ -83,10 +83,13 @@
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="two wide column hidden"></div>
-	   		<div class="seven wide column">
-		   		<h1><i class="file text outline icon"></i>Cases</h1>
+	   		<div class="six wide column">
+		   		<h1><i class="file text outline icon"></i>Case Details</h1>
 	   		</div>
-	   		<div class="five wide right aligned column">
+	   		<div class="six wide right aligned column">
+	   		<a class="ui blue button mode" href="rx-labslip.html">
+					  Print RX
+			</a>
 	   		<button class="ui blue button mode">
 					  Edit
 			</button>
@@ -265,16 +268,18 @@
 	  	  	<div class="fifteen wide column">
 	  	  		<div class="ui grid">
 	  	  			<div class="eight wide column">
-	  	  				<div class="ui teal segment">
+	  	  				<div class="ui teal segment" style="height: 200px;">
 	  	  					<h3 class="ui header">
 	  	  						Special Instrucions
+	  	  						<hr>
 	  	  					</h3>
 	  	  				</div>
 	  	  			</div>
 	  	  			<div class="eight wide column">
-	  	  				<div class="ui teal segment">
+	  	  				<div class="ui teal segment" style="height: 200px;">
 	  	  					<h3 class="ui header">
 	  	  						Attachments
+	  	  						<hr>
 	  	  					</h3>
 	  	  				</div>
 	  	  			</div>
@@ -283,16 +288,75 @@
 	  	  </div>
 	  	  <div class="row">
 	  	  	<div class="fifteen wide column">
-	  	  		<div class="ui segment">
+	  	  		<div class="ui teal segment">
 	  	  			<h3 class="ui header">
 	  	  				Invoice
+	  	  				<hr>
 	  	  			</h3>
+	  	  			<div class="ui grid">
+	  	  				<div class="row">
+	  	  					<div class="ten wide column">
+	  	  						<h2 class="ui red header">
+	  	  							Not yet Invoice!
+	  	  						</h2>
+	  	  					</div>
+	  	  					<div class="six wide column">
+	  	  						<button class="ui button mode">
+										  Edit Invoice
+								</button>
+								<button class="ui green button mode">
+										  Approve Invoice
+								</button>
+	  	  					</div>
+	  	  				</div>
+	  	  			</div>
+	  	  			<table class="ui inverted blue table">
+						<thead>
+							<tr>
+								<th>Billing Item</th>
+								<th>Teeth Number</th>
+								<th>Qty</th>
+								<th>Amount</th>
+								<th>Case Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Emax</td>
+								<td>1,2,3,4</td>
+								<td>1</td>
+								<td>PHP 500.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="ui grid">
+						<div class="row">
+							<div class="ten wide column">
+								
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									Subtotal
+								</div>
+								<div class="item">
+									<h2>Total</h2>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									PHP 500.00
+								</div>
+								<div class="item">
+									<h2>PHP 500.oo</h2>
+								</div>
+							</div>
+						</div>
+					</div>
 	  	  		</div>
 	  	  	</div>
 	  	  </div>
-	  	  <div class="row">
-	  	  	
-	  	  </div>
+	  	  <div class="row"></div>
 	  </div>
 	<!--New Case-->
 	<div class="ui modal large case">
@@ -575,6 +639,12 @@
 							    <input type="time" name="last-name" placeholder="Last Name">
 							  </div>
 							</div>
+							  <div class="field">
+							  	<div class="ui checkbox">
+								  <input type="checkbox" name="example">
+								  <label>Direct to make Invoice</label>
+								</div>
+							  </div>
 				  		</div>
 				  	</div>
 				  </div>

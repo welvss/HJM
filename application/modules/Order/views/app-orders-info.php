@@ -2,28 +2,17 @@
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="two wide column hidden"></div>
-	   		<div class="seven wide column">
-		   		<h1><i class="file text outline icon"></i>Cases</h1>
+	   		<div class="six wide column">
+		   		<h1><i class="file text outline icon"></i>Case Details</h1>
 	   		</div>
-	   		<div class="five wide right aligned column">
-	   		<button class="ui blue button mode">
+	   		<div class="six wide right aligned column">
+	   		<a class="ui blue button mode" href="rx-labslip.html">
+					  Print RX
+			</a>
+	   		<button class="ui blue button mode case-modal">
 					  Edit
 			</button>
-			<div class="ui icon top teal right labeled pointing dropdown button">
-			  <i class="add icon"></i>
-			  New Transaction
-			  <div class="menu">
-			    <div class="item case-modal">
-			    <i class="large file text outline icon blue"></i>
-			    Case</div>
-			    <div class="item">
-			    <i class="icons">
-				  <i class="large file outline dont icon"></i>
-				  <i class="green small dollar icon"></i>
-				</i>
-			    Invoice</div>
-			  </div>
-			</div>
+			
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
@@ -51,21 +40,17 @@
 		  	  								</div>
 		  	  								<div class="item">
 		  	  									<label><strong>Company: </strong></label>
-		  	  									<?php echo $dentist->company?>
+		  	  									<?php echo $dentist->company;?>
 		  	  								</div>
 		  	  							</div>
 		  	  							<div class="ui middle aligned divided list">
 		  	  								<div class="item">
-		  	  									<label>Received On: </label>
-		  	  									<?php echo date('m/d/Y',strtotime($case->orderdatetime));?>
-		  	  								</div>
-		  	  								<div class="item">
 		  	  									<label>Created On: </label>
-		  	  									05/27/2016
+		  	  									
 		  	  								</div>
 		  	  								<div class="item">
 		  	  									<label>Completed On: </label>
-		  	  									05/27/2016
+		  	  									
 		  	  								</div>
 		  	  							</div>
 		  	  						</div>
@@ -91,28 +76,44 @@
 				  					<?php echo $case->patientlastname.', '.$case->patientfirstname;?>
 				  				</h3>
 				  				<hr>
-				  				<div class="ui inverted violet segment">
-				  					<label for="">Status:</label>
-				  				<i class="lab icon"></i>In Production
-				  				</div>
-				  				<!--Status Selection
-				  				<div class="ui inverted green segment">
-				  					<label for="">Status:</label>
-				  				<i class="file text outline icon"></i>New
-				  				</div>
-				  				<div class="ui inverted red segment">
-				  					<label for="">Status:</label>
-				  				<i class="warning circle icon"></i>On Hold
-				  				</div>
-				  				<div class="ui inverted blue segment">
-				  					<label for="">Status:</label>
-				  				<i class="check icon"></i>Completed
-				  				</div> -->
+				  			<?php if($case->status == "In Production")
+				  				{
+					  				echo
+					  				'<div class="ui inverted violet segment">
+					  					<label for="">Status:</label>
+					  				<i class="lab icon"></i>In Production
+					  				</div>';
+					  			}
+					  			if($case->status == "New")
+					  			{
+					  				echo
+					  				'<div class="ui inverted green segment">
+					  					<label for="">Status:</label>
+					  				<i class="file text outline icon"></i>New
+					  				</div>';
+					  			}
+					  			if($case->status == "On Hold")
+					  			{
+					  				echo
+					  				'<div class="ui inverted red segment">
+					  					<label for="">Status:</label>
+					  				<i class="warning circle icon"></i>On Hold
+					  				</div>';
+					  			}
+					  			if($case->status == "Completed")
+					  			{
+					  				echo
+					  				'<div class="ui inverted blue segment">
+					  					<label for="">Status:</label>
+					  				<i class="check icon"></i>Completed
+					  				</div>';
+				  				}
+				  			?>
 					  			<div class="ui horizontal segments">
 					  				<div class="ui segment">
 					  					<div class="ui small statistic">
 										  <div class="value">
-										    <?php echo date('m/d/Y',strtotime($case->orderdatetime));?>
+										   <?php echo date('m/d/Y', strtotime($case->orderdatetime));?>
 										  </div>
 										  <div class="label">
 										    Date Received
@@ -122,7 +123,7 @@
 					  				<div class="ui segment">
 					  					<div class="ui red small statistic">
 										  <div class="value">
-										   <?php echo date('m/d/Y',strtotime($case->duedate));?>
+										   <?php echo date('m/d/Y', strtotime($case->duedate));?>
 										  </div>
 										  <div class="label">
 										    Due Date
@@ -168,10 +169,16 @@
 				  						<tr>
 				  							<td>Crown</td>
 				  							<td>
-				  							<?php foreach ($teeth as $tooth) {
-				  								echo $tooth->teeth.',';
-				  								
-				  							}?>
+				  								<?php 
+				  								$ctr= count($teeth);
+				  								$i=0;
+				  								foreach ($teeth as $tooth) {
+				  								if(++$i != $ctr)
+				  								echo $tooth->teeth.', ';
+				  								else
+				  								echo $tooth->teeth;
+				  								}
+				  								?>
 				  							</td>
 				  							<td>Emax</td>
 				  							<td><?php echo $case->shade2;?></td>
@@ -189,16 +196,21 @@
 	  	  	<div class="fifteen wide column">
 	  	  		<div class="ui grid">
 	  	  			<div class="eight wide column">
-	  	  				<div class="ui teal segment">
+	  	  				<div class="ui teal segment" style="height: 200px;">
 	  	  					<h3 class="ui header">
 	  	  						Special Instrucions
+	  	  						<hr>
+	  	  							<div class="field">
+										<p><?php echo $case->notes;?></p>
+									</div>
 	  	  					</h3>
 	  	  				</div>
 	  	  			</div>
 	  	  			<div class="eight wide column">
-	  	  				<div class="ui teal segment">
+	  	  				<div class="ui teal segment" style="height: 200px;">
 	  	  					<h3 class="ui header">
 	  	  						Attachments
+	  	  						<hr>
 	  	  					</h3>
 	  	  				</div>
 	  	  			</div>
@@ -207,50 +219,112 @@
 	  	  </div>
 	  	  <div class="row">
 	  	  	<div class="fifteen wide column">
-	  	  		<div class="ui segment">
+	  	  		<div class="ui teal segment">
 	  	  			<h3 class="ui header">
 	  	  				Invoice
+	  	  				<hr>
 	  	  			</h3>
+	  	  			<div class="ui grid">
+	  	  				<div class="row">
+	  	  					<div class="ten wide column">
+	  	  						<h2 class="ui red header">
+	  	  							Not yet Invoice!
+	  	  						</h2>
+	  	  					</div>
+	  	  					<div class="six wide column">
+	  	  						<button class="ui button mode">
+										  Edit Invoice
+								</button>
+								<button class="ui green button mode">
+										  Approve Invoice
+								</button>
+	  	  					</div>
+	  	  				</div>
+	  	  			</div>
+	  	  			<table class="ui inverted blue table">
+						<thead>
+							<tr>
+								<th>Billing Item</th>
+								<th>Tooth Number</th>
+								<th>Qty</th>
+								<th>Amount</th>
+								<th>Case Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Emax</td>
+								<td>1,2,3,4</td>
+								<td>1</td>
+								<td>PHP 500.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="ui grid">
+						<div class="row">
+							<div class="ten wide column">
+								
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									Subtotal
+								</div>
+								<div class="item">
+									<h2>Total</h2>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									PHP 500.00
+								</div>
+								<div class="item">
+									<h2>PHP 500.00</h2>
+								</div>
+							</div>
+						</div>
+					</div>
 	  	  		</div>
 	  	  	</div>
 	  	  </div>
-	  	  <div class="row">
-	  	  	
-	  	  </div>
+	  	  <div class="row"></div>
 	  </div>
 	<!--New Case-->
 	<div class="ui modal large case">
-	  <form class="ui form">
+	<?php echo form_open('Order/EditOrder','class="ui form"');?>
+	 
+	  	<?php echo form_hidden('CaseID',$this->uri->segment(3));?>
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
 				  <i class="large file text outline icon"></i>
-					    New Case Entry
+					    Edit Case Entry
 				  </div>
 	  		</div>
 		  <div class="ui horizontal teal segments">
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
-			  		<h3>#SERDS-M0KW1D</h3>
+			  		<h3>#SERDS-<?php echo $case->CaseID;?></h3>
 			  	</div>
 			  </div>
 		  		<div class="ui teal segment">
 		  				<div class="fields">
 		  			<div class="four wide field">
 		  				<label>Doctor</label>
-		  				<input type="text" name="doctor" placeholder="" value="Dr. Mark Serojihos">
+		  				<input type="text"  placeholder="" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>" readonly>
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient first name</label>
-		  				<input type="text" name="last-name" placeholder="First Name">
+		  				<input type="text" name="patientfirstname" placeholder="First Name">
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient last name</label>
-		  				<input type="text" name="last-name" placeholder="Last Name">
+		  				<input type="text" name="patientlastname" placeholder="Last Name">
 		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
-					    <select>
+				
+					    <select name="gender">
 					      <option value="">Gender</option>
 					      <option value="1">Male</option>
 					      <option value="0">Female</option>
@@ -258,7 +332,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="last-name">
+				    <input type="text" name="age">
 				  </div>
 		  		</div>
 		  		</div>
@@ -270,42 +344,55 @@
 		  			<div class="ui centered header blue ">
 		  				<h1>Crown</h1>
 		  			</div>
-		  			<img class="ui centered large image"src="img/teeth-structure.png" alt="">
+		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select name="skills" multiple="" class="ui fluid dropdown">
- 					<option value="1">1</option>
- 					<option value="2">2</option>
- 					<option value="3">3</option>
- 					<option value="4">4</option>
- 					<option value="5">5</option>
- 					<option value="6">6</option>
- 					<option value="7">7</option>
- 					<option value="8">8</option>
- 					<option value="9">9</option>
- 					<option value="10">10</option>
- 					<option value="11">11</option>
- 					<option value="12">12</option>
- 					<option value="13">13</option>
- 					<option value="14">14</option>
- 					<option value="15">15</option>
- 					<option value="16">16</option>
- 					<option value="17">17</option>
- 					<option value="18">18</option>
- 					<option value="19">19</option>
- 					<option value="20">20</option>
- 					<option value="21">21</option>
- 					<option value="22">22</option>
- 					<option value="23">23</option>
- 					<option value="24">24</option>
- 					<option value="25">25</option>
- 					<option value="26">26</option>
- 					<option value="27">27</option>
- 					<option value="28">28</option>
- 					<option value="29">29</option>
- 					<option value="30">30</option>
- 					<option value="31">31</option>
- 					<option value="32">32</option>
+ 				  	<select multiple name="teeth[]" class="ui fluid dropdown">
+ 				  	<?php 
+ 				  	$i =1;
+ 				  	$ctr= count($teeth);
+ 				  	$j=1;
+ 				  	$bool=false;
+ 				  	$check=false;
+ 				  	while($i<=32)
+ 				  	{	
+
+	 				  	foreach ($teeth as $tooth) 
+	 				  	{
+	 				  		
+			 				if($tooth->teeth == $i)
+			 				{
+			 				  	echo '<option value="'.$i.'" selected>'.$i.'</option>';
+
+			 				  	$i++;
+			 				  	$j++;
+
+			 				  			
+			 				}
+			 				else
+			 				{
+			 				  	$bool=true;
+			 				}
+			 				
+
+		 				 
+	 				  	}
+	 				  		
+		 				  	
+		 				  	
+		 				  	if($bool)
+		 				  	{	
+		 				  		echo '<option value="'.$j.'">'.$j.'</option>';
+		 				  		$i++;
+		 				  		$j++;
+
+		 				  		$bool=false;
+		 				  	}
+	 				  	
+	 				  	
+	 				}
+	 				
+ 					?>
  					</select>
  		  		</div>
 		  		</div>
@@ -329,19 +416,19 @@
 					     <div class="inline fields">
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
+						        <input type="radio" name="shade1" checked="" tabindex="0" class="hidden" value="1">
 						        <label>1 Shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="2">
 						        <label>2 shades</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="3">
 						        <label>3 shades</label>
 						      </div>
 						    </div>
@@ -349,19 +436,19 @@
 						  <div class="inline fields">
 						  	  <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="0">
 						        <label>No shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <input type="radio" name="fruit" tabindex="0" class="hidden" value="4">
 						        <label>Provide Shade Later</label>
 						      </div>
 						    </div>
 						  </div>
 						  <div class="five wide field">
-						  	<select>
+						  	<select name="shade2">
 						  		<option value=""></option>
 						  		<option value="A1">A1</option>
 						  		<option value="A2">A2.5</option>
@@ -419,50 +506,50 @@
 				  					 <h3 class="ui header">Return:</h3>
 				  					 <hr>
 								  <div class="field">
-								  	 <div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden">
+								  	 <div class="ui checkbox<?php if($case->Tray==1)echo ' checked';?>">
+								      <input type="checkbox" tabindex="0"  name="Tray" value="1">
 								      <label>Tray</label>
 								    </div>
 								  </div>
 								    <div class="field">
-								    	<div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden">
+								    	<div class="ui checkbox<?php if($case->SG==1)echo ' checked';?>">
+								      <input type="checkbox" tabindex="0" class="hidden" name="SG" value="1">
 								      <label>Shade Guide</label>
 								    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->BW==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="BW" value="1"> 
 									      <label>Bite Wax</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->MC==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="MC" value="1">
 									      <label>Model Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->OC==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="OC" value="1">
 									      <label>Opposing Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->Photos==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="Photos" value="1">
 									      <label>Photos</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->Articulator==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="Articulator" value="1">
 									      <label>Articulator</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
+									    <div class="ui checkbox<?php if($case->OD==1)echo ' checked';?>">
+									      <input type="checkbox" tabindex="0" class="hidden" name="OD" value="1">
 									      <label>Old Denture</label>
 									    </div>
 								    </div>
@@ -471,7 +558,7 @@
 				  					<h3 class="ui header">Doctor's Special Instruction</h3>
 				  					 <hr>
 				  					   <div class="field">
-										    <textarea></textarea>
+										    <textarea name="notes"></textarea>
 									   </div>
 				  				</div>
 				  			</div>
@@ -492,13 +579,14 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="last-name" placeholder="Last Name">
+							    <input type="date" name="duedate">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="last-name" placeholder="Last Name">
+							    <input type="time" name="duetime">
 							  </div>
 							</div>
+							  
 				  		</div>
 				  	</div>
 				  </div>
@@ -523,4 +611,3 @@
 		  </div>
 	</form>
 	</div>
-	

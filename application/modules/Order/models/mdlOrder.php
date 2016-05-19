@@ -6,20 +6,39 @@ class mdlOrder extends CI_Model {
 		parent:: __construct();
 	}
 
+	function deleteTeeth($options=array())
+	{	
 	
+		$this->db->where('CaseID', $options['CaseID']);
+		$this->db->delete('tblcaseteeth');	
+		return true;
+	}
 	function InsertCaseTeeth($options=array())
 	{
 		$this->db->insert('tblcaseteeth', $options);	
 		return $this->db->insert_id();
 	}
+	function validate()
+	{
+		$this->db->where('username', $this->input->post('username'));
+		$this->db->where('password',md5($this->input->post('password')));
+		$query =$this->db->get('users');
+
+		if($query->num_rows ==1)
+		{
+			return true;
+		}
+			
+	}
+
 	function getCaseTeeth($options = array())
 	{
 		//verification
 		
-
-		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
 		
+		
+	
+		$this->db->like('CaseID', $options['CaseID']);
 		$query = $this->db->get("tblcaseteeth");
 		
 		
@@ -100,17 +119,52 @@ class mdlOrder extends CI_Model {
 	}
 	
 	function modifyOrder($options = array())
-	{		
+	{	
+		if(isset($options['CaseID']))
+			$this->db->where('CaseID', $options['CaseID']);
 		
+		if(isset($options['Tray']))
+			$this->db->set('Tray', $options['Tray']);
 
-		if(isset($options['patient']))
-			$this->db->set('patient', $options['patient']);
+		if(isset($options['SG']))
+			$this->db->set('SG', $options['SG']);
+
+		if(isset($options['BW']))
+			$this->db->set('BW', $options['BW']);
+	
+		if(isset($options['MC']))
+			$this->db->set('MC', $options['MC']);
+
+		if(isset($options['OC']))
+			$this->db->set('OC', $options['OC']);
+
+		if(isset($options['Photos']))
+			$this->db->set('Photos', $options['Photos']);
+
+		if(isset($options['Articulator']))
+			$this->db->set('Articulator', $options['Articulator']);
+
+		if(isset($options['OD']))
+			$this->db->set('OD', $options['OD']);							
+
+		if(isset($options['shade1']))
+			$this->db->set('shade1', $options['shade1']);
+
+		if(isset($options['shade2']))
+			$this->db->set('shade2', $options['shade2']);
+
+		if(isset($options['patientfirstname']))
+			$this->db->set('patientfirstname', $options['patientfirstname']);
+
+		if(isset($options['patientlastname']))
+			$this->db->set('patientlastname', $options['patientlastname']);
 			
-		if(isset($options['due-time']))
-			$this->db->set('duetime', $options['due-time']);
 			
-		if(isset($options['due-date']))
-			$this->db->set('duedate', $options['due-date']);
+		if(isset($options['duetime']))
+			$this->db->set('duetime', $options['duetime']);
+			
+		if(isset($options['duedate']))
+			$this->db->set('duedate', $options['duedate']);
 
 		if(isset($options['orderdatetime']))
 			$this->db->set('orderdatetime', $options['orderdatetime']);

@@ -228,18 +228,17 @@ class Order extends MX_Controller
 	}
 
 
-
 	public function EditOrder()
 	{
 	
-		$config['upload_path'] = './assets/file';
+		/*$config['upload_path'] = './assets/file';
         $config['allowed_types'] = 'jpeg|png|jpg';
         $config['max_size']    = '30720';
 
         //load upload class library
-        /*$this->load->library('upload', $config);
+        $this->load->library('upload', $config);*/
 
-        if (!$this->upload->do_upload('file'))
+        /*if (!$this->upload->do_upload('filename'))
         {
             // case - failure
             $upload_error = array('error' => $this->upload->display_errors());
@@ -249,45 +248,162 @@ class Order extends MX_Controller
         {
             // case - success
            $upload_data = $this->upload->data();*/
-			if($this->input->post('submit'))
-			{
+		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
+		{
 			
-						$case = array(
+						$data['DentistID'] = $this->input->post('DentistID');
+						$data['patientfirstname'] = $this->input->post('patient');
+						$data['duedate'] = $this->input->post('duedate');
+						$data['duetime'] = $this->input->post('duetime');
+						$data['gender'] = $this->input->post('gender');
+						$data['age'] = $this->input->post('age');
+						$data['notes'] = $this->input->post('notes');
+									
+								/*$data=array(
 									'DentistID'=>$_POST['DentistID'],
-									'CaseID'=>$_POST['CaseID'],
 									'patient'=>$_POST['patient'],
 									'duedate' => $_POST['due-date'],
 									'duetime' => $_POST['due-time'],
 									'gender' =>$_POST['gender'],
 									'age' => $_POST['age'],
 									'notes' => $_POST['notes'],
-									'Tray' => $_POST['Tray'],
 									//'file' => $upload_data['file_name']
-									);
+								);*/
 						
-						if($this->mdlOrder->modifyOrder($case))
+						if($this->mdlOrder->AddOrder($data))
 						{
-
-							if($this->session->userdata('ps_id') == 1)
-							{
-								redirect('Dashboard');
-							}
-							else
-							{
-								
-								redirect('Customer/CustomerInfo/'.$_POST['DentistID']);
-
-							}
-								
+							$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
+							$dentist = $this->mdlCustomer->getDentist(array('DentistID'=>$this->input->post('DentistID')));
+							$data['CaseID'] = $info->CaseID;
+							$data['DentistID'] = $dentist->DentistID;
+							$data['fullname'] = $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
+							$data['company'] = $dentist->company;
+							$data['patient'] = $info->patientfirstname;
+							$data['orderdatetime'] = $info->orderdatetime;
+							$data['duedate'] = $info->duedate;
+							$data['duetime'] = $info->duetime;
+							$data['status'] = $info->status;
+							$data['success'] = true;
+							$data['new_count_order'] = $this->mdlOrder->countOrder(array('status'=>'New'));
 						}
-			}
-			else
-			{
-				$this->load->view('users/register');
-			}
+						else
+						{
+							$data['success'] = false;
+						}
+						echo json_encode($data);
+		}
+
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		{
+						if(isset( $_POST['Tray'])=="")
+						{
+							$data =array('Tray' => 0);
+						}
+						else
+						{
+							$data =array('Tray' => $_POST['Tray']);
+						}
+						if(isset( $_POST['SG'])=="")
+						{
+							$data =array('SG' => 0);
+						}
+						else
+						{
+							$data =array('SG' => $_POST['SG']);
+						}
+						if( isset($_POST['BW'])==null)
+						{
+							$data =array('BW' => 0);
+						}
+						else
+						{
+							$data =array('BW' => $_POST['BW']);
+						}
+						if(isset( $_POST['MC'])==null)
+						{
+							$data =array('MC' => 0);
+						}
+						else
+						{
+							$data =array('MC' => $_POST['MC']);
+						}
+						if(isset ($_POST['OC'])==null)
+						{
+							$data =array('OC' => 0);
+						}
+						else
+						{
+							$data =array('OC' => $_POST['OC']);
+						}
+						if(isset( $_POST['Photos'])==null)
+						{
+							$data =array('Photos' => 0);
+						}
+						else
+						{
+							$data =array('Photos' => $_POST['Photos']);
+						}
+						if(isset( $_POST['Articulator'])==null)
+						{
+							$data =array('Articulator' => 0);
+						}
+						else
+						{
+							$data =array('Articulator' => $_POST['Articulator']);
+						}
+						if(isset ($_POST['OD'])==null)
+						{
+							$data =array('OD' => 0);
+						}
+						else
+						{
+							$data =array('OD' => $_POST['OD']);
+						}
+
+						{
+							$data=array(
+										'CaseID' => $_POST['CaseID'] , 
+										'patientfirstname'=>$_POST['patientfirstname'],
+										'patientlastname'=>$_POST['patientlastname'],
+										'duedate' => $_POST['duedate'],
+										'duetime' => $_POST['duetime'],
+										'gender' =>$_POST['gender'],
+										'age' => $_POST['age'],
+										'shade1' => $_POST['shade1'],
+										'shade2' => $_POST['shade2'],
+										'notes' => $_POST['notes']
+
+										//'file' => $upload_data['file_name']
+									);
+							$this->mdlOrder->modifyOrder($data);
+						}
+						$CaseID = $_POST['CaseID'];
+						$array = array('CaseID' => $_POST['CaseID']); 
+
+						$this->mdlOrder->deleteTeeth($array);
+					
+						{
+							$teeth=$_POST['teeth'];
+							
+							foreach ($teeth as $tooth) 
+							{
+								$data = array('CaseID' => $CaseID , 
+												'teeth' =>$tooth
+
+									);
+								$this->mdlOrder->InsertCaseTeeth($data);
+							}
+						}
+							redirect('Order/Info/'.$CaseID);
+						
+						
+		}
+			
+			
 		//}
 
 	}
+	
 	public function Info()
 	{	$data['active'] =3;
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));

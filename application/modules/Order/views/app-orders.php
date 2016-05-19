@@ -313,7 +313,7 @@
 					     <div class="inline fields">
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" checked="" tabindex="0" class="hidden" value=1>
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value=1>
 						        <label>1 Shade</label>
 						      </div>
 						    </div>
@@ -339,7 +339,7 @@
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value=4>
+						        <input type="radio" name="shade1" checked tabindex="0" class="hidden" value=4>
 						        <label>Provide Shade Later</label>
 						      </div>
 						    </div>
@@ -476,16 +476,22 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" placeholder="Due Date">
+							    <input type="date" name="duedate" placeholder="Last Name">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime" placeholder="Due Time">
+							    <input type="time" name="duetime" placeholder="Last Name">
 							  </div>
 							</div>
+							  <div class="field">
+							  	<div class="ui checkbox">
+								  <input type="checkbox" name="example">
+								  <label>Direct to make Invoice</label>
+								</div>
+							  </div>
 				  		</div>
 				  	</div>
-				  </div>
+				</div>
 	  			<div class="two column row">
 					<div class="nine wide column hidden"></div>
 					<div class="right aligned six wide column">
