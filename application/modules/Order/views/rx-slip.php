@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<title>HJM | Dental Laboratory</title>
 </head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <body>
 <br>
 <div class="wrapper">
 	<div class="brand">
-		 <img src="img/hjm-logo-inverted.png" alt="">
+		 <img src="<?php echo base_url();?>app/img/hjm-logo-inverted.png" alt="">
 		 <p style="display: inline-block;">DENTAL LABORATORY</p>
 	</div>
 	<div class="brand-info">
@@ -27,7 +27,7 @@
 			</div>
 			<div class="five wide column">
 				<h4 class="ui header">
-					Dr. Mark Serohijos 
+					<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>
 				</h4>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 			</div>
 			<div class="five wide column">
 				<h4 class="ui header">
-					Prince Kenneth Rufino
+					<?php echo $case->patientfirstname.' '.$case->patientlastname;?>
 				</h4>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="five wide column">
 				<h4 class="ui header">
-					Monday, May 05, 2016, 9:00AM
+					<?php echo date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime));?>
 				</h4>
 			</div>
 		</div>
@@ -83,7 +83,17 @@
 			</div>
 			<div class="five wide column">
 				<h4 class="ui header">
-					#4, #20
+					<?php 
+				  		$ctr= count($teeth);
+				  		$i=0;
+				  		foreach ($teeth as $tooth) 
+				  		{
+				  			if(++$i != $ctr)
+				  				echo '#'.$tooth->teeth.', ';
+				  			else
+				  				echo '#'.$tooth->teeth;
+				  		}
+				  	?>
 				</h4>
 			</div>
 		</div>
@@ -103,7 +113,7 @@
 			</div>
 			<div class="five wide column">
 				<h4 class="ui header">
-					A3
+					<?php echo $case->shade2;?>
 				</h4>
 			</div>
 		</div>

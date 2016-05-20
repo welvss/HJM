@@ -6,7 +6,7 @@
 		   		<h1><i class="file text outline icon"></i>Case Details</h1>
 	   		</div>
 	   		<div class="six wide right aligned column">
-	   		<a class="ui blue button mode" href="rx-labslip.html">
+	   		<a class="ui blue button mode" href="<?php echo base_url();?>Order/RX/<?php echo $case->CaseID;?>">
 					  Print RX
 			</a>
 	   		<button class="ui blue button mode case-modal">
@@ -327,19 +327,19 @@
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient first name</label>
-		  				<input type="text" name="patientfirstname" placeholder="First Name">
+		  				<input type="text" name="patientfirstname" placeholder="First Name" value="<?php echo $case->patientfirstname;?>">
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient last name</label>
-		  				<input type="text" name="patientlastname" placeholder="Last Name">
+		  				<input type="text" name="patientlastname" placeholder="Last Name" value="<?php echo $case->patientlastname;?>">
 		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
 				
 					    <select name="gender">
 					      <option value="">Gender</option>
-					      <option value="1">Male</option>
-					      <option value="0">Female</option>
+					      <option value="1" <?php if($case->gender==1) echo 'selected';?>>Male</option>
+					      <option value="0" <?php if($case->gender==0) echo 'selected';?>>Female</option>
 					    </select>
 				  </div>
 				   <div class="one wide field">
@@ -428,19 +428,19 @@
 					     <div class="inline fields">
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" checked="" tabindex="0" class="hidden" value="1">
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="1"<?php if($case->shade1==1) echo ' checked=""';?>>
 						        <label>1 Shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="2">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="2"<?php if($case->shade1==2) echo ' checked=""';?>>
 						        <label>2 shades</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="3">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="3"<?php if($case->shade1==3) echo ' checked=""';?>>
 						        <label>3 shades</label>
 						      </div>
 						    </div>
@@ -448,13 +448,13 @@
 						  <div class="inline fields">
 						  	  <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="0">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="0"<?php if($case->shade1==0) echo ' checked=""';?>>
 						        <label>No shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden" value="4">
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="4"<?php if($case->shade1==4) echo ' checked=""';?>>
 						        <label>Provide Shade Later</label>
 						      </div>
 						    </div>
@@ -462,10 +462,10 @@
 						  <div class="five wide field">
 						  	<select name="shade2">
 						  		<option value=""></option>
-						  		<option value="A1">A1</option>
-						  		<option value="A2">A2.5</option>
-						  		<option value="A3">A3</option>
-						  		<option value="A3">A3.5</option>
+						  		<option value="A1"<?php if($case->shade2=="A1") echo ' selected';?>>A1</option>
+						  		<option value="A2.5"<?php if($case->shade2=="A2.5") echo ' selected';?>>A2.5</option>
+						  		<option value="A3"<?php if($case->shade2=="A3") echo ' selected';?>>A3</option>
+						  		<option value="A3.5"<?php if($case->shade2=="A3.5") echo ' selected';?>>A3.5</option>
 						  	</select>
 						  </div>
 				  </div>
