@@ -6,9 +6,9 @@
 		   		<h1><i class="file text outline icon"></i>Case Details</h1>
 	   		</div>
 	   		<div class="six wide right aligned column">
-	   		<a class="ui blue button mode" href="<?php echo base_url();?>Order/RX/<?php echo $case->CaseID;?>">
+	   		<button class="ui blue button mode"  onClick="printRX(this.value);" value="<?php echo base_url('index.php/Order/RX/'.$case->CaseID) ;?>">
 					  Print RX
-			</a>
+			</button>
 	   		<button class="ui blue button mode case-modal">
 					  Edit
 			</button>
@@ -76,7 +76,7 @@
 				  					<?php echo $case->patientlastname.', '.$case->patientfirstname;?>
 				  				</h3>
 				  				<hr>
-				  			<?php if($case->status == "In Production")
+				  			<?php if($case->status_id == 2)
 				  				{
 					  				echo
 					  				'<div class="ui inverted violet segment">
@@ -84,7 +84,7 @@
 					  				<i class="lab icon"></i>In Production
 					  				</div>';
 					  			}
-					  			if($case->status == "New")
+					  			if($case->status_id == 1)
 					  			{
 					  				echo
 					  				'<div class="ui inverted green segment">
@@ -92,7 +92,7 @@
 					  				<i class="file text outline icon"></i>New
 					  				</div>';
 					  			}
-					  			if($case->status == "On Hold")
+					  			if($case->status_id == 4)
 					  			{
 					  				echo
 					  				'<div class="ui inverted red segment">
@@ -100,7 +100,7 @@
 					  				<i class="warning circle icon"></i>On Hold
 					  				</div>';
 					  			}
-					  			if($case->status == "Completed")
+					  			if($case->status_id == 3)
 					  			{
 					  				echo
 					  				'<div class="ui inverted blue segment">
@@ -232,7 +232,7 @@
 	  	  						</h2>
 	  	  					</div>
 	  	  					<div class="six wide column">
-	  	  						<button class="ui button mode">
+	  	  						<button class="ui button mode invoice-modal">
 										  Edit Invoice
 								</button>
 								<button class="ui green button mode">
@@ -245,7 +245,7 @@
 						<thead>
 							<tr>
 								<th>Billing Item</th>
-								<th>Tooth Number</th>
+								<th>Teeth Number</th>
 								<th>Qty</th>
 								<th>Amount</th>
 								<th>Case Total</th>
@@ -254,19 +254,7 @@
 						<tbody>
 							<tr>
 								<td>Emax</td>
-								<td>
-				  				<?php 
-				  					$ctr= count($teeth);
-				  					$i=0;
-				  					foreach ($teeth as $tooth) 
-				  					{
-					  					if(++$i != $ctr)
-					  						echo $tooth->teeth.', ';
-					  					else
-					  						echo $tooth->teeth;
-				  					}	
-				  				?>
-				  				</td>
+								<td>1,2,3,4</td>
 								<td>1</td>
 								<td>PHP 500.00</td>
 								<td></td>
@@ -291,7 +279,77 @@
 									PHP 500.00
 								</div>
 								<div class="item">
-									<h2>PHP 500.00</h2>
+									<h2>PHP 500.oo</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+	  	  		</div>
+	  	  	</div>
+	  	  </div>
+	  	   <div class="row">
+	  	  	<div class="fifteen wide column">
+	  	  		<div class="ui teal segment">
+	  	  			<h3 class="ui header">
+	  	  				Invoice
+	  	  				<hr>
+	  	  			</h3>
+	  	  			<div class="ui grid">
+	  	  				<div class="row">
+	  	  					<div class="ten wide column">
+	  	  						<h2 class="ui green header">
+	  	  							Approved!
+	  	  						</h2>
+	  	  					</div>
+	  	  					<div class="six wide column">
+	  	  						<button class="ui button mode invoice-modal">
+										  Edit Invoice
+								</button>
+								<a href="invoice-print.html"class="ui blue button mode">
+										  Print Invoice
+								</a>
+	  	  					</div>
+	  	  				</div>
+	  	  			</div>
+	  	  			<table class="ui inverted blue table">
+						<thead>
+							<tr>
+								<th>Billing Item</th>
+								<th>Teeth Number</th>
+								<th>Qty</th>
+								<th>Amount</th>
+								<th>Case Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Emax</td>
+								<td>1,2,3,4</td>
+								<td>1</td>
+								<td>PHP 500.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="ui grid">
+						<div class="row">
+							<div class="ten wide column">
+								
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									Subtotal
+								</div>
+								<div class="item">
+									<h2>Total</h2>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									PHP 500.00
+								</div>
+								<div class="item">
+									<h2>PHP 500.oo</h2>
 								</div>
 							</div>
 						</div>
@@ -306,6 +364,7 @@
 	<?php echo form_open('Order/EditOrder','class="ui form"');?>
 	 
 	  	<?php echo form_hidden('CaseID',$this->uri->segment(3));?>
+	  
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
 				  <i class="large file text outline icon"></i>
@@ -620,6 +679,141 @@
 					<div class="one wide column hidden"></div>
 				</div>
 	 		 <br>
+		  </div>
+	</form>
+	</div>
+	<!--Invoice-->
+	<div class="ui modal fullscreen invoice">
+	  <form class="ui form">
+	  		<div class="ui inverted blue segment">
+	  			  <div class="ui header">
+				  <i class="large dollar icon"></i>
+					  Invoice
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Customer</label>
+								<input type="text" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>" readonly>
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="<?php echo $dentist->email;?>" readonly>
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="right aligned column">
+						<div class="ui segment">
+							<div class="ui header">
+								Balance Due
+								<h1>PHP 500.00</h1>
+							</div>							
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Billing Address</label>
+	  							 <textarea rows="2"><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></textarea>
+	  						</div>
+	  						<div class="field">
+	  							<label>Invoice date</label>
+	  							<input type="date">
+	  						</div>
+	  						<div class="field">
+	  							<label>Due Date</label>
+	  							<input type="date">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>#</th>
+		  					<th>ITEM</th>
+		  					<th>DESCRIPTION</th>
+		  					<th>QTY</th>
+		  					<th>Amount</th>
+		  					<th>Total</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td>1</td>
+		  					<td>Emax</td>
+		  					<td>
+		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					</td>
+		  					<td>1</td>
+		  					<td>500</td>
+		  					<td>500</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
+								</div>
+							</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Subtotal</h4>
+								<h2>Total</h2>
+							</div>
+							<div class="three wide column">
+								<h4>PHP 500.00</h4>
+								<h2>PHP 500.00</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="#" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print Invoice</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
 		  </div>
 	</form>
 	</div>

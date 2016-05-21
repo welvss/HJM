@@ -42,13 +42,14 @@ class Customer extends MX_Controller
 	
 	public function CustomerInfo()
 	{
-		
+		$data['Count']	= $this->mdlOrder->countOrder(array());
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
+		$data['status'] = $this->mdlOrder->getStatus();
 		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
-		$data['New'] = $this->mdlOrder->countOrder(array('status'=>'New','DentistID'=>$this->uri->segment(3)));
-		$data['IP'] = $this->mdlOrder->countOrder(array('status'=>'In Production','DentistID'=>$this->uri->segment(3)));
-		$data['Completed'] = $this->mdlOrder->countOrder(array('status'=>'Completed','DentistID'=>$this->uri->segment(3)));
-		$data['Hold'] = $this->mdlOrder->countOrder(array('status'=>'On Hold','DentistID'=>$this->uri->segment(3)));
+		$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));
+		$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3)));
+		$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
+		$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
 		$this->footer($data);

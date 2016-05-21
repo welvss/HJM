@@ -14,12 +14,12 @@
 			    <div class="item case-modal">
 			    <i class="large file text outline icon blue"></i>
 			    Case</div>
-			    <div class="item">
+			    <!--<div class="item">
 			    <i class="icons">
 				  <i class="large file outline dont icon"></i>
 				  <i class="green small dollar icon"></i>
 				</i>
-			    Invoice</div>
+			    Invoice</div>-->
 			  </div>
 			</div>
 			</div>
@@ -164,12 +164,16 @@
 							'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).'
 	 						<div class="ui form">
 								<div class="ten wide field">
-								 <select name="status">
-								  <option value="New"';  if($case->status=="New")echo 'selected'; echo'>New</option>
-								  <option value="In Production"';  if($case->status=="In Production")echo 'selected'; echo'>In Production<i class="green check icon"></i></option>
-								  <option value="Completed"';  if($case->status=="Completed")echo 'selected'; echo'>Completed</option>
-								  <option value="On Hold"';  if($case->status=="On Hold")echo 'selected'; echo'>On Hold</option>
-								 </select>
+								 <select name="status_id">';
+								foreach($status as $s)
+								{
+
+								   echo '<option value="'.$s->status_id.'"';  if($case->status_id==$s->status_id)echo 'selected'; else echo ' '; echo '>'.$s->status.'</option>';
+								
+								}
+							
+							echo
+								 '</select>
 								</div>
 						    </div>	
 						    <button type="submit" class="ui blue button mode" value="submit">
@@ -179,10 +183,10 @@
 				  			</form>				
 						</td>
 						<td>
-							<a href="#">
-				  			<i class="file icon"></i>
-				  			View
-				  			</a>				
+							<button class="ui blue button" onClick="printRX(this.value);" value="'.$case->CaseID.'">
+								<i class="file icon"></i>
+								View
+							</button>			
 						</td>
 						
 
@@ -197,6 +201,7 @@
 	<!--New Case-->
 	<div class="ui modal large case">
 	  <?php echo form_open('Order/AddOrder','class="ui form"');?>
+	  	<?php echo form_hidden('module',2);?>
 
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
@@ -258,38 +263,15 @@
 		  			<div class="field">
  				  	<label>Teeth</label>
  				  	<select multiple name="teeth[]" class="ui fluid dropdown">
- 					<option value="1">1</option>
- 					<option value="2">2</option>
- 					<option value="3">3</option>
- 					<option value="4">4</option>
- 					<option value="5">5</option>
- 					<option value="6">6</option>
- 					<option value="7">7</option>
- 					<option value="8">8</option>
- 					<option value="9">9</option>
- 					<option value="10">10</option>
- 					<option value="11">11</option>
- 					<option value="12">12</option>
- 					<option value="13">13</option>
- 					<option value="14">14</option>
- 					<option value="15">15</option>
- 					<option value="16">16</option>
- 					<option value="17">17</option>
- 					<option value="18">18</option>
- 					<option value="19">19</option>
- 					<option value="20">20</option>
- 					<option value="21">21</option>
- 					<option value="22">22</option>
- 					<option value="23">23</option>
- 					<option value="24">24</option>
- 					<option value="25">25</option>
- 					<option value="26">26</option>
- 					<option value="27">27</option>
- 					<option value="28">28</option>
- 					<option value="29">29</option>
- 					<option value="30">30</option>
- 					<option value="31">31</option>
- 					<option value="32">32</option>
+ 					<?php
+ 					$x=1; 
+ 					while ($x <= 32) 
+ 					{
+ 						
+ 						echo '<option value="'.$x.'">'.$x.'</option>';
+ 						$x++;
+ 					}	
+ 					?>
  					</select>
  		  		</div>
 		  		</div>
@@ -485,7 +467,7 @@
 							</div>
 							  <div class="field">
 							  	<div class="ui checkbox">
-								  <input type="checkbox" name="example">
+								  <input type="checkbox" name="invoice" value=1>
 								  <label>Direct to make Invoice</label>
 								</div>
 							  </div>

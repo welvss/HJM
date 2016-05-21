@@ -19,12 +19,14 @@ class Order extends MX_Controller
 		{
 			$this->load->view('template/header',$data);
 			$data['cases'] = $this->mdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
+			$data['status'] = $this->mdlOrder->getStatus();
 			$data['dentists'] = $this->mdlCustomer->getDentist(array());
 			$data['Count']	= $this->mdlOrder->countOrder(array());
-			$data['New'] = $this->mdlOrder->countOrder(array('status'=>'New'));
-			$data['IP'] = $this->mdlOrder->countOrder(array('status'=>'In Production'));
-			$data['Completed'] = $this->mdlOrder->countOrder(array('status'=>'Completed'));
-			$data['Hold'] = $this->mdlOrder->countOrder(array('status'=>'On Hold'));
+
+			$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1));
+			$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2));
+			$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3));
+			$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4));
 
 			$this->load->view('app-orders',$data);
 			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
@@ -183,18 +185,37 @@ class Order extends MX_Controller
 									//'file' => $upload_data['file_name']
 								);
 						$CaseID = $this->mdlOrder->AddOrder($data);
-						$teeth=$_POST['teeth'];
-						
-						foreach ($teeth as $tooth) 
-						{
-							$array = array('CaseID' => $CaseID , 
-											'teeth' =>$tooth
+						if(isset($_POST['teeth']))
+						{	
+							$teeth=$_POST['teeth'];
+							
+							foreach ($teeth as $tooth) 
+							{
+								$array = array('CaseID' => $CaseID , 
+												'teeth' =>$tooth
 
-								);
-							$this->mdlOrder->InsertCaseTeeth($array);
+									);
+								$this->mdlOrder->InsertCaseTeeth($array);
+							}
 						}
-						redirect('Order');
+					
+						if(isset($_POST['invoice'])!=null)
+						{
+							redirect('Order/Info/'.$CaseID);
+						}
+						else
+						{
+							if($_POST['module']==2)
+								redirect('Order');
+
+
+							if($_POST['module']==1)
+								redirect('Customer/Info/'.$_POST['DentistID']);
+					
+							
+						}
 						
+					
 						
 		}
 			
@@ -209,7 +230,7 @@ class Order extends MX_Controller
 			
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
-							'status' => $_POST['status'] 
+							'status_id' => $_POST['status_id'] 
 							);
 				
 				if($this->mdlOrder->UpdateOrderStatus($order))

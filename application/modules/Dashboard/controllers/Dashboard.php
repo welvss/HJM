@@ -48,10 +48,11 @@ class Dashboard extends MX_Controller
 	{
 		if($this->session->userdata('ps_id')==2 )
 		{
-			$data['New'] = $this->mdlOrder->countOrder(array('status'=>'New'));
-			$data['IP'] = $this->mdlOrder->countOrder(array('status'=>'In Production'));
-			$data['Completed'] = $this->mdlOrder->countOrder(array('status'=>'Completed'));
-			$data['Hold'] = $this->mdlOrder->countOrder(array('status'=>'On Hold'));
+			$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1));
+			$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2));
+			$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3));
+			$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4));
+
 			$this->load->view('a-dashboard',$data);
 			$this->footer();
 			

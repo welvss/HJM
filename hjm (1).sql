@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2016 at 07:27 AM
+-- Generation Time: May 20, 2016 at 07:03 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -31,14 +31,25 @@ USE `hjm`;
 CREATE TABLE `tblcase` (
   `CaseID` int(11) NOT NULL,
   `DentistID` int(11) NOT NULL,
-  `patient` varchar(50) NOT NULL,
-  `duedate` varchar(15) NOT NULL,
-  `duetime` varchar(15) NOT NULL,
   `orderdatetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `patientfirstname` varchar(50) NOT NULL,
+  `patientlastname` varchar(100) NOT NULL,
   `gender` varchar(15) NOT NULL,
   `age` int(11) NOT NULL,
+  `shade1` int(11) NOT NULL,
+  `shade2` varchar(50) NOT NULL,
+  `Tray` int(11) NOT NULL,
+  `SG` int(11) NOT NULL,
+  `BW` int(11) NOT NULL,
+  `MC` int(11) NOT NULL,
+  `OC` int(11) NOT NULL,
+  `Photos` int(11) NOT NULL,
+  `Articulator` int(11) NOT NULL,
+  `OD` int(11) NOT NULL,
   `notes` text NOT NULL,
   `file` varchar(100) NOT NULL,
+  `duedate` varchar(15) NOT NULL,
+  `duetime` varchar(15) NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'New'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -46,8 +57,57 @@ CREATE TABLE `tblcase` (
 -- Dumping data for table `tblcase`
 --
 
-INSERT INTO `tblcase` (`CaseID`, `DentistID`, `patient`, `duedate`, `duetime`, `orderdatetime`, `gender`, `age`, `notes`, `file`, `status`) VALUES
-(1, 6, '', '', '', '2016-05-18 13:03:33', '', 0, '', '', 'New');
+INSERT INTO `tblcase` (`CaseID`, `DentistID`, `orderdatetime`, `patientfirstname`, `patientlastname`, `gender`, `age`, `shade1`, `shade2`, `Tray`, `SG`, `BW`, `MC`, `OC`, `Photos`, `Articulator`, `OD`, `notes`, `file`, `duedate`, `duetime`, `status`) VALUES
+(1, 6, '2016-05-19 21:31:54', 'Patrick', 'Bagacina', '0', 18, 3, 'A1', 0, 0, 0, 0, 0, 0, 0, 0, 'Dapat parang walng ngipin.', '', '2016-05-31', '04:20', 'Completed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcaseteeth`
+--
+
+CREATE TABLE `tblcaseteeth` (
+  `CaseID` int(11) NOT NULL,
+  `teeth` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblcaseteeth`
+--
+
+INSERT INTO `tblcaseteeth` (`CaseID`, `teeth`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(1, 29),
+(1, 30),
+(1, 31),
+(1, 32);
 
 -- --------------------------------------------------------
 
@@ -119,6 +179,12 @@ ALTER TABLE `tblcase`
   ADD KEY `DentistID` (`DentistID`);
 
 --
+-- Indexes for table `tblcaseteeth`
+--
+ALTER TABLE `tblcaseteeth`
+  ADD KEY `CaseID` (`CaseID`);
+
+--
 -- Indexes for table `tbldentist`
 --
 ALTER TABLE `tbldentist`
@@ -160,6 +226,12 @@ ALTER TABLE `tbluser`
 --
 ALTER TABLE `tblcase`
   ADD CONSTRAINT `tblcase_ibfk_1` FOREIGN KEY (`DentistID`) REFERENCES `tbldentist` (`DentistID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tblcaseteeth`
+--
+ALTER TABLE `tblcaseteeth`
+  ADD CONSTRAINT `tblcaseteeth_ibfk_1` FOREIGN KEY (`CaseID`) REFERENCES `tblcase` (`CaseID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbluser`

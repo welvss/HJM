@@ -27,12 +27,7 @@
 			    <div class="item case-modal">
 			    <i class="large file text outline icon blue"></i>
 			    Case</div>
-			    <div class="item">
-			    <i class="icons">
-				  <i class="large file outline dont icon"></i>
-				  <i class="green small dollar icon"></i>
-				</i>
-			    Invoice</div>
+			    
 			  </div>
 			</div>
 			</div>
@@ -356,7 +351,7 @@
 			  						<th>DUE</th>
 			  						<th>STATUS</th>
 			  						<th>LAB SLIP</th>
-			  						<th>ACTION</th>
+			  					
 			  					</tr>
 			  				</thead>
 			  				<tbody>
@@ -377,12 +372,16 @@
 												'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).form_hidden('DentistID',$this->uri->segment(3)).'
 						 						<div class="ui form">
 													<div class="ten wide field">
-													 <select name="status">
-													  <option value="New"';  if($case->status=="New")echo 'selected'; echo'>New</option>
-													  <option value="In Production"';  if($case->status=="In Production")echo 'selected'; echo'>In Production<i class="green check icon"></i></option>
-													  <option value="Completed"';  if($case->status=="Completed")echo 'selected'; echo'>Completed</option>
-													  <option value="On Hold"';  if($case->status=="On Hold")echo 'selected'; echo'>On Hold</option>
-													 </select>
+													 <select name="status_id">';
+														foreach($status as $s)
+														{
+
+														   echo '<option value="'.$s->status_id.'"';  if($case->status_id==$s->status_id)echo 'selected'; else echo ' '; echo '>'.$s->status.'</option>';
+														
+														}
+												
+													echo
+													 '</select>
 													</div>
 											    </div>	
 											    <button type="submit" class="ui blue button" value="submit">
@@ -392,17 +391,12 @@
 									  			</form>				
 											</td>
 											<td>
-												<a href="#">
+												<button class="ui blue button" onClick="printRX(this.value);" value="'.base_url('index.php/Order/RX/'.$case->CaseID).'">
 									  			<i class="file icon"></i>
 									  			View
-									  			</a>				
+									  			</button>				
 											</td>
-											<td>
-					  							<a href="#">
-					  								<i class="orange write icon"></i>
-					  								Edit
-					  							</a>
-					  						</td>
+											
 											
 
 										</tr>';
@@ -565,144 +559,276 @@
 			</form>
 			<br>
 	</div>
-	<!--New Case-->
-	<div class="ui modal fullscreen case">
-	  <div class="header">
-	  <i class="large teal file text outline icon"></i>
-		    New Case Entry
-	  </div>
-	  <br>
-	  <form class="ui form">
-	  <div class="ui column centered grid">
-	  	<div class="row">
-	  		<div class="fifteen wide column">
-	  		<div class="ui inverted red segment">
-	  			<div class="ui header">
-	  				Information
-	  			</div>
+		<!--New Case-->
+	<div class="ui modal large case">
+	  <?php echo form_open('Order/AddOrder','class="ui form"');?>
+			<?php echo form_hidden('DentistID',$this->uri->segment(3));?>
+				<?php echo form_hidden('module',1);?>
+	  		<div class="ui inverted teal segment">
+	  			  <div class="ui header">
+				  <i class="large file text outline icon"></i>
+					    New Case Entry
+				  </div>
 	  		</div>
-		      	  <div class="field">
-				    <label>Patient</label>
-				    <input type="text" name="first-name" placeholder="First Name">
-				  </div>
-				  <div class="field">
-				    <label>Due Date</label>
-				    <input type="date" name="last-name" placeholder="Last Name">
-				  </div>
-				  <div class="field">
-				    <label>Due Time</label>
-				    <input type="time" name="last-name" placeholder="Last Name">
-				  </div>
-				  <div class="field">
-					  <div class="field">
+		  <div class="ui horizontal teal segments">
+			  <div class="ui teal segment">
+			  	<label>Case Number:</label>
+			  	<div class="ui header">
+			  		<h3>#SERDS-<?php echo $Count+1;?></h3>
+			  	</div>
+			  </div>
+		  		<div class="ui teal segment">
+		  				<div class="fields">
+		  			<div class="four wide field">
+		  				<label>Doctor</label>
+		  				<input type="text"  placeholder="" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>" readonly>
+		  			</div>
+		  			<div class="four wide field">
+		  				<label>Patient First Name</label>
+		  				<input type="text" name="patientfirstname" placeholder="First Name">
+		  			</div>
+		  			<div class="four wide field">
+		  				<label>Patient Last Name</label>
+		  				<input type="text" name="patientlastname" placeholder="Last Name">
+		  			</div>	  		
+				  <div class="three wide field">
 					  <label>Gender</label>
-					    <select>
+					    <select name="gender">
 					      <option value="">Gender</option>
 					      <option value="1">Male</option>
 					      <option value="0">Female</option>
 					    </select>
-					  </div>
 				  </div>
-				   <div class="field">
+				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="last-name">
+				    <input type="text" name="age">
 				  </div>
-				  <div class="field">
-				    <label>Shade</label>
-				    <input type="text" name="last-name" placeholder="Shade">
+		  		</div>
+		  		</div>
+		  </div>
+		  <div class="ui grid">
+		  <div class="row">
+		  	<div class="eight wide column">
+		  		<div class="ui teal segment">
+		  			<div class="ui centered header blue ">
+		  				<h1>Crown</h1>
+
+		  			</div>
+		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
+		  			<div class="field">
+ 				  	<label>Teeth</label>
+ 				  	<select multiple name="teeth[]" class="ui fluid dropdown">
+ 					<?php
+ 					$x=1; 
+ 					while ($x <= 32) 
+ 					{
+ 						
+ 						echo '<option value="'.$x.'">'.$x.'</option>';
+ 						$x++;
+ 					}	
+ 					?>
+ 					</select>
+ 		  		</div>
+		  		</div>
+		  	</div>
+		  	<div class="eight wide column">
+		  		<div class="ui vertical teal segment">
+		  		  <div class="eight wide field">
+					  <label>Item</label>
+					    <select name="item" multiple="" class="ui fluid dropdown">
+					      <option value=""></option>
+					      <option value="ep">Emax Porcelain (epjc)</option>
+					      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
+					      <option value="fw">One Piece (framework only)</option>
+					      <option value="dr">Denture Repair</option>
+					    </select>
 				  </div>
-				  <div class="field">
-				    <label>Instruction</label>
-				    <textarea rows="2"></textarea>
+		  		</div>
+		  		<div class="ui vertical segment">
+		  		  <div class="eight wide field">
+		  		  	<div class="ui header">Shade Guide:</div>
+					     <div class="inline fields">
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value=1>
+						        <label>1 Shade</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value=2>
+						        <label>2 shades</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value=3>
+						        <label>3 shades</label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="inline fields">
+						  	  <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value=0>
+						        <label>No shade</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="shade1" checked tabindex="0" class="hidden" value=4>
+						        <label>Provide Shade Later</label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="five wide field">
+						  	<select name="shade2">
+						  		<option value=""></option>
+						  		<option value="A1">A1</option>
+						  		<option value="A2">A2.5</option>
+						  		<option value="A3">A3</option>
+						  		<option value="A3">A3.5</option>
+						  	</select>
+						  </div>
 				  </div>
-				  <div class="field">
-				  	<label>Teeth</label>
-				  	<select name="skills" multiple="" class="ui fluid dropdown">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
-					<option value="22">22</option>
-					<option value="23">23</option>
-					<option value="24">24</option>
-					<option value="25">25</option>
-					<option value="26">26</option>
-					<option value="27">27</option>
-					<option value="28">28</option>
-					<option value="29">29</option>
-					<option value="30">30</option>
-					<option value="31">31</option>
-					<option value="32">32</option>
-					</select>
-				  </div>
-				  <h3 class="ui header">Return:</h3>
-				  <div class="field">
-				  	 <div class="ui checkbox">
-				      <input type="checkbox" tabindex="0" class="hidden">
-				      <label>Tray</label>
-				    </div>
-				  </div>
-				    <div class="field">
-				    	<div class="ui checkbox">
-				      <input type="checkbox" tabindex="0" class="hidden">
-				      <label>Shade Guide</label>
-				    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Bite Wax</label>
-					    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Model Cast</label>
-					    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Opposing Cast</label>
-					    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Photos</label>
-					    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Articulator</label>
-					    </div>
-				    </div>
-				    <div class="field">
-					    <div class="ui checkbox">
-					      <input type="checkbox" tabindex="0" class="hidden">
-					      <label>Old Denture</label>
-					    </div>
-				    </div>
-	  		</div>
-	  	</div>
+		  		</div>
+		  		<div class="ui horizontal segments" style="height: 420px;">
+		  			<div class="ui disabled segment">
+		  			<br>
+		  				<div class="ui centered grid">
+		  					<div class="row">
+		  						<div class="fifteen wide column">
+		  							<div class="ui header">
+		  								Design
+		  							</div>
+		  						</div>
+		  					</div>
+		  				</div>
+		  			<hr><br>
+		  			</div>
+		  			<div class="ui disabled segment">
+		  			<br>
+		  				<div class="ui centered grid">
+		  					<div class="row">
+		  						<div class="fifteen wide column">
+		  							<div class="ui header">
+		  								Additional Features
+		  							</div>
+		  						</div>
+		  					</div>
+		  				</div>
+		  			<hr><br>
+		  			</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  		<div class="row">
+		  		<div class="column">
+		  			<div class="ui inverted teal segment">
+		  				<div class="ui header">
+		  					Optional
+		  				</div>
+		  			</div>
+		  		</div>			
+		  		</div>
+				  <div class="row">
+				  	<div class="ten wide column">
+				  		<div class="ui teal segment">
+				  			<div class="ui grid">
+				  			<div class="two column row">
+				  				<div class="column">
+				  					 <h3 class="ui header">Return:</h3>
+				  					 <hr>
+								  <div class="field">
+								  	 <div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden" name="Tray" value=1>
+								      <label>Tray</label>
+								    </div>
+								  </div>
+								    <div class="field">
+								    	<div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden" name="SG" value=1>
+								      <label>Shade Guide</label>
+								    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="BW" value=1>
+									      <label>Bite Wax</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="MC" value=1>
+									      <label>Model Cast</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="OC" value=1>
+									      <label>Opposing Cast</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="Photos" value=1>
+									      <label>Photos</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="Articulator" value=1>
+									      <label>Articulator</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" name="OD" value=1>
+									      <label>Old Denture</label>
+									    </div>
+								    </div>
+				  				</div>
+				  				<div class="column">
+				  					<h3 class="ui header">Doctor's Special Instruction</h3>
+				  					 <hr>
+				  					   <div class="field">
+										    <textarea name="notes"></textarea>
+									   </div>
+				  				</div>
+				  			</div>
+				  			</div>
+				  		</div>
+				  	</div>
+				  	<div class="six wide column">
+				  		<div class="ui teal segment" style="height: 310px;">
+					  		<div class="field">
+					  			<div class="ui header">
+					  				Attachment
+					  			</div>
+								    <input type="file" id="file" >
+							</div>
+							<div class="ui header">
+					  				Due
+					  		</div>
+							<div class="fields">
+								<div class="field">
+							    <label>Due Date</label>
+							    <input type="date" name="duedate" placeholder="Last Name">
+							  </div>
+							  <div class="field">
+							    <label>Due Time</label>
+							    <input type="time" name="duetime" placeholder="Last Name">
+							  </div>
+							</div>
+							  <div class="field">
+							  	<div class="ui checkbox">
+								  <input type="checkbox" name="invoice" value=1>
+								  <label>Direct to make Invoice</label>
+								</div>
+							  </div>
+				  		</div>
+				  	</div>
+				</div>
 	  			<div class="two column row">
 					<div class="nine wide column hidden"></div>
 					<div class="right aligned six wide column">
@@ -710,7 +836,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -720,9 +846,10 @@
 					</div>
 					<div class="one wide column hidden"></div>
 				</div>
-	  </div>
-	  <br>
+	 		 <br>
+		  </div>
 	</form>
 	</div>
+	
 	
 	

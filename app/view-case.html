@@ -301,12 +301,82 @@
 	  	  						</h2>
 	  	  					</div>
 	  	  					<div class="six wide column">
-	  	  						<button class="ui button mode">
+	  	  						<button class="ui button mode invoice-modal">
 										  Edit Invoice
 								</button>
 								<button class="ui green button mode">
 										  Approve Invoice
 								</button>
+	  	  					</div>
+	  	  				</div>
+	  	  			</div>
+	  	  			<table class="ui inverted blue table">
+						<thead>
+							<tr>
+								<th>Billing Item</th>
+								<th>Teeth Number</th>
+								<th>Qty</th>
+								<th>Amount</th>
+								<th>Case Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Emax</td>
+								<td>1,2,3,4</td>
+								<td>1</td>
+								<td>PHP 500.00</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="ui grid">
+						<div class="row">
+							<div class="ten wide column">
+								
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									Subtotal
+								</div>
+								<div class="item">
+									<h2>Total</h2>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									PHP 500.00
+								</div>
+								<div class="item">
+									<h2>PHP 500.oo</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+	  	  		</div>
+	  	  	</div>
+	  	  </div>
+	  	   <div class="row">
+	  	  	<div class="fifteen wide column">
+	  	  		<div class="ui teal segment">
+	  	  			<h3 class="ui header">
+	  	  				Invoice
+	  	  				<hr>
+	  	  			</h3>
+	  	  			<div class="ui grid">
+	  	  				<div class="row">
+	  	  					<div class="ten wide column">
+	  	  						<h2 class="ui green header">
+	  	  							Approved!
+	  	  						</h2>
+	  	  					</div>
+	  	  					<div class="six wide column">
+	  	  						<button class="ui button mode invoice-modal">
+										  Edit Invoice
+								</button>
+								<a href="invoice-print.html"class="ui blue button mode">
+										  Print Invoice
+								</a>
 	  	  					</div>
 	  	  				</div>
 	  	  			</div>
@@ -669,6 +739,142 @@
 		  </div>
 	</form>
 	</div>
+	<!--Invoice-->
+	<div class="ui modal fullscreen invoice">
+	  <form class="ui form">
+	  		<div class="ui inverted blue segment">
+	  			  <div class="ui header">
+				  <i class="large dollar icon"></i>
+					  Invoice
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Customer</label>
+								<input type="text" value="Dr. Mark Serhijos">
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="hjmdentallaboratory@gmail.com">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="right aligned column">
+						<div class="ui segment">
+							<div class="ui header">
+								Balance Due
+								<h1>PHP 500.00</h1>
+							</div>							
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Billing Address</label>
+	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
+	  						</div>
+	  						<div class="field">
+	  							<label>Invoice date</label>
+	  							<input type="date">
+	  						</div>
+	  						<div class="field">
+	  							<label>Due Date</label>
+	  							<input type="date">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>#</th>
+		  					<th>ITEM</th>
+		  					<th>DESCRIPTION</th>
+		  					<th>QTY</th>
+		  					<th>Amount</th>
+		  					<th>Total</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td>1</td>
+		  					<td>Emax</td>
+		  					<td>
+		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					</td>
+		  					<td>1</td>
+		  					<td>500</td>
+		  					<td>500</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
+								</div>
+							</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Subtotal</h4>
+								<h2>Total</h2>
+							</div>
+							<div class="three wide column">
+								<h4>PHP 500.00</h4>
+								<h2>PHP 500.00</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="invoice-print.html" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print Invoice</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
+		  </div>
+	</form>
+	</div>
+
 	
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="../bower_components/semantic/dist/semantic.min.js"></script>

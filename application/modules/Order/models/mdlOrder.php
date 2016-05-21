@@ -13,23 +13,13 @@ class mdlOrder extends CI_Model {
 		$this->db->delete('tblcaseteeth');	
 		return true;
 	}
+
 	function InsertCaseTeeth($options=array())
 	{
 		$this->db->insert('tblcaseteeth', $options);	
 		return $this->db->insert_id();
 	}
-	function validate()
-	{
-		$this->db->where('username', $this->input->post('username'));
-		$this->db->where('password',md5($this->input->post('password')));
-		$query =$this->db->get('users');
-
-		if($query->num_rows ==1)
-		{
-			return true;
-		}
-			
-	}
+	
 
 	function getCaseTeeth($options = array())
 	{
@@ -46,16 +36,29 @@ class mdlOrder extends CI_Model {
 		//die($this->db->last_query());
 		return $query->result();
 	}
+
+
+	function getStatus($options = array())
+	{
+		
+		$query = $this->db->get("tblstatus");
+		
+		return $query->result();
+	}
+
 	function countOrder($options=array())
 	{
 		if(isset($options['DentistID']))
 			$this->db->where('DentistID',$options['DentistID']);
 
-		if(isset($options['status']))
-			$this->db->like('status',$options['status']);
+		if(isset($options['status_id']))
+			$this->db->where('status_id',$options['status_id']);
 
 		return $query = $this->db->count_all_results('tblcase');
 	}
+
+	
+
 	function getOrder($options = array())
 	{
 		//verification
@@ -195,8 +198,8 @@ class mdlOrder extends CI_Model {
 
 		
 
-		if(isset($options['status']))
-			$this->db->set('status', $options['status']);
+		if(isset($options['status_id']))
+			$this->db->set('status_id', $options['status_id']);
 		
 		$this->db->where('CaseID', $options['CaseID']);
 		$this->db->update('tblcase');
