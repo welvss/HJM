@@ -1005,6 +1005,7 @@
 		  <div class="ui centered grid">
 		  <div class="row">
 		  	<div class="fifteen wide column">
+		  	<form class="ui form">
 		  		<table class="ui table">
 		  			<thead>
 		  				<tr>
@@ -1020,17 +1021,32 @@
 		  			<tbody>
 		  				<tr>
 		  					<td>1</td>
-		  					<td>Emax</td>
+		  					<td>
+		  						<div class="ui selection dropdown">
+								  <input type="hidden" name="gender">
+								  <i class="dropdown icon"></i>
+								  <div class="default text">Default item dito</div>
+								  <div class="menu">
+								    <div class="item" data-value="1">Emax</div>
+								    <div class="item" data-value="0">Baymax</div>
+								  </div>
+								</div>
+		  					</td>
 		  					<td>
 		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 		  					</td>
-		  					<td>1</td>
-		  					<td>500</td>
+		  					<td>
+		  						<input type="number" style="width: 100px">
+		  					</td>
+		  					<td>
+		  						<input type="text">
+		  					</td>
 		  					<td>500</td>
 		  					<td><a href="#"><i class="trash icon"></i></a></td>
 		  				</tr>
 		  			</tbody>
 		  		</table>
+		  	</form>
 		  	</div>
 		  </div>
 		  <div class="row">
