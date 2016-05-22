@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HJM | Dental Laboratory</title>
+</head>
+<link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="../bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/hover-min.css">
+<link rel="shortcut icon" href="favicon.ico">
+<body class="app">
+<!--Sidebar-->
+	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
+		<div class="app-avatar">
+			<div id="circle" class="circle">
+				<h1 id="app-avatar-initial">WM</h1>
+			</div>
+		</div>
+		<div class="ui right dropdown item">
+		 <div class="ui sub header">Welvin Medina</div>
+      		Admin
+	    <i class="dropdown icon"></i>
+	    <div class="menu">
+	      <div class="item"><i class="settings icon"></i>
+	      Edit Username</div>
+	      <div class="item"> <i class="user icon"></i>
+	      Change Avatar</div>
+	      <div class="divider"></div>
+	      <div class="item"> <i class="browser icon"></i>
+	      Manage Site</div>
+	      <div class="item"> <i class="configure icon"></i>
+	      Account settings</div>
+	      <div class="item"> <i class="sign out icon"></i>
+	      Sign Out</div>
+	    </div>
+    </div>
+  	<hr>
+		 <a href="index.html" class="item">
+		    <i class="large home icon"></i>
+		    Home
+		  </a>
+		  <a href="app-customer.html" class="active blue item">
+		    <i class="large doctor icon"></i>
+		    Customer
+		  </a>
+		  <a href="cases.html" class="item">
+		    <i class="large file text outline icon"></i>
+		    <div class="ui left label" id="number-notif">3</div>
+		    Cases
+		  </a>
+		  <a href="supplier.html" class="item">
+		    <i class="large shipping icon"></i>
+		    Suppliers
+		  </a>
+		  <a href="inventory.html" class="item">
+		    <i class="large cubes icon"></i>
+		     <div class="ui left red label" id="number-notif">9</div>
+		    Inventory
+		  </a>
+	</div>
+<!--Pusher-->
+<div class="pusher">
+	<!--Header-->
+	  <div class="computer tablet only row">
+	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
+		    <button class="sidebar-button ui basic inverted button">
+		  	<i class="icon align justify big icon"></i>
+		    </button>
+			<div class="brand">
+				<img src="img/hjm.png" alt="" style="">
+				<p style="display: inline-block;">DENTAL LABORATORY</p>
+			</div>
+			<div class="right menu">
+				<div class="ui transparent inverted icon input">
+				  <input type="text" placeholder="Search HJM Dental La..">
+				  <i class="search icon"></i>
+				</div>
+			</div>
+	    </div>
+	  </div>
+	  <!--App-content--> 
+	  <div class="ui grid home-grid">
+	  <div class="row app-content page-header header">
+	  		<div class="one wide column hidden"></div>
+	   		<div class="eleven wide column">
+		   		<h1 class="ui header">
+		   		<i class="truck icon"></i>
+		   		<div class="content">
+		   			Mr. Ralph Pagayon
+		   			<div class="sub header">
+		   			<span>Deew Plantation</span>
+		   			&nbsp;&nbsp; | &nbsp;&nbsp;
+		   			<span>Signal, Paranaque</span>
+		   			</div>
+		   		</div>
+		   		</h1>
+	   		</div>
+	   		<div class="four wide column">
+	   		<button class="ui blue button mode">
+					  Edit
+			</button>
+			<div class="ui icon top green right labeled pointing dropdown button">
+			  <i class="add icon"></i>
+			  New Transaction
+			  <div class="menu">
+			    <div class="item invoice-modal">
+				  <i class="large add to cart icon"></i>
+			    New Purchase Order</div>
+			  </div>
+			</div>
+			</div>
+			<div class="one wide column hidden"></div>
+	  </div>
+	  <div class="row">
+	  	<div class="one wide column hidden"></div>
+	  	<div class="eight wide column">
+	  	<br>
+	  	</div>
+	  	<div class="six wide right aligned column">
+	  	<br><br>
+		  	<div class="ui horizontal list">
+		  		<div class="item">
+		  			<h2 class="ui header">
+				<a class="ui orange circular label"></a>
+				<div class="content">
+						  PHP 0.00
+				  <div class="sub header">Open Bill</div>
+				</div>
+				</h2>
+		  		</div>
+		  		<div class="item">
+		  			<h2 class="ui header">
+				<a class="ui red circular label"></a>
+				<div class="content">
+						  PHP 0.00
+				  <div class="sub header">Overdue</div>
+				</div>
+				</h2>
+		  		</div>
+		  	</div>
+	  	</div>
+	  </div>    
+	  </div>
+	  <!--Tab-->
+	  <div class="ui grid">
+	  	<div class="row">
+	  		<div class="fourteen wide column centered grid">
+	  		<div class="ui stacked inverted green segment">
+	  			<div class="ui top attached inverted green tabular menu">
+					  <a class="item active" data-tab="second">Supplier Details</a>
+					  <a class="item" data-tab="third">Purchase History</a>
+					</div>
+					<div class="ui bottom attached tab segment active" data-tab="second">
+					<br>
+					  <div class="ui grid">
+					  	<div class="two column row">
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Supplier Name</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>Deew Plantation</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Supplier Contact Name</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>Mr Ralph Pagayon</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Email</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#">markserojihos@gmail.com</a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Phone</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>899 66 988</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Mobile</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p></p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Website</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<a href="#">www.hjmdentallaboratory.com</a>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Notes</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<div class="ui form">
+											  <div class="field">
+											    <textarea rows="2"></textarea>
+											  </div>
+											</div>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  		<div class="eight wide column">
+					  			<div class="ui grid">
+					  			<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Fax</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>20930293290</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Address</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  </div>
+					</div>
+					<div class="ui bottom attached tab segment" data-tab="third" id="tabs">
+					<!--Case History-->
+					  <div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-case">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+	  					<br>
+			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
+			  				<thead>
+			  					<tr>
+			  						<th>PO#</th>
+			  						<th>CREATED DATE</th>
+			  						<th>AMOUNT</th>
+			  						<th>STATUS</th>
+			  						<th>ACTION</th>
+			  					</tr>
+			  				</thead>
+			  				<tbody>
+			  					<tr>
+			  						<td><a href="view-po.html">PO-GR@C3</a></td>
+			  						<td>Fr 05/20/2016 10 Am</td>
+			  						<td>50, 000</td>
+			  						<td>
+									   New
+			  						</td>
+			  						<td>
+			  							<a href="#" class="green">
+			  								<i class="red trash icon"></i>
+			  								Delete
+			  							</a>
+			  						</td>
+			  					</tr>
+			  				</tbody>
+			  			</table>
+				</div>
+	  		</div>
+	  		</div>
+	  	</div>
+	  </div>
+</div>
+<!--New Supplier Modal-->
+	<div class="ui modal fullscreen edit-customer">
+		  <div class="header" id="header-modal-supplier">
+		   <i class="large green truck icon"></i>
+		    Supplier Information
+		  </div>
+		  <form class="ui form">
+			<div class="ui grid" id="add-dentist-modal">
+				<div class="row">
+					<div class="one wide column hidden"></div>
+						<div class="fourteen wide column">
+								  <div class="fields">
+								  <div class="two wide field">
+								  	<label>Title</label>
+								  	<select name="title" class="ui fluid dropdown">
+									  	<option value="Mr.">Dr.</option>
+									  	<option value="Mr.">Dra.</option>
+								  		<option value="Mr.">Mr.</option>
+								  		<option value="Mr.">Mrs.</option>
+								  		<option value="Mr.">Ms.</option>
+								  	</select>
+								  </div>
+								    <div class="two wide field">
+								      <label>First name</label>
+								      <input type="text" placeholder="First Name" name="first-name">
+								    </div>
+								    <div class="two wide field">
+								      <label>Middle name</label>
+								      <input type="text" placeholder="Middle Name">
+								    </div>
+								    <div class="two wide field">
+								      <label>Last name</label>
+								      <input type="text" placeholder="Last Name" name="last-name">
+								    </div>
+								    <div class="eight wide field">
+								      <label>Email</label>
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
+								    </div>
+								  </div>
+								  <div class="fields">
+									  <div class="eight wide field">
+									  	<label>Company Name</label>
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
+									  </div>
+									  <div class="four wide field">
+								    		<label>Telephone</label>
+								    		<input type="text">
+								    	</div>
+								    	<div class="four wide field">
+								    		<label>Mobile</label>
+								    		<input type="text" name="mobile">
+								    	</div>
+								  </div>
+								  <div class="fields">
+								  	<div class="eight wide field">
+									  	<label>Website</label>
+									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com">
+									  </div>
+									  <div class="eight wide field">
+									  	<label>Fax</label>
+									  	<input type="text">
+									  </div>
+								  </div>
+								  <!--Tabs-->
+						<br>
+						<div class="row">
+							<div class="one wide column hidden"></div>
+							<div class="fourteen wide column">
+									<div class="ui top attached inverted green tabular menu">
+								  <a class="item active" data-tab="address">Address</a>
+								  <a class="item" data-tab="notes">Notes</a>
+								</div>
+								<div class="ui bottom attached tab segment active" data-tab="address">
+								 	<div class="row">
+									 	<div class="ui two column stackable grid">
+									 		<!--Billing Address -->
+									 		<div class="centered column">
+												  <div class="field">
+												    <label>Address</label>
+												    <textarea rows="2" placeholder="Street"></textarea>
+												  </div>
+												  <div class="two fields">
+												  	<div class="field">
+												  		<input type="text" placeholder="City">
+												  	</div>
+												  	<div class="field">
+												  		<input type="text" placeholder="Baranggay">
+												  	</div>
+												  </div>
+									 		</div>
+									 	</div>
+									 </div>
+								</div>
+								<div class="ui bottom attached tab segment" data-tab="notes">
+									<div class="ui form">
+										<div class="field">
+										<label>Notes</label>
+										<textarea rows="3" placeholder="Additional Notes"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="one wide column"></div>
+						</div>
+						</div>
+				<div class="one wide column hidden"></div>
+				</div>
+				<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+				<br>
+			</div>  
+			</form>
+			<br>
+	</div>
+	<!--New Case-->
+	<div class="ui modal large case">
+	  <form class="ui form">
+	  		<div class="ui inverted green segment">
+	  			  <div class="ui header">
+				  <i class="large add to cart icon"></i>
+					    New Purchase
+				  </div>
+	  		</div>
+		  <div class="ui horizontal teal segments">
+			  <div class="ui teal segment">
+			  	<label>Case Number:</label>
+			  	<div class="ui header">
+			  		<h3>#SERDS-M0KW1D</h3>
+			  	</div>
+			  </div>
+		  		<div class="ui teal segment">
+		  				<div class="fields">
+		  			<div class="four wide field">
+		  				<label>Doctor</label>
+		  				<input type="text" name="doctor" placeholder="" value="Dr. Mark Serojihos">
+		  			</div>
+		  			<div class="four wide field">
+		  				<label>Patient first name</label>
+		  				<input type="text" name="last-name" placeholder="First Name">
+		  			</div>
+		  			<div class="four wide field">
+		  				<label>Patient last name</label>
+		  				<input type="text" name="last-name" placeholder="Last Name">
+		  			</div>	  		
+				  <div class="three wide field">
+					  <label>Gender</label>
+					    <select>
+					      <option value="">Gender</option>
+					      <option value="1">Male</option>
+					      <option value="0">Female</option>
+					    </select>
+				  </div>
+				   <div class="one wide field">
+				    <label>Age</label>
+				    <input type="text" name="last-name">
+				  </div>
+		  		</div>
+		  		</div>
+		  </div>
+		  <div class="ui grid">
+		  <div class="row">
+		  	<div class="eight wide column">
+		  		<div class="ui teal segment">
+		  			<div class="ui centered header blue ">
+		  				<h1>Crown</h1>
+		  			</div>
+		  			<img class="ui centered large image"src="img/teeth-structure.png" alt="">
+		  			<div class="field">
+ 				  	<label>Teeth</label>
+ 				  	<select name="skills" multiple="" class="ui fluid dropdown">
+ 					<option value="1">1</option>
+ 					<option value="2">2</option>
+ 					<option value="3">3</option>
+ 					<option value="4">4</option>
+ 					<option value="5">5</option>
+ 					<option value="6">6</option>
+ 					<option value="7">7</option>
+ 					<option value="8">8</option>
+ 					<option value="9">9</option>
+ 					<option value="10">10</option>
+ 					<option value="11">11</option>
+ 					<option value="12">12</option>
+ 					<option value="13">13</option>
+ 					<option value="14">14</option>
+ 					<option value="15">15</option>
+ 					<option value="16">16</option>
+ 					<option value="17">17</option>
+ 					<option value="18">18</option>
+ 					<option value="19">19</option>
+ 					<option value="20">20</option>
+ 					<option value="21">21</option>
+ 					<option value="22">22</option>
+ 					<option value="23">23</option>
+ 					<option value="24">24</option>
+ 					<option value="25">25</option>
+ 					<option value="26">26</option>
+ 					<option value="27">27</option>
+ 					<option value="28">28</option>
+ 					<option value="29">29</option>
+ 					<option value="30">30</option>
+ 					<option value="31">31</option>
+ 					<option value="32">32</option>
+ 					</select>
+ 		  		</div>
+		  		</div>
+		  	</div>
+		  	<div class="eight wide column">
+		  		<div class="ui vertical teal segment">
+		  		  <div class="eight wide field">
+					  <label>Item</label>
+					    <select name="item" multiple="" class="ui fluid dropdown">
+					      <option value=""></option>
+					      <option value="ep">Emax Porcelain (epjc)</option>
+					      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
+					      <option value="fw">One Piece (framework only)</option>
+					      <option value="dr">Denture Repair</option>
+					    </select>
+				  </div>
+		  		</div>
+		  		<div class="ui vertical segment">
+		  		  <div class="eight wide field">
+		  		  	<div class="ui header">Shade Guide:</div>
+					     <div class="inline fields">
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
+						        <label>1 Shade</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <label>2 shades</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <label>3 shades</label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="inline fields">
+						  	  <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <label>No shade</label>
+						      </div>
+						    </div>
+						    <div class="field">
+						      <div class="ui radio checkbox">
+						        <input type="radio" name="fruit" tabindex="0" class="hidden">
+						        <label>Provide Shade Later</label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="five wide field">
+						  	<select>
+						  		<option value=""></option>
+						  		<option value="A1">A1</option>
+						  		<option value="A2">A2.5</option>
+						  		<option value="A3">A3</option>
+						  		<option value="A3">A3.5</option>
+						  	</select>
+						  </div>
+				  </div>
+		  		</div>
+		  		<div class="ui horizontal segments" style="height: 420px;">
+		  			<div class="ui disabled segment">
+		  			<br>
+		  				<div class="ui centered grid">
+		  					<div class="row">
+		  						<div class="fifteen wide column">
+		  							<div class="ui header">
+		  								Design
+		  							</div>
+		  						</div>
+		  					</div>
+		  				</div>
+		  			<hr><br>
+		  			</div>
+		  			<div class="ui disabled segment">
+		  			<br>
+		  				<div class="ui centered grid">
+		  					<div class="row">
+		  						<div class="fifteen wide column">
+		  							<div class="ui header">
+		  								Additional Features
+		  							</div>
+		  						</div>
+		  					</div>
+		  				</div>
+		  			<hr><br>
+		  			</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  		<div class="row">
+		  		<div class="column">
+		  			<div class="ui inverted teal segment">
+		  				<div class="ui header">
+		  					Optional
+		  				</div>
+		  			</div>
+		  		</div>			
+		  		</div>
+				  <div class="row">
+				  	<div class="ten wide column">
+				  		<div class="ui teal segment">
+				  			<div class="ui grid">
+				  			<div class="two column row">
+				  				<div class="column">
+				  					 <h3 class="ui header">Return:</h3>
+				  					 <hr>
+								  <div class="field">
+								  	 <div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden">
+								      <label>Tray</label>
+								    </div>
+								  </div>
+								    <div class="field">
+								    	<div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden">
+								      <label>Shade Guide</label>
+								    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Bite Wax</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Model Cast</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Opposing Cast</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Photos</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Articulator</label>
+									    </div>
+								    </div>
+								    <div class="field">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden">
+									      <label>Old Denture</label>
+									    </div>
+								    </div>
+				  				</div>
+				  				<div class="column">
+				  					<h3 class="ui header">Doctor's Special Instruction</h3>
+				  					 <hr>
+				  					   <div class="field">
+										    <textarea></textarea>
+									   </div>
+				  				</div>
+				  			</div>
+				  			</div>
+				  		</div>
+				  	</div>
+				  	<div class="six wide column">
+				  		<div class="ui teal segment" style="height: 310px;">
+					  		<div class="field">
+					  			<div class="ui header">
+					  				Attachment
+					  			</div>
+								    <input type="file" id="file" >
+							</div>
+							<div class="ui header">
+					  				Due
+					  		</div>
+							<div class="fields">
+								<div class="field">
+							    <label>Due Date</label>
+							    <input type="date" name="last-name" placeholder="Last Name">
+							  </div>
+							  <div class="field">
+							    <label>Due Time</label>
+							    <input type="time" name="last-name" placeholder="Last Name">
+							  </div>
+							</div>
+				  		</div>
+				  	</div>
+				  </div>
+	  			<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br>
+		  </div>
+	</form>
+	</div>
+
+	<!--Invoice-->
+	<div class="ui modal fullscreen invoice">
+	  <form class="ui form">
+	  		<div class="ui inverted green segment">
+	  			  <div class="ui header">
+				  <i class="large add to cart icon"></i>
+					  New Purchase
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Supplier</label>
+								<input type="text" value="Deew Plantation">
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="hjmdentallaboratory@gmail.com">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui horizontal segments">
+						<div class="ui segment">
+							<div class="ui header">
+								<h3>PO#:</h3>
+								<h1>PO-GR@C3</h1>
+							</div>	
+						</div>
+						<div class="ui segment">
+							<div class="ui header">
+								Total
+								<h1>PHP 500.00</h1>
+							</div>	
+						</div>						
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Billing Address</label>
+	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
+	  						</div>
+	  						<div class="field">
+	  							<label>Purchase Order date</label>
+	  							<input type="date">
+	  						</div>
+	  						<div class="field">
+	  							<label>Requested Ship Date</label>
+	  							<input type="date">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  	<form class="ui form">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>#</th>
+		  					<th>ITEM</th>
+		  					<th>DESCRIPTION</th>
+		  					<th>QTY</th>
+		  					<th>Amount</th>
+		  					<th>Total</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td>1</td>
+		  					<td>
+		  						<div class="ui selection dropdown">
+								  <input type="hidden" name="gender">
+								  <i class="dropdown icon"></i>
+								  <div class="default text">Default item dito</div>
+								  <div class="menu">
+								    <div class="item" data-value="1">Emax</div>
+								    <div class="item" data-value="0">Baymax</div>
+								  </div>
+								</div>
+		  					</td>
+		  					<td>
+		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					</td>
+		  					<td>
+		  						<input type="number" style="width: 100px">
+		  					</td>
+		  					<td>
+		  						<input type="text">
+		  					</td>
+		  					<td>500</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</form>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<button class="ui button green">
+		  			Add Row
+		  		</button>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="ten wide column">
+								<div class="eight wide field">
+									<label>Message displayed on PO</label>
+									<textarea row="2"></textarea>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									<h4>Subtotal</h4>
+								</div>
+								<br>
+								<div class="inline fields">
+									<div class="field">
+										<select class="ui dropdown">
+										  <option value="1">Discount Value</option>
+										  <option value="0">Discount Percent</option>
+										</select>
+									</div>
+									<div class="field">
+										<input type="text">
+									</div>
+									<div class="field">
+									<h4>PHP -200</h4>
+								</div>
+								</div>
+								<br>
+								<div class="item">
+									<h3>TOTAL</h3>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									<h4>PHP 500</h4>
+								</div>
+								<br><br>
+								<br><br><br>
+								<div class="item">
+									<h3>PHP 200</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
+		  </div>
+	</form>
+	</div>
+
+	<div class="ui modal fullscreen payment">
+	  <form class="ui form">
+	  		<div class="ui inverted blue segment">
+	  			  <div class="ui header">
+				  <i class="large dollar icon"></i>
+					  Receive Payment
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Customer</label>
+								<input type="text" value="Dr. Mark Serhijos">
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="hjmdentallaboratory@gmail.com">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="right aligned column">
+						<div class="ui segment">
+							<div class="ui header">
+								Ammount Receive
+								<h1>PHP 500.00</h1>
+							</div>							
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Payment date</label>
+	  							 <input type="date">
+	  						</div>
+	  						<div class="field">
+	  							<label>Payment Method</label>
+	  							<input type="text">
+	  						</div>
+	  						<div class="field">
+	  							<label>Due Date</label>
+	  							<input type="date">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>DESCRIPTION</th>
+		  					<th>DUE DATE</th>
+		  					<th>ORIGINAL AMMOUNT</th>
+		  					<th>OPEN BALANCE</th>
+		  					<th>PAYMENT</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td>
+		  					Invoice #420 (05/18/2016)
+		  					</td>
+		  					<td>
+		  						06/17/2016
+		  					</td>
+		  					<td>1000.00</td>
+		  					<td>500</td>
+		  					<td>
+		  						<div class="ui form">
+		  							<input type="text" value="500">
+		  						</div>
+		  					</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
+								</div>
+							</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Amount to apply</h4>
+							</div>
+							<div class="three wide column">
+								<h2>PHP 500.00</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="receipt.html" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
+		  </div>
+	</form>
+	</div>
+	
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/semantic/dist/semantic.min.js"></script>
+	<script src="../bower_components/datatables.net/js/jquery.dataTables.js"></script>
+	<script src="js/app-customer-info.js"></script>
+</body>
+</html>
