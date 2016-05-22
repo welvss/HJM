@@ -54,4 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['Customer/Info/(:any)'] = "Customer/CustomerInfo/$1";
+$route['Invoice'] = "Order/Invoice";
+$route['Invoice/addInvoice'] = "Order/Invoice/addInvoice";
 

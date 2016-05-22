@@ -364,7 +364,7 @@
 	<?php echo form_open('Order/EditOrder','class="ui form"');?>
 	 
 	  	<?php echo form_hidden('CaseID',$this->uri->segment(3));?>
-	  
+
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
 				  <i class="large file text outline icon"></i>
@@ -403,7 +403,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="age">
+				    <input type="text" name="age" value="<?php echo $case->age;?>">
 				  </div>
 		  		</div>
 		  		</div>
@@ -684,7 +684,10 @@
 	</div>
 	<!--Invoice-->
 	<div class="ui modal fullscreen invoice">
-	  <form class="ui form">
+	
+	  	<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
+	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
+	  	<?php echo form_hidden('CaseID',$case->CaseID);?>
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
 				  <i class="large dollar icon"></i>
@@ -727,12 +730,8 @@
 	  							 <textarea rows="2"><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></textarea>
 	  						</div>
 	  						<div class="field">
-	  							<label>Invoice date</label>
-	  							<input type="date">
-	  						</div>
-	  						<div class="field">
 	  							<label>Due Date</label>
-	  							<input type="date">
+	  							<input type="date" name="duedate">
 	  						</div>
 	  					</div>
 	  				</div>
@@ -754,20 +753,33 @@
 		  					<th></th>
 		  				</tr>
 		  			</thead>
-		  			<tbody>
+		  			
+		  			<tbody id="Add">
+		  				
 		  				<tr>
+		  					
 		  					<td>1</td>
-		  					<td>Emax</td>
+		  					<td><input class="sixteen wide field" type="text" name="invoice[1][Item]"/></td>
 		  					<td>
-		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					<input class="fifteen wide field" type="text" name="invoice[1][Description]"/>
 		  					</td>
-		  					<td>1</td>
-		  					<td>500</td>
-		  					<td>500</td>
-		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  					<td><input type=text id="QTY1" name="invoice[1][QTY]" value="" ><br></td>
+		  					<td><input type="text" id="Amount1" name="invoice[1][Amount]" value="" onchange="addSubtotal();"></td>
+		  					<td><input type="text" id="SubTotal1" name="invoice[1][SubTotal]" value="" /></td>
+		  					<td><a href="#" onClick="deleteRow(this)"><i class="trash icon"></i></a></td>
+		  				
 		  				</tr>
+					
 		  			</tbody>
+		  		
 		  		</table>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<a class="ui button green" id="AddRow" >
+		  			Add Row
+		  		</a>
 		  	</div>
 		  </div>
 				<div class="row">
@@ -788,7 +800,8 @@
 							</div>
 							<div class="three wide column">
 								<h4>PHP 500.00</h4>
-								<h2>PHP 500.00</h2>
+								<h2 id="TotalSave"></h2>
+
 							</div>
 						</div>
 					</div>
