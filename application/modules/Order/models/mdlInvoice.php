@@ -6,93 +6,18 @@ class mdlInvoice extends CI_Model {
 		parent:: __construct();
 	}
 
-	function deleteTeeth($options=array())
-	{	
-	
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->delete('tblcaseteeth');	
-		return true;
-	}
-
-	function InsertCaseTeeth($options=array())
-	{
-		$this->db->insert('tblcaseteeth', $options);	
-		return $this->db->insert_id();
-	}
-	
-
-	function getCaseTeeth($options = array())
-	{
-		//verification
-		
-		
-		
-	
-		$this->db->like('CaseID', $options['CaseID']);
-		$query = $this->db->get("tblcaseteeth");
-		
-		
-		
-		//die($this->db->last_query());
-		return $query->result();
-	}
-
-
-	function getStatus($options = array())
-	{
-		
-		$query = $this->db->get("tblstatus");
-		
-		return $query->result();
-	}
-
-	function countOrder($options=array())
-	{
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID',$options['DentistID']);
-
-		if(isset($options['status_id']))
-			$this->db->where('status_id',$options['status_id']);
-
-		return $query = $this->db->count_all_results('tblcase');
-	}
-
-	
-
-	function getOrder($options = array())
+	public function getInvoice($options = array())
 	{
 		//verification
 		if(isset($options['DentistID']))
-			$this->db->where('DentistID', $options['DentistID']);
+			$this->db->like('DentistID', $options['DentistID']);
 
 		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
+			$this->db->like('CaseID', $options['CaseID']);
+
+		if(isset($options['InvoiceID']))
+			$this->db->where('InvoiceID', $options['InvoiceID']);
 		
-		if(isset($options['patient']))
-			$this->db->like('patient', $options['patient']);
-			
-		if(isset($options['due-time']))
-			$this->db->like('duetime', $options['due-time']);
-			
-		if(isset($options['due-date']))
-			$this->db->like('duedate', $options['due-date']);
-
-		if(isset($options['orderdatetime']))
-			$this->db->like('orderdatetime', $options['orderdatetime']);
-
-		if(isset($options['gender']))
-			$this->db->like('gender', $options['gender']);
-
-		if(isset($options['age']))
-			$this->db->like('age', $options['age']);
-
-		if(isset($options['notes']))
-			$this->db->like('notes', $options['notes']);
-
-		if(isset($options['file']))
-			$this->db->like('file', $options['file']);
-
-
 		if(isset($options['limit']) && isset($options['offset']))
 			$this->db->limit($options['limit'], $options['offset']);
 		
@@ -102,22 +27,51 @@ class mdlInvoice extends CI_Model {
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
 		
-		$query = $this->db->get("tblcase");
+		$query = $this->db->get("tblInvoice");
 		
 		if(isset($options['count']))
 			return $query->num_rows();
 		
-		if(isset($options['CaseID']))
+		if(isset($options['InvoiceID']))
 			return $query->row(0);
-		//die($this->db->last_query());
 		return $query->result();
 	}
 
-	
-	function addInvoice($options = array())
+	function countInvoice($options=array())
+	{
+		if(isset($options['CaseID']))
+			$this->db->where('CaseID',$options['CaseID']);
+
+		return $query = $this->db->count_all_results('tblInvoice');
+	}
+	function createInvoice($options = array())
 	{
 		$this->db->insert('tblInvoice', $options);	
 		return $this->db->insert_id();
+		
+		
+	}
+	function addInvoice($options = array())
+	{
+		if(isset($options['InvoiceID']))
+			$this->db->where('InvoiceID', $options['InvoiceID']);
+		
+		if(isset($options['duedate']))
+			$this->db->set('duedate', $options['duedate']);
+
+		if(isset($options['Total']))
+			$this->db->set('Total', $options['Total']);							
+
+		if(isset($options['datecreated']))
+			$this->db->set('datecreated', $options['datecreated']);
+
+		if(isset($options['status']))
+			$this->db->set('status', $options['status']);
+		
+		$this->db->where('InvoiceID', $options['InvoiceID']);
+		$this->db->update('tblInvoice');
+		
+		return $this->db->affected_rows();
 		
 	}
 	function addInvoiceItem($options = array())

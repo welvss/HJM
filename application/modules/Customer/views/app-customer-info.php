@@ -362,7 +362,17 @@
 											echo
 										'<tr>
 											<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">#SERDS-'.$case->CaseID.'</a></td>
-											<td><a href="#">420</a></td>
+											<td>'; 
+											foreach ($invoice as $i) 
+											{
+												if ($i->CaseID==$case->CaseID) 
+												{
+													echo '<a href="'.base_url().'/Invoice/InvoiceSlip/'.$i->InvoiceID.'">Invoice # '.$i->InvoiceID.'</a>';
+							}
+												}
+											}
+											echo
+											'</td>
 											<td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
 											<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
 											<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>';

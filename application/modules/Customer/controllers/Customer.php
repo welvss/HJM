@@ -42,8 +42,10 @@ class Customer extends MX_Controller
 	
 	public function CustomerInfo()
 	{
+
 		$data['Count']	= $this->mdlOrder->countOrder(array());
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
+		$data['invoice'] = $this->mdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
 		$data['status'] = $this->mdlOrder->getStatus();
 		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
 		$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));

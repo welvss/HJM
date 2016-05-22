@@ -20,6 +20,7 @@ class Order extends MX_Controller
 			$this->load->view('template/header',$data);
 			$data['cases'] = $this->mdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
 			$data['status'] = $this->mdlOrder->getStatus();
+			$data['invoice'] = $this->mdlInvoice->getInvoice();
 			$data['dentists'] = $this->mdlCustomer->getDentist(array());
 			$data['Count']	= $this->mdlOrder->countOrder(array());
 
@@ -185,6 +186,12 @@ class Order extends MX_Controller
 									//'file' => $upload_data['file_name']
 								);
 						$CaseID = $this->mdlOrder->AddOrder($data);
+						$i=$this->mdlInvoice->countInvoice();
+						$invoice= array('CaseID' => $CaseID,
+							'InvoiceID' => $this->mdlInvoice->countInvoice()+1,
+							'DentistID'=>$_POST['DentistID']
+							);
+						$this->mdlInvoice->createInvoice($invoice);
 						if(isset($_POST['teeth']))
 						{	
 							$teeth=$_POST['teeth'];
@@ -432,6 +439,7 @@ class Order extends MX_Controller
 		{
 			$this->load->view('template/header',$data);
 			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['invoice'] = $this->mdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3),'DentistID'=>$info->DentistID));
 			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
 			$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
@@ -454,6 +462,7 @@ class Order extends MX_Controller
 	
 	
 	}
+	
 	
 	
 	

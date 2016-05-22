@@ -32,16 +32,24 @@ class Invoice extends MX_Controller
 		else
 			redirect('Dashboard');
 	}
-
+	public function InvoiceSlip()
+	{	
+		$info = $this->mdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
+		$data['invoice'] = $this->mdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
+		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));
+		$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$info->CaseID));
+		
+		$this->load->view('invoice-slip',$data);
+			
+	}
 	
 	public function addInvoice()
 	{
 	
 						
 						$data=array(
-									'DentistID'=>$_POST['DentistID'],
-									
-									'CaseID'=>$_POST['CaseID'],
+									'InvoiceID' => $_POST['InvoiceID'],
+									'datecreated'=>date('Y-m-d H:i:s'),
 									'duedate' => $_POST['duedate'],
 									'Total'=>$_POST['Total']
 
@@ -54,7 +62,6 @@ class Invoice extends MX_Controller
 							{
 								$invoice[$x] = array('InvoiceID' => $InvoiceID,
 									'Item' => $invoice['Item'],
-									'Description' => $invoice['Description'],
 									'QTY' => $invoice['QTY'],
 									'Amount' => $invoice['Amount'],
 									'SubTotal' => $invoice['SubTotal'],);
@@ -75,26 +82,20 @@ class Invoice extends MX_Controller
 
 	}
 
-	public function UpdateOrderStatus()
+	public function UpdateInvoiceStatus()
 	{
 	
 			
-				$order = array(
-							'CaseID'=>$_POST['CaseID'],
-							'status_id' => $_POST['status_id'] 
+				$invoice = array(
+							'InvoiceID'=>$_POST['InvoiceID'],
+							'status' => $_POST['status'] 
 							);
 				
-				if($this->mdlOrder->UpdateOrderStatus($order))
-				{
-					if( $_POST['DentistID']!=Null)
-						redirect('Customer/Info/'.$_POST['DentistID'].'/'.$_POST['Info']);
-					else
-						redirect('Order');
-				}
-			
+				if($this->mdlInvoice->addInvoice($invoice))
+					redirect('Order/Info/'.$_POST['CaseID']);
+					
 			
 		
-	
 		
 
 	}

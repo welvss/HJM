@@ -137,7 +137,21 @@
 						echo
 					'<tr>
 						<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">#SERDS-'.$case->CaseID.'</a></td>
-						<td><a href="#">420</a></td>
+						<td>'; 
+						foreach ($invoice as $i) 
+						{
+							if ($i->CaseID==$case->CaseID) 
+							{
+								if($i->datecreated!=null)
+									echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+								else
+									echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+							}
+						}
+
+
+						echo
+						'</td>
 						<td>
 							<h4 class="ui image header">
 								        <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
@@ -183,7 +197,7 @@
 				  			</form>				
 						</td>
 						<td>
-							<button class="ui blue button" onClick="printRX(this.value);" value="'.$case->CaseID.'">
+							<button class="ui blue button" onClick="printRX(this.value);" value="'.base_url('index.php/Order/RX/'.$case->CaseID).'">
 								<i class="file icon"></i>
 								View
 							</button>			

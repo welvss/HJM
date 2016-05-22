@@ -224,23 +224,53 @@
 	  	  				Invoice
 	  	  				<hr>
 	  	  			</h3>
-	  	  			<div class="ui grid">
-	  	  				<div class="row">
-	  	  					<div class="ten wide column">
-	  	  						<h2 class="ui red header">
-	  	  							Not yet Invoice!
-	  	  						</h2>
-	  	  					</div>
-	  	  					<div class="six wide column">
-	  	  						<button class="ui button mode invoice-modal">
-										  Edit Invoice
-								</button>
-								<button class="ui green button mode">
-										  Approve Invoice
-								</button>
-	  	  					</div>
-	  	  				</div>
-	  	  			</div>
+					<?php 
+					if($invoice[0]->status!=0)
+					{
+						echo
+		  	  			'<div class="ui grid">
+		  	  				<div class="row">
+		  	  					<div class="ten wide column">
+		  	  						<h2 class="ui green header">
+		  	  							Approved!
+		  	  						</h2>
+		  	  					</div>
+		  	  					<div class="six wide column">
+		  	  						
+									</button>
+									<button onClick="printInvoice(this.value);" value="'.base_url('Invoice/InvoiceSlip/'.$invoice[0]->InvoiceID).'" class="ui blue button mode">
+											  Print Invoice
+									</button>
+		  	  					</div>
+		  	  				</div>
+		  	  			</div>';
+		  	  		}
+		  	  		if($invoice[0]->status==0)
+	  	  			{
+		  	  			echo
+		  	  			'<div class="ui grid">
+		  	  				<div class="row">
+		  	  					<div class="ten wide column">
+		  	  						<h2 class="ui red header">
+		  	  							Not yet Invoice!
+		  	  						</h2>
+		  	  					</div>
+		  	  					<div class="six wide column">
+		  	  						<button type="submit" class="ui button mode invoice-modal">
+											  Edit Invoice
+									</button>
+		  	  					'.form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice[0]->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
+
+									
+									<button class="ui green button mode">
+											  Approve Invoice
+									</button>
+									</form>
+		  	  					</div>
+		  	  				</div>
+		  	  			</div>';
+	  	  			}
+	  	  			?>
 	  	  			<table class="ui inverted blue table">
 						<thead>
 							<tr>
@@ -254,7 +284,19 @@
 						<tbody>
 							<tr>
 								<td>Emax</td>
-								<td>1,2,3,4</td>
+								<td>
+								<?php 
+				  					$ctr= count($teeth);
+				  					$i=0;
+				  					foreach ($teeth as $tooth) 
+				  					{
+					  					if(++$i != $ctr)
+					  						echo $tooth->teeth.', ';
+					  					else
+					  						echo $tooth->teeth;
+				  					}
+				  				?>
+				  				</td>
 								<td>1</td>
 								<td>PHP 500.00</td>
 								<td></td>
@@ -276,10 +318,10 @@
 							</div>
 							<div class="three wide column">
 								<div class="item">
-									PHP 500.00
+									PHP <?php echo $invoice[0]->Total;?>
 								</div>
 								<div class="item">
-									<h2>PHP 500.oo</h2>
+									<h2>PHP <?php echo $invoice[0]->Total;?></h2>
 								</div>
 							</div>
 						</div>
@@ -287,76 +329,7 @@
 	  	  		</div>
 	  	  	</div>
 	  	  </div>
-	  	   <div class="row">
-	  	  	<div class="fifteen wide column">
-	  	  		<div class="ui teal segment">
-	  	  			<h3 class="ui header">
-	  	  				Invoice
-	  	  				<hr>
-	  	  			</h3>
-	  	  			<div class="ui grid">
-	  	  				<div class="row">
-	  	  					<div class="ten wide column">
-	  	  						<h2 class="ui green header">
-	  	  							Approved!
-	  	  						</h2>
-	  	  					</div>
-	  	  					<div class="six wide column">
-	  	  						<button class="ui button mode invoice-modal">
-										  Edit Invoice
-								</button>
-								<a href="invoice-print.html"class="ui blue button mode">
-										  Print Invoice
-								</a>
-	  	  					</div>
-	  	  				</div>
-	  	  			</div>
-	  	  			<table class="ui inverted blue table">
-						<thead>
-							<tr>
-								<th>Billing Item</th>
-								<th>Teeth Number</th>
-								<th>Qty</th>
-								<th>Amount</th>
-								<th>Case Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Emax</td>
-								<td>1,2,3,4</td>
-								<td>1</td>
-								<td>PHP 500.00</td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="ui grid">
-						<div class="row">
-							<div class="ten wide column">
-								
-							</div>
-							<div class="three wide column">
-								<div class="item">
-									Subtotal
-								</div>
-								<div class="item">
-									<h2>Total</h2>
-								</div>
-							</div>
-							<div class="three wide column">
-								<div class="item">
-									PHP 500.00
-								</div>
-								<div class="item">
-									<h2>PHP 500.oo</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-	  	  		</div>
-	  	  	</div>
-	  	  </div>
+	  
 	  	  <div class="row"></div>
 	  </div>
 	<!--New Case-->
@@ -688,6 +661,8 @@
 	  	<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
 	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
 	  	<?php echo form_hidden('CaseID',$case->CaseID);?>
+	  	<?php echo form_hidden('InvoiceID',$invoice[0]->InvoiceID);?>
+
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
 				  <i class="large dollar icon"></i>
@@ -759,12 +734,17 @@
 		  				<tr>
 		  					
 		  					<td>1</td>
-		  					<td><input class="sixteen wide field" type="text" name="invoice[1][Item]"/></td>
 		  					<td>
-		  					<input class="fifteen wide field" type="text" name="invoice[1][Description]"/>
+		  						<div class="ui selection dropdown">
+		  							<input type="hidden" name="invoice[1][Item]">
+		  								<i class="dropdown icon"></i>
+		  						<div class="default text">Default item dito</div>
+		  						<div class="menu">
+		  					<div class="item" data-value="1">Emax</div>
 		  					</td>
-		  					<td><input type=text id="QTY1" name="invoice[1][QTY]" value="" ><br></td>
-		  					<td><input type="text" id="Amount1" name="invoice[1][Amount]" value="" onchange="addSubtotal();"></td>
+		  					<td ></td>
+		  					<td><input type="number" style="width: 100px" id="QTY1" name="invoice[1][QTY]" value="" ><br></td>
+		  					<td><input type="text" id="Amount1" name="invoice[1][Amount]" value="" ></td>
 		  					<td><input type="text" id="SubTotal1" name="invoice[1][SubTotal]" value="" /></td>
 		  					<td><a href="#" onClick="deleteRow(this)"><i class="trash icon"></i></a></td>
 		  				
@@ -799,8 +779,8 @@
 								<h2>Total</h2>
 							</div>
 							<div class="three wide column">
-								<h4>PHP 500.00</h4>
-								<h2 id="TotalSave"></h2>
+								<h4 id="TotalSave"></h4>
+								<h2 id="Total"></h2>
 
 							</div>
 						</div>
