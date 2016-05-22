@@ -3,7 +3,6 @@ $( document ).ready(function() {
   $(".mode").click(function(){
     $('.ui.modal').modal('show');
   });
-  $('.ui.modal').modal('show');
   $('.menu .item')
   .tab()
 ;
