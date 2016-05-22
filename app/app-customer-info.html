@@ -1060,21 +1060,45 @@
 					<div class="fifteen wide column">
 						<hr>
 						<div class="ui grid">
-							<div class="eight wide column">
-								<div class="field">
+							<div class="ten wide column">
+								<div class="eight wide field">
 									<label>Message displayed on Invoice</label>
-									<textarea></textarea>
+									<textarea row="2"></textarea>
 								</div>
 							</div>
-							<div class="two wide column hidden">
-							</div>
-							<div class="three wide right aligned column">
-								<h4>Subtotal</h4>
-								<h2>Total</h2>
+							<div class="three wide column">
+								<div class="item">
+									<h4>Subtotal</h4>
+								</div>
+								<br>
+								<div class="inline fields">
+									<div class="field">
+										<select class="ui dropdown">
+										  <option value="1">Discount Value</option>
+										  <option value="0">Discount Percent</option>
+										</select>
+									</div>
+									<div class="four wide field">
+										<input type="text">
+									</div>
+								</div>
+								<br>
+								<div class="item">
+									<h3>TOTAL</h3>
+								</div>
 							</div>
 							<div class="three wide column">
-								<h4>PHP 500.00</h4>
-								<h2>PHP 500.00</h2>
+								<div class="item">
+									<h4>PHP 500</h4>
+								</div>
+								<br><br>
+								<div class="item">
+									<h4>PHP -200</h4>
+								</div>
+								<br><br><br>
+								<div class="item">
+									<h3>PHP 200</h3>
+								</div>
 							</div>
 						</div>
 					</div>
