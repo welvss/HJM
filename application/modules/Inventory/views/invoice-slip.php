@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<title>HJM | Dental Laboratory</title>
 </head>
-<link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <body>
 <br>
 <div class="wrapper">
 	<div class="brand">
-		 <img src="img/hjm-logo-inverted.png" alt="">
+		 <img src="<?php echo base_url();?>app/img/hjm-logo-inverted.png" alt="">
 		 <p style="display: inline-block;">DENTAL LABORATORY</p>
 	</div>
 	<div class="brand-info">
@@ -22,22 +22,30 @@
 		<div class="row">
 			<div class="left">
 				<p><strong>BILL TO:</strong></p>
-				<p>Dr. Mark Serojihos <br>
-				   HJM Dental Laboratory <br>
-				   521 Int. Inocencio St. Pasay City
+				<p>
+				<?php 
+			
+				
+
+			
+				echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'<br>'.
+					$dentist->company.'<br>'
+					.$dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;
+			
+				
+				?>
 				</p>
 			</div>
 			<div class="right">
-				<p><strong>Invoice No:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;420</p>
-				<p><strong>Invoice Date:</strong> 05/06/2016</p>	
-				<p><strong>Due Date:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/20/2016</p>			
+				<p><strong>Invoice No:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $invoice->InvoiceID;?></p>
+				<p><strong>Invoice Date:</strong> <?php echo date('m/d/Y',strtotime($invoice->datecreated)) ;?></p>	
+				<p><strong>Due Date:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo date('m/d/Y',strtotime($invoice->duedate)) ;?></p>			
 			</div>
 		</div>
 		<div class="row invoice-table">
 			<table class="ui table">
 				<thead>
 					<tr>
-						<th>Item Code</th>
 						<th>Item Description</th>
 						<th>Teeth Number</th>
 						<th>Qty</th>
@@ -47,9 +55,20 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>EM</td>
 						<td>Emax</td>
-						<td>1,2,3,4</td>
+						<td>
+							<?php 
+				  					$ctr= count($teeth);
+				  					$i=0;
+				  					foreach ($teeth as $tooth) 
+				  					{
+					  					if(++$i != $ctr)
+					  						echo $tooth->teeth.', ';
+					  					else
+					  						echo $tooth->teeth;
+				  					}
+				  			?>
+						</td>
 						<td>1</td>
 						<td>PHP 500.00</td>
 						<td></td>
@@ -126,5 +145,8 @@
 
 }
 	</style>
+	<script type="text/javascript">
+	window.print();
+	</script>
 </body>
 </html>

@@ -445,12 +445,45 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select name="item" multiple="" class="ui fluid dropdown">
-					      <option value=""></option>
-					      <option value="ep">Emax Porcelain (epjc)</option>
-					      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
-					      <option value="fw">One Piece (framework only)</option>
-					      <option value="dr">Denture Repair</option>
+					    <select  multiple name="items[]"  class="ui fluid dropdown">
+					      
+					    <?php 
+					     $bool=false;
+					     $positive=false;
+					     
+					     
+					    foreach ($items as $item) 
+					    {
+			
+							    foreach ($caseitems as $ci) 
+							    {
+							    	if($ci->ItemID==$item->ItemID)
+							   			$positive=true;
+							   		
+							   		
+							    }
+							    if($positive)
+							    {
+							    	echo '<option value="'.$item->ItemID.'" selected>'.$item->ItemDesc.'</option>';
+							    	 $positive=false;
+							    }
+							    else
+							    {
+			 						echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+			 						
+			 					}
+			 				
+			 				if($caseitems==null)
+			 					echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+
+			 				
+					 	}
+					 	
+
+					 	
+			 			
+					      
+					     ?>
 					    </select>
 				  </div>
 		  		</div>

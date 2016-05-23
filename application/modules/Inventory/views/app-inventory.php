@@ -1,84 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>HJM | Dental Laboratory</title>
-</head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
-<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="css/app.css">
-<link rel="stylesheet" href="css/hover-min.css">
-<link rel="shortcut icon" href="favicon.ico">
-<body class="app">
-<!--Sidebar-->
-	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
-		<div class="app-avatar">
-			<div id="circle" class="circle">
-				<h1 id="app-avatar-initial">WM</h1>
-			</div>
-		</div>
-		<div class="ui right dropdown item">
-		 <div class="ui sub header">Welvin Medina</div>
-      		Admin
-	    <i class="dropdown icon"></i>
-	    <div class="menu">
-	      <div class="item"><i class="settings icon"></i>
-	      Edit Username</div>
-	      <div class="item"> <i class="user icon"></i>
-	      Change Avatar</div>
-	      <div class="divider"></div>
-	      <div class="item"> <i class="browser icon"></i>
-	      Manage Site</div>
-	      <div class="item"> <i class="configure icon"></i>
-	      Account settings</div>
-	      <div class="item"> <i class="sign out icon"></i>
-	      Sign Out</div>
-	    </div>
-    </div>
-  	<hr>
-		 <a href="index.html" class="item">
-		    <i class="large home icon"></i>
-		    Home
-		  </a>
-		  <a href="app-customer.html" class="item">
-		    <i class="large doctor icon"></i>
-		    Customer
-		  </a>
-		  <a href="cases.html"class="item">
-		    <i class="large file text outline icon"></i>
-		    <div class="ui left label" id="number-notif">3</div>
-		    Cases
-		  </a>
-		  <a href="supplier.html" class="item">
-		    <i class="large shipping icon"></i>
-		    Suppliers
-		  </a>
-		  <a href="inventory.html"class="active blue item">
-		    <i class="large cubes icon"></i>
-		     <div class="ui left red label" id="number-notif">9</div>
-		    Inventory
-		  </a>
-	</div>
-<!--Pusher-->
-<div class="pusher">
-	<!--Header-->
-	  <div class="computer tablet only row">
-	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
-		    <button class="sidebar-button ui basic inverted button">
-		  	<i class="icon align justify big icon"></i>
-		    </button>
-			<div class="brand">
-				<img src="img/hjm.png" alt="" style="">
-				<p style="display: inline-block;">DENTAL LABORATORY</p>
-			</div>
-			<div class="right menu">
-				<div class="ui transparent inverted icon input">
-				  <input type="text" placeholder="Search HJM Dental La..">
-				  <i class="search icon"></i>
-				</div>
-			</div>
-	    </div>
-	  </div>
 	  <!--App-content--> 
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
@@ -151,15 +70,22 @@
 	  					</tr>
 	  				</thead>
 	  				<tbody>
-	  					<tr>
-	  						<td><a href="inventory-edit.html">EM</a></td>
-	  						<td>Emax</td>
-	  						<td>500</td>
-	  						<td>80</td>
+	  					<?php
+	  					foreach ($items as $item) 
+	  					{
+	  						
+	  					echo
+	  					'<tr>
+	  						<td><a href="'.base_url('Inventory/Info/'.$item->ItemID).'">'.$item->ItemID.'</a></td>
+	  						<td>'.$item->ItemDesc.'</td>
+	  						<td>'.$item->Cost.'</td>
+	  						<td>'.$item->QTY.'</td>
 	  						<td>
-	  							<a href="#"><i class="trash icon"></i></a>
+	  							<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
 	  						</td>
-	  					</tr>
+	  					</tr>';
+	  					}
+	  					?>
 	  				</tbody>
 	  			</table>
 	  		</div>
@@ -174,25 +100,26 @@
 		    Item Information
 		  </div>
 		  <br><br>
-		  <form class="ui form">
+		  
+		  	<?php echo form_open('Inventory/AddInventory','class="ui form"');?>
 			<div class="ui centered grid" >
 				<div class="fifteen column centered row">
 					<div class="seven wide column">
 							<div class="field">
 								<label>Item Code</label>
-								<input type="text">
+								<input type="text" name="ItemID">
 							</div>
 							<div class="sixteen wide field">
 								<label for="">Item Description</label>
-								<textarea row="1"></textarea>
+								<textarea row="1" name="ItemDesc"></textarea>
 							</div>
 							<div class="field">
 								<label>Cost</label>
-								<input type="text">
+								<input type="text" name="Cost">
 							</div>
 							<div class="field">
 								<label>Price</label>
-								<input type="text">
+								<input type="text" name="Price">
 							</div>
 					</div>
 					<div class="eight wide column">
@@ -205,15 +132,15 @@
 						</div>
 						<div class="field">
 								<label>Initial Quantity</label>
-								<input type="text">
+								<input type="text" name="QTY">
 							</div>
 							<div class="field">
 								<label>Alert Qty Falls Below</label>
-								<input type="text">
+								<input type="text" name="QTYBelow">
 							</div>
 							<div class="field">
 								<label>Reorder Qty</label>
-								<input type="text">
+								<input type="text" name="ReorderQTY">
 							</div>
 					</div>
 				</div>
@@ -239,10 +166,3 @@
 			</form>
 			<br>
 	</div>
-	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/semantic/dist/semantic.min.js"></script>
-	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/inventory.js"></script>
-</body>
-</html>

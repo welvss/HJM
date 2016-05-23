@@ -33,7 +33,12 @@
 	margin-left: 60px;
 	margin-right: 60px;
 }
-
+#header-modal-supplier{
+	color:#21ba45;
+	margin-bottom: 40px;
+	margin-left: 60px;
+	margin-right: 60px;
+}
 #add-dentist-modal>label{
 color: red;
 }

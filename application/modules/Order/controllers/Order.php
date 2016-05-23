@@ -23,7 +23,7 @@ class Order extends MX_Controller
 			$data['invoice'] = $this->mdlInvoice->getInvoice();
 			$data['dentists'] = $this->mdlCustomer->getDentist(array());
 			$data['Count']	= $this->mdlOrder->countOrder(array());
-
+			$data['items'] = $this->mdlInventory->getItem(array());
 			$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1));
 			$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2));
 			$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3));
@@ -205,7 +205,21 @@ class Order extends MX_Controller
 								$this->mdlOrder->InsertCaseTeeth($array);
 							}
 						}
-					
+
+						if(isset($_POST['items']))
+						{	
+							$items=$_POST['items'];
+							
+							foreach ($items as $item) 
+							{
+								$array = array('CaseID' => $CaseID , 
+												'ItemID' =>$item
+
+									);
+								$this->mdlOrder->InsertCaseItem($array);
+							}
+						}
+
 						if(isset($_POST['invoice'])!=null)
 						{
 							redirect('Order/Info/'.$CaseID);
@@ -407,7 +421,7 @@ class Order extends MX_Controller
 						}
 						$CaseID = $_POST['CaseID'];
 						$array = array('CaseID' => $_POST['CaseID']); 
-
+						$this->mdlOrder->deleteItems($array);
 						$this->mdlOrder->deleteTeeth($array);
 					
 						{
@@ -421,7 +435,29 @@ class Order extends MX_Controller
 									);
 								$this->mdlOrder->InsertCaseTeeth($data);
 							}
+						
+							if(isset($_POST['items']))
+						{	
+							$items=$_POST['items'];
+							foreach ($items as $item) 
+							{
+								$array = array('CaseID' => $CaseID , 
+												'ItemID' =>$item
+
+									);
+								$this->mdlOrder->InsertCaseItem($array);
+							}
 						}
+
+
+
+
+						}
+
+
+
+
+
 							redirect('Order/Info/'.$CaseID);
 						
 						
@@ -439,6 +475,8 @@ class Order extends MX_Controller
 		{
 			$this->load->view('template/header',$data);
 			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['items'] = $this->mdlInventory->getItem(array());
+			$data['caseitems'] = $this->mdlOrder->getCaseItem(array('CaseID'=>$this->uri->segment(3)));
 			$data['invoice'] = $this->mdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3),'DentistID'=>$info->DentistID));
 			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	

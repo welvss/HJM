@@ -1,122 +1,35 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class mdlOrder extends CI_Model {
+class mdlInventory extends CI_Model {
 	
 	public function __construct(){
 		parent:: __construct();
 	}
 	
-	function deleteTeeth($options=array())
-	{	
 	
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->delete('tblcaseteeth');	
-		return true;
-	}
-	function deleteItems($options=array())
-	{	
-	
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->delete('tblcaseitem');	
-		return true;
-	}
-
-	function InsertCaseTeeth($options=array())
-	{
-		$this->db->insert('tblcaseteeth', $options);	
-		return $this->db->insert_id();
-	}
-
-	function InsertCaseItem($options=array())
-	{
-		$this->db->insert('tblcaseitem', $options);	
-		return $this->db->insert_id();
-	}
-	function getCaseItem($options = array())
+	function getItem($options = array())
 	{
 		//verification
+		if(isset($options['ItemID']))
+			$this->db->where('ItemID', $options['ItemID']);
 		
-		
-		
-	
-		$this->db->like('CaseID', $options['CaseID']);
-		$query = $this->db->get("tblcaseitem");
-		
-		
-		
-		//die($this->db->last_query());
-		return $query->result();
-	}
-	function getCaseTeeth($options = array())
-	{
-		//verification
-		
-		
-		
-	
-		$this->db->like('CaseID', $options['CaseID']);
-		$query = $this->db->get("tblcaseteeth");
-		
-		
-		
-		//die($this->db->last_query());
-		return $query->result();
-	}
-
-
-	function getStatus($options = array())
-	{
-		
-		$query = $this->db->get("tblstatus");
-		
-		return $query->result();
-	}
-
-	function countOrder($options=array())
-	{
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID',$options['DentistID']);
-
-		if(isset($options['status_id']))
-			$this->db->where('status_id',$options['status_id']);
-
-		return $query = $this->db->count_all_results('tblcase');
-	}
-
-	
-
-	function getOrder($options = array())
-	{
-		//verification
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID', $options['DentistID']);
-
-		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
-		
-		if(isset($options['patient']))
-			$this->db->like('patient', $options['patient']);
+		if(isset($options['ItemDesc']))
+			$this->db->like('ItemDesc', $options['ItemDesc']);
 			
-		if(isset($options['due-time']))
-			$this->db->like('duetime', $options['due-time']);
+		if(isset($options['Cost']))
+			$this->db->like('Cost', $options['Cost']);
 			
-		if(isset($options['due-date']))
-			$this->db->like('duedate', $options['due-date']);
+		if(isset($options['Price']))
+			$this->db->like('Price', $options['Price']);
 
-		if(isset($options['orderdatetime']))
-			$this->db->like('orderdatetime', $options['orderdatetime']);
+		if(isset($options['QTY']))
+			$this->db->like('QTY', $options['QTY']);
 
-		if(isset($options['gender']))
-			$this->db->like('gender', $options['gender']);
+		if(isset($options['QTYBelow']))
+			$this->db->like('QTYBelow', $options['QTYBelow']);
 
-		if(isset($options['age']))
-			$this->db->like('age', $options['age']);
-
-		if(isset($options['notes']))
-			$this->db->like('notes', $options['notes']);
-
-		if(isset($options['file']))
-			$this->db->like('file', $options['file']);
+		if(isset($options['ReorderQTY']))
+			$this->db->like('ReorderQTY', $options['ReorderQTY']);
 
 
 		if(isset($options['limit']) && isset($options['offset']))
@@ -128,25 +41,66 @@ class mdlOrder extends CI_Model {
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
 		
-		$query = $this->db->get("tblcase");
+		$query = $this->db->get("tblitem");
 		
 		if(isset($options['count']))
 			return $query->num_rows();
 		
-		if(isset($options['CaseID']))
+		if(isset($options['ItemID']))
 			return $query->row(0);
 		//die($this->db->last_query());
 		return $query->result();
 	}
 
-	
-	function AddOrder($options = array())
+	function EditInventory($options = array())
+	{		
+		
+
+		
+
+		if(isset($options['ItemDesc']))
+			$this->db->set('ItemDesc', $options['ItemDesc']);
+
+		if(isset($options['Cost']))
+			$this->db->set('Cost', $options['Cost']);
+
+		if(isset($options['Price']))
+			$this->db->set('Price', $options['Price']);
+
+		if(isset($options['QTY']))
+			$this->db->set('QTY', $options['QTY']);
+
+		if(isset($options['TotalQTY']))
+			$this->db->set('TotalQTY', $options['TotalQTY']);
+
+		if(isset($options['QTYBelow']))
+			$this->db->set('QTYBelow', $options['QTYBelow']);
+
+		if(isset($options['ReorderQTY']))
+			$this->db->set('ReorderQTY', $options['ReorderQTY']);
+		
+		
+		$this->db->where('ItemID', $options['ItemID']);
+		$this->db->update('tblitem');
+		
+		return $this->db->affected_rows();
+		
+	}
+
+	function AddInventory($options = array())
 	{
-		$this->db->insert('tblcase', $options);	
+		$this->db->insert('tblitem', $options);	
 		return $this->db->insert_id();
 		
 	}
 	
+	function DeleteItem($id)
+	{
+		$this->db->where('ItemID', $id);
+		$this->db->delete('tblitem');	
+		return true;
+	}
+
 	function modifyOrder($options = array())
 	{	
 		if(isset($options['CaseID']))

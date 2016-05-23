@@ -40,7 +40,7 @@
 		    <i class="large home icon"></i>
 		    Home
 		  </a>
-		  <a href="app-customer.html" class="active blue item">
+		  <a href="app-customer.html" class="item">
 		    <i class="large doctor icon"></i>
 		    Customer
 		  </a>
@@ -49,7 +49,7 @@
 		    <div class="ui left label" id="number-notif">3</div>
 		    Cases
 		  </a>
-		  <a href="supplier.html" class="item">
+		  <a class="active blue item">
 		    <i class="large shipping icon"></i>
 		    Suppliers
 		  </a>
@@ -83,12 +83,12 @@
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="two wide column hidden"></div>
-	   		<div class="seven wide column"><h1><i class="blue doctor icon"></i>Customer</h1></div>
+	   		<div class="seven wide column"><h1><i class="green truck icon"></i>Supplier</h1></div>
 	   		<div class="five wide right aligned column">
-	   		<button class="ui primary circular icon button mode">
+	   		<button class="ui green circular icon button mode">
 			  		<i class="plus icon"></i>
 			</button>
-			Add New Customer
+			Add New Supplier
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
@@ -97,7 +97,7 @@
 				 <div class="ui horizontal segments income">
 					  <button class="ui segment openInvoices hvr-sweep-to-bottom">
 					    <h3>PHP 13, 000</h3>
-					    <p class="sub-header"><span><strong>0</strong></span> OPEN INVOICES</p>
+					    <p class="sub-header"><span><strong>0</strong></span> OPEN BILL</p>
 					  </button>
 					  <button class="ui segment overdue hvr-sweep-to-bottom">
 					    <h3>PHP 14, 000</h3>
@@ -114,14 +114,14 @@
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="thirteen wide column centered grid">
-	  		<div class="ui stacked teal segment">
+	  		<div class="ui stacked green segment">
 	  		<div class="row">
 	  			<div class="ui grid">
 	  				<div class="two column row">
 				    <div class="left floated column eight wide column">
 				    	<div class="ui search">
 						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Customers..." id="search-customer">
+						    <input class="prompt" type="text" placeholder="Find Supplier..." id="search-customer">
 						    <i class="search icon"></i>
 						  </div>
 						  <div class="results"></div>
@@ -157,12 +157,12 @@
 	  			</div>
 	  		</div>
 	  		<br>
-	  			<table id="customer-table" class="display ui blue table" cellspacing="0" width="100%">
+	  			<table id="customer-table" class="display ui green table" cellspacing="0" width="100%">
 	  				<thead>
 	  					<tr>
-	  						<th>CUSTOMER / COMPANY</th>
+	  						<th>SUPPLIER/ COMPANY</th>
 	  						<th>PHONE</th>
-	  						<th>OPEN BALANCE</th>
+	  						<th>OPEN BILL</th>
 	  						<th>ACTION</th>
 	  					</tr>
 	  				</thead>
@@ -170,54 +170,16 @@
 	  					<tr>
 	  						<td>
 	  							<h4 class="ui image header">
-							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <i class="truck icon"></i>
 							          <div class="content">
-							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
-							            <div class="sub header">HJM Dental Laboratory
+							            <a href="supplier-info.html">Ralph Pagayon </a>
+							            <div class="sub header">Deew Plantation
 							          </div>
 							        </div>
 							    </h4>
 	  						</td>
 	  						<td>09776443033</td>
 	  						<td>PHP 0.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-							          <i class="lab icon"></i>
-							          <div class="content">
-							           <a href="#">Dr. Walter White</a> 
-							            <div class="sub header">Meth Labs
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td>PHP 13,000.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-	  							 <i class="treatment  icon"></i>
-							          <div class="content">
-							           <a href="#">Dr. Lawrence Pagayon</a> 
-							            <div class="sub header">Herbal Tooth 420
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td class="negative"><i class="attention icon"></i> PHP 14,000.00</td>
 	  						<td>
 	  							<button class="ui red  icon button">
 	  								<i class="remove circle icon"></i>
@@ -231,18 +193,17 @@
 	  	</div>
 	  </div>
 </div>
-<!--New Customer Modal-->
+<!--New Supplier Modal-->
 	<div class="ui modal fullscreen">
-		  <div class="header" id="header-modal">
-		   <i class="large doctor icon"></i>
-		    Dentist Information
+		  <div class="header" id="header-modal-supplier">
+		   <i class="large green truck icon"></i>
+		    Supplier Information
 		  </div>
 		  <form class="ui form">
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
 						<div class="fourteen wide column">
-							
 								  <div class="fields">
 								  <div class="two wide field">
 								  	<label>Title</label>
@@ -300,7 +261,7 @@
 						<div class="row">
 							<div class="one wide column hidden"></div>
 							<div class="fourteen wide column">
-									<div class="ui top attached inverted blue tabular menu">
+									<div class="ui top attached inverted green tabular menu">
 								  <a class="item active" data-tab="address">Address</a>
 								  <a class="item" data-tab="notes">Notes</a>
 								</div>
@@ -308,9 +269,9 @@
 								 	<div class="row">
 									 	<div class="ui two column stackable grid">
 									 		<!--Billing Address -->
-									 		<div class="column">
+									 		<div class="centered column">
 												  <div class="field">
-												    <label>Billing Address</label>
+												    <label>Address</label>
 												    <textarea rows="2" placeholder="Street"></textarea>
 												  </div>
 												  <div class="two fields">
@@ -320,25 +281,6 @@
 												  	<div class="field">
 												  		<input type="text" placeholder="Baranggay">
 												  	</div>
-												  </div>
-									 		</div>
-									 		<!--Shipping Address -->
-									 		<div class="column">
-												  <div class="field">
-												    <label>Shipping Address</label>
-												    <textarea rows="2" placeholder="Street" id="ship-street"></textarea>
-												  </div>
-												  <div class="two fields">
-												  	<div class="field">
-												  		<input type="text" placeholder="City" id="ship-city">
-												  	</div>
-												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" id="ship-baranggay">
-												  	</div>
-												  </div>
-												  <div class="ui checkbox">
-													  <input id="same-as"type="checkbox" name="example">
-													  <label>Same as Billing Address</label>
 												  </div>
 									 		</div>
 									 	</div>
@@ -365,7 +307,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

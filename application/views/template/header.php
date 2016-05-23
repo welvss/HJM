@@ -56,7 +56,7 @@
         <i class="large shipping icon"></i>
         Suppliers
       </a>
-      <a class="item">
+      <a href="<?php echo base_url('Inventory');?>" class="<?php if($active==4){ echo "active blue";}?> item">
         <i class="large cubes icon"></i>
          <div class="ui left red label" id="number-notif">9</div>
         Inventory

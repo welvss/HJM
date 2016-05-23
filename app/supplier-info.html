@@ -85,13 +85,13 @@
 	  		<div class="one wide column hidden"></div>
 	   		<div class="eleven wide column">
 		   		<h1 class="ui header">
-		   		<img src="img/hjm-logo.png" class="ui circular image">
+		   		<i class="truck icon"></i>
 		   		<div class="content">
-		   			Dr. Mark Serojihos 
+		   			Mr. Ralph Pagayon
 		   			<div class="sub header">
-		   			<span>HJM Dental Laboratory</span>
+		   			<span>Deew Plantation</span>
 		   			&nbsp;&nbsp; | &nbsp;&nbsp;
-		   			<span> #28 Inocencio, Pasay City</span>
+		   			<span>Signal, Paranaque</span>
 		   			</div>
 		   		</div>
 		   		</h1>
@@ -100,19 +100,13 @@
 	   		<button class="ui blue button mode">
 					  Edit
 			</button>
-			<div class="ui icon top teal right labeled pointing dropdown button">
+			<div class="ui icon top green right labeled pointing dropdown button">
 			  <i class="add icon"></i>
 			  New Transaction
 			  <div class="menu">
-			    <div class="item case-modal">
-			    <i class="large file text outline icon blue"></i>
-			    Case</div>
 			    <div class="item invoice-modal">
-			    <i class="icons">
-				  <i class="large file outline dont icon"></i>
-				  <i class="green small dollar icon"></i>
-				</i>
-			    Invoice</div>
+				  <i class="large add to cart icon"></i>
+			    New Purchase Order</div>
 			  </div>
 			</div>
 			</div>
@@ -122,40 +116,6 @@
 	  	<div class="one wide column hidden"></div>
 	  	<div class="eight wide column">
 	  	<br>
-	  		<div class="ui tiny statistics">
-						  <div class="green statistic">
-						    <div class="value">
-						      <i class="file text outline icon hvr-wobble-vertical"></i> 23
-						    </div>
-						    <div class="label">
-						      <a href="#">New Cases</a>
-						    </div>
-						  </div>
-						  <div class="purple statistic">
-						    <div class="value">
-						      <i class="lab icon hvr-buzz-out"></i> 11
-						    </div>
-						    <div class="label">
-						      <a href="#">In Production</a>
-						    </div>
-						  </div>
-						  <div class="blue statistic">
-						    <div class="value">
-						      <i class="circle check icon hvr-float"></i> 5
-						    </div>
-						    <div class="label">
-						      <a href="#">Completed Cases</a>
-						    </div>
-						  </div>
-						  <div class="red statistic">
-						    <div class="value">
-						      <i class="warning circle icon hvr-buzz"></i> 5
-						    </div>
-						    <div class="label">
-						    <a href="#">On Hold</a>
-						    </div>
-						  </div>
-			</div>
 	  	</div>
 	  	<div class="six wide right aligned column">
 	  	<br><br>
@@ -165,7 +125,7 @@
 				<a class="ui orange circular label"></a>
 				<div class="content">
 						  PHP 0.00
-				  <div class="sub header">Open Balance</div>
+				  <div class="sub header">Open Bill</div>
 				</div>
 				</h2>
 		  		</div>
@@ -186,107 +146,10 @@
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="fourteen wide column centered grid">
-	  		<div class="ui stacked inverted teal segment">
-	  			<div class="ui top attached inverted teal tabular menu">
-					  <a class="item" data-tab="first">Transaction List</a>
-					  <a class="item active" data-tab="second">Customer Details</a>
-					  <a class="item" data-tab="third">Case History</a>
-					</div>
-					<div class="ui bottom attached tab segment" data-tab="first">
-					  	<div class="row">
-				  			<div class="ui grid">
-				  				<div class="two column row">
-							    <div class="left floated column eight wide column">
-							    	<div class="ui search">
-									  <div class="ui icon input">
-									    <input class="prompt" type="text" placeholder="Find Customers..." id="search-transaction">
-									    <i class="search icon"></i>
-									  </div>
-									  <div class="results"></div>
-									</div>
-							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
-							    </div>
-				  			</div>
-				  		</div>
-	  					<br>
-			  			<table id="transaction-history" class="display ui blue table" cellspacing="0" width="100%">
-			  				<thead>
-			  					<tr>
-			  						<th>DATE</th>
-			  						<th>TYPE</th>
-			  						<th>No.</th>
-			  						<th>DUE DATE</th>
-			  						<th>BALANCE</th>
-			  						<th>TOTAL</th>
-			  						<th>STATUS</th>
-			  						<th>ACTION</th>
-			  					</tr>
-			  				</thead>
-			  				<tbody>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Invoice</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 500.00</td>
-			  						<td>PHP 500.00</td>
-			  						<td>Open</td>
-			  						<td>
-			  						<a href="#">Receive Payment</a>
-			  						<a href="#"><i class="print icon"></i></a>
-			  						</td>
-			  					</tr>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Payment</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 0.00</td>
-			  						<td>PHP -500.00</td>
-			  						<td>Closed</td>
-			  						<td><a href="invoice-print.html"><i class="print icon"></i></a></td>
-			  					</tr>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Invoice</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 500.00</td>
-			  						<td>PHP 1000.00</td>
-			  						<td>Partial</td>
-			  						<td>
-			  							<button class="ui button payment-modal">Receive Payment</button>
-			  						<a href="#"><i class="print icon"></i></a>
-			  						</td>
-			  					</tr>
-			  				</tbody>
-			  			</table>
+	  		<div class="ui stacked inverted green segment">
+	  			<div class="ui top attached inverted green tabular menu">
+					  <a class="item active" data-tab="second">Supplier Details</a>
+					  <a class="item" data-tab="third">Purchase History</a>
 					</div>
 					<div class="ui bottom attached tab segment active" data-tab="second">
 					<br>
@@ -297,10 +160,19 @@
 					  				<div class="row">
 					  				<div class="two wide column hidden"></div>
 					  					<div class="four wide column">
-					  						<h4>Customer Name</h4>
+					  						<h4>Supplier Name</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>Dr. Mark Serojihos</p>
+					  						<p>Deew Plantation</p>
+					  					</div>
+					  				</div>
+					  				<div class="row">
+					  				<div class="two wide column hidden"></div>
+					  					<div class="four wide column">
+					  						<h4>Supplier Contact Name</h4>
+					  					</div>
+					  					<div class="ten wide column">
+					  						<p>Mr Ralph Pagayon</p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -368,16 +240,7 @@
 					  				<div class="row">
 					  				<div class="two wide column hidden"></div>
 					  					<div class="four wide column">
-					  						<h4>Billing Address</h4>
-					  					</div>
-					  					<div class="ten wide column">
-					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
-					  					</div>
-					  				</div>
-					  				<div class="row">
-					  				<div class="two wide column hidden"></div>
-					  					<div class="four wide column">
-					  						<h4>Shipping Address</h4>
+					  						<h4>Address</h4>
 					  					</div>
 					  					<div class="ten wide column">
 					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
@@ -435,50 +298,25 @@
 			  			<table id="case-history" class="display ui blue table" cellspacing="0" width="100%">
 			  				<thead>
 			  					<tr>
-			  						<th>Case#</th>
-			  						<th>INVOICE</th>
-			  						<th>PATIENT</th>
-			  						<th>DATE</th>
-			  						<th>DUE</th>
+			  						<th>PO#</th>
+			  						<th>CREATED DATE</th>
+			  						<th>AMOUNT</th>
 			  						<th>STATUS</th>
-			  						<th>LAB SLIP</th>
 			  						<th>ACTION</th>
 			  					</tr>
 			  				</thead>
 			  				<tbody>
 			  					<tr>
-			  						<td><a href="#">#SERDS-M0KW1D</a></td>
-			  						<td><a href="#">420</a></td>
-			  						<td>Ralph Pagayon</td>
+			  						<td><a href="view-po.html">PO-GR@C3</a></td>
 			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Su 06/10/2016 10 Am</td>
+			  						<td>50, 000</td>
 			  						<td>
-									   <div class="ui form">
-										  <div class="ten wide field">
-										    <select>
-										      <option value="New">New</option>
-										      <option value="In Production">In Production<i class="green check icon"></i></option>
-										      <option value="Completed">Completed</option>
-										      <option value="On Hold">On Hold</option>
-										    </select>
-										  </div>
-										</div>
-			  						</td>
-			  						<td>
-			  							<a href="#">
-			  							<i class="file icon"></i>
-			  								View
-			  							</a>
+									   New
 			  						</td>
 			  						<td>
 			  							<a href="#" class="green">
-			  								<i class="green check icon"></i>
-			  								Update
-			  							</a>
-			  							&nbsp;
-			  							<a href="#">
-			  								<i class="orange write icon"></i>
-			  								Edit
+			  								<i class="red trash icon"></i>
+			  								Delete
 			  							</a>
 			  						</td>
 			  					</tr>
@@ -490,18 +328,17 @@
 	  	</div>
 	  </div>
 </div>
-<!--New Customer Modal-->
+<!--New Supplier Modal-->
 	<div class="ui modal fullscreen edit-customer">
-		  <div class="header" id="header-modal">
-		   <i class="large doctor icon"></i>
-		    Dentist Information
+		  <div class="header" id="header-modal-supplier">
+		   <i class="large green truck icon"></i>
+		    Supplier Information
 		  </div>
 		  <form class="ui form">
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
 						<div class="fourteen wide column">
-							
 								  <div class="fields">
 								  <div class="two wide field">
 								  	<label>Title</label>
@@ -559,7 +396,7 @@
 						<div class="row">
 							<div class="one wide column hidden"></div>
 							<div class="fourteen wide column">
-									<div class="ui top attached inverted blue tabular menu">
+									<div class="ui top attached inverted green tabular menu">
 								  <a class="item active" data-tab="address">Address</a>
 								  <a class="item" data-tab="notes">Notes</a>
 								</div>
@@ -567,9 +404,9 @@
 								 	<div class="row">
 									 	<div class="ui two column stackable grid">
 									 		<!--Billing Address -->
-									 		<div class="column">
+									 		<div class="centered column">
 												  <div class="field">
-												    <label>Billing Address</label>
+												    <label>Address</label>
 												    <textarea rows="2" placeholder="Street"></textarea>
 												  </div>
 												  <div class="two fields">
@@ -579,25 +416,6 @@
 												  	<div class="field">
 												  		<input type="text" placeholder="Baranggay">
 												  	</div>
-												  </div>
-									 		</div>
-									 		<!--Shipping Address -->
-									 		<div class="column">
-												  <div class="field">
-												    <label>Shipping Address</label>
-												    <textarea rows="2" placeholder="Street" id="ship-street"></textarea>
-												  </div>
-												  <div class="two fields">
-												  	<div class="field">
-												  		<input type="text" placeholder="City" id="ship-city">
-												  	</div>
-												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" id="ship-baranggay">
-												  	</div>
-												  </div>
-												  <div class="ui checkbox">
-													  <input id="same-as"type="checkbox" name="example">
-													  <label>Same as Billing Address</label>
 												  </div>
 									 		</div>
 									 	</div>
@@ -624,7 +442,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -642,10 +460,10 @@
 	<!--New Case-->
 	<div class="ui modal large case">
 	  <form class="ui form">
-	  		<div class="ui inverted teal segment">
+	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
-				  <i class="large file text outline icon"></i>
-					    New Case Entry
+				  <i class="large add to cart icon"></i>
+					    New Purchase
 				  </div>
 	  		</div>
 		  <div class="ui horizontal teal segments">
@@ -930,7 +748,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -948,10 +766,10 @@
 	<!--Invoice-->
 	<div class="ui modal fullscreen invoice">
 	  <form class="ui form">
-	  		<div class="ui inverted blue segment">
+	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
-				  <i class="large dollar icon"></i>
-					  Invoice
+				  <i class="large add to cart icon"></i>
+					  New Purchase
 				  </div>
 	  		</div>
 	  		<div class="ui grid">
@@ -960,8 +778,8 @@
 						<div class="ui segment">
 							<div class="inline fields">
 							<div class="eight wide field">
-								<label>Customer</label>
-								<input type="text" value="Dr. Mark Serhijos">
+								<label>Supplier</label>
+								<input type="text" value="Deew Plantation">
 							</div>
 							<div class="eight wide field">
 								<label>Email</label>
@@ -970,12 +788,20 @@
 							</div>
 						</div>
 					</div>
-					<div class="right aligned column">
+					<div class="column">
+						<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui header">
-								Balance Due
+								<h3>PO#:</h3>
+								<h1>PO-GR@C3</h1>
+							</div>	
+						</div>
+						<div class="ui segment">
+							<div class="ui header">
+								Total
 								<h1>PHP 500.00</h1>
-							</div>							
+							</div>	
+						</div>						
 						</div>
 					</div>
 				</div>
@@ -990,11 +816,11 @@
 	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
 	  						</div>
 	  						<div class="field">
-	  							<label>Invoice date</label>
+	  							<label>Purchase Order date</label>
 	  							<input type="date">
 	  						</div>
 	  						<div class="field">
-	  							<label>Due Date</label>
+	  							<label>Requested Ship Date</label>
 	  							<input type="date">
 	  						</div>
 	  					</div>
@@ -1062,7 +888,7 @@
 						<div class="ui grid">
 							<div class="ten wide column">
 								<div class="eight wide field">
-									<label>Message displayed on Invoice</label>
+									<label>Message displayed on PO</label>
 									<textarea row="2"></textarea>
 								</div>
 							</div>
@@ -1106,14 +932,14 @@
 	  			<div class="two column row">
 	  				<div class="six wide column"></div>
 					<div class="three wide column">
-						<a href="invoice-print.html" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print Invoice</a>
+						<a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
 					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
