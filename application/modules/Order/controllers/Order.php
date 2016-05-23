@@ -500,6 +500,25 @@ class Order extends MX_Controller
 	
 	
 	}
+
+	public function getCaseItems()
+	{
+		$data = $this->mdlOrder->getCaseItem(array('CaseID' => $this->input->POST('CaseID')));
+
+		
+		
+			foreach ($data as $datus) {
+				if($datus->ItemID!=$this->input->POST('ItemID'))
+				{
+					$arr['test']= '<option class="item" data-value="'.$datus->ItemID.'">'.$datus->ItemID.'</option >';
+				}
+			}
+
+			echo json_encode($arr);
+			
+	
+			
+	}
 	
 	
 	

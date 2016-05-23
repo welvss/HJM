@@ -117,7 +117,7 @@ class Inventory extends MX_Controller
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
-			$data['item'] = $this->mdlInventory->getItem(array('ItemID',$this->uri->segment(3)));
+			$data['item'] = $this->mdlInventory->getItem(array('ItemID'=>$this->uri->segment(3)));
 				
 			$this->load->view('app-inventory-info',$data);
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';
@@ -125,6 +125,22 @@ class Inventory extends MX_Controller
 		}
 	
 	
+	}
+
+	public function getDetails()
+	{
+		$data = $this->mdlInventory->getItem(array('ItemID' => $this->input->POST('ItemID')));
+
+		
+		
+			$arr['ItemDesc'] = $data->ItemDesc;
+
+			echo $arr['ItemDesc'];
+	
+			
+			
+		
+			
 	}
 
 	

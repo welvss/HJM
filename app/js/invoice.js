@@ -1,62 +1,74 @@
+
 var x =1;
-var y;
+var y=0;
 var sum=0;
 
 
 $("#AddRow").click(function(){
     x++;
 
-   $('#Add').append('<tr><td>'+x+'</td><td><div class="ui selection dropdown"><input type="hidden" name="invoice['+x+'][item]"><i class="dropdown icon"></i><div class="default text">Default item dito</div><div class="menu"><div class="item" data-value="1">Emax</div></td><td></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="invoice['+x+'][QTY]"></td><td><input type="text" id="Amount'+x+'" name="invoice['+x+'][Amount]" onchange="addSubtotal();"></td><td ><input type="text" id="SubTotal'+x+'" name="invoice['+x+'][SubTotal]" ></td><td><a href="#" onClick="deleteRow(this)"><i class="trash icon"></i></a></td></tr>');
-   
-   
-   
-   
-   $('input').keyup(function(){ // run anytime the value changes
+   $('#Add').append('<tr id="Row'+x+'"><td>'+x+'</td><td><select class="ui selection dropdown" name="invoice['+x+'][Item]" id="dropdown" onchange="getCaseItems(this.value);"><option value="">Select Item</option></select></td><td></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="invoice['+x+'][QTY] onchange="multiply('+x+');" "></td><td><input type="text" id="Amount'+x+'" name="invoice['+x+'][Amount]"  onchange="multiply('+x+');addSubtotal('+x+');""></td><td ><input type="text" id="SubTotal'+x+'" name="invoice['+x+'][SubTotal]" ></td><td><a href="#" onClick="deleteRow('+x+')"><i class="trash icon"></i></a></td></tr>');
 
-    var firstValue = parseFloat($('#QTY'+x).val()); // get value of field
-    var secondValue = parseFloat($('#Amount'+x).val()); // convert it to a float
-    y=firstValue * secondValue;
-    $('#SubTotal'+x).val(y); 
-   
-  });
+
 });
 
 
-function addSubtotal()
+function addSubtotal(val)
 {
-  
-      sum= parseFloat($('#SubTotal'+x).val()) + sum;
-  
-  
-    $('#TotalSave').html('<input type hidden name="Total" value="'+sum+'"/>PHP '+sum);
+  alert(val); 
+
+  for (var i = val; i>0; i--) 
+  {
+    
+      
+      
+        if(i===val)
+        {
+          sum= parseFloat($('#SubTotal'+i).val());
+          y=sum;
+        }
+        else
+        {
+          sum= parseFloat($('#SubTotal'+i).val()) + y;
+          y=sum; 
+        }
+     
+     
+      
+  }
+
+   
+    
+    
+    $('#TotalSave').html('<input type hidden name="Total" value="'+y+'"/>PHP '+sum );
     $('#Total').html('PHP '+sum);
+   
 
 
 }
 
-function deleteRow(btn) {  
-	
-     sum= sum - parseFloat($('#SubTotal'+x).val())  ;
-     $('#TotalSave').html('<input type hidden name="Total" value="'+sum+'"/>PHP '+sum);
-	  var row = btn.parentNode.parentNode;
-	  row.parentNode.removeChild(row);
-	  x--;
-  
-	
 
+function deleteRow(val) {  
+  if(sum!==0)
+  {
+     sum= sum - parseFloat($('#SubTotal'+val).val())  ;
+     $('#TotalSave').html('<input type hidden name="Total" value="'+sum+'"/>PHP '+sum);
+     $('#Total').html('PHP '+sum);
+     document.getElementById("Row"+val).remove();
+  }
     	
 };
 
-$('input').keyup(function(){ // run anytime the value changes
+
+
+function multiply(x){ // run anytime the value changes
 
     var firstValue = parseFloat($('#QTY'+(x)).val()); // get value of field
     var secondValue = parseFloat($('#Amount'+(x)).val()); // convert it to a float
      y=firstValue * secondValue;
     $('#SubTotal'+(x)).val(y); 
-   sum=y;
-   
-    $('#TotalSave').html('<input type hidden name="Total" value="'+sum+'"/>PHP '+sum);
-    $('#Total').html('PHP '+sum);
  //add them and output it
-  });
+  };
+
+
 

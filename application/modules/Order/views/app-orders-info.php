@@ -693,7 +693,7 @@
 	
 	  	<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
 	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
-	  	<?php echo form_hidden('CaseID',$case->CaseID);?>
+	  	<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
 	  	<?php echo form_hidden('InvoiceID',$invoice[0]->InvoiceID);?>
 
 	  		<div class="ui inverted blue segment">
@@ -763,25 +763,32 @@
 		  			</thead>
 		  			
 		  			<tbody id="Add">
+		  			<?php 
+		  			$ctr=1;
+		  			$x=count($caseitems);
+		  			foreach ($items as $item) 
+		  			{
 		  				
-		  				<tr>
-		  					
-		  					<td>1</td>
-		  					<td>
-		  						<div class="ui selection dropdown">
-		  							<input type="hidden" name="invoice[1][Item]">
-		  								<i class="dropdown icon"></i>
-		  						<div class="default text">Default item dito</div>
-		  						<div class="menu">
-		  					<div class="item" data-value="1">Emax</div>
-		  					</td>
-		  					<td ></td>
-		  					<td><input type="number" style="width: 100px" id="QTY1" name="invoice[1][QTY]" value="" ><br></td>
-		  					<td><input type="text" id="Amount1" name="invoice[1][Amount]" value="" ></td>
-		  					<td><input type="text" id="SubTotal1" name="invoice[1][SubTotal]" value="" /></td>
-		  					<td><a href="#" onClick="deleteRow(this)"><i class="trash icon"></i></a></td>
-		  				
-		  				</tr>
+		  				foreach ($caseitems as $ci) 
+		  				{
+		  					if($ci->ItemID==$item->ItemID)
+		  					{
+				  				echo
+				  				'<tr id="Row'.$ctr.'">
+				  					<td>'.$ctr.'</td>
+				  					<td><input type="text" style="width: 100px"  name="invoice['.$ctr.'][ItemID]" value="'.$item->ItemID.'"></td>
+				  					<td id="ItemDesc">'.$item->ItemDesc.'</td>
+				  					<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onchange="multiply('.$ctr.');addSubtotal('.$x.');"  value="0" ><br></td>
+				  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onchange="multiply('.$ctr.');addSubtotal('.$x.');" value="'.$item->Price.'" ></td>
+				  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="0" /></td>
+				  					<td><a href="#"  onClick="deleteRow('.$ctr.')" ><i class="trash icon"></i></a></td>
+				  				
+				  				</tr>';
+				  				$ctr++;
+			  				}
+			  			}
+		  			}
+		  			?>
 					
 		  			</tbody>
 		  		
@@ -790,9 +797,9 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<a class="ui button green" id="AddRow" >
+		  		<!--<a class="ui button green" id="AddRow" >
 		  			Add Row
-		  		</a>
+		  		</a>-->
 		  	</div>
 		  </div>
 				<div class="row">
@@ -822,7 +829,7 @@
 	  			<div class="two column row">
 	  				<div class="six wide column"></div>
 					<div class="three wide column">
-						<a href="#" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print Invoice</a>
+						<!--<a href="#" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print Invoice</a>-->
 					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">

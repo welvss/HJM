@@ -7,6 +7,57 @@
   	<script src="<?php echo base_url();?>app/js/socketio.js"></script>
   	<script src="<?php echo base_url();?>app/js/print.js"></script>
   	<script src="<?php echo base_url();?>app/js/invoice.js"></script>
+	<script type="text/javascript">
+	function getItemDesc(val) {
+
+  $.ajax({
+  type: "POST",
+  url: "<?php echo base_url();?>Inventory/getDetails",
+  data:'ItemID='+val,
+  success: function(data){
+    alert(data);
+    $("#ItemDesc").html(data);
+    $('#item').val('')
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+
+
+function getCaseItems(val) {
+ var dataString = { 
+             CaseID : $("#CaseID").val(),
+              ItemID : val
+              
+            };
+            
+  $.ajax({
+  type: "POST",
+  url: "<?php echo base_url();?>Order/getCaseItems",
+  data: dataString,
+  success: function(data){
+    alert(data);
+    $("#dropdown").append(data.test);
+
+    
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+
+	</script>
 
 
 

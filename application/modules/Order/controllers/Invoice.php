@@ -61,7 +61,7 @@ class Invoice extends MX_Controller
 							foreach ($_POST['invoice'] as $invoice) 
 							{
 								$invoice[$x] = array('InvoiceID' => $InvoiceID,
-									'Item' => $invoice['Item'],
+									'ItemID' => $invoice['ItemID'],
 									'QTY' => $invoice['QTY'],
 									'Amount' => $invoice['Amount'],
 									'SubTotal' => $invoice['SubTotal'],);
@@ -294,18 +294,8 @@ class Invoice extends MX_Controller
 	
 	
 	}
-	public function RX()
-	{	
-			
-			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
-			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
-			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
-			$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
-			$this->load->view('rx-slip',$data);
-			
+
 	
-	
-	}
 	
 	
 	

@@ -10,9 +10,10 @@ class mdlInventory extends CI_Model {
 	function getItem($options = array())
 	{
 		//verification
-		if(isset($options['ItemID']))
-			$this->db->where('ItemID', $options['ItemID']);
 		
+		if(isset($options['ItemID']))
+			$this->db->like('ItemID', $options['ItemID']);
+
 		if(isset($options['ItemDesc']))
 			$this->db->like('ItemDesc', $options['ItemDesc']);
 			
