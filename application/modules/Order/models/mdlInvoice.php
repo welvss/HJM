@@ -6,6 +6,33 @@ class mdlInvoice extends CI_Model {
 		parent:: __construct();
 	}
 
+	public function getInvoiceItem($options = array())
+	{
+		//verification
+		if(isset($options['ItemID']))
+			$this->db->where('ItemID', $options['ItemID']);
+
+		if(isset($options['InvoiceID']))
+			$this->db->where('InvoiceID', $options['InvoiceID']);
+		
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+		
+		$query = $this->db->get("tblinvoiceitem");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		
+		return $query->result();
+	}
+
 	public function getInvoice($options = array())
 	{
 		//verification
@@ -13,7 +40,7 @@ class mdlInvoice extends CI_Model {
 			$this->db->like('DentistID', $options['DentistID']);
 
 		if(isset($options['CaseID']))
-			$this->db->like('CaseID', $options['CaseID']);
+			$this->db->where('CaseID', $options['CaseID']);
 
 		if(isset($options['InvoiceID']))
 			$this->db->where('InvoiceID', $options['InvoiceID']);

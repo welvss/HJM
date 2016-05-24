@@ -15,7 +15,6 @@
   url: "<?php echo base_url();?>Inventory/getDetails",
   data:'ItemID='+val,
   success: function(data){
-    alert(data);
     $("#ItemDesc").html(data);
     $('#item').val('')
   

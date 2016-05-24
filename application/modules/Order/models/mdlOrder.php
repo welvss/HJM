@@ -32,21 +32,15 @@ class mdlOrder extends CI_Model {
 		$this->db->insert('tblcaseitem', $options);	
 		return $this->db->insert_id();
 	}
+	
 	function getCaseItem($options = array())
 	{
-		//verification
 		
-		
-		
-	
 		$this->db->like('CaseID', $options['CaseID']);
 		$query = $this->db->get("tblcaseitem");
-		
-		
-		
-		//die($this->db->last_query());
 		return $query->result();
 	}
+
 	function getCaseTeeth($options = array())
 	{
 		//verification

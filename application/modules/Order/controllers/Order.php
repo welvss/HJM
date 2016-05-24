@@ -472,17 +472,20 @@ class Order extends MX_Controller
 	{	$data['active'] =3;
 		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
+		{	
 			$this->load->view('template/header',$data);
 			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$invoice = $this->mdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['items'] = $this->mdlInventory->getItem(array());
 			$data['caseitems'] = $this->mdlOrder->getCaseItem(array('CaseID'=>$this->uri->segment(3)));
-			$data['invoice'] = $this->mdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3),'DentistID'=>$info->DentistID));
+			$data['invoice'] = $this->mdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
+			$data['invoiceitems'] = $this->mdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice[0]->InvoiceID));
 			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
 			$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('app-orders-info',$data);
 			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
+
 			$this->footer($data);
 		}
 	
@@ -501,24 +504,7 @@ class Order extends MX_Controller
 	
 	}
 
-	public function getCaseItems()
-	{
-		$data = $this->mdlOrder->getCaseItem(array('CaseID' => $this->input->POST('CaseID')));
-
-		
-		
-			foreach ($data as $datus) {
-				if($datus->ItemID!=$this->input->POST('ItemID'))
-				{
-					$arr['test']= '<option class="item" data-value="'.$datus->ItemID.'">'.$datus->ItemID.'</option >';
-				}
-			}
-
-			echo json_encode($arr);
-			
 	
-			
-	}
 	
 	
 	

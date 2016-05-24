@@ -282,25 +282,43 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Emax</td>
-								<td>
-								<?php 
-				  					$ctr= count($teeth);
-				  					$i=0;
-				  					foreach ($teeth as $tooth) 
-				  					{
-					  					if(++$i != $ctr)
-					  						echo $tooth->teeth.', ';
-					  					else
-					  						echo $tooth->teeth;
-				  					}
-				  				?>
-				  				</td>
-								<td>1</td>
-								<td>PHP 500.00</td>
-								<td></td>
-							</tr>
+							<?php
+
+								foreach ($invoiceitems as $ii) 
+								{
+									echo
+									'<tr>';
+									foreach ($items as $item) 
+									{
+										if($ii->ItemID==$item->ItemID)
+
+										echo '<td>'.$item->ItemDesc.'</td>';
+									}
+										
+			
+								
+									echo '<td>';
+									 
+					  					$ctr= count($teeth);
+					  					$i=0;
+					  					foreach ($teeth as $tooth) 
+					  					{
+						  					if(++$i != $ctr)
+						  						echo $tooth->teeth.', ';
+						  					else
+						  						echo $tooth->teeth;
+					  					}
+					  				
+					  				echo 
+					  					'</td>
+										<td>'.$ii->QTY.'</td>
+										<td>PHP '.$ii->Amount.'</td>
+										<td>PHP '.$ii->SubTotal.'</td>
+									</tr>';
+							
+								}
+							?>
+							
 						</tbody>
 					</table>
 					<div class="ui grid">
@@ -656,11 +674,11 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate">
+							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime">
+							    <input type="time" name="duetime" value="<?php echo date($case->duetime);?>">
 							  </div>
 							</div>
 							  

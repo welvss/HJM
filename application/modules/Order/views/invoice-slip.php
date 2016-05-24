@@ -54,25 +54,42 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Emax</td>
-						<td>
-							<?php 
-				  					$ctr= count($teeth);
-				  					$i=0;
-				  					foreach ($teeth as $tooth) 
-				  					{
-					  					if(++$i != $ctr)
-					  						echo $tooth->teeth.', ';
-					  					else
-					  						echo $tooth->teeth;
-				  					}
-				  			?>
-						</td>
-						<td>1</td>
-						<td>PHP 500.00</td>
-						<td></td>
-					</tr>
+					<?php
+
+								foreach ($invoiceitems as $ii) 
+								{
+									echo
+									'<tr>';
+									foreach ($items as $item) 
+									{
+										if($ii->ItemID==$item->ItemID)
+
+										echo '<td>'.$item->ItemDesc.'</td>';
+									}
+										
+			
+								
+									echo '<td>';
+									 
+					  					$ctr= count($teeth);
+					  					$i=0;
+					  					foreach ($teeth as $tooth) 
+					  					{
+						  					if(++$i != $ctr)
+						  						echo $tooth->teeth.', ';
+						  					else
+						  						echo $tooth->teeth;
+					  					}
+					  				
+					  				echo 
+					  					'</td>
+										<td>'.$ii->QTY.'</td>
+										<td>PHP '.$ii->Amount.'</td>
+										<td>PHP '.$ii->SubTotal.'</td>
+									</tr>';
+							
+								}
+							?>
 				</tbody>
 			</table>
 		</div>
@@ -87,12 +104,12 @@
 			<div class="right">
 				<div class="subtotal">
 					<p>Sub total:</p>
-					<p>PHP 500.00</p>
+					<p><?php echo 'PHP '.$invoice->Total;?></p>
 				</div>
 				<hr>
 				<div class="total">
 					<h3>TOTAL:</h3>
-					<h3>PHP 500.00</h3>
+					<h3><?php echo 'PHP '.$invoice->Total;?></h3>
 				</div>
 			</div>
 		</div>

@@ -15,7 +15,7 @@ $("#AddRow").click(function(){
 
 function addSubtotal(val)
 {
-  alert(val); 
+ 
 
   for (var i = val; i>0; i--) 
   {
