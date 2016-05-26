@@ -59,17 +59,28 @@ class Invoice extends MX_Controller
 						$InvoiceID = $this->mdlInvoice->addInvoice($data);
 						if(isset($_POST['invoice']))
 						{	
+							$this->mdlInvoice->deleteInvoiceItem($_POST['InvoiceID']);
 							$x=1;
 							foreach ($_POST['invoice'] as $invoice) 
 							{
-								$invoice[$x] = array('InvoiceID' => $InvoiceID,
+								$invoice[$x] = array('
+									InvoiceID' => $_POST['InvoiceID'],
 									'ItemID' => $invoice['ItemID'],
 									'QTY' => $invoice['QTY'],
 									'Amount' => $invoice['Amount'],
-									'SubTotal' => $invoice['SubTotal'],);
-
-								
+									'SubTotal' => $invoice['SubTotal']
+									);
 								$this->mdlInvoice->addInvoiceItem($invoice[$x]);
+								{
+									$data = $this->mdlInventory->getItem(array('ItemID' => $invoice['ItemID']));
+									$edit = 
+									array(
+										'ItemID' => $invoice['ItemID'],
+										'TotalQTY' => $data->TotalQTY-$invoice['QTY'] , 
+										);
+									$this->mdlInventory->EditInventory($edit);
+								}
+								$x++;
 							}
 						}
 					

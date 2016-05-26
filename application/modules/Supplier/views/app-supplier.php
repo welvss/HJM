@@ -1,86 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>HJM | Dental Laboratory</title>
-</head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
-<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="css/app.css">
-<link rel="stylesheet" href="css/hover-min.css">
-<link rel="shortcut icon" href="favicon.ico">
-<body class="app">
-<!--Sidebar-->
-	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
-		<div class="app-avatar">
-			<div id="circle" class="circle">
-				<h1 id="app-avatar-initial">WM</h1>
-			</div>
-		</div>
-		<div class="ui right dropdown item">
-		 <div class="ui sub header">Welvin Medina</div>
-      		Admin
-	    <i class="dropdown icon"></i>
-	    <div class="menu">
-	      <div class="item"><i class="settings icon"></i>
-	      Edit Username</div>
-	      <div class="item"> <i class="user icon"></i>
-	      Change Avatar</div>
-	      <div class="divider"></div>
-	      <div class="item"> <i class="browser icon"></i>
-	      Manage Site</div>
-	      <div class="item"> <i class="configure icon"></i>
-	      Account settings</div>
-	      <div class="item"> <i class="sign out icon"></i>
-	      Sign Out</div>
-	    </div>
-    </div>
-  	<hr>
-		 <a href="index.html" class="item">
-		    <i class="large home icon"></i>
-		    Home
-		  </a>
-		  <a href="app-customer.html" class="item">
-		    <i class="large doctor icon"></i>
-		    Customer
-		  </a>
-		  <a href="cases.html"class="item">
-		    <i class="large file text outline icon"></i>
-		    <div class="ui left label" id="number-notif">3</div>
-		    Cases
-		  </a>
-		  <a class="active blue item">
-		    <i class="large shipping icon"></i>
-		    Suppliers
-		  </a>
-		  <a href="inventory.html" class="item">
-		    <i class="large cubes icon"></i>
-		     <div class="ui left red label" id="number-notif">9</div>
-		    Inventory
-		  </a>
-	</div>
-<!--Pusher-->
-<div class="pusher">
-	<!--Header-->
-	  <div class="computer tablet only row">
-	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
-		    <button class="sidebar-button ui basic inverted button">
-		  	<i class="icon align justify big icon"></i>
-		    </button>
-			<div class="brand">
-				<img src="img/hjm.png" alt="" style="">
-				<p style="display: inline-block;">DENTAL LABORATORY</p>
-			</div>
-			<div class="right menu">
-				<div class="ui transparent inverted icon input">
-				  <input type="text" placeholder="Search HJM Dental La..">
-				  <i class="search icon"></i>
-				</div>
-			</div>
-	    </div>
-	  </div>
-	  <!--App-content--> 
-	  <div class="ui grid home-grid">
+<div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="two wide column hidden"></div>
 	   		<div class="seven wide column"><h1><i class="green truck icon"></i>Supplier</h1></div>
@@ -167,25 +85,31 @@
 	  					</tr>
 	  				</thead>
 	  				<tbody>
-	  					<tr>
-	  						<td>
-	  							<h4 class="ui image header">
-							          <i class="truck icon"></i>
-							          <div class="content">
-							            <a href="supplier-info.html">Ralph Pagayon </a>
-							            <div class="sub header">Deew Plantation
-							          </div>
-							        </div>
-							    </h4>
-	  						</td>
-	  						<td>09776443033</td>
-	  						<td>PHP 0.00</td>
-	  						<td>
-	  							<button class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</button>
-	  						</td>
-	  					</tr>
+	  					<?php 
+	  					foreach ($suppliers as $supplier) 
+	  					{
+	  					echo
+		  					'<tr>
+		  						<td>
+		  							<h4 class="ui image header">
+								          <i class="truck icon"></i>
+								          <div class="content">
+								            <a href="'.base_url('Supplier/Info/'.$supplier->SupplierID).'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
+								            <div class="sub header">'.$supplier->company.'
+								          </div>
+								        </div>
+								    </h4>
+		  						</td>
+		  						<td>'.$supplier->mobile.'</td>
+		  						<td>PHP 0.00</td>
+		  						<td>
+		  							<a href="'.base_url('Supplier/deleteSupplier/'.$supplier->SupplierID).'" class="ui red  icon button">
+		  								<i class="remove circle icon"></i>
+		  							</a>
+		  						</td>
+		  					</tr>';
+	  					}
+	  					?>
 	  				</tbody>
 	  			</table>
 	  		</div>
@@ -199,7 +123,7 @@
 		   <i class="large green truck icon"></i>
 		    Supplier Information
 		  </div>
-		  <form class="ui form">
+		  <?php echo form_open('Supplier/AddSupplier','class="ui form"');?>
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
@@ -216,44 +140,44 @@
 								  	</select>
 								  </div>
 								    <div class="two wide field">
-								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="first-name">
+								      <label>First Name</label>
+								      <input type="text" placeholder="First Name" name="firstname">
 								    </div>
 								    <div class="two wide field">
-								      <label>Middle name</label>
-								      <input type="text" placeholder="Middle Name">
+								      <label>Middle Name</label>
+								      <input type="text" placeholder="Middle Name" name="middlename">
 								    </div>
 								    <div class="two wide field">
-								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="last-name">
+								      <label>Last Name</label>
+								      <input type="text" placeholder="Last Name" name="lastname">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
 								    </div>
 								  </div>
 								  <div class="fields">
 									  <div class="eight wide field">
 									  	<label>Company Name</label>
-									  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
-								    		<input type="text">
+								    		<input type="text" name="telephone">
 								    	</div>
 								    	<div class="four wide field">
 								    		<label>Mobile</label>
-								    		<input type="text" name="mobile">
+								    		<input type="text" name="mobile" name="mobile">
 								    	</div>
 								  </div>
 								  <div class="fields">
 								  	<div class="eight wide field">
 									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com">
+									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website">
 									  </div>
 									  <div class="eight wide field">
 									  	<label>Fax</label>
-									  	<input type="text">
+									  	<input type="text" name="fax">
 									  </div>
 								  </div>
 								  <!--Tabs-->
@@ -272,14 +196,14 @@
 									 		<div class="centered column">
 												  <div class="field">
 												    <label>Address</label>
-												    <textarea rows="2" placeholder="Street"></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City">
+												  		<input type="text" placeholder="City" name="bcity">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy">
 												  	</div>
 												  </div>
 									 		</div>
@@ -290,7 +214,7 @@
 									<div class="ui form">
 										<div class="field">
 										<label>Notes</label>
-										<textarea rows="3" placeholder="Additional Notes"></textarea>
+										<textarea rows="3" placeholder="Additional Notes" name="notes"></textarea>
 										</div>
 									</div>
 								</div>
@@ -322,10 +246,3 @@
 			</form>
 			<br>
 	</div>
-	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/semantic/dist/semantic.min.js"></script>
-	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/app-semantic.js"></script>
-</body>
-</html>

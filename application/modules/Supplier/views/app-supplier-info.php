@@ -1,97 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>HJM | Dental Laboratory</title>
-</head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
-<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="css/app.css">
-<link rel="stylesheet" href="css/hover-min.css">
-<link rel="shortcut icon" href="favicon.ico">
-<body class="app">
-<!--Sidebar-->
-	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
-		<div class="app-avatar">
-			<div id="circle" class="circle">
-				<h1 id="app-avatar-initial">WM</h1>
-			</div>
-		</div>
-		<div class="ui right dropdown item">
-		 <div class="ui sub header">Welvin Medina</div>
-      		Admin
-	    <i class="dropdown icon"></i>
-	    <div class="menu">
-	      <div class="item"><i class="settings icon"></i>
-	      Edit Username</div>
-	      <div class="item"> <i class="user icon"></i>
-	      Change Avatar</div>
-	      <div class="divider"></div>
-	      <div class="item"> <i class="browser icon"></i>
-	      Manage Site</div>
-	      <div class="item"> <i class="configure icon"></i>
-	      Account settings</div>
-	      <div class="item"> <i class="sign out icon"></i>
-	      Sign Out</div>
-	    </div>
-    </div>
-  	<hr>
-		 <a href="index.html" class="item">
-		    <i class="large home icon"></i>
-		    Home
-		  </a>
-		  <a href="app-customer.html" class="active blue item">
-		    <i class="large doctor icon"></i>
-		    Customer
-		  </a>
-		  <a href="cases.html" class="item">
-		    <i class="large file text outline icon"></i>
-		    <div class="ui left label" id="number-notif">3</div>
-		    Cases
-		  </a>
-		  <a href="supplier.html" class="item">
-		    <i class="large shipping icon"></i>
-		    Suppliers
-		  </a>
-		  <a href="inventory.html" class="item">
-		    <i class="large cubes icon"></i>
-		     <div class="ui left red label" id="number-notif">9</div>
-		    Inventory
-		  </a>
-	</div>
-<!--Pusher-->
-<div class="pusher">
-	<!--Header-->
-	  <div class="computer tablet only row">
-	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
-		    <button class="sidebar-button ui basic inverted button">
-		  	<i class="icon align justify big icon"></i>
-		    </button>
-			<div class="brand">
-				<img src="img/hjm.png" alt="" style="">
-				<p style="display: inline-block;">DENTAL LABORATORY</p>
-			</div>
-			<div class="right menu">
-				<div class="ui transparent inverted icon input">
-				  <input type="text" placeholder="Search HJM Dental La..">
-				  <i class="search icon"></i>
-				</div>
-			</div>
-	    </div>
-	  </div>
-	  <!--App-content--> 
-	  <div class="ui grid home-grid">
+<div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
 	  		<div class="one wide column hidden"></div>
 	   		<div class="eleven wide column">
 		   		<h1 class="ui header">
 		   		<i class="truck icon"></i>
 		   		<div class="content">
-		   			Mr. Ralph Pagayon
+		   			<?php echo $supplier->title.' '.$supplier->firstname.' '.$supplier->lastname;?>
 		   			<div class="sub header">
-		   			<span>Deew Plantation</span>
+		   			<span><?php echo $supplier->company;?></span>
 		   			&nbsp;&nbsp; | &nbsp;&nbsp;
-		   			<span>Signal, Paranaque</span>
+		   			<span><?php echo $supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity;?></span>
 		   			</div>
 		   		</div>
 		   		</h1>
@@ -163,7 +81,7 @@
 					  						<h4>Supplier Name</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>Deew Plantation</p>
+					  						<p><?php echo $supplier->company;?></p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -172,7 +90,7 @@
 					  						<h4>Supplier Contact Name</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>Mr Ralph Pagayon</p>
+					  		<p><?php echo $supplier->title.' '.$supplier->firstname.' '.$supplier->lastname;?></p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -181,7 +99,7 @@
 					  						<h4>Email</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<a href="#">markserojihos@gmail.com</a>
+					  						<a href="#"><?php echo $supplier->email;?></a>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -190,7 +108,7 @@
 					  						<h4>Phone</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>899 66 988</p>
+					  						<p><?php echo $supplier->telephone;?></p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -199,7 +117,7 @@
 					  						<h4>Mobile</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p></p>
+					  						<p><?php echo $supplier->mobile;?></p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -208,7 +126,7 @@
 					  						<h4>Website</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<a href="#">www.hjmdentallaboratory.com</a>
+					  						<a href="#"><?php echo $supplier->website;?></a>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -219,7 +137,7 @@
 					  					<div class="ten wide column">
 					  						<div class="ui form">
 											  <div class="field">
-											    <textarea rows="2"></textarea>
+											    <textarea rows="2"><?php echo $supplier->notes;?></textarea>
 											  </div>
 											</div>
 					  					</div>
@@ -234,7 +152,7 @@
 					  						<h4>Fax</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>20930293290</p>
+					  						<p><?php echo $supplier->fax;?></p>
 					  					</div>
 					  				</div>
 					  				<div class="row">
@@ -243,7 +161,7 @@
 					  						<h4>Address</h4>
 					  					</div>
 					  					<div class="ten wide column">
-					  						<p>157 P. Tuazon, Cubao, Quezon City.</p>
+					  						<p><?php echo $supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity;?></p>
 					  					</div>
 					  				</div>
 					  			</div>
@@ -334,7 +252,8 @@
 		   <i class="large green truck icon"></i>
 		    Supplier Information
 		  </div>
-		  <form class="ui form">
+		
+		  	<?php echo form_open('Supplier/EditSupplier','class="ui form"').form_hidden('SupplierID',$this->uri->segment(3));?>
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
@@ -343,52 +262,52 @@
 								  <div class="two wide field">
 								  	<label>Title</label>
 								  	<select name="title" class="ui fluid dropdown">
-									  	<option value="Mr.">Dr.</option>
-									  	<option value="Mr.">Dra.</option>
-								  		<option value="Mr.">Mr.</option>
-								  		<option value="Mr.">Mrs.</option>
-								  		<option value="Mr.">Ms.</option>
+									  	<option value="Dr."<?php if($supplier->title=="Dr."){echo 'selected';}?>>Dr.</option>
+									  	<option value="Dra."<?php if($supplier->title=="Dra."){echo 'selected';}?>>Dra.</option>
+								  		<option value="Mr."<?php if($supplier->title=="Mr."){echo 'selected';}?>>Mr.</option>
+								  		<option value="Mrs."<?php if($supplier->title=="Mrs."){echo 'selected';}?>>Mrs.</option>
+								  		<option value="Ms."<?php if($supplier->title=="Ms."){echo 'selected';}?>>Ms.</option>
 								  	</select>
 								  </div>
 								    <div class="two wide field">
-								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="first-name">
+								      <label>First Name</label>
+								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $supplier->firstname;?>">
 								    </div>
 								    <div class="two wide field">
-								      <label>Middle name</label>
-								      <input type="text" placeholder="Middle Name">
+								      <label>Middle Name</label>
+								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $supplier->middlename;?>">
 								    </div>
 								    <div class="two wide field">
-								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="last-name">
+								      <label>Last Name</label>
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $supplier->lastname;?>">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>">
 								    </div>
 								  </div>
 								  <div class="fields">
 									  <div class="eight wide field">
 									  	<label>Company Name</label>
-									  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company" value="<?php echo $supplier->company;?>">
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
-								    		<input type="text">
+								    		<input type="text" name="telephone" value="<?php echo $supplier->telephone;?>">
 								    	</div>
 								    	<div class="four wide field">
 								    		<label>Mobile</label>
-								    		<input type="text" name="mobile">
+								    		<input type="text" name="mobile" name="mobile" value="<?php echo $supplier->mobile;?>">
 								    	</div>
 								  </div>
 								  <div class="fields">
 								  	<div class="eight wide field">
 									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com">
+									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" value="<?php echo $supplier->website;?>">
 									  </div>
 									  <div class="eight wide field">
 									  	<label>Fax</label>
-									  	<input type="text">
+									  	<input type="text" name="fax" value="<?php echo $supplier->fax;?>">
 									  </div>
 								  </div>
 								  <!--Tabs-->
@@ -407,14 +326,14 @@
 									 		<div class="centered column">
 												  <div class="field">
 												    <label>Address</label>
-												    <textarea rows="2" placeholder="Street"></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet"><?php echo $supplier->bstreet;?></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City">
+												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $supplier->bcity;?>">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $supplier->bbrgy;?>">
 												  	</div>
 												  </div>
 									 		</div>
@@ -425,7 +344,7 @@
 									<div class="ui form">
 										<div class="field">
 										<label>Notes</label>
-										<textarea rows="3" placeholder="Additional Notes"></textarea>
+										<textarea rows="3" placeholder="Additional Notes" name="notes"><?php echo $supplier->notes;?></textarea>
 										</div>
 									</div>
 								</div>
@@ -457,315 +376,10 @@
 			</form>
 			<br>
 	</div>
-	<!--New Case-->
-	<div class="ui modal large case">
-	  <form class="ui form">
-	  		<div class="ui inverted green segment">
-	  			  <div class="ui header">
-				  <i class="large add to cart icon"></i>
-					    New Purchase
-				  </div>
-	  		</div>
-		  <div class="ui horizontal teal segments">
-			  <div class="ui teal segment">
-			  	<label>Case Number:</label>
-			  	<div class="ui header">
-			  		<h3>#SERDS-M0KW1D</h3>
-			  	</div>
-			  </div>
-		  		<div class="ui teal segment">
-		  				<div class="fields">
-		  			<div class="four wide field">
-		  				<label>Doctor</label>
-		  				<input type="text" name="doctor" placeholder="" value="Dr. Mark Serojihos">
-		  			</div>
-		  			<div class="four wide field">
-		  				<label>Patient first name</label>
-		  				<input type="text" name="last-name" placeholder="First Name">
-		  			</div>
-		  			<div class="four wide field">
-		  				<label>Patient last name</label>
-		  				<input type="text" name="last-name" placeholder="Last Name">
-		  			</div>	  		
-				  <div class="three wide field">
-					  <label>Gender</label>
-					    <select>
-					      <option value="">Gender</option>
-					      <option value="1">Male</option>
-					      <option value="0">Female</option>
-					    </select>
-				  </div>
-				   <div class="one wide field">
-				    <label>Age</label>
-				    <input type="text" name="last-name">
-				  </div>
-		  		</div>
-		  		</div>
-		  </div>
-		  <div class="ui grid">
-		  <div class="row">
-		  	<div class="eight wide column">
-		  		<div class="ui teal segment">
-		  			<div class="ui centered header blue ">
-		  				<h1>Crown</h1>
-		  			</div>
-		  			<img class="ui centered large image"src="img/teeth-structure.png" alt="">
-		  			<div class="field">
- 				  	<label>Teeth</label>
- 				  	<select name="skills" multiple="" class="ui fluid dropdown">
- 					<option value="1">1</option>
- 					<option value="2">2</option>
- 					<option value="3">3</option>
- 					<option value="4">4</option>
- 					<option value="5">5</option>
- 					<option value="6">6</option>
- 					<option value="7">7</option>
- 					<option value="8">8</option>
- 					<option value="9">9</option>
- 					<option value="10">10</option>
- 					<option value="11">11</option>
- 					<option value="12">12</option>
- 					<option value="13">13</option>
- 					<option value="14">14</option>
- 					<option value="15">15</option>
- 					<option value="16">16</option>
- 					<option value="17">17</option>
- 					<option value="18">18</option>
- 					<option value="19">19</option>
- 					<option value="20">20</option>
- 					<option value="21">21</option>
- 					<option value="22">22</option>
- 					<option value="23">23</option>
- 					<option value="24">24</option>
- 					<option value="25">25</option>
- 					<option value="26">26</option>
- 					<option value="27">27</option>
- 					<option value="28">28</option>
- 					<option value="29">29</option>
- 					<option value="30">30</option>
- 					<option value="31">31</option>
- 					<option value="32">32</option>
- 					</select>
- 		  		</div>
-		  		</div>
-		  	</div>
-		  	<div class="eight wide column">
-		  		<div class="ui vertical teal segment">
-		  		  <div class="eight wide field">
-					  <label>Item</label>
-					    <select name="item" multiple="" class="ui fluid dropdown">
-					      <option value=""></option>
-					      <option value="ep">Emax Porcelain (epjc)</option>
-					      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
-					      <option value="fw">One Piece (framework only)</option>
-					      <option value="dr">Denture Repair</option>
-					    </select>
-				  </div>
-		  		</div>
-		  		<div class="ui vertical segment">
-		  		  <div class="eight wide field">
-		  		  	<div class="ui header">Shade Guide:</div>
-					     <div class="inline fields">
-						    <div class="field">
-						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
-						        <label>1 Shade</label>
-						      </div>
-						    </div>
-						    <div class="field">
-						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
-						        <label>2 shades</label>
-						      </div>
-						    </div>
-						    <div class="field">
-						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
-						        <label>3 shades</label>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="inline fields">
-						  	  <div class="field">
-						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
-						        <label>No shade</label>
-						      </div>
-						    </div>
-						    <div class="field">
-						      <div class="ui radio checkbox">
-						        <input type="radio" name="fruit" tabindex="0" class="hidden">
-						        <label>Provide Shade Later</label>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="five wide field">
-						  	<select>
-						  		<option value=""></option>
-						  		<option value="A1">A1</option>
-						  		<option value="A2">A2.5</option>
-						  		<option value="A3">A3</option>
-						  		<option value="A3">A3.5</option>
-						  	</select>
-						  </div>
-				  </div>
-		  		</div>
-		  		<div class="ui horizontal segments" style="height: 420px;">
-		  			<div class="ui disabled segment">
-		  			<br>
-		  				<div class="ui centered grid">
-		  					<div class="row">
-		  						<div class="fifteen wide column">
-		  							<div class="ui header">
-		  								Design
-		  							</div>
-		  						</div>
-		  					</div>
-		  				</div>
-		  			<hr><br>
-		  			</div>
-		  			<div class="ui disabled segment">
-		  			<br>
-		  				<div class="ui centered grid">
-		  					<div class="row">
-		  						<div class="fifteen wide column">
-		  							<div class="ui header">
-		  								Additional Features
-		  							</div>
-		  						</div>
-		  					</div>
-		  				</div>
-		  			<hr><br>
-		  			</div>
-		  		</div>
-		  	</div>
-		  </div>
-		  		<div class="row">
-		  		<div class="column">
-		  			<div class="ui inverted teal segment">
-		  				<div class="ui header">
-		  					Optional
-		  				</div>
-		  			</div>
-		  		</div>			
-		  		</div>
-				  <div class="row">
-				  	<div class="ten wide column">
-				  		<div class="ui teal segment">
-				  			<div class="ui grid">
-				  			<div class="two column row">
-				  				<div class="column">
-				  					 <h3 class="ui header">Return:</h3>
-				  					 <hr>
-								  <div class="field">
-								  	 <div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden">
-								      <label>Tray</label>
-								    </div>
-								  </div>
-								    <div class="field">
-								    	<div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden">
-								      <label>Shade Guide</label>
-								    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Bite Wax</label>
-									    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Model Cast</label>
-									    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Opposing Cast</label>
-									    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Photos</label>
-									    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Articulator</label>
-									    </div>
-								    </div>
-								    <div class="field">
-									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden">
-									      <label>Old Denture</label>
-									    </div>
-								    </div>
-				  				</div>
-				  				<div class="column">
-				  					<h3 class="ui header">Doctor's Special Instruction</h3>
-				  					 <hr>
-				  					   <div class="field">
-										    <textarea></textarea>
-									   </div>
-				  				</div>
-				  			</div>
-				  			</div>
-				  		</div>
-				  	</div>
-				  	<div class="six wide column">
-				  		<div class="ui teal segment" style="height: 310px;">
-					  		<div class="field">
-					  			<div class="ui header">
-					  				Attachment
-					  			</div>
-								    <input type="file" id="file" >
-							</div>
-							<div class="ui header">
-					  				Due
-					  		</div>
-							<div class="fields">
-								<div class="field">
-							    <label>Due Date</label>
-							    <input type="date" name="last-name" placeholder="Last Name">
-							  </div>
-							  <div class="field">
-							    <label>Due Time</label>
-							    <input type="time" name="last-name" placeholder="Last Name">
-							  </div>
-							</div>
-				  		</div>
-				  	</div>
-				  </div>
-	  			<div class="two column row">
-					<div class="nine wide column hidden"></div>
-					<div class="right aligned six wide column">
-						  <div class="actions" id="footer-modal">
-						    <div class="ui grey deny button">
-						      Cancel
-						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
-							  <div class="visible content">Submit</div>
-							  <div class="hidden content">
-							    <i class="right arrow icon"></i>
-							  </div>
-							</button>
-						  </div>
-					</div>
-					<div class="one wide column hidden"></div>
-				</div>
-	 		 <br>
-		  </div>
-	</form>
-	</div>
-
+	
 	<!--Invoice-->
 	<div class="ui modal fullscreen invoice">
-	  <form class="ui form">
+	<?php echo form_open('Supplier/AddPO','class="ui form"');?>
 	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
@@ -779,11 +393,11 @@
 							<div class="inline fields">
 							<div class="eight wide field">
 								<label>Supplier</label>
-								<input type="text" value="Deew Plantation">
+								<input type="text" value="<?php echo $supplier->company;?>">
 							</div>
 							<div class="eight wide field">
 								<label>Email</label>
-								<input type="text" value="hjmdentallaboratory@gmail.com">
+								<input type="text" value="<?php echo $supplier->email;?>">
 							</div>
 							</div>
 						</div>
@@ -793,7 +407,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								<h3>PO#:</h3>
-								<h1>PO-GR@C3</h1>
+								<h1>PO-</h1>
 							</div>	
 						</div>
 						<div class="ui segment">
@@ -813,11 +427,7 @@
 	  					<div class="fields">
 	  						<div class="four wide field">
 	  							<label>Billing Address</label>
-	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
-	  						</div>
-	  						<div class="field">
-	  							<label>Purchase Order date</label>
-	  							<input type="date">
+	  							 <textarea rows="2"><?php echo $supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity;?></textarea>
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
@@ -849,7 +459,7 @@
 		  					<td>1</td>
 		  					<td>
 		  						<div class="ui selection dropdown">
-								  <input type="hidden" name="gender">
+								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value);">
 								  <i class="dropdown icon"></i>
 								  <div class="default text">Default item dito</div>
 								  <div class="menu">
@@ -858,16 +468,16 @@
 								  </div>
 								</div>
 		  					</td>
-		  					<td>
-		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					<td id="ItemDesc">
+		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px">
+		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onchange="multipy(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text">
+		  						<input type="text" name="Amount" id="Amount1" onchange="multipy(1);">
 		  					</td>
-		  					<td>500</td>
+		  					<td id="SubTotal1"></td>
 		  					<td><a href="#"><i class="trash icon"></i></a></td>
 		  				</tr>
 		  			</tbody>
@@ -886,45 +496,22 @@
 					<div class="fifteen wide column">
 						<hr>
 						<div class="ui grid">
-							<div class="ten wide column">
-								<div class="eight wide field">
-									<label>Message displayed on PO</label>
-									<textarea row="2"></textarea>
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
 								</div>
 							</div>
-							<div class="three wide column">
-								<div class="item">
-									<h4>Subtotal</h4>
-								</div>
-								<br>
-								<div class="inline fields">
-									<div class="field">
-										<select class="ui dropdown">
-										  <option value="1">Discount Value</option>
-										  <option value="0">Discount Percent</option>
-										</select>
-									</div>
-									<div class="field">
-										<input type="text">
-									</div>
-									<div class="field">
-									<h4>PHP -200</h4>
-								</div>
-								</div>
-								<br>
-								<div class="item">
-									<h3>TOTAL</h3>
-								</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Subtotal</h4>
+								<h2>Total</h2>
 							</div>
 							<div class="three wide column">
-								<div class="item">
-									<h4>PHP 500</h4>
-								</div>
-								<br><br>
-								<br><br><br>
-								<div class="item">
-									<h3>PHP 200</h3>
-								</div>
+								<h4 id="TotalSave"></h4>
+								<h2 id="Total"></h2>
+
 							</div>
 						</div>
 					</div>
@@ -1090,10 +677,3 @@
 		  </div>
 	</form>
 	</div>
-	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/semantic/dist/semantic.min.js"></script>
-	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/app-customer-info.js"></script>
-</body>
-</html>

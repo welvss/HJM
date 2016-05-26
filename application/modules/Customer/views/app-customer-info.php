@@ -368,7 +368,7 @@
 												if ($i->CaseID==$case->CaseID) 
 												{
 													echo '<a href="'.base_url().'/Invoice/InvoiceSlip/'.$i->InvoiceID.'">Invoice # '.$i->InvoiceID.'</a>';
-							}
+							
 												}
 											}
 											echo
@@ -568,12 +568,16 @@
 			</div>  
 			</form>
 			<br>
+			
+		  			
+
 	</div>
-		<!--New Case-->
+<!--New Case-->
 	<div class="ui modal large case">
 	  <?php echo form_open('Order/AddOrder','class="ui form"');?>
-			<?php echo form_hidden('DentistID',$this->uri->segment(3));?>
-				<?php echo form_hidden('module',1);?>
+	  <?php echo form_hidden('DentistID',$this->uri->segment(3));?>
+	  	<?php echo form_hidden('module',1);?>
+
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
 				  <i class="large file text outline icon"></i>
@@ -645,12 +649,15 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select name="item" multiple="" class="ui fluid dropdown">
-					      <option value=""></option>
-					      <option value="ep">Emax Porcelain (epjc)</option>
-					      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
-					      <option value="fw">One Piece (framework only)</option>
-					      <option value="dr">Denture Repair</option>
+					    <select  multiple name="items[]"  class="ui fluid dropdown">
+					      
+					      <?php 
+					      echo '<option value=""></option>';
+					      foreach ($items as $item) {
+					      	echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+					      }
+					      
+					     ?>
 					    </select>
 				  </div>
 		  		</div>
@@ -860,6 +867,4 @@
 		  </div>
 	</form>
 	</div>
-	
-	
 	

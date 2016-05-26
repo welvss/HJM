@@ -46,13 +46,13 @@
       </a>
       <a href="<?php echo base_url('Order');?>" class="<?php if($active==3){ echo "active blue";}?> item" id="new_count_sidebar">
         <i class="large file text outline icon" ></i>
-        <?php if($this->mdlOrder->countOrder(array('status'=>'New'))!=0) echo
-     '<div class="ui left label" id="number-notif" >'.$this->mdlOrder->countOrder(array('status'=>'New')).'</div>';
+        <?php if($this->mdlOrder->countOrder(array('status_id'=>1))!=0) echo
+     '<div class="ui left label" id="number-notif" >'.$this->mdlOrder->countOrder(array('status_id'=>1)).'</div>';
       ?>
     
         Cases
       </a>
-      <a class="item">
+      <a href="<?php echo base_url('Supplier');?>" class="<?php if($active==5){ echo "active blue";}?> item">
         <i class="large shipping icon"></i>
         Suppliers
       </a>

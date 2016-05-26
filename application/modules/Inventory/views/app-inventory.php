@@ -79,7 +79,7 @@
 	  						<td><a href="'.base_url('Inventory/Info/'.$item->ItemID).'">'.$item->ItemID.'</a></td>
 	  						<td>'.$item->ItemDesc.'</td>
 	  						<td>'.$item->Cost.'</td>
-	  						<td>'.$item->QTY.'</td>
+	  						<td>'.$item->TotalQTY.'/'.$item->QTY.'</td>
 	  						<td>
 	  							<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
 	  						</td>

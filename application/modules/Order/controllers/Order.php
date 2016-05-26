@@ -192,7 +192,7 @@ class Order extends MX_Controller
 							'DentistID'=>$_POST['DentistID']
 							);
 						$this->mdlInvoice->createInvoice($invoice);
-						if(isset($_POST['teeth']))
+						if(isset($_POST['teeth'])!=null)
 						{	
 							$teeth=$_POST['teeth'];
 							
@@ -206,7 +206,7 @@ class Order extends MX_Controller
 							}
 						}
 
-						if(isset($_POST['items']))
+						if(isset($_POST['items'])!=null)
 						{	
 							$items=$_POST['items'];
 							

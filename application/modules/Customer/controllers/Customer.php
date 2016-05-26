@@ -50,6 +50,7 @@ class Customer extends MX_Controller
 		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
 		$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));
 		$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3)));
+		$data['items'] = $this->mdlInventory->getItem(array());
 		$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
 		$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
 		$this->load->view('app-customer-info',$data);

@@ -7,6 +7,7 @@ class mdlInventory extends CI_Model {
 	}
 	
 	
+	
 	function getItem($options = array())
 	{
 		//verification

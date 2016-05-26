@@ -27,7 +27,7 @@
 		  </div>
 		  <div class="ui right floated red statistic">
 			<div class="value">
-			   <?php echo $item[0]->TotalQTY.'/'.$item[0]->QTY;?>
+			   <?php echo $item->TotalQTY.'/'.$item->QTY;?>
 			  </div>
 			  <div class="label">
 			    Current Stock
@@ -40,19 +40,19 @@
 					<div class="seven wide column">
 							<div class="field">
 								<label>Item Code</label>
-								<input type="text" name="ItemID" value="<?php echo $item[0]->ItemID;?>">
+								<input type="text" name="ItemID" value="<?php echo $item->ItemID;?>">
 							</div>
 							<div class="sixteen wide field">
 								<label for="">Item Description</label>
-								<textarea row="1" name="ItemDesc" ><?php echo $item[0]->ItemDesc;?></textarea>
+								<textarea row="1" name="ItemDesc" ><?php echo $item->ItemDesc;?></textarea>
 							</div>
 							<div class="field">
 								<label>Cost</label>
-								<input type="text" name="Cost" value="<?php echo $item[0]->Cost;?>">
+								<input type="text" name="Cost" value="<?php echo $item->Cost;?>">
 							</div>
 							<div class="field">
 								<label>Price</label>
-								<input type="text" name="Price" value="<?php echo $item[0]->Price;?>">
+								<input type="text" name="Price" value="<?php echo $item->Price;?>">
 							</div>
 					</div>
 					<div class="eight wide column">
@@ -65,15 +65,15 @@
 						</div>
 						<div class="field">
 								<label>Quantity</label>
-								<input type="text" name="QTY" value="<?php echo $item[0]->QTY;?>">
+								<input type="text" name="QTY" value="<?php echo $item->QTY;?>">
 							</div>
 							<div class="field">
 								<label>Alert Qty Falls Below</label>
-								<input type="text" name="QTYBelow" value="<?php echo $item[0]->QTYBelow;?>">
+								<input type="text" name="QTYBelow" value="<?php echo $item->QTYBelow;?>">
 							</div>
 							<div class="field">
 								<label>Reorder Qty</label>
-								<input type="text" name="ReorderQTY" value="<?php echo $item[0]->ReorderQTY;?>">
+								<input type="text" name="ReorderQTY" value="<?php echo $item->ReorderQTY;?>">
 							</div>
 					</div>
 				</div>

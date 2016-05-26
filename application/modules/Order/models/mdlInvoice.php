@@ -6,6 +6,12 @@ class mdlInvoice extends CI_Model {
 		parent:: __construct();
 	}
 
+	function deleteInvoiceItem($id)
+	{
+		$this->db->where('InvoiceID', $id);
+		$this->db->delete('tblinvoiceitem');	
+		return true;
+	}
 	public function getInvoiceItem($options = array())
 	{
 		//verification
