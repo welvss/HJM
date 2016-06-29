@@ -4,7 +4,11 @@ class Inventory extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-		
+		$this->load->model('Customer/MdlCustomer');
+		$this->load->model('Inventory/MdlInventory');
+		$this->load->model('Order/MdlInvoice');
+		$this->load->model('Order/MdlOrder');
+		$this->load->model('Supplier/MdlSupplier');
 	
 		
 	}
@@ -14,11 +18,11 @@ class Inventory extends MX_Controller
 	}
 	public function index(){
 		$data['active'] =4;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
-			$data['items'] = $this->mdlInventory->getItem(array());
+			$data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('app-inventory',$data);
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';
 			$this->footer($data);
@@ -45,7 +49,7 @@ class Inventory extends MX_Controller
 									'ReorderQTY'=>$_POST['ReorderQTY']
 
 								);
-						$this->mdlInventory->AddInventory($data);
+						$this->MdlInventory->AddInventory($data);
 						redirect('Inventory');
 					
 		}
@@ -71,7 +75,7 @@ class Inventory extends MX_Controller
 									'ReorderQTY'=>$_POST['ReorderQTY']
 
 								);
-						$this->mdlInventory->EditInventory($data);
+						$this->MdlInventory->EditInventory($data);
 						redirect('Inventory');
 					
 		}
@@ -81,7 +85,7 @@ class Inventory extends MX_Controller
 
 	public function DeleteItem()
 	{
-		$this->mdlInventory->DeleteItem($this->uri->segment(3));	
+		$this->MdlInventory->DeleteItem($this->uri->segment(3));	
 		redirect('Inventory');
 	}
 	public function UpdateOrderStatus()
@@ -93,7 +97,7 @@ class Inventory extends MX_Controller
 							'status_id' => $_POST['status_id'] 
 							);
 				
-				if($this->mdlOrder->UpdateOrderStatus($order))
+				if($this->MdlOrder->UpdateOrderStatus($order))
 				{
 					if( $_POST['DentistID']!=Null)
 						redirect('Customer/Info/'.$_POST['DentistID'].'/'.$_POST['Info']);
@@ -113,11 +117,11 @@ class Inventory extends MX_Controller
 	
 	public function Info()
 	{	$data['active'] =3;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
-			$data['item'] = $this->mdlInventory->getItem(array('ItemID'=>$this->uri->segment(3)));
+			$data['item'] = $this->MdlInventory->getItem(array('ItemID'=>$this->uri->segment(3)));
 				
 			$this->load->view('app-inventory-info',$data);
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';
@@ -129,17 +133,10 @@ class Inventory extends MX_Controller
 
 	public function getDetails()
 	{
-		$data = $this->mdlInventory->getItem(array('ItemID' => $this->input->POST('ItemID')));
+		$data = $this->MdlInventory->getItem(array('ItemID' => $this->input->POST('ItemID')));
 
-		
-		
-			$arr['ItemDesc'] = $data->ItemDesc;
-
-			echo $arr['ItemDesc'];
+			echo $data->ItemDesc;
 	
-			
-			
-		
 			
 	}
 

@@ -7,11 +7,14 @@ var sum=0;
 $("#AddRow").click(function(){
     x++;
  
-   $('#Add').append('<tr id="Row'+x+'"><td>'+x+'</td><td><select class="ui selection dropdown" name="invoice['+x+'][Item]" id="dropdown" onchange="getCaseItems(this.value);"><option value="">Select Item</option></select></td><td></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="invoice['+x+'][QTY] onchange="multiply('+x+');" "></td><td><input type="text" id="Amount'+x+'" name="invoice['+x+'][Amount]"  onchange="multiply('+x+');addSubtotal('+x+');""></td><td ><input type="text" id="SubTotal'+x+'" name="invoice['+x+'][SubTotal]" ></td><td><a href="#" onClick="deleteRow('+x+')"><i class="trash icon"></i></a></td></tr>');
+   $('#Add').append('<tr id="Row'+x+'"><td>'+x+'</td><td><div class="ui selection dropdown"><input type="hidden" name="ItemID" onchange="getItemDesc(this.value,'+x+');"><i class="dropdown icon"></i><div class="default text">Select Item</div><div class="menu"></div></div></td><td id="ItemDesc'+x+'"></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="invoice['+x+'][QTY] onchange="multiply('+x+');" "></td><td><input type="text" id="Amount'+x+'" name="invoice['+x+'][Amount]"  onchange="multiply('+x+');addSubtotal('+x+');""></td><td ><input type="text" id="SubTotal'+x+'" name="invoice['+x+'][SubTotal]" ></td><td><a href="#" onClick="deleteRow('+x+')"><i class="trash icon"></i></a></td></tr>');
 
 
 });
 
+
+                    
+                  
 
 function addSubtotal(val)
 {

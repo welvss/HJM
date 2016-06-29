@@ -4,26 +4,29 @@ class Invoice extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-		
-	
+		$this->load->model('Customer/MdlCustomer');
+		$this->load->model('Inventory/MdlInventory');
+		$this->load->model('Order/MdlInvoice');
+		$this->load->model('Order/MdlOrder');
+		$this->load->model('Supplier/MdlSupplier');
 		
 	}
 	
 	public function index(){
 		$data['active'] =3;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
-			$data['cases'] = $this->mdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
-			$data['status'] = $this->mdlOrder->getStatus();
-			$data['dentists'] = $this->mdlCustomer->getDentist(array());
-			$data['Count']	= $this->mdlOrder->countOrder(array());
+			$data['cases'] = $this->MdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
+			$data['status'] = $this->MdlOrder->getStatus();
+			$data['dentists'] = $this->MdlCustomer->getDentist(array());
+			$data['Count']	= $this->MdlOrder->countOrder(array());
 
-			$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1));
-			$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2));
-			$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3));
-			$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4));
+			$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1));
+			$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2));
+			$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3));
+			$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4));
 
 			$this->load->view('app-orders',$data);
 			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
@@ -34,12 +37,12 @@ class Invoice extends MX_Controller
 	}
 	public function InvoiceSlip()
 	{	
-		$info = $this->mdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
-		$data['items'] = $this->mdlInventory->getItem(array());
-		$data['invoice'] = $this->mdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
-		$data['invoiceitems'] = $this->mdlInvoice->getInvoiceItem(array('InvoiceID'=>$this->uri->segment(3)));
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));
-		$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$info->CaseID));
+		$info = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
+		$data['items'] = $this->MdlInventory->getItem(array());
+		$data['invoice'] = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
+		$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$this->uri->segment(3)));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));
+		$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$info->CaseID));
 		
 		$this->load->view('invoice-slip',$data);
 			
@@ -56,10 +59,10 @@ class Invoice extends MX_Controller
 									'Total'=>$_POST['Total']
 
 								);
-						$InvoiceID = $this->mdlInvoice->addInvoice($data);
+						$InvoiceID = $this->MdlInvoice->addInvoice($data);
 						if(isset($_POST['invoice']))
 						{	
-							$this->mdlInvoice->deleteInvoiceItem($_POST['InvoiceID']);
+							$this->MdlInvoice->deleteInvoiceItem($_POST['InvoiceID']);
 							$x=1;
 							foreach ($_POST['invoice'] as $invoice) 
 							{
@@ -70,15 +73,15 @@ class Invoice extends MX_Controller
 									'Amount' => $invoice['Amount'],
 									'SubTotal' => $invoice['SubTotal']
 									);
-								$this->mdlInvoice->addInvoiceItem($invoice[$x]);
+								$this->MdlInvoice->addInvoiceItem($invoice[$x]);
 								{
-									$data = $this->mdlInventory->getItem(array('ItemID' => $invoice['ItemID']));
+									$data = $this->MdlInventory->getItem(array('ItemID' => $invoice['ItemID']));
 									$edit = 
 									array(
 										'ItemID' => $invoice['ItemID'],
 										'TotalQTY' => $data->TotalQTY-$invoice['QTY'] , 
 										);
-									$this->mdlInventory->EditInventory($edit);
+									$this->MdlInventory->EditInventory($edit);
 								}
 								$x++;
 							}
@@ -104,7 +107,7 @@ class Invoice extends MX_Controller
 							'status' => $_POST['status'] 
 							);
 				
-				if($this->mdlInvoice->addInvoice($invoice))
+				if($this->MdlInvoice->addInvoice($invoice))
 					redirect('Order/Info/'.$_POST['CaseID']);
 					
 			
@@ -156,10 +159,10 @@ class Invoice extends MX_Controller
 									//'file' => $upload_data['file_name']
 								);*/
 						
-						if($this->mdlOrder->AddOrder($data))
+						if($this->MdlOrder->AddOrder($data))
 						{
-							$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
-							$dentist = $this->mdlCustomer->getDentist(array('DentistID'=>$this->input->post('DentistID')));
+							$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
+							$dentist = $this->MdlCustomer->getDentist(array('DentistID'=>$this->input->post('DentistID')));
 							$data['CaseID'] = $info->CaseID;
 							$data['DentistID'] = $dentist->DentistID;
 							$data['fullname'] = $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
@@ -170,7 +173,7 @@ class Invoice extends MX_Controller
 							$data['duetime'] = $info->duetime;
 							$data['status'] = $info->status;
 							$data['success'] = true;
-							$data['new_count_order'] = $this->mdlOrder->countOrder(array('status'=>'New'));
+							$data['new_count_order'] = $this->MdlOrder->countOrder(array('status'=>'New'));
 						}
 						else
 						{
@@ -261,12 +264,12 @@ class Invoice extends MX_Controller
 
 										//'file' => $upload_data['file_name']
 									);
-							$this->mdlOrder->modifyOrder($data);
+							$this->MdlOrder->modifyOrder($data);
 						}
 						$CaseID = $_POST['CaseID'];
 						$array = array('CaseID' => $_POST['CaseID']); 
 
-						$this->mdlOrder->deleteTeeth($array);
+						$this->MdlOrder->deleteTeeth($array);
 					
 						{
 							$teeth=$_POST['teeth'];
@@ -277,7 +280,7 @@ class Invoice extends MX_Controller
 												'teeth' =>$tooth
 
 									);
-								$this->mdlOrder->InsertCaseTeeth($data);
+								$this->MdlOrder->InsertCaseTeeth($data);
 							}
 						}
 							redirect('Order/Info/'.$CaseID);
@@ -292,14 +295,14 @@ class Invoice extends MX_Controller
 	
 	public function Info()
 	{	$data['active'] =3;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
-			$info = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
-			$data['case'] = $this->mdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
-			$data['teeth'] = $this->mdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
-			$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
+			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
+			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('app-orders-info',$data);
 			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
 			$this->footer($data);

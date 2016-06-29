@@ -1,9 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class mdlSupplier extends CI_Model {
+class MdlSupplier extends CI_Model {
 	
 	public function __construct(){
 		parent:: __construct();
+	}
+
+
+	function countPO($options=array())
+	{
+		if(isset($options['DentistID']))
+			$this->db->where('DentistID',$options['DentistID']);
+
+		if(isset($options['status_id']))
+			$this->db->where('status_id',$options['status_id']);
+
+		return $query = $this->db->count_all_results('tblPO');
 	}
 
 	function getOrder($options = array())

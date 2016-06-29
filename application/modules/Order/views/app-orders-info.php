@@ -601,7 +601,7 @@
 				  					 <h3 class="ui header">Return:</h3>
 				  					 <hr>
 								  <div class="field">
-								  	 <div class="ui checkbox<?php if($case->Tray==1)echo ' checked';?>">
+								  	 <div class="ui checkbox<?php if($case->Tray==1)echo ' selected=""';?>">
 								      <input type="checkbox" tabindex="0"  name="Tray" value="1">
 								      <label>Tray</label>
 								    </div>

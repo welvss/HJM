@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class mdlInventory extends CI_Model {
+class MdlInventory extends CI_Model {
 	
 	public function __construct(){
 		parent:: __construct();
@@ -13,7 +13,10 @@ class mdlInventory extends CI_Model {
 		//verification
 		
 		if(isset($options['ItemID']))
-			$this->db->like('ItemID', $options['ItemID']);
+			$this->db->where('ItemID', $options['ItemID']);
+
+		if(isset($options['SupplierID']))
+			$this->db->where('SupplierID', $options['SupplierID']);
 
 		if(isset($options['ItemDesc']))
 			$this->db->like('ItemDesc', $options['ItemDesc']);

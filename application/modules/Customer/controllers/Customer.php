@@ -5,7 +5,11 @@ class Customer extends MX_Controller
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model('mdlCustomer');
+		$this->load->model('Customer/MdlCustomer');
+		$this->load->model('Inventory/MdlInventory');
+		$this->load->model('Order/MdlInvoice');
+		$this->load->model('Order/MdlOrder');
+		$this->load->model('Supplier/MdlSupplier');
 		$this->headercheck();
 	
 	}
@@ -17,7 +21,7 @@ class Customer extends MX_Controller
 	public function headercheck()
 	{
 		$data['active'] =2;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
@@ -34,7 +38,7 @@ class Customer extends MX_Controller
 		}	
 	}
 	public function index(){
-		$data['dentists'] = $this->mdlCustomer->getDentist();	
+		$data['dentists'] = $this->MdlCustomer->getDentist();	
 		$this->load->view('app-customer',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
 		$this->footer($data);
@@ -43,16 +47,16 @@ class Customer extends MX_Controller
 	public function CustomerInfo()
 	{
 
-		$data['Count']	= $this->mdlOrder->countOrder(array());
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
-		$data['invoice'] = $this->mdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
-		$data['status'] = $this->mdlOrder->getStatus();
-		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
-		$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));
-		$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3)));
-		$data['items'] = $this->mdlInventory->getItem(array());
-		$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
-		$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
+		$data['Count']	= $this->MdlOrder->countOrder(array());
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
+		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
+		$data['status'] = $this->MdlOrder->getStatus();
+		$data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
+		$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));
+		$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3)));
+		$data['items'] = $this->MdlInventory->getItem(array());
+		$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
+		$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
 		$this->footer($data);
@@ -89,7 +93,7 @@ class Customer extends MX_Controller
 									'shipbrgy' => $_POST['bbrgy'],
 									'notes' => $_POST['notes'] );
 						
-						if($this->mdlCustomer->AddDentist($dentist))
+						if($this->MdlCustomer->AddDentist($dentist))
 							redirect('Customer');
 			}
 			else
@@ -113,7 +117,7 @@ class Customer extends MX_Controller
 									'shipbrgy' => $_POST['shipbrgy'],
 									'notes' => $_POST['notes'] );
 						
-						if($this->mdlCustomer->AddDentist($dentist))
+						if($this->MdlCustomer->AddDentist($dentist))
 							redirect('Customer');
 			}
 		
@@ -153,7 +157,7 @@ class Customer extends MX_Controller
 									'shipbrgy' => $_POST['bbrgy'],
 									'notes' => $_POST['notes'] );
 						
-						if($this->mdlCustomer->modifyDentist($dentist))
+						if($this->MdlCustomer->modifyDentist($dentist))
 							redirect('Customer/Info/'.$_POST['DentistID']);
 				redirect('Customer/Info/'.$_POST['DentistID']);
 			
@@ -181,7 +185,7 @@ class Customer extends MX_Controller
 									'shipbrgy' => $_POST['shipbrgy'],
 									'notes' => $_POST['notes'] );
 						
-						if($this->mdlCustomer->modifyDentist($dentist))
+						if($this->MdlCustomer->modifyDentist($dentist))
 					redirect('Customer/Info/'.$_POST['DentistID']);
 				redirect('Customer/Info/'.$_POST['DentistID']);
 			}
@@ -195,7 +199,7 @@ class Customer extends MX_Controller
 	
 	public function deleteDentist()
 	{	
-		$this->mdlCustomer->deleteDentist($this->uri->segment(3));	
+		$this->MdlCustomer->deleteDentist($this->uri->segment(3));	
 		redirect('Customer');
 	}
 	

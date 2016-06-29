@@ -46,8 +46,8 @@
       </a>
       <a href="<?php echo base_url('Order');?>" class="<?php if($active==3){ echo "active blue";}?> item" id="new_count_sidebar">
         <i class="large file text outline icon" ></i>
-        <?php if($this->mdlOrder->countOrder(array('status_id'=>1))!=0) echo
-     '<div class="ui left label" id="number-notif" >'.$this->mdlOrder->countOrder(array('status_id'=>1)).'</div>';
+        <?php $this->load->model('Order/MdlOrder'); if($this->MdlOrder->countOrder(array('status_id'=>1))!=0) echo
+     '<div class="ui left label" id="number-notif" >'.$this->MdlOrder->countOrder(array('status_id'=>1)).'</div>';
       ?>
     
         Cases

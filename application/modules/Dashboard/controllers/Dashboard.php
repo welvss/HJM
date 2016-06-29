@@ -6,7 +6,11 @@ class Dashboard extends MX_Controller
 	{
 		parent::__construct();
 		
-		
+		$this->load->model('Customer/MdlCustomer');
+		$this->load->model('Inventory/MdlInventory');
+		$this->load->model('Order/MdlInvoice');
+		$this->load->model('Order/MdlOrder');
+		$this->load->model('Supplier/MdlSupplier');
 		$this->headercheck();
 		
 		
@@ -21,7 +25,7 @@ class Dashboard extends MX_Controller
 	public function headercheck()
 	{
 		$data['active'] =1;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
@@ -48,10 +52,10 @@ class Dashboard extends MX_Controller
 	{
 		if($this->session->userdata('ps_id')==2 )
 		{
-			$data['New'] = $this->mdlOrder->countOrder(array('status_id'=>1));
-			$data['IP'] = $this->mdlOrder->countOrder(array('status_id'=>2));
-			$data['Completed'] = $this->mdlOrder->countOrder(array('status_id'=>3));
-			$data['Hold'] = $this->mdlOrder->countOrder(array('status_id'=>4));
+			$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1));
+			$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2));
+			$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3));
+			$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4));
 
 			$this->load->view('a-dashboard',$data);
 			$this->footer();

@@ -5,7 +5,8 @@ class Home extends MX_Controller
 	function __construct(){
 		parent::__construct();
 		$this->load->view('template/frontheader');
-		$this->load->model('mdlHome');
+		$this->load->model('MdlHome');
+        $this->load->library('form_validation');
         $this->logincheck();
 
 	
@@ -38,8 +39,8 @@ class Home extends MX_Controller
                
                 $data = array(
                     'username' =>$this->input->post('username'),
-                    'DentistID' =>$this->mdlHome->check_id($this->input->post('username')),
-                    'ps_id' =>$this->mdlHome->checK_privilege($this->input->post('username')),
+                    'DentistID' =>$this->MdlHome->check_id($this->input->post('username')),
+                    'ps_id' =>$this->MdlHome->checK_privilege($this->input->post('username')),
                     'is_logged_in'=> true
                 );
                     
@@ -59,7 +60,7 @@ class Home extends MX_Controller
         
     public function validate_credentials()
     {
-        if($this->mdlHome->can_log_in())
+        if($this->MdlHome->can_log_in())
         {
             
             return true;

@@ -407,7 +407,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								<h3>PO#:</h3>
-								<h1>PO-</h1>
+								<h1>PO-<?php echo $Count+1;?></h1>
 							</div>	
 						</div>
 						<div class="ui segment">
@@ -454,30 +454,36 @@
 		  					<th></th>
 		  				</tr>
 		  			</thead>
-		  			<tbody>
-		  				<tr>
+		  			<tbody id="Add">
+		  				<tr id="Row1">
 		  					<td>1</td>
 		  					<td>
 		  						<div class="ui selection dropdown">
-								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value);">
+								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value,1);">
 								  <i class="dropdown icon"></i>
-								  <div class="default text">Default item dito</div>
+								  <div class="default text">Select Item</div>
 								  <div class="menu">
-								    <div class="item" data-value="1">Emax</div>
-								    <div class="item" data-value="0">Baymax</div>
+								  	<?php 
+								  		foreach ($items as $item) 
+								  		{
+								  			echo '<div class="item" data-value="'.$item->ItemID.'">'.$item->ItemDesc.'</div>';
+								  		}
+								    ?>
 								  </div>
 								</div>
 		  					</td>
-		  					<td id="ItemDesc">
+		  					<td id="ItemDesc1">
 		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onchange="multipy(1);">
+		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onchange="multiply(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text" name="Amount" id="Amount1" onchange="multipy(1);">
+		  						<input type="text" name="Amount" id="Amount1" onchange="multiply(1);">
 		  					</td>
-		  					<td id="SubTotal1"></td>
+		  					<td>
+		  						<input type="text" name="SubTotal" id="SubTotal1">
+		  					</td>
 		  					<td><a href="#"><i class="trash icon"></i></a></td>
 		  				</tr>
 		  			</tbody>
@@ -487,9 +493,9 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<button class="ui button green">
+		  		<a class="ui button green" id="AddRow">
 		  			Add Row
-		  		</button>
+		  		</a>
 		  	</div>
 		  </div>
 				<div class="row">

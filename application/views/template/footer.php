@@ -8,14 +8,14 @@
   	<script src="<?php echo base_url();?>app/js/print.js"></script>
   	<script src="<?php echo base_url();?>app/js/invoice.js"></script>
 	<script type="text/javascript">
-	function getItemDesc(val) {
+	function getItemDesc(val,x) {
 
   $.ajax({
   type: "POST",
   url: "<?php echo base_url();?>Inventory/getDetails",
   data:'ItemID='+val,
   success: function(data){
-    $("#ItemDesc").html(data);
+    $("#ItemDesc"+x).html(data);
     $('#item').val('')
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {

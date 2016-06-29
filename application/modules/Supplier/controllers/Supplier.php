@@ -5,7 +5,11 @@ class Supplier extends MX_Controller
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model('mdlCustomer');
+		$this->load->model('Customer/MdlCustomer');
+		$this->load->model('Inventory/MdlInventory');
+		$this->load->model('Order/MdlInvoice');
+		$this->load->model('Order/MdlOrder');
+		$this->load->model('Supplier/MdlSupplier');
 		$this->headercheck();
 	
 	}
@@ -17,7 +21,7 @@ class Supplier extends MX_Controller
 	public function headercheck()
 	{
 		$data['active'] =5;
-		$data['dentist'] = $this->mdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
@@ -34,7 +38,7 @@ class Supplier extends MX_Controller
 		}	
 	}
 	public function index(){
-		$data['suppliers'] = $this->mdlSupplier->getSupplier();	
+		$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 		$this->load->view('app-supplier',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
 		$this->footer($data);
@@ -43,11 +47,12 @@ class Supplier extends MX_Controller
 	public function Info()
 	{
 
-		$data['Count']	= $this->mdlOrder->countOrder(array());
-		$data['supplier'] = $this->mdlSupplier->getSupplier(array('SupplierID'=>$this->uri->segment(3)));	
-		$data['invoice'] = $this->mdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
-		$data['status'] = $this->mdlOrder->getStatus();
-		$data['cases'] = $this->mdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
+		$data['Count']	= $this->MdlSupplier->countPO(array());
+		$data['supplier'] = $this->MdlSupplier->getSupplier(array('SupplierID'=>$this->uri->segment(3)));	
+		$data['items'] = $this->MdlInventory->getItem(array('SupplierID'=>$this->uri->segment(3)));	
+		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
+		$data['status'] = $this->MdlOrder->getStatus();
+		$data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
 		$this->load->view('app-supplier-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
 		$this->footer($data);
@@ -81,7 +86,7 @@ class Supplier extends MX_Controller
 									'notes' => $_POST['notes'] 
 									);
 						
-						if($this->mdlSupplier->AddSupplier($supplier))
+						if($this->MdlSupplier->AddSupplier($supplier))
 							redirect('Supplier');
 		
 			
@@ -107,7 +112,7 @@ class Supplier extends MX_Controller
 
 									//'file' => $upload_data['file_name']
 								);
-						$this->mdlSupplier->AddPO($data);
+						$this->MdlSupplier->AddPO($data);
 
 						redirect('Supplier/Info/'.$_POST['SupplierID']);
 					
@@ -151,7 +156,7 @@ class Supplier extends MX_Controller
 									
 									'notes' => $_POST['notes'] );
 						
-						$this->mdlSupplier->modifySupplier($supplier);
+						$this->MdlSupplier->modifySupplier($supplier);
 							redirect('Supplier/Info/'.$_POST['SupplierID']);
 
 			
@@ -163,7 +168,7 @@ class Supplier extends MX_Controller
 	
 	public function deleteSupplier()
 	{	
-		$this->mdlSupplier->deleteSupplier($this->uri->segment(3));	
+		$this->MdlSupplier->deleteSupplier($this->uri->segment(3));	
 		redirect('Supplier');
 	}
 	
