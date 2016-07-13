@@ -36,7 +36,7 @@ class Customer extends MX_Controller
 		$this->headercheck();
 		if($this->session->userdata('ps_id')==2 )
 		{	
-			$data['dentists'] = $this->MdlCustomer->getDentist(array('active'=>1));	
+			$data['dentists'] = $this->MdlCustomer->getDentist();	
 			$this->load->view('app-customer',$data);
 			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
 			$this->footer($data);
@@ -46,7 +46,7 @@ class Customer extends MX_Controller
 	
 	public function CustomerInfo()
 	{
-
+		$this->headercheck();
 		$data['Count']	= $this->MdlOrder->countOrder(array());
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
@@ -71,31 +71,7 @@ class Customer extends MX_Controller
 	public function AddDentist()
 	{
 		
-			if($_POST['same'] != Null)
-			{
-						$dentist = array(
-									'title'=>$_POST['title'],
-									'firstname'=>$_POST['firstname'],
-									'lastname' => $_POST['lastname'],
-									'middlename' => $_POST['middlename'],
-									'company' =>$_POST['company'],
-									'email' => $_POST['email'],
-									'telephone' => $_POST['telephone'],
-									'mobile' => $_POST['mobile'],
-									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
-									'bstreet' => $_POST['bstreet'],
-									'bbrgy' => $_POST['bbrgy'],
-									'bcity' => $_POST['bcity'],
-									'shipstreet' => $_POST['bstreet'],
-									'shipcity' => $_POST['bcity'],
-									'shipbrgy' => $_POST['bbrgy'],
-									'notes' => $_POST['notes'] );
-						
-						if($this->MdlCustomer->AddDentist($dentist))
-							redirect('Customer');
-			}
-			else
+			
 			{
 						$dentist = array(
 									'title'=>$_POST['title'],
@@ -136,35 +112,7 @@ class Customer extends MX_Controller
 	{
 	
 		
-			if($_POST['same'] != Null)
-			{
-						$dentist = array(
-							
-									'title'=>$_POST['title'],
-									'DentistID' => $_POST['DentistID'],
-									'firstname'=>$_POST['firstname'],
-									'lastname' => $_POST['lastname'],
-									'middlename' => $_POST['middlename'],
-									'company' =>$_POST['company'],
-									'email' => $_POST['email'],
-									'telephone' => $_POST['telephone'],
-									'mobile' => $_POST['mobile'],
-									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
-									'bstreet' => $_POST['bstreet'],
-									'bbrgy' => $_POST['bbrgy'],
-									'bcity' => $_POST['bcity'],
-									'shipstreet' => $_POST['bstreet'],
-									'shipcity' => $_POST['bcity'],
-									'shipbrgy' => $_POST['bbrgy'],
-									'notes' => $_POST['notes'] );
-						
-						if($this->MdlCustomer->modifyDentist($dentist))
-							redirect('Customer/Info/'.$_POST['DentistID']);
-				redirect('Customer/Info/'.$_POST['DentistID']);
 			
-			}
-			else
 			{
 						$dentist = array(
 							

@@ -373,7 +373,7 @@
 		  				<div class="fields">
 		  			<div class="four wide field">
 		  				<label>Doctor</label>
-		  				<input type="text"  placeholder="" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>" readonly>
+		  				<input type="text" name="DentistID"  placeholder="" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>" readonly>
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient first name</label>
@@ -409,7 +409,7 @@
 		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select multiple name="teeth[]" class="ui fluid dropdown">
+ 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth">
  				  	<?php 
  				  	$i =1;
  				  	$ctr= count($teeth);
@@ -463,7 +463,7 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid dropdown">
+					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
 					      
 					    <?php 
 					     $bool=false;
@@ -601,50 +601,58 @@
 				  					 <h3 class="ui header">Return:</h3>
 				  					 <hr>
 								  <div class="field">
-								  	 <div class="ui checkbox<?php if($case->Tray==1)echo ' selected=""';?>">
-								      <input type="checkbox" tabindex="0"  name="Tray" value="1">
+								  	<div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden" id="Tray1">
+								      <input type="hidden" id="Tray" name="Tray" value="<?php echo $case->Tray;?>">
 								      <label>Tray</label>
 								    </div>
 								  </div>
 								    <div class="field">
-								    	<div class="ui checkbox<?php if($case->SG==1)echo ' checked';?>">
-								      <input type="checkbox" tabindex="0" class="hidden" name="SG" value="1">
-								      <label>Shade Guide</label>
-								    </div>
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="SG1">
+									      <input type="hidden" id="SG" name="SG" value="<?php echo $case->SG;?>">
+									      <label>Shade Guide</label>
+									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->BW==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="BW" value="1"> 
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="BW1">
+									      <input type="hidden" id="BW" name="BW" value="<?php echo $case->BW;?>">
 									      <label>Bite Wax</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->MC==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="MC" value="1">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="MC1" >
+									      <input type="hidden" id="MC" name="MC" value="<?php echo $case->MC;?>">
 									      <label>Model Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->OC==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="OC" value="1">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="OC1" >
+									      <input type="hidden" id="OC" name="OC" value="<?php echo $case->OC;?>">
 									      <label>Opposing Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->Photos==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="Photos" value="1">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="Photos1" >
+									      <input type="hidden" id="Photos" name="Photos" value="<?php echo $case->Photos;?>">
 									      <label>Photos</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->Articulator==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="Articulator" value="1">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="Articulator1" >
+									      <input type="hidden" id="Articulator" name="Articulator" value="<?php echo $case->Articulator;?>">
 									      <label>Articulator</label>
 									    </div>
 								    </div>
 								    <div class="field">
-									    <div class="ui checkbox<?php if($case->OD==1)echo ' checked';?>">
-									      <input type="checkbox" tabindex="0" class="hidden" name="OD" value="1">
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="OD1" >
+									      <input type="hidden" id="OD" name="OD" value="<?php echo $case->OD;?>">
 									      <label>Old Denture</label>
 									    </div>
 								    </div>
@@ -674,11 +682,11 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>">
+							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>" id="duedate">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime" value="<?php echo date($case->duetime);?>">
+							    <input type="time" name="duetime" value="<?php echo date($case->duetime);?>" id="duetime">
 							  </div>
 							</div>
 							  
@@ -740,7 +748,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								Balance Due
-								<h1>PHP 500.00</h1>
+								<h1><!--PHP 500.00--><br></h1>
 							</div>							
 						</div>
 					</div>

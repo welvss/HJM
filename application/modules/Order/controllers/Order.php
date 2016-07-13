@@ -115,8 +115,9 @@ class Order extends MX_Controller
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-						if(isset( $_POST['Tray'])=="")
+		{				
+					/*
+						if(isset( $_POST['Tray'])==null)
 						{
 							$data =array('Tray' => 0);
 						}
@@ -124,7 +125,7 @@ class Order extends MX_Controller
 						{
 							$data =array('Tray' => $_POST['Tray']);
 						}
-						if(isset( $_POST['SG'])=="")
+						if(isset( $_POST['SG'])==null)
 						{
 							$data =array('SG' => 0);
 						}
@@ -179,7 +180,7 @@ class Order extends MX_Controller
 						else
 						{
 							$data =array('OD' => $_POST['OD']);
-						}
+						}*/
 
 						
 						$data=array(
@@ -192,7 +193,16 @@ class Order extends MX_Controller
 									'age' => $_POST['age'],
 									'shade1' => $_POST['shade1'],
 									'shade2' => $_POST['shade2'],
-									'notes' => $_POST['notes']
+									'notes' => $_POST['notes'],
+									'Tray' => $_POST['Tray'],
+									'SG' => $_POST['SG'],
+									'BW' => $_POST['BW'],
+									'MC' => $_POST['MC'],
+									'OC' => $_POST['OC'],
+									'Photos' => $_POST['Photos'],
+									'Articulator' => $_POST['Articulator'],
+									'OD' => $_POST['OD']
+
 
 									//'file' => $upload_data['file_name']
 								);
@@ -347,8 +357,8 @@ class Order extends MX_Controller
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-						if(isset( $_POST['Tray'])=="")
+		{			/*
+						if(isset( $_POST['Tray'])==)
 						{
 							$data =array('Tray' => 0);
 						}
@@ -411,7 +421,7 @@ class Order extends MX_Controller
 						else
 						{
 							$data =array('OD' => $_POST['OD']);
-						}
+						}*/
 
 						{
 							$data=array(
@@ -424,7 +434,15 @@ class Order extends MX_Controller
 										'age' => $_POST['age'],
 										'shade1' => $_POST['shade1'],
 										'shade2' => $_POST['shade2'],
-										'notes' => $_POST['notes']
+										'notes' => $_POST['notes'],
+										'Tray' => $_POST['Tray'],
+										'SG' => $_POST['SG'],
+										'BW' => $_POST['BW'],
+										'MC' => $_POST['MC'],
+										'OC' => $_POST['OC'],
+										'Photos' => $_POST['Photos'],
+										'Articulator' => $_POST['Articulator'],
+										'OD' => $_POST['OD']
 
 										//'file' => $upload_data['file_name']
 									);
@@ -480,11 +498,10 @@ class Order extends MX_Controller
 	}
 	
 	public function Info()
-	{	$data['active'] =3;
-		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+	{	
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{	
-			$this->load->view('template/header',$data);
+			$this->headercheck();
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['items'] = $this->MdlInventory->getItem(array());

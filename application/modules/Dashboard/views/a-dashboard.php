@@ -9,7 +9,7 @@
 			  <p><?php echo date('l F d, Y ');?></p>
 			</div>
 			<br><br>
-				<div class="ui four doubling cards">
+				<div class="ui five doubling cards">
 				  <div class="card hvr-grow">
 				   <div class="card-content">
 				      <div class="box" id="customer-card">
@@ -18,7 +18,7 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Customer</div>
-				      <a href="<?php echo base_url('Customer');?>" class="hvr-icon-forward">View or Add New Customer
+				      <a href="<?php echo base_url();?>Customer" class="hvr-icon-forward">View or Add New Customer
 				     </a>
 				    </div>
 				  </div>
@@ -30,19 +30,7 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Cases</div>
-				        <a href="<?php echo base_url('Order');?>" class="hvr-icon-forward">View or Add New Case
-				     </a>
-				    </div>
-				  </div>
-				  <div class="card hvr-grow">
-				    <div class="card-content">
-				      <div class="box" id="supplier-card">
-				      	<h1 class="case-number"><i class="truck icon"></i></h1>
-				      </div>
-				    </div>
-				    <div class="content">
-				      <div class="header">Supplier</div>
-				        <a href="#" class="hvr-icon-forward">View or Add New Supplier
+				        <a href="<?php echo base_url();?>Order" class="hvr-icon-forward">View or Add New Case
 				     </a>
 				    </div>
 				  </div>
@@ -54,10 +42,35 @@
 				    </div>
 				    <div class="content">
 				      <div class="header">Inventory</div>
+				        <a href="<?php echo base_url();?>Inventory" class="hvr-icon-forward">View or Add New Stocks
+				     </a>
+				    </div>
+				  </div>
+				  <div class="card hvr-grow">
+				    <div class="card-content">
+				      <div class="box" id="po-card">
+				      	<h1 class="case-number"><i class="cart icon"></i></h1>
+				      </div>
+				    </div>
+				    <div class="content">
+				      <div class="header">Purchase Order</div>
 				        <a href="#" class="hvr-icon-forward">View or Add New Stocks
 				     </a>
 				    </div>
 				  </div>
+				  <div class="card hvr-grow">
+				    <div class="card-content">
+				      <div class="box" id="supplier-card">
+				      	<h1 class="case-number"><i class="truck icon"></i></h1>
+				      </div>
+				    </div>
+				    <div class="content">
+				      <div class="header">Supplier</div>
+				        <a href="<?php echo base_url();?>Supplier" class="hvr-icon-forward">View or Add New Supplier
+				     </a>
+				    </div>
+				  </div>
+
 				</div>
 				<div class="ui horizontal segments">
 					<div class="ui segment">

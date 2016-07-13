@@ -6,6 +6,7 @@
 </head>
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/app.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/hover-min.css">
 <link rel="shortcut icon" href="<?php echo base_url();?>app/favicon.ico">
@@ -52,15 +53,20 @@
     
         Cases
       </a>
-      <a href="<?php echo base_url('Supplier');?>" class="<?php if($active==5){ echo "active blue";}?> item">
-        <i class="large shipping icon"></i>
-        Suppliers
-      </a>
       <a href="<?php echo base_url('Inventory');?>" class="<?php if($active==4){ echo "active blue";}?> item">
         <i class="large cubes icon"></i>
          <div class="ui left red label" id="number-notif">9</div>
         Inventory
       </a>
+      <a class="item">
+        <i class="large cart icon"></i>
+        Purchase Order
+      </a>
+      <a href="<?php echo base_url('Supplier');?>" class="<?php if($active==5){ echo "active blue";}?> item">
+        <i class="large shipping icon"></i>
+        Suppliers
+      </a>
+      
 </div>
 
 

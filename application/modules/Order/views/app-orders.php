@@ -234,8 +234,8 @@
 		  				<div class="fields">
 		  			<div class="four wide field">
 		  				<label>Doctor</label>
-		  				<select name="DentistID" class="ui fluid dropdown" required>
-		  					
+		  				<select name="DentistID" class="ui fluid dropdown">
+		  					<option value="">Select Doctor</option>
 		  				<?php foreach ($dentists as $dentist) 
 		  				{
 		  					echo '<option value="'.$dentist->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</option>';
@@ -276,7 +276,7 @@
 		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select multiple name="teeth[]" class="ui fluid dropdown">
+ 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth">
  					<?php
  					$x=1; 
  					while ($x <= 32) 
@@ -294,7 +294,7 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid dropdown">
+					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
 					      
 					      <?php 
 					      echo '<option value=""></option>';
@@ -402,50 +402,58 @@
 				  					 <h3 class="ui header">Return:</h3>
 				  					 <hr>
 								  <div class="field">
-								  	 <div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden" name="Tray" value=1>
+								  	<div class="ui checkbox">
+								      <input type="checkbox" tabindex="0" class="hidden" id="Tray1">
+								      <input type="hidden" id="Tray" name="Tray" value="0">
 								      <label>Tray</label>
 								    </div>
 								  </div>
 								    <div class="field">
-								    	<div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden" name="SG" value=1>
-								      <label>Shade Guide</label>
-								    </div>
+									    <div class="ui checkbox">
+									      <input type="checkbox" tabindex="0" class="hidden" id="SG1">
+									      <input type="hidden" id="SG" name="SG" value="0">
+									      <label>Shade Guide</label>
+									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="BW" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="BW1">
+									      <input type="hidden" id="BW" name="BW" value="0">
 									      <label>Bite Wax</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="MC" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="MC1" >
+									      <input type="hidden" id="MC" name="MC" value="0">
 									      <label>Model Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="OC" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="OC1" >
+									      <input type="hidden" id="OC" name="OC" value="0">
 									      <label>Opposing Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="Photos" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="Photos1" >
+									      <input type="hidden" id="Photos" name="Photos" value="0">
 									      <label>Photos</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="Articulator" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="Articulator1" >
+									      <input type="hidden" id="Articulator" name="Articulator" value="0">
 									      <label>Articulator</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" name="OD" value=1>
+									      <input type="checkbox" tabindex="0" class="hidden" id="OD1" >
+									      <input type="hidden" id="OD" name="OD" value="0">
 									      <label>Old Denture</label>
 									    </div>
 								    </div>
@@ -475,11 +483,11 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" placeholder="Last Name">
+							    <input type="date" name="duedate" placeholder="Last Name" id="duedate">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime" placeholder="Last Name">
+							    <input type="time" name="duetime" placeholder="Last Name" id="duetime">
 							  </div>
 							</div>
 							  <div class="field">

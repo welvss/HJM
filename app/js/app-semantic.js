@@ -9,17 +9,24 @@ $( document ).ready(function() {
 ;
 $('#same-as').change(function(){
     if (this.checked) {
-        document.getElementById("ship-street").disabled = true;
-    document.getElementById("ship-city").disabled = true;
-    document.getElementById("ship-baranggay").disabled = true;
+      var customerStreet= $('#customerStreet').val(),
+          customerCity=$('#customerCity').val(),
+          customerBaranggay=$('#customerBaranggay').val();
+      document.getElementById("ship-street").disabled = true;
+      $('#ship-street').text(customerStreet);
+      document.getElementById("ship-city").disabled = true;
+      $('#ship-city').val(customerCity);
+      document.getElementById("ship-baranggay").disabled = true;
+      $('#ship-baranggay').val(customerBaranggay);
     }
-  else{
-     document.getElementById("ship-street").disabled = false;
-    document.getElementById("ship-city").disabled = false;
-    document.getElementById("ship-baranggay").disabled = false;
-  }
-
-
+    else{
+      document.getElementById("ship-street").disabled = false;
+      $('#ship-street').text('');
+      document.getElementById("ship-city").disabled = false;
+      $('#ship-city').val('');
+      document.getElementById("ship-baranggay").disabled = false;
+      $('#ship-baranggay').val('');
+    } 
 });
 // Initialize sidebar
 $('.sidebar')
