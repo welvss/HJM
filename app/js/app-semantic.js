@@ -112,6 +112,60 @@ $('.ui.form')
             prompt : 'Please enter your name'
           }
         ]
+      },
+      sFname: {
+        identifier: 'sFname',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      sLname: {
+        identifier: 'sLname',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      sEmail: {
+        identifier: 'sEmail',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      sStreet: {
+        identifier: 'sStreet',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      sCity: {
+        identifier: 'sCity',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      sBaranggay: {
+        identifier: 'sBaranggay',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
       }
     }
   })
