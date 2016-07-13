@@ -16,20 +16,6 @@ class Supplier extends MX_Controller
 		$this->load->model('MdlOrder');
 		$this->load->model('MdlInvoice');
 		$this->load->model('MdlSupplier');
-
-
-		
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-		$this->load->model('Customer/MdlCustomer');
-		$this->load->model('Inventory/MdlInventory');
-		$this->load->model('Order/MdlInvoice');
-		$this->load->model('Order/MdlOrder');
-		$this->load->model('Supplier/MdlSupplier');
-		$this->headercheck();
-=======
-		
-
->>>>>>> Modified for web hosting
 	
 	}
 	
@@ -41,32 +27,13 @@ class Supplier extends MX_Controller
 	function headercheck()
 	{	
 		$data['active'] =5;
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
-		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-			$this->load->view('template/header',$data);
-		}
-		else
-		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE)
-		{
-			redirect('Dashboard');
-		}
-		else
-		if($this->session->userdata('is_logged_in') != TRUE)	
-		{
-			redirect('Home');
-		}	
-	}
-	public function index(){
-=======
+
 		echo modules::run('Dashboard/headercheck', $data);
 	}
 
 	public function index()
 	{
 		$this->headercheck();
->>>>>>> Modified for web hosting
 		$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 		$this->load->view('app-supplier',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';

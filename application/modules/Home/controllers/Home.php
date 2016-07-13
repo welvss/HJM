@@ -4,19 +4,11 @@ class Home extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-		$this->load->view('template/frontheader');
 		$this->load->model('MdlHome');
         $this->load->library('form_validation');
+        $this->form_validation->CI =& $this; 
         $this->logincheck();
-=======
-		
-		$this->load->model('mdlHome');
-            	$this->load->library('form_validation');
-            	$this->form_validation->CI =& $this; 
-        	$this->logincheck();
-            
->>>>>>> Modified for web hosting
+
 
 	
 	}

@@ -134,7 +134,8 @@
 								  <div class="fields">
 								  <div class="two wide field">
 								  	<label>Title</label>
-								  	<select name="title" class="ui fluid dropdown">
+								  	<select name="title" class="ui fluid dropdown" id="title">
+								  		<option value="">Select Title</option>
 									  	<option value="Dr.">Dr.</option>
 									  	<option value="Dra.">Dra.</option>
 								  		<option value="Mr.">Mr.</option>
@@ -143,16 +144,16 @@
 								  	</select>
 								  </div>
 								    <div class="two wide field">
-								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="firstname">
+								      <label>First Name</label>
+								      <input type="text" placeholder="First Name" name="firstname" id="firstName">
 								    </div>
 								    <div class="two wide field">
-								      <label>Middle name</label>
+								      <label>Middle Name</label>
 								      <input type="text" placeholder="Middle Name" name="middlename">
 								    </div>
 								    <div class="two wide field">
-								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="lastname">
+								      <label>Last Name</label>
+								      <input type="text" placeholder="Last Name" name="lastname" id="lastName">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
@@ -165,7 +166,7 @@
 								  <div class="fields">
 									  <div class="eight wide field">
 									  	<label>Company Name</label>
-									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company" id="company">
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
@@ -202,14 +203,14 @@
 									 		<div class="column">
 												  <div class="field">
 												    <label>Billing Address</label>
-												    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet" id="customerStreet"></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City" name="bcity">
+												  		<input type="text" placeholder="City" name="bcity" id="customerCity">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" name="bbrgy">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" id="customerBaranggay">
 												  	</div>
 												  </div>
 									 		</div>

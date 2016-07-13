@@ -127,7 +127,3 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array();
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-=======
-
->>>>>>> Modified for web hosting

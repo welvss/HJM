@@ -79,12 +79,12 @@ function multiply(x){ // run anytime the value changes
   success: function(data){
     if(data.success==true)
     {
-      $('#error').text(data.error);
+      $('#error').html(data.error);
       document.getElementById('submit').disabled = true;
     }
     else
     {
-      $('#error').text(data.error);
+      $('#error').html(data.error);
       document.getElementById('submit').disabled = false;
     }
   

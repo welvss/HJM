@@ -15,19 +15,7 @@ class Customer extends MX_Controller
 		$this->load->model('MdlCustomer');
 		$this->load->library('form_validation');
         $this->form_validation->CI =& $this; 
-		
-
-		
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-		$this->load->model('Customer/MdlCustomer');
-		$this->load->model('Inventory/MdlInventory');
-		$this->load->model('Order/MdlInvoice');
-		$this->load->model('Order/MdlOrder');
-		$this->load->model('Supplier/MdlSupplier');
-		$this->headercheck();
 	
-=======
->>>>>>> Modified for web hosting
 	}
 	
 	function headercheck()
@@ -41,32 +29,8 @@ class Customer extends MX_Controller
 	{
 		$this->load->view('template/footer',$data);
 	}
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-	public function headercheck()
-	{
-		$data['active'] =2;
-		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
-		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-			$this->load->view('template/header',$data);
-		}
-		else
-		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE)
-		{
-			redirect('Dashboard');
-		}
-		else
-		if($this->session->userdata('is_logged_in') != TRUE)	
-		{
-			redirect('Home');
-		}	
-	}
-	public function index(){
-		$data['dentists'] = $this->MdlCustomer->getDentist();	
-		$this->load->view('app-customer',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
-		$this->footer($data);
-=======
+
+
 	
 	public function index(){
 		$this->headercheck();
@@ -77,7 +41,7 @@ class Customer extends MX_Controller
 			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
 			$this->footer($data);
 		}
->>>>>>> Modified for web hosting
+
 	}
 	
 	public function CustomerInfo()
@@ -237,11 +201,11 @@ class Customer extends MX_Controller
 	
 	public function deleteDentist()
 	{	
-<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
-		$this->MdlCustomer->deleteDentist($this->uri->segment(3));	
-=======
+
+	
+
 		$this->MdlCustomer->modifyDentist(array('DentistID'=>$this->uri->segment(3),'active'=>0));	
->>>>>>> Modified for web hosting
+
 		redirect('Customer');
 	}
 	
@@ -257,10 +221,11 @@ class Customer extends MX_Controller
             }
             else
             {
-                 $data['error']= "Email Already Used!";
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>'
+;
                  $data['success']=true;
              
-   
+   			
             }
             echo json_encode($data);
     }

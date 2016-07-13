@@ -1,7 +1,8 @@
+
 $( document ).ready(function() {
   
   $(".mode").click(function(){
-  	$('.ui.modal').modal('show');
+    $('.ui.modal').modal('show');
   });
   $('.menu .item')
   .tab()
@@ -9,14 +10,14 @@ $( document ).ready(function() {
 $('#same-as').change(function(){
     if (this.checked) {
         document.getElementById("ship-street").disabled = true;
-		document.getElementById("ship-city").disabled = true;
-		document.getElementById("ship-baranggay").disabled = true;
+    document.getElementById("ship-city").disabled = true;
+    document.getElementById("ship-baranggay").disabled = true;
     }
-	else{
-		 document.getElementById("ship-street").disabled = false;
-		document.getElementById("ship-city").disabled = false;
-		document.getElementById("ship-baranggay").disabled = false;
-	}
+  else{
+     document.getElementById("ship-street").disabled = false;
+    document.getElementById("ship-city").disabled = false;
+    document.getElementById("ship-baranggay").disabled = false;
+  }
 
 
 });
@@ -56,5 +57,84 @@ $(".sidebar-button").click(function(){
     $('.popup')
   .popup()
 ;
+$('.ui.form')
+  .form({
+    fields: {
+      firstName: {
+        identifier: 'firstName',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your First name'
+          }
+        ]
+      },
+      lastName: {
+        identifier: 'lastName',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your Last name'
+          }
+        ]
+      },
+      email: {
+        identifier: 'email',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your Email Address'
+          }
+        ]
+      },
+      customerStreet: {
+        identifier: 'customerStreet',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      customerCity: {
+        identifier: 'customerCity',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      customerBaranggay: {
+        identifier: 'customerBaranggay',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      company: {
+        identifier: 'company',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      title: {
+        identifier: 'title',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      }
+    }
+  })
+;
  //end
 });
+
