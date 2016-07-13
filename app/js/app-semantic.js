@@ -56,5 +56,65 @@ $(".sidebar-button").click(function(){
     $('.popup')
   .popup()
 ;
+$('.ui.form')
+  .form({
+    fields: {
+      firstName: {
+        identifier: 'firstName',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      lastName: {
+        identifier: 'lastName',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      email: {
+        identifier: 'email',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      customerStreet: {
+        identifier: 'customerStreet',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      customerCity: {
+        identifier: 'customerCity',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      customerBaranggay: {
+        identifier: 'customerBaranggay',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      }
+    }
+  })
+;
  //end
 });

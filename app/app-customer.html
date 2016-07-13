@@ -232,7 +232,7 @@
 	  </div>
 </div>
 <!--New Customer Modal-->
-	<div class="ui modal fullscreen">
+	<div class="ui long modal fullscreen">
 		  <div class="header" id="header-modal">
 		   <i class="large doctor icon"></i>
 		    Dentist Information
@@ -256,7 +256,7 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="first-name">
+								      <input type="text" placeholder="First Name" name="firstName">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle name</label>
@@ -264,17 +264,17 @@
 								    </div>
 								    <div class="two wide field">
 								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="last-name">
+								      <input type="text" placeholder="Last Name" name="lastName">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
 								    </div>
 								  </div>
 								  <div class="fields">
 									  <div class="eight wide field">
 									  	<label>Company Name</label>
-									  	<input type="text" placeholder="i.e. HJM Dental Laboratory">
+									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
@@ -311,14 +311,14 @@
 									 		<div class="column">
 												  <div class="field">
 												    <label>Billing Address</label>
-												    <textarea rows="2" placeholder="Street"></textarea>
+												    <textarea rows="2" placeholder="Street" name="customerStreet"></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City">
+												  		<input type="text" placeholder="City" name="customerCity">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay">
+												  		<input type="text" placeholder="Baranggay" name="customerBaranggay">
 												  	</div>
 												  </div>
 									 		</div>
@@ -355,6 +355,16 @@
 							</div>
 							<div class="one wide column"></div>
 						</div>
+							<div class="ui red message">
+							  <i class="close icon"></i>
+							  <div class="header">
+							    Tangina may Error
+							  </div>
+							  <ul class="list">
+							    <li>Don sa Taas.</li>
+							    <li>Wag Dito</li>
+							  </ul>
+							</div>
 						</div>
 				<div class="one wide column hidden"></div>
 				</div>
