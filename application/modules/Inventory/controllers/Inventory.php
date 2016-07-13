@@ -4,24 +4,56 @@ class Inventory extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$this->load->model('Customer/MdlCustomer');
 		$this->load->model('Inventory/MdlInventory');
 		$this->load->model('Order/MdlInvoice');
 		$this->load->model('Order/MdlOrder');
 		$this->load->model('Supplier/MdlSupplier');
 	
+=======
+		if($this->session->userdata('is_logged_in') != TRUE)	
+		{
+			redirect();
+		}
+		$this->load->module('Customer');
+		$this->load->module('Supplier');
+		$this->load->model('MdlCustomer');
+		$this->load->model('MdlSupplier');
+		$this->load->model('MdlInventory');
+		
+
+			
+>>>>>>> Modified for web hosting
 		
 	}
+
+	function headercheck()
+	{	
+		
+		$data['active'] =4;
+		echo modules::run('Dashboard/headercheck', $data);
+	}
+
 	public function footer($data)
 	{
 		$this->load->view('template/footer',$data);
 	}
+
 	public function index(){
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$data['active'] =4;
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			$this->load->view('template/header',$data);
+=======
+		
+		$this->headercheck();
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		{
+			
+>>>>>>> Modified for web hosting
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('app-inventory',$data);
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';

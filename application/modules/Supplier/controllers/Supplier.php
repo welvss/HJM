@@ -4,13 +4,32 @@ class Supplier extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
+		if($this->session->userdata('is_logged_in') != TRUE)	
+		{
+			redirect();
+		}
+		$this->load->module('Dashboard');
+		$this->load->module('Order');
+		$this->load->module('Inventory');
+		$this->load->module('Customer');
+		$this->load->model('MdlCustomer');
+		$this->load->model('MdlOrder');
+		$this->load->model('MdlInvoice');
+		$this->load->model('MdlSupplier');
+
+
 		
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$this->load->model('Customer/MdlCustomer');
 		$this->load->model('Inventory/MdlInventory');
 		$this->load->model('Order/MdlInvoice');
 		$this->load->model('Order/MdlOrder');
 		$this->load->model('Supplier/MdlSupplier');
 		$this->headercheck();
+=======
+		
+
+>>>>>>> Modified for web hosting
 	
 	}
 	
@@ -18,9 +37,11 @@ class Supplier extends MX_Controller
 	{
 		$this->load->view('template/footer',$data);
 	}
-	public function headercheck()
-	{
+	
+	function headercheck()
+	{	
 		$data['active'] =5;
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
@@ -38,6 +59,14 @@ class Supplier extends MX_Controller
 		}	
 	}
 	public function index(){
+=======
+		echo modules::run('Dashboard/headercheck', $data);
+	}
+
+	public function index()
+	{
+		$this->headercheck();
+>>>>>>> Modified for web hosting
 		$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 		$this->load->view('app-supplier',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
@@ -66,9 +95,7 @@ class Supplier extends MX_Controller
 
 	public function AddSupplier()
 	{
-	
-		
-		
+
 						$supplier = array(
 									'title'=>$_POST['title'],
 									'firstname'=>$_POST['firstname'],
@@ -88,9 +115,7 @@ class Supplier extends MX_Controller
 						
 						if($this->MdlSupplier->AddSupplier($supplier))
 							redirect('Supplier');
-		
-			
-		
+
 
 	}
 	public function AddPO()

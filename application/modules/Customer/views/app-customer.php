@@ -156,8 +156,11 @@
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" onkeyup="checkemail(this.value);">
+								    	<div id="error"></div>
 								    </div>
+								   
+								   
 								  </div>
 								  <div class="fields">
 									  <div class="eight wide field">
@@ -253,7 +256,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

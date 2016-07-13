@@ -4,11 +4,19 @@ class Invoice extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$this->load->model('Customer/MdlCustomer');
 		$this->load->model('Inventory/MdlInventory');
 		$this->load->model('Order/MdlInvoice');
 		$this->load->model('Order/MdlOrder');
 		$this->load->model('Supplier/MdlSupplier');
+=======
+		if($this->session->userdata('is_logged_in') != TRUE)	
+		{
+			redirect();
+		}
+		
+>>>>>>> Modified for web hosting
 		
 	}
 	

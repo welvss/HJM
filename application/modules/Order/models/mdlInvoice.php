@@ -4,6 +4,8 @@ class MdlInvoice extends CI_Model {
 	
 	public function __construct(){
 		parent:: __construct();
+		$this->load->module('Inventory');
+		$this->load->model('MdlInventory');
 	}
 
 	function deleteInvoiceItem($id)
@@ -60,7 +62,7 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
 		
-		$query = $this->db->get("tblInvoice");
+		$query = $this->db->get("tblinvoice");
 		
 		if(isset($options['count']))
 			return $query->num_rows();
@@ -75,11 +77,11 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['CaseID']))
 			$this->db->where('CaseID',$options['CaseID']);
 
-		return $query = $this->db->count_all_results('tblInvoice');
+		return $query = $this->db->count_all_results('tblinvoice');
 	}
 	function createInvoice($options = array())
 	{
-		$this->db->insert('tblInvoice', $options);	
+		$this->db->insert('tblinvoice', $options);	
 		return $this->db->insert_id();
 		
 		
@@ -102,7 +104,7 @@ class MdlInvoice extends CI_Model {
 			$this->db->set('status', $options['status']);
 		
 		$this->db->where('InvoiceID', $options['InvoiceID']);
-		$this->db->update('tblInvoice');
+		$this->db->update('tblinvoice');
 		
 		return $this->db->affected_rows();
 		

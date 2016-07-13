@@ -4,7 +4,21 @@ class Customer extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
+		if($this->session->userdata('is_logged_in') != TRUE)	
+		{
+			redirect();
+		}
+		$this->load->module('Dashboard');
+		$this->load->module('Order');
+		$this->load->model('MdlOrder');
+		$this->load->model('MdlInvoice');
+		$this->load->model('MdlCustomer');
+		$this->load->library('form_validation');
+        $this->form_validation->CI =& $this; 
 		
+
+		
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$this->load->model('Customer/MdlCustomer');
 		$this->load->model('Inventory/MdlInventory');
 		$this->load->model('Order/MdlInvoice');
@@ -12,12 +26,22 @@ class Customer extends MX_Controller
 		$this->load->model('Supplier/MdlSupplier');
 		$this->headercheck();
 	
+=======
+>>>>>>> Modified for web hosting
 	}
 	
+	function headercheck()
+	{	
+		
+		$data['active'] =2;
+		echo modules::run('Dashboard/headercheck', $data);
+	}
+
 	public function footer($data)
 	{
 		$this->load->view('template/footer',$data);
 	}
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 	public function headercheck()
 	{
 		$data['active'] =2;
@@ -42,6 +66,18 @@ class Customer extends MX_Controller
 		$this->load->view('app-customer',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
 		$this->footer($data);
+=======
+	
+	public function index(){
+		$this->headercheck();
+		if($this->session->userdata('ps_id')==2 )
+		{	
+			$data['dentists'] = $this->MdlCustomer->getDentist(array('active'=>1));	
+			$this->load->view('app-customer',$data);
+			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
+			$this->footer($data);
+		}
+>>>>>>> Modified for web hosting
 	}
 	
 	public function CustomerInfo()
@@ -70,7 +106,6 @@ class Customer extends MX_Controller
 
 	public function AddDentist()
 	{
-	
 		
 			if($_POST['same'] != Null)
 			{
@@ -120,6 +155,9 @@ class Customer extends MX_Controller
 						if($this->MdlCustomer->AddDentist($dentist))
 							redirect('Customer');
 			}
+	
+
+
 		
 
 	}
@@ -199,10 +237,32 @@ class Customer extends MX_Controller
 	
 	public function deleteDentist()
 	{	
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		$this->MdlCustomer->deleteDentist($this->uri->segment(3));	
+=======
+		$this->MdlCustomer->modifyDentist(array('DentistID'=>$this->uri->segment(3),'active'=>0));	
+>>>>>>> Modified for web hosting
 		redirect('Customer');
 	}
 	
 	
+
+	public function checkemail()
+    {
+            $email_available = $this->MdlCustomer->check_if_email_exists($_POST['email']);
+            if($email_available)
+            {
+                 $data['error']= "";
+                 $data['success']=false;
+            }
+            else
+            {
+                 $data['error']= "Email Already Used!";
+                 $data['success']=true;
+             
+   
+            }
+            echo json_encode($data);
+    }
 }
 ?>

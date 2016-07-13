@@ -66,7 +66,39 @@ function multiply(x){ // run anytime the value changes
  //add them and output it
   };
 
-	</script>
+</script>
+<script type="text/javascript">
+  function checkemail(val) {
+
+  $.ajax({
+  type: "POST",
+  url: "<?php echo base_url();?>Customer/checkemail",
+  data:'email='+val,
+  dataType: 'json',
+  cache: true,
+  success: function(data){
+    if(data.success==true)
+    {
+      $('#error').text(data.error);
+      document.getElementById('submit').disabled = true;
+    }
+    else
+    {
+      $('#error').text(data.error);
+      document.getElementById('submit').disabled = false;
+    }
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+</script>
+
 
 
 

@@ -67,6 +67,9 @@ class MdlCustomer extends CI_Model {
 		if(isset($options['DentistID']))
 			$this->db->where('DentistID', $options['DentistID']);
 		
+		if(isset($options['active']))
+			$this->db->where('active', $options['active']);
+
 		if(isset($options['title']))
 			$this->db->like('title', $options['title']);
 			
@@ -196,6 +199,9 @@ class MdlCustomer extends CI_Model {
 
 		if(isset($options['notes']))
 			$this->db->set('notes', $options['notes']);
+
+		if(isset($options['active']))
+			$this->db->set('active', $options['active']);
 		
 		$this->db->where('DentistID', $options['DentistID']);
 		$this->db->update('tbldentist');
@@ -222,6 +228,20 @@ class MdlCustomer extends CI_Model {
 		}
 			
 	}
-}
 
+
+	public function check_if_email_exists($email)
+    {
+        $this->db->where('Email',$email);
+        $result = $this->db->get('tbldentist');
+        if($result->num_rows()>0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+}
 ?>

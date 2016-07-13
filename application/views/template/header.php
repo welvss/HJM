@@ -31,7 +31,7 @@
         Manage Site</div>
         <div class="item"> <i class="configure icon"></i>
         Account settings</div>
-        <div class="item"> <a href="Dashboard/Logout"><i class="sign out icon"></i>
+        <div class="item"> <a href="<?php echo base_url();?>Dashboard/Logout"><i class="sign out icon"></i>
         Sign Out</a></div>
       </div>
     </div>
@@ -61,7 +61,7 @@
          <div class="ui left red label" id="number-notif">9</div>
         Inventory
       </a>
-  </div>
+</div>
 
 
 <div class="pusher">
@@ -83,3 +83,4 @@
       </div>
       </div>
     </div>
+

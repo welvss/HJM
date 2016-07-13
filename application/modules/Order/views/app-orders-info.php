@@ -796,8 +796,8 @@
 				  					<td>'.$ctr.'</td>
 				  					<td><input type="text" style="width: 100px"  name="invoice['.$ctr.'][ItemID]" value="'.$item->ItemID.'"></td>
 				  					<td id="ItemDesc">'.$item->ItemDesc.'</td>
-				  					<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onchange="multiply('.$ctr.');addSubtotal('.$x.');"  value="0" ><br></td>
-				  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onchange="multiply('.$ctr.');addSubtotal('.$x.');" value="'.$item->Price.'" ></td>
+				  					<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');"  value="0" ><br></td>
+				  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');" value="'.$item->Price.'" ></td>
 				  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="0" /></td>
 				  					<td><a href="#"  onClick="deleteRow('.$ctr.')" ><i class="trash icon"></i></a></td>
 				  				

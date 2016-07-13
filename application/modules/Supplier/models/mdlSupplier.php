@@ -15,7 +15,11 @@ class MdlSupplier extends CI_Model {
 		if(isset($options['status_id']))
 			$this->db->where('status_id',$options['status_id']);
 
+<<<<<<< bb35164ef9ad33ceed4168d26ac80ba0ef409553
 		return $query = $this->db->count_all_results('tblPO');
+=======
+		return $query = $this->db->count_all_results('tblpo');
+>>>>>>> Modified for web hosting
 	}
 
 	function getOrder($options = array())
@@ -149,7 +153,7 @@ class MdlSupplier extends CI_Model {
 
 	function AddPO($options = array())
 	{
-		$this->db->insert('tblPO', $options);	
+		$this->db->insert('tblpo', $options);	
 		return $this->db->insert_id();
 		
 	}
