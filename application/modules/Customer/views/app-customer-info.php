@@ -445,7 +445,7 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $dentist->firstname;?>">
+								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $dentist->firstname;?>" id="firstName">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle name</label>
@@ -453,11 +453,12 @@
 								    </div>
 								    <div class="two wide field">
 								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $dentist->lastname;?>">
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $dentist->lastname;?>" id="lasttName">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $dentist->email;?>">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $dentist->email;?>" id="email" onkeyup="checkemail(this.value,'Customer');">
+								    <div id="error"></div>
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -554,7 +555,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

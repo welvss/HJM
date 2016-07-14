@@ -58,7 +58,7 @@ class Customer extends MX_Controller
 		$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
 		$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
 		$this->load->view('app-customer-info',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
+		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
 	
 	
@@ -169,8 +169,7 @@ class Customer extends MX_Controller
             }
             else
             {
-                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>'
-;
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>';
                  $data['success']=true;
              
    			

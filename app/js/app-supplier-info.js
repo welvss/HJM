@@ -103,207 +103,10 @@ $('.ui.checkbox')
 
 
 
-$( document ).ready(function() {
-
-  if($('#Tray').val()==1)
-    document.getElementById("Tray1").checked=true;
-  else
-    document.getElementById("Tray1").checked=false;
-
-  $('#Tray1').change(function(){
-    if (this.checked) {
-     $('#Tray').val(1);
-     
-    }
-    else{
-      $('#Tray').val(0);
-    }
-  });
 
 
 
 
-  if($('#SG').val()==1)
-    document.getElementById("SG1").checked=true;
-  else
-    document.getElementById("SG1").checked=false
-
-  $('#SG1').change(function(){
-    if (this.checked) {
-     $('#SG').val(1);
-     
-    }
-    else{
-      $('#SG').val(0);
-    }
-  });
-
-
-
-
-  if($('#BW').val()==1)
-    document.getElementById("BW1").checked=true;
-  else
-    document.getElementById("BW1").checked=false
-
-  $('#BW1').change(function(){
-    if (this.checked) {
-     $('#BW').val(1);
-     
-    }
-    else{
-      $('#BW').val(0);
-    }
-  });
-
-
-
-
-  if($('#MC').val()==1)
-    document.getElementById("MC1").checked=true;
-  else
-    document.getElementById("MC1").checked=false
-
-  $('#MC1').change(function(){
-    if (this.checked) {
-     $('#MC').val(1);
-     
-    }
-    else{
-      $('#MC').val(0);
-    }
-  });
-
-
-
-
-  if($('#OC').val()==1)
-    document.getElementById("OC1").checked=true;
-  else
-    document.getElementById("OC1").checked=false
-
-  $('#OC1').change(function(){
-    if (this.checked) {
-     $('#OC').val(1);
-     
-    }
-    else{
-      $('#OC').val(0);
-    }
-  });
-
-
-
-
-
-  if($('#Photos').val()==1)
-    document.getElementById("Photos1").checked=true;
-  else
-    document.getElementById("Photos1").checked=false
-
-  $('#Photos1').change(function(){
-    if (this.checked) {
-     $('#Photos').val(1);
-     
-    }
-    else{
-      $('#Photos').val(0);
-    }
-  });
-
-
-
-
-  if($('#Articulator').val()==1)
-    document.getElementById("Articulator1").checked=true;
-  else
-    document.getElementById("Articulator1").checked=false
-
-  $('#Articulator1').change(function(){
-    if (this.checked) {
-     $('#Articulator').val(1);
-     
-    }
-    else{
-      $('#Articulator').val(0);
-    }
-  });
-
-
-
-
-
-  if($('#OD').val()==1)
-    document.getElementById("OD1").checked=true;
-  else
-    document.getElementById("OD1").checked=false
-
-  $('#OD1').change(function(){
-    if (this.checked) {
-     $('#OD').val(1);
-     
-    }
-    else{
-      $('#OD').val(0);
-    }
-  });
-});
-
-
-$(document).ready(function(){
-  $('.ui.form').form({
-    fields: {
-      DentistID: {
-        identifier: 'DentistID',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your First name'
-          }
-        ]
-      },
-      teeth: {
-        identifier: 'teeth',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your Last name'
-          }
-        ]
-      },
-      items: {
-        identifier: 'items',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your Email Address'
-          }
-        ]
-      },
-      duedate: {
-        identifier: 'duedate',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      duetime: {
-        identifier: 'duetime',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      
-    }
-  });
-
-
-});
 
 
 
@@ -339,8 +142,8 @@ $(document).ready(function(){
           }
         ]
       },
-      customerStreet: {
-        identifier: 'customerStreet',
+      supplierStreet: {
+        identifier: 'supplierStreet',
         rules: [
           {
             type   : 'empty',
@@ -348,8 +151,8 @@ $(document).ready(function(){
           }
         ]
       },
-      customerCity: {
-        identifier: 'customerCity',
+      supplierCity: {
+        identifier: 'supplierCity',
         rules: [
           {
             type   : 'empty',
@@ -357,8 +160,8 @@ $(document).ready(function(){
           }
         ]
       },
-      customerBaranggay: {
-        identifier: 'customerBaranggay',
+      supplierBaranggay: {
+        identifier: 'supplierBaranggay',
         rules: [
           {
             type   : 'empty',
@@ -390,23 +193,15 @@ $(document).ready(function(){
 
 
 
+function getItemDesc(val,x) {
 
-function getCaseItems(val) {
- var dataString = { 
-             CaseID : $("#CaseID").val(),
-              ItemID : val
-              
-            };
-            
   $.ajax({
   type: "POST",
-  url:"http://"+window.location.hostname+"/HJM/Order/getCaseItems",
-  data: dataString,
+  url: "http://"+window.location.hostname+"/HJM/Inventory/getDetails",
+  data:'ItemID='+val,
   success: function(data){
-    alert(data);
-    $("#dropdown").append(data.test);
-
-    
+    $("#ItemDesc"+x).html(data);
+    $('#item').val('')
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
               alert(error);
@@ -416,6 +211,50 @@ function getCaseItems(val) {
             },
 
   });
+ }
+
+
+function checkemail(val) {
+
+  $.ajax({
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/Supplier/checkemail",
+  data:'email='+val,
+  dataType: 'json',
+  cache: true,
+  success: function(data){
+    if(data.success==true)
+    {
+      $('#error').html(data.error);
+      document.getElementById('submit').disabled = true;
+    }
+    else
+    {
+      $('#error').html(data.error);
+      document.getElementById('submit').disabled = false;
+    }
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+
+
+
+
+function multiply(x){ // run anytime the value changes
+
+  var firstValue = parseFloat($('#QTY'+(x)).val()); // get value of field
+  var secondValue = parseFloat($('#Amount'+(x)).val()); // convert it to a float
+  y=firstValue * secondValue;
+  $('#SubTotal'+(x)).val(y); 
+  $('#Total'+(x)).val(y); 
+     //add them and output it
 }
 
 

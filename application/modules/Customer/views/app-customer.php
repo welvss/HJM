@@ -157,7 +157,7 @@
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" onkeyup="checkemail(this.value);">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" onkeyup="checkemail(this.value,loc='Customer');">
 								    	<div id="error"></div>
 								    </div>
 								   
