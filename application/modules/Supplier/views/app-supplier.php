@@ -132,6 +132,7 @@
 								  <div class="two wide field">
 								  	<label>Title</label>
 								  	<select name="title" class="ui fluid dropdown">
+									  	<option value="">Select Title</option>
 									  	<option value="Mr.">Dr.</option>
 									  	<option value="Mr.">Dra.</option>
 								  		<option value="Mr.">Mr.</option>
@@ -141,7 +142,7 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First Name</label>
-								      <input type="text" placeholder="First Name" name="firstname">
+								      <input type="text" placeholder="First Name" name="firstname" id="firstName">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle Name</label>
@@ -149,11 +150,12 @@
 								    </div>
 								    <div class="two wide field">
 								      <label>Last Name</label>
-								      <input type="text" placeholder="Last Name" name="lastname">
+								      <input type="text" placeholder="Last Name" name="lastname" id="lastName">
 								    </div>
 								    <div class="eight wide field">
-								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email">
+								    	<label>Email</label>
+								    	<input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" onkeyup="checkemail(this.value,loc='Supplier');">
+								    	<div id="error"></div>
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -196,14 +198,14 @@
 									 		<div class="centered column">
 												  <div class="field">
 												    <label>Address</label>
-												    <textarea rows="2" placeholder="Street" name="bstreet"></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet" id="customerStreet"></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City" name="bcity">
+												  		<input type="text" placeholder="City" name="bcity" id="customerCity">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" name="bbrgy">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" id="customerBaranggay">
 												  	</div>
 												  </div>
 									 		</div>

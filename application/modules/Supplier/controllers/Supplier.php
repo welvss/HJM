@@ -42,7 +42,7 @@ class Supplier extends MX_Controller
 	
 	public function Info()
 	{
-
+		$this->headercheck();
 		$data['Count']	= $this->MdlSupplier->countPO(array());
 		$data['supplier'] = $this->MdlSupplier->getSupplier(array('SupplierID'=>$this->uri->segment(3)));	
 		$data['items'] = $this->MdlInventory->getItem(array('SupplierID'=>$this->uri->segment(3)));	
@@ -50,7 +50,7 @@ class Supplier extends MX_Controller
 		$data['status'] = $this->MdlOrder->getStatus();
 		$data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
 		$this->load->view('app-supplier-info',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script>';
+		$data['script']='<script src="'.base_url().'app/js/app-supplier-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
 	
 	
@@ -163,7 +163,23 @@ class Supplier extends MX_Controller
 		$this->MdlSupplier->deleteSupplier($this->uri->segment(3));	
 		redirect('Supplier');
 	}
-	
+	public function checkemail()
+    {
+            $email_available = $this->MdlSupplier->check_if_email_exists($_POST['email']);
+            if($email_available)
+            {
+                 $data['error']= "";
+                 $data['success']=false;
+            }
+            else
+            {
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>';
+                 $data['success']=true;
+             
+   			
+            }
+            echo json_encode($data);
+    }
 	
 }
 ?>

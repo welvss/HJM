@@ -271,7 +271,7 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First Name</label>
-								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $supplier->firstname;?>">
+								      <input type="text" placeholder="First Name" name="firstname"  value="<?php echo $supplier->firstname;?>" id="firstName">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle Name</label>
@@ -279,11 +279,12 @@
 								    </div>
 								    <div class="two wide field">
 								      <label>Last Name</label>
-								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $supplier->lastname;?>">
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $supplier->lastname;?>" id="lastname">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="email" onkeyup="checkemail(this.value,'Supplier');">
+								   		<div id="error"></div>
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -326,14 +327,14 @@
 									 		<div class="centered column">
 												  <div class="field">
 												    <label>Address</label>
-												    <textarea rows="2" placeholder="Street" name="bstreet"><?php echo $supplier->bstreet;?></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet" id="supplierStreet"><?php echo $supplier->bstreet;?></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $supplier->bcity;?>">
+												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $supplier->bcity;?>" id="supplierCity">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $supplier->bbrgy;?>">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $supplier->bbrgy;?>"id="supplierBaranggay">
 												  	</div>
 												  </div>
 									 		</div>
@@ -361,7 +362,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -476,10 +477,10 @@
 		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onchange="multiply(1);">
+		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onkeyup="multiply(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text" name="Amount" id="Amount1" onchange="multiply(1);">
+		  						<input type="text" name="Amount" id="Amount1" onkeyup="multiply(1);">
 		  					</td>
 		  					<td>
 		  						<input type="text" name="SubTotal" id="SubTotal1">
@@ -683,3 +684,4 @@
 		  </div>
 	</form>
 	</div>
+	
