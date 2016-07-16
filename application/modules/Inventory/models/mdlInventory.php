@@ -60,8 +60,8 @@ class MdlInventory extends CI_Model {
 	function EditInventory($options = array())
 	{		
 		
-
-		
+		if(isset($options['SupplierID']))
+			$this->db->set('SupplierID', $options['SupplierID']);
 
 		if(isset($options['ItemDesc']))
 			$this->db->set('ItemDesc', $options['ItemDesc']);
@@ -106,93 +106,21 @@ class MdlInventory extends CI_Model {
 		return true;
 	}
 
-	function modifyOrder($options = array())
-	{	
-		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
-		
-		if(isset($options['Tray']))
-			$this->db->set('Tray', $options['Tray']);
+	public function check_if_ItemCode_exists($ItemID)
+    {
+        $this->db->where('ItemID',$ItemID);
+        $result = $this->db->get('tblitem');
+        if($result->num_rows()>0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
-		if(isset($options['SG']))
-			$this->db->set('SG', $options['SG']);
 
-		if(isset($options['BW']))
-			$this->db->set('BW', $options['BW']);
-	
-		if(isset($options['MC']))
-			$this->db->set('MC', $options['MC']);
-
-		if(isset($options['OC']))
-			$this->db->set('OC', $options['OC']);
-
-		if(isset($options['Photos']))
-			$this->db->set('Photos', $options['Photos']);
-
-		if(isset($options['Articulator']))
-			$this->db->set('Articulator', $options['Articulator']);
-
-		if(isset($options['OD']))
-			$this->db->set('OD', $options['OD']);							
-
-		if(isset($options['shade1']))
-			$this->db->set('shade1', $options['shade1']);
-
-		if(isset($options['shade2']))
-			$this->db->set('shade2', $options['shade2']);
-
-		if(isset($options['patientfirstname']))
-			$this->db->set('patientfirstname', $options['patientfirstname']);
-
-		if(isset($options['patientlastname']))
-			$this->db->set('patientlastname', $options['patientlastname']);
-			
-			
-		if(isset($options['duetime']))
-			$this->db->set('duetime', $options['duetime']);
-			
-		if(isset($options['duedate']))
-			$this->db->set('duedate', $options['duedate']);
-
-		if(isset($options['orderdatetime']))
-			$this->db->set('orderdatetime', $options['orderdatetime']);
-
-		if(isset($options['gender']))
-			$this->db->set('gender', $options['gender']);
-
-		if(isset($options['age']))
-			$this->db->set('age', $options['age']);
-
-		if(isset($options['notes']))
-			$this->db->set('notes', $options['notes']);
-
-		if(isset($options['file']))
-			$this->db->set('file', $options['file']);
-
-		
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->update('tblcase');
-		
-		return $this->db->affected_rows();
-		
-	}
-
-	function UpdateOrderStatus($options = array())
-	{		
-		
-
-		
-
-		if(isset($options['status_id']))
-			$this->db->set('status_id', $options['status_id']);
-		
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->update('tblcase');
-		
-		return $this->db->affected_rows();
-		
-	}
-	
 	
 }
 

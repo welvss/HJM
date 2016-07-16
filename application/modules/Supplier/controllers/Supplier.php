@@ -12,10 +12,12 @@ class Supplier extends MX_Controller
 		$this->load->module('Order');
 		$this->load->module('Inventory');
 		$this->load->module('Customer');
+		$this->load->module('PO');
 		$this->load->model('MdlCustomer');
 		$this->load->model('MdlOrder');
 		$this->load->model('MdlInvoice');
 		$this->load->model('MdlSupplier');
+		$this->load->model('MdlPO');
 	
 	}
 	
@@ -26,7 +28,7 @@ class Supplier extends MX_Controller
 	
 	function headercheck()
 	{	
-		$data['active'] =5;
+		$data['active'] =6;
 
 		echo modules::run('Dashboard/headercheck', $data);
 	}
@@ -36,19 +38,17 @@ class Supplier extends MX_Controller
 		$this->headercheck();
 		$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 		$this->load->view('app-supplier',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
+		$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
 	}
 	
 	public function Info()
 	{
+
 		$this->headercheck();
-		$data['Count']	= $this->MdlSupplier->countPO(array());
+		$data['Count']	= $this->MdlPO->countPO(array());
 		$data['supplier'] = $this->MdlSupplier->getSupplier(array('SupplierID'=>$this->uri->segment(3)));	
 		$data['items'] = $this->MdlInventory->getItem(array('SupplierID'=>$this->uri->segment(3)));	
-		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
-		$data['status'] = $this->MdlOrder->getStatus();
-		$data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
 		$this->load->view('app-supplier-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-supplier-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
@@ -85,45 +85,7 @@ class Supplier extends MX_Controller
 
 
 	}
-	public function AddPO()
-	{
 	
-
-		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-						
-
-						
-						$data=array(
-									'SupplierID'=>$_POST['SupplierID'],
-									'ItemID'=>$_POST['ItemID'],
-									'shipdate' => $_POST['shipdate'],
-									'QTY' => $_POST['QTY'],
-									'Amount' => $_POST['Amount'],
-									'Total' => $_POST['Total']
-
-									//'file' => $upload_data['file_name']
-								);
-						$this->MdlSupplier->AddPO($data);
-
-						redirect('Supplier/Info/'.$_POST['SupplierID']);
-					
-							
-						}
-						
-					
-			
-			
-	
-
-	}
-
-
-	
-
-
-
-
 	public function EditSupplier()
 	{
 	
@@ -163,6 +125,7 @@ class Supplier extends MX_Controller
 		$this->MdlSupplier->deleteSupplier($this->uri->segment(3));	
 		redirect('Supplier');
 	}
+	
 	public function checkemail()
     {
             $email_available = $this->MdlSupplier->check_if_email_exists($_POST['email']);
@@ -173,12 +136,20 @@ class Supplier extends MX_Controller
             }
             else
             {
-                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>';
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
                  $data['success']=true;
              
    			
             }
             echo json_encode($data);
+    }
+
+    public function getDetails(){
+
+    	$data = $this->MdlSupplier->getSupplier(array('SupplierID'=>$_POST['SupplierID']));
+    	$arr['email'] = $data->email;
+    	$arr['address'] = $data->bstreet.', '.$data->bbrgy.', '.$data->bcity;
+    	echo json_encode($arr);
     }
 	
 }

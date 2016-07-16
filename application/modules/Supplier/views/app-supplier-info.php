@@ -257,6 +257,13 @@
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						<div id="error"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+				<div class="row">
+					<div class="one wide column hidden"></div>
 						<div class="fourteen wide column">
 								  <div class="fields">
 								  <div class="two wide field">
@@ -284,7 +291,6 @@
 								    <div class="eight wide field">
 								      <label>Email</label>
 								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="email" onkeyup="checkemail(this.value,'Supplier');">
-								   		<div id="error"></div>
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -327,14 +333,14 @@
 									 		<div class="centered column">
 												  <div class="field">
 												    <label>Address</label>
-												    <textarea rows="2" placeholder="Street" name="bstreet" id="supplierStreet"><?php echo $supplier->bstreet;?></textarea>
+												    <textarea rows="2" placeholder="Street" name="bstreet" id="street"><?php echo $supplier->bstreet;?></textarea>
 												  </div>
 												  <div class="two fields">
 												  	<div class="field">
-												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $supplier->bcity;?>" id="supplierCity">
+												  		<input type="text" placeholder="City" name="bcity" value="<?php echo $supplier->bcity;?>" id="city">
 												  	</div>
 												  	<div class="field">
-												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $supplier->bbrgy;?>"id="supplierBaranggay">
+												  		<input type="text" placeholder="Baranggay" name="bbrgy" value="<?php echo $supplier->bbrgy;?>"id="brgy">
 												  	</div>
 												  </div>
 									 		</div>

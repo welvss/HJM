@@ -64,9 +64,9 @@
 	  					<tr>
 	  						<th>Item Code</th>
 	  						<th>Item Description</th>
-	  						<th>Cost</th>
-	  						<th>Current Qty</th>
-	  						<th>Action</th>
+	  						<th><center>Price</center></th>
+	  						<th><center>Current Qty</center></th>
+	  						<th><center>Action</center></th>
 	  					</tr>
 	  				</thead>
 	  				<tbody>
@@ -78,10 +78,12 @@
 	  					'<tr>
 	  						<td><a href="'.base_url('Inventory/Info/'.$item->ItemID).'">'.$item->ItemID.'</a></td>
 	  						<td>'.$item->ItemDesc.'</td>
-	  						<td>'.$item->Cost.'</td>
-	  						<td>'.$item->TotalQTY.'/'.$item->QTY.'</td>
+	  						<td><center>'.$item->Price.'</center></td>
+	  						<td><center>'.$item->QTY.'</center></td>
 	  						<td>
-	  							<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
+	  							<center>
+	  								<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
+	  							</center>
 	  						</td>
 	  					</tr>';
 	  					}
@@ -103,20 +105,24 @@
 		  
 		  	<?php echo form_open('Inventory/AddInventory','class="ui form"');?>
 			<div class="ui centered grid" >
+				<div class="row">
+					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						<div id="error"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
 				<div class="fifteen column centered row">
 					<div class="seven wide column">
 							<div class="field">
 								<label>Item Code</label>
-								<input type="text" name="ItemID">
+								<input type="text" name="ItemID" onkeyup="checkItemCode(this.value);">
 							</div>
 							<div class="sixteen wide field">
 								<label for="">Item Description</label>
 								<textarea row="1" name="ItemDesc"></textarea>
 							</div>
-							<div class="field">
-								<label>Cost</label>
-								<input type="text" name="Cost">
-							</div>
+							
 							<div class="field">
 								<label>Price</label>
 								<input type="text" name="Price">
@@ -125,9 +131,14 @@
 					<div class="eight wide column">
 						<div class="field">
 							<label>Supplier</label>
-							  <select class="ui dropdown">
-							      <option value="1">Supplier A</option>
-							      <option value="0">Supplier B</option>
+							  <select class="ui dropdown" name="SupplierID">
+							  		<option value="">Select Supplier</option>
+							  	<?php 
+							  		foreach($suppliers as $supplier)
+							  		{
+							  			echo '<option value="'.$supplier->SupplierID.'">'.$supplier->company.'</option>';
+							  		}
+							    ?> 
 							    </select>
 						</div>
 						<div class="field">
@@ -151,7 +162,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

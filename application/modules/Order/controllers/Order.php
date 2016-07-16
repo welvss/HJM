@@ -41,7 +41,7 @@ class Order extends MX_Controller
 			$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4));
 
 			$this->load->view('app-orders',$data);
-			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/cases.js"><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
 		else
@@ -512,7 +512,7 @@ class Order extends MX_Controller
 			$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
 			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('app-orders-info',$data);
-			$data['script']='<script src="'.base_url().'app/js/cases.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 
 			$this->footer($data);
 		}

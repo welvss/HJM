@@ -25,31 +25,34 @@
 		  <div class="ui header">
 		  	<a href="#">Purchase</a>
 		  </div>
+			<div class="one wide column hidden"></div>
+				<div class="fourteen wide column">
+					<div id="error"></div>
+				</div>
+			<div class="one wide column hidden"></div>
+			<br>
 		  <div class="ui right floated red statistic">
 			<div class="value">
-			   <?php echo $item->TotalQTY.'/'.$item->QTY;?>
+			   <?php echo $item->QTY;?>
 			  </div>
 			  <div class="label">
 			    Current Stock
 			  </div>
 		  </div>
 		  <br><br>
-		  <?php echo form_open('Inventory/EditInventory','class="ui form"');?>
+		  <?php echo form_open('Inventory/EditInventory','class="ui form"').form_hidden('ItemID',$this->uri->segment(3));?>
 			<div class="ui centered grid" >
 				<div class="fifteen column centered row">
 					<div class="seven wide column">
 							<div class="field">
 								<label>Item Code</label>
-								<input type="text" name="ItemID" value="<?php echo $item->ItemID;?>">
+								<input type="text" name="IID" id="ItemID" value="<?php echo $item->ItemID;?>" onkeyup="checkItemCode(this.value);">
 							</div>
 							<div class="sixteen wide field">
 								<label for="">Item Description</label>
 								<textarea row="1" name="ItemDesc" ><?php echo $item->ItemDesc;?></textarea>
 							</div>
-							<div class="field">
-								<label>Cost</label>
-								<input type="text" name="Cost" value="<?php echo $item->Cost;?>">
-							</div>
+							
 							<div class="field">
 								<label>Price</label>
 								<input type="text" name="Price" value="<?php echo $item->Price;?>">
@@ -58,9 +61,16 @@
 					<div class="eight wide column">
 						<div class="field">
 							<label>Supplier</label>
-							  <select class="ui dropdown">
-							      <option value="1">Supplier A</option>
-							      <option value="0">Supplier B</option>
+							  <select class="ui dropdown" name="SupplierID">
+							      <?php 
+							  		foreach($suppliers as $supplier)
+							  		{
+							  			if($supplier->SupplierID==$item->SupplierID)
+							  				echo '<option value="'.$supplier->SupplierID.'" selected>'.$supplier->company.'</option>';
+							  			else
+							  				echo '<option value="'.$supplier->SupplierID.'">'.$supplier->company.'</option>';
+							  		}
+							    ?> 
 							    </select>
 						</div>
 						<div class="field">
@@ -84,8 +94,8 @@
 						    <a href="<?php echo base_url('Inventory');?>" class="ui grey deny button">
 						      Cancel
 						    </a>
-						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit">
-							  <div class="visible content">Update</div>
+						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit" id="submit">
+							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
 							  </div>

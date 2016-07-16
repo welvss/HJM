@@ -27,32 +27,7 @@ $( document ).ready(function() {
   $('.menu .item')
   .tab()
 ;
-var shipstreet=$('#ship-street').val(),
-    shipcity=$('#ship-city').val(),
-    shipbaranggay=$('#ship-baranggay').val();
-$('#same-as').change(function(){
-    
 
-    if (this.checked) {
-      var customerStreet= $('#customerStreet').val(),
-          customerCity=$('#customerCity').val(),
-          customerBaranggay=$('#customerBaranggay').val();
-      document.getElementById("ship-street").disabled = true;
-      $('#ship-street').text(customerStreet);
-      document.getElementById("ship-city").disabled = true;
-      $('#ship-city').val(customerCity);
-      document.getElementById("ship-baranggay").disabled = true;
-      $('#ship-baranggay').val(customerBaranggay);
-    }
-    else{
-      document.getElementById("ship-street").disabled = false;
-      $('#ship-street').text(shipstreet);
-      document.getElementById("ship-city").disabled = false;
-      $('#ship-city').val(shipcity);
-      document.getElementById("ship-baranggay").disabled = false;
-      $('#ship-baranggay').val(shipbaranggay);
-    } 
-});
 // Initialize sidebar
 $('.sidebar')
     .sidebar({
@@ -111,138 +86,12 @@ $('.ui.checkbox')
 
 
 
-$(document).ready(function(){
-  $('.ui.form')
-  .form({
-    fields: {
-      firstName: {
-        identifier: 'firstName',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your First name'
-          }
-        ]
-      },
-      lastName: {
-        identifier: 'lastName',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your Last name'
-          }
-        ]
-      },
-      email: {
-        identifier: 'email',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your Email Address'
-          }
-        ]
-      },
-      supplierStreet: {
-        identifier: 'supplierStreet',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      supplierCity: {
-        identifier: 'supplierCity',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      supplierBaranggay: {
-        identifier: 'supplierBaranggay',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      company: {
-        identifier: 'company',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      },
-      title: {
-        identifier: 'title',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your name'
-          }
-        ]
-      }
-    }
-  });
-});
 
 
 
-function getItemDesc(val,x) {
-
-  $.ajax({
-  type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Inventory/getDetails",
-  data:'ItemID='+val,
-  success: function(data){
-    $("#ItemDesc"+x).html(data);
-    $('#item').val('')
-  
-  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
-                
-                  alert(xhr.responseText);
-            },
-
-  });
- }
 
 
-function checkemail(val) {
 
-  $.ajax({
-  type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Supplier/checkemail",
-  data:'email='+val,
-  dataType: 'json',
-  cache: true,
-  success: function(data){
-    if(data.success==true)
-    {
-      $('#error').html(data.error);
-      document.getElementById('submit').disabled = true;
-    }
-    else
-    {
-      $('#error').html(data.error);
-      document.getElementById('submit').disabled = false;
-    }
-  
-  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
-                
-                  alert(xhr.responseText);
-            },
-
-  });
-}
 
 
 

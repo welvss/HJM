@@ -58,11 +58,11 @@
          <div class="ui left red label" id="number-notif">9</div>
         Inventory
       </a>
-      <a class="item">
+      <a href="<?php echo base_url('PO');?>" class="<?php if($active==5){ echo "active blue";}?> item">
         <i class="large cart icon"></i>
         Purchase Order
       </a>
-      <a href="<?php echo base_url('Supplier');?>" class="<?php if($active==5){ echo "active blue";}?> item">
+      <a href="<?php echo base_url('Supplier');?>" class="<?php if($active==6){ echo "active blue";}?> item">
         <i class="large shipping icon"></i>
         Suppliers
       </a>

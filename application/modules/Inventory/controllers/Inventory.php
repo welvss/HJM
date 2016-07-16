@@ -38,10 +38,10 @@ class Inventory extends MX_Controller
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			
-
+			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('app-inventory',$data);
-			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js">';
 			$this->footer($data);
 		}
 		else
@@ -59,11 +59,11 @@ class Inventory extends MX_Controller
 						$data=array(
 									'ItemID'=>$_POST['ItemID'],
 									'ItemDesc'=>$_POST['ItemDesc'],
-									'Cost'=>$_POST['Cost'],
 									'Price'=>$_POST['Price'],
 									'QTY'=>$_POST['QTY'],
 									'QTYBelow'=>$_POST['QTYBelow'],
-									'ReorderQTY'=>$_POST['ReorderQTY']
+									'ReorderQTY'=>$_POST['ReorderQTY'],
+									'SupplierID'=>$_POST['SupplierID']
 
 								);
 						$this->MdlInventory->AddInventory($data);
@@ -80,20 +80,38 @@ class Inventory extends MX_Controller
 	
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
 		{
-
+						//die($_POST['ItemID']);
+			if($_POST['ItemID']==$_POST['IID'])
+			{
 						$data=array(
 									'ItemID'=>$_POST['ItemID'],
 									'ItemDesc'=>$_POST['ItemDesc'],
-									'Cost'=>$_POST['Cost'],
 									'Price'=>$_POST['Price'],
 									'QTY'=>$_POST['QTY'],
-									'TotalQTY'=>$_POST['QTY'],
 									'QTYBelow'=>$_POST['QTYBelow'],
-									'ReorderQTY'=>$_POST['ReorderQTY']
-
+									'ReorderQTY'=>$_POST['ReorderQTY'],
+									'SupplierID'=>$_POST['SupplierID']
 								);
 						$this->MdlInventory->EditInventory($data);
 						redirect('Inventory');
+			}
+			else
+			{
+						$this->MdlInventory->DeleteItem($_POST['ItemID']);
+						$data=array(
+									
+									'ItemID'=>$_POST['IID'],
+									'ItemDesc'=>$_POST['ItemDesc'],
+									'Price'=>$_POST['Price'],
+									'QTY'=>$_POST['QTY'],
+									'QTYBelow'=>$_POST['QTYBelow'],
+									'ReorderQTY'=>$_POST['ReorderQTY'],
+									'SupplierID'=>$_POST['SupplierID']
+								);
+						$this->MdlInventory->AddInventory($data);
+						redirect('Inventory');
+			}
+
 					
 		}
 						
@@ -102,46 +120,23 @@ class Inventory extends MX_Controller
 
 	public function DeleteItem()
 	{
-		$this->MdlInventory->DeleteItem($this->uri->segment(3));	
-		redirect('Inventory');
+		if($this->MdlInventory->DeleteItem($this->uri->segment(3)))
+			redirect('Inventory');
 	}
-	public function UpdateOrderStatus()
-	{
 	
-			
-				$order = array(
-							'CaseID'=>$_POST['CaseID'],
-							'status_id' => $_POST['status_id'] 
-							);
-				
-				if($this->MdlOrder->UpdateOrderStatus($order))
-				{
-					if( $_POST['DentistID']!=Null)
-						redirect('Customer/Info/'.$_POST['DentistID'].'/'.$_POST['Info']);
-					else
-						redirect('Order');
-				}
-			
-			
-		
-	
-		
-
-	}
-
 
 	
 	
 	public function Info()
-	{	$data['active'] =3;
-		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+	{	
+		
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-			$this->load->view('template/header',$data);
+		{	
+			$this->headercheck();
+			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 			$data['item'] = $this->MdlInventory->getItem(array('ItemID'=>$this->uri->segment(3)));
-				
 			$this->load->view('app-inventory-info',$data);
-			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
 	
@@ -151,12 +146,41 @@ class Inventory extends MX_Controller
 	public function getDetails()
 	{
 		$data = $this->MdlInventory->getItem(array('ItemID' => $this->input->POST('ItemID')));
-
-			echo $data->ItemDesc;
+			if($this->input->post('ItemID')!=null)
+				echo $data->ItemDesc;
+			else
+				echo " ";
 	
 			
 	}
 
-	
+	public function checkItemCode()
+    {
+            $ItemCode_available = $this->MdlInventory->check_if_ItemCode_exists($_POST['ItemID']);
+            if($ItemCode_available)
+            {
+                 $data['error']= "";
+                 $data['success']=false;
+            }
+            else
+            {
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This Item Code is already taken. &nbsp;Please enter another Item Code.</center></div></div>';
+                 $data['success']=true;
+             
+   			
+            }
+            echo json_encode($data);
+    }
+
+    public function getItems(){
+
+    	$data=$this->MdlInventory->getItem(array('SupplierID'=>$_POST['SupplierID']));
+    			
+	    	foreach ($data as $datus) {
+	    		echo  '<div class="item" data-value="'.$datus->ItemID.'">'.$datus->ItemID.'</div>';
+	    	}
+		
+		
+	}
 }
 ?>

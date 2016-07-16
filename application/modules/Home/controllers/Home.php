@@ -53,7 +53,7 @@ class Home extends MX_Controller
             }
             else
             {
-                
+                $this->load->view('template/frontheader');
                 $this->load->view('sign-in');
                 $this->load->view('template/frontfooter');
             }

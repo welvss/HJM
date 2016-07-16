@@ -82,7 +82,7 @@ class Invoice extends MX_Controller
 									$edit = 
 									array(
 										'ItemID' => $invoice['ItemID'],
-										'TotalQTY' => $data->TotalQTY-$invoice['QTY'] , 
+										'QTY' => $data->TotalQTY-$invoice['QTY'] , 
 										);
 									$this->MdlInventory->EditInventory($edit);
 								}

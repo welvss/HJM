@@ -1,84 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>HJM | Dental Laboratory</title>
-</head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
-<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="css/app.css">
-<link rel="stylesheet" href="css/hover-min.css">
-<link rel="shortcut icon" href="favicon.ico">
-<body class="app">
-<!--Sidebar-->
-	<div class="ui left vertical sidebar menu" id="app-main-sidebar">
-		<div class="app-avatar">
-			<div id="circle" class="circle">
-				<h1 id="app-avatar-initial">WM</h1>
-			</div>
-		</div>
-		<div class="ui right dropdown item">
-		 <div class="ui sub header">Welvin Medina</div>
-      		Admin
-	    <i class="dropdown icon"></i>
-	    <div class="menu">
-	      <div class="item"><i class="settings icon"></i>
-	      Edit Username</div>
-	      <div class="item"> <i class="user icon"></i>
-	      Change Avatar</div>
-	      <div class="divider"></div>
-	      <div class="item"> <i class="browser icon"></i>
-	      Manage Site</div>
-	      <div class="item"> <i class="configure icon"></i>
-	      Account settings</div>
-	      <div class="item"> <i class="sign out icon"></i>
-	      Sign Out</div>
-	    </div>
-    </div>
-  	<hr>
-		 <a href="index.html" class="item">
-		    <i class="large home icon"></i>
-		    Home
-		  </a>
-		  <a href="app-customer.html" class="item">
-		    <i class="large doctor icon"></i>
-		    Customer
-		  </a>
-		  <a href="cases.html"class="active blue item">
-		    <i class="large file text outline icon"></i>
-		    <div class="ui left label" id="number-notif">3</div>
-		    Cases
-		  </a>
-		  <a href="supplier.html" class="item">
-		    <i class="large shipping icon"></i>
-		    Suppliers
-		  </a>
-		  <a href="inventory.html" class="item">
-		    <i class="large cubes icon"></i>
-		     <div class="ui left red label" id="number-notif">9</div>
-		    Inventory
-		  </a>
-	</div>
-<!--Pusher-->
-<div class="pusher">
-	<!--Header-->
-	  <div class="computer tablet only row">
-	    <div class="ui inverted fixed menu navbar page grid" id="app-top-bar">
-		    <button class="sidebar-button ui basic inverted button">
-		  	<i class="icon align justify big icon"></i>
-		    </button>
-			<div class="brand">
-				<img src="img/hjm.png" alt="" style="">
-				<p style="display: inline-block;">DENTAL LABORATORY</p>
-			</div>
-			<div class="right menu">
-				<div class="ui transparent inverted icon input">
-				  <input type="text" placeholder="Search HJM Dental La..">
-				  <i class="search icon"></i>
-				</div>
-			</div>
-	    </div>
-	  </div>
+
 	  <!--App-content--> 
 	  <div class="ui grid home-grid">
 	  <div class="row app-content page-header header">
@@ -87,18 +7,15 @@
 		   		<h1><i class="cart icon"></i>Purchase Orders</h1>
 	   		</div>
 	   		<div class="five wide right aligned column">
-	   		<button class="ui blue button mode">
-					  Edit
-			</button>
-			<div class="ui icon top green right labeled pointing dropdown button">
-			  <i class="add icon"></i>
-			  New Transaction
-			  <div class="menu">
-			    <div class="item invoice-modal">
-			    <i class="large file text outline icon blue"></i>
-			    New Purchase Order</div>
-			  </div>
-			</div>
+				<div class="ui icon top green right labeled pointing dropdown button">
+				  <i class="add icon"></i>
+				  New Transaction
+				  <div class="menu">
+				    <div class="item invoice-modal">
+				    <i class="large file text outline icon blue"></i>
+				    New Purchase Order</div>
+				  </div>
+				</div>
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>
@@ -196,38 +113,47 @@
 			<thead>
 				<tr>
 					<th>PO#</th>
-					<th>Supplier Contact Person</th>
 					<th>Supplier Company</th>
-					<th>Create Date</th>
-					<th>Amount</th>
+					<th>Date Created</th>
+					<th>Requested Ship Date</th>
 					<th>Status</th>
 					<th>ACTION</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><a href="#">#SERDS-M0KW1D</a></td>
-					<td><a href="#">420</a></td>
+			<?php 
+			foreach($pos as $po){
+				echo
+				'<tr>
+					<td><a href="#">#SERDS-'.$po->POID.'</a></td>
 					<td>
 						<h4 class="ui image header">
-							          <img src="img/hjm-logo.png" class="ui mini rounded image">
-							          <div class="content">
-							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
-							            <div class="sub header">HJM Dental Laboratory
-							          </div>
+							          <img src="'.base_url().'img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">';
+							          foreach($suppliers as $supplier){
+								          if($po->SupplierID == $supplier->SupplierID)
+								          	echo
+								            '<a href="app-customer-info.html">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
+								            <div class="sub header">HJM Dental Laboratory';
+							          }
+							echo    '</div>
 							        </div>
 							    </h4>
 					</td>
-					<td> 12/12/12</td>
+					<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
+					<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
 					<td>
  						<div class="ui form">
 							<div class="ten wide field">
-							 <select>
-							  <option value="New">Draft</option>
-							  <option value="In Production">Approved<i class="green check icon"></i></option>
-							  <option value="Completed">Partially Received</option>
-							  <option value="On Hold">Received</option>
-							 </select>
+							 <select name="POStatusID">';
+							 foreach ($status as $stat) {
+							 	if($stat->POStatusID==$po->POStatusID)
+							 		echo '<option value="'.$stat->POStatusID.'">'.$stat->status.'</option>';
+							 	else
+							 		echo '<option value="'.$stat->POStatusID.'">'.$stat->status.'</option>';
+							 }
+							  
+						echo '</select>
 							</div>
 					    </div>						
 					</td>
@@ -248,14 +174,17 @@
 			  			Edit
 			  			</a>
 					</td>
-				</tr>
+				</tr>';
+			}
+			?>
 			</tbody>
 		</table>
 	  </div>
 	  </div>
 </div>
 <div class="ui modal fullscreen invoice">
-	  <form class="ui form">
+	 
+	  <?php echo form_open('PO/AddPO','class="ui form"');?>
 	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
@@ -269,11 +198,21 @@
 							<div class="inline fields">
 							<div class="eight wide field">
 								<label>Supplier</label>
-								<input type="text" value="Deew Plantation">
+								<div class="ui selection dropdown" id="SupplierID">
+								  <input type="hidden" name="SupplierID" onchange="getInfo(this.value);" >
+								  <i class="dropdown icon"></i>
+								  <div class="default text">Select Supplier</div>
+								  <div class="menu">
+								  	<?php foreach ($suppliers as $supplier) {
+								  		echo '<div class="item" data-value="'.$supplier->SupplierID.'">'.$supplier->company.'</div>';
+								  	}
+								    ?>
+								  </div>
+								</div>
 							</div>
 							<div class="eight wide field">
 								<label>Email</label>
-								<input type="text" value="hjmdentallaboratory@gmail.com">
+								<input type="text" value="" readonly id="email">
 							</div>
 							</div>
 						</div>
@@ -283,13 +222,13 @@
 						<div class="ui segment">
 							<div class="ui header">
 								<h3>PO#:</h3>
-								<h1>PO-GR@C3</h1>
+								<h1>PO-<?php echo $count+1;?></h1>
 							</div>	
 						</div>
 						<div class="ui segment">
 							<div class="ui header">
 								Total
-								<h1>PHP 500.00</h1>
+								<h1></h1>
 							</div>	
 						</div>						
 						</div>
@@ -303,11 +242,7 @@
 	  					<div class="fields">
 	  						<div class="four wide field">
 	  							<label>Billing Address</label>
-	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
-	  						</div>
-	  						<div class="field">
-	  							<label>Purchase Order date</label>
-	  							<input type="date">
+	  							 <textarea rows="2" readonly id="address"></textarea>
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
@@ -337,19 +272,19 @@
 		  			<tbody>
 		  				<tr>
 		  					<td>1</td>
-		  					<td>
-		  						<div class="ui selection dropdown">
-								  <input type="hidden" name="gender">
+		  					<td >
+								<div class="ui selection dropdown" id="Idropdown">
+								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value);">
 								  <i class="dropdown icon"></i>
-								  <div class="default text">Default item dito</div>
-								  <div class="menu">
-								    <div class="item" data-value="1">Emax</div>
-								    <div class="item" data-value="0">Baymax</div>
+								  <div class="default text">Select Item</div>
+								  <div class="menu" id="items">
+								 
 								  </div>
 								</div>
+								  
 		  					</td>
-		  					<td>
-		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					<td id="ItemDesc">
+		  					
 		  					</td>
 		  					<td>
 		  						<input type="number" style="width: 100px">
@@ -442,12 +377,5 @@
 	 		 <br><br>
 		  </div>
 	</form>
+	<br><br>
 	</div>
-	
-	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/semantic/dist/semantic.min.js"></script>
-	<script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
-	<script src="js/cases.js"></script>
-</body>
-</html>

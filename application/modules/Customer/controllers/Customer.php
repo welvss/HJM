@@ -38,7 +38,7 @@ class Customer extends MX_Controller
 		{	
 			$data['dentists'] = $this->MdlCustomer->getDentist();	
 			$this->load->view('app-customer',$data);
-			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
 
@@ -169,7 +169,7 @@ class Customer extends MX_Controller
             }
             else
             {
-                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account.<br> Please enter another email address.</center></div></div>';
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
                  $data['success']=true;
              
    			

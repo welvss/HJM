@@ -7,79 +7,13 @@ class MdlSupplier extends CI_Model {
 	}
 
 
-	function countPO($options=array())
-	{
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID',$options['DentistID']);
 
-		if(isset($options['status_id']))
-			$this->db->where('status_id',$options['status_id']);
-
-
-		return $query = $this->db->count_all_results('tblpo');
-
-	}
-
-	function getOrder($options = array())
-	{
-		//verification
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID', $options['DentistID']);
-
-		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
-		
-		if(isset($options['patient']))
-			$this->db->like('patient', $options['patient']);
-			
-		if(isset($options['due-time']))
-			$this->db->like('due-time', $options['due-time']);
-			
-		if(isset($options['due-date']))
-			$this->db->like('due-date', $options['due-date']);
-
-		if(isset($options['orderdatetime']))
-			$this->db->like('orderdatetime', $options['orderdatetime']);
-
-		if(isset($options['gender']))
-			$this->db->like('gender', $options['gender']);
-
-		if(isset($options['age']))
-			$this->db->like('age', $options['age']);
-
-		if(isset($options['notes']))
-			$this->db->like('notes', $options['notes']);
-
-		if(isset($options['file']))
-			$this->db->like('file', $options['file']);
-
-
-		if(isset($options['limit']) && isset($options['offset']))
-			$this->db->limit($options['limit'], $options['offset']);
-		
-		else if(isset($options['limit']))
-			$this->db->limit($options['limit']);
-		
-		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
-			$this->db->order_by($options['sort_by'], $options['sort_direction']);
-		
-		$query = $this->db->get("tblcase");
-		
-		if(isset($options['count']))
-			return $query->num_rows();
-		
-		if(isset($options['CaseID']))
-			return $query->row(0);
-		//die($this->db->last_query());
-		return $query->result();
-	}
-	
 	
 	function getSupplier($options = array())
 	{
 		//verification
-		if(isset($options['Supplier']))
-			$this->db->where('Supplier', $options['Supplier']);
+		if(isset($options['SupplierID']))
+			$this->db->where('SupplierID', $options['SupplierID']);
 		
 		if(isset($options['title']))
 			$this->db->like('title', $options['title']);
@@ -149,12 +83,7 @@ class MdlSupplier extends CI_Model {
 		
 	}
 
-	function AddPO($options = array())
-	{
-		$this->db->insert('tblpo', $options);	
-		return $this->db->insert_id();
-		
-	}
+	
 	
 	function modifySupplier($options = array())
 	{		
@@ -223,21 +152,10 @@ class MdlSupplier extends CI_Model {
 		$this->db->delete('tblsupplier');	
 		return true;
 	}
-	function validate()
-	{
-		$this->db->where('username', $this->input->post('username'));
-		$this->db->where('password',md5($this->input->post('password')));
-		$query =$this->db->get('users');
-
-		if($query->num_rows ==1)
-		{
-			return true;
-		}
-			
-	}
-
+	
 	public function check_if_email_exists($email)
     {
+        
         $this->db->where('Email',$email);
         $result = $this->db->get('tblsupplier');
         if($result->num_rows()>0)
