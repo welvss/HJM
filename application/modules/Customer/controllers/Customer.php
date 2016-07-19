@@ -164,17 +164,43 @@ class Customer extends MX_Controller
             $email_available = $this->MdlCustomer->check_if_email_exists($_POST['email']);
             if($email_available)
             {
-                 $data['error']= "";
-                 $data['success']=false;
+                
+                return false;
             }
             else
             {
-                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
-                 $data['success']=true;
-             
+                
+                
+             	return true;
    			
             }
-            echo json_encode($data);
+            
+    }
+
+
+
+    function Inputvalidation(){
+    	
+
+        $this->form_validation->set_rules('username','Username','required|callback_validate_credentials');
+        $this->form_validation->set_rules('email','Email','callback_checkemail');
+        $this->form_validation->set_rules('firstname','First Name','alpha');
+        $this->form_validation->set_rules('lastname','Last Name','alpha');
+        $this->form_validation->set_rules('telephone','Telephone','numeric');
+        $this->form_validation->set_rules('mobile','Mobile','numeric');
+
+
+    	if($this->form_validation->run($this)){
+    		$data['error']= "";
+            $data['success']=false;
+    		
+    	}
+    	else{
+    		$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
+    		$data['success']=true;
+    	}
+
+    	echo json_encode($data);
     }
 }
 ?>
