@@ -149,19 +149,19 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First Name</label>
-								      <input type="text" placeholder="First Name" name="firstname" id="firstName">
+								      <input type="text" placeholder="First Name" name="firstname" id="firstName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle Name</label>
-								      <input type="text" placeholder="Middle Name" name="middlename">
+								      <input type="text" placeholder="Middle Name" name="middlename" id="middleName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Last Name</label>
-								      <input type="text" placeholder="Last Name" name="lastname" id="lastName">
+								      <input type="text" placeholder="Last Name" name="lastname" id="lastName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="eight wide field">
 								    	<label>Email</label>
-								    	<input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" onkeyup="checkemail(this.value,loc='Supplier');">
+								    	<input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" id="email" onchange="Inputvalidation('Supplier');">
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -171,23 +171,28 @@
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
-								    		<input type="text" name="telephone">
+								    		<input type="text" name="telephone" id="telephone" onkeyup="Inputvalidation('Supplier');">
 								    	</div>
 								    	<div class="four wide field">
 								    		<label>Mobile</label>
-								    		<input type="text" name="mobile" name="mobile">
+								    		<input type="text" name="mobile" name="mobile" id="mobile" onkeyup="Inputvalidation('Supplier');">
 								    	</div>
 								  </div>
 								  <div class="fields">
-								  	<div class="eight wide field">
-									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website">
-									  </div>
-									  <div class="eight wide field">
-									  	<label>Fax</label>
-									  	<input type="text" name="fax">
-									  </div>
-								  </div>
+									  	<div class="eight wide field">
+											<label>Website</label>
+										  	<div class="ui labeled input">
+												<div class="ui label">
+													http://
+												</div>
+										  		<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" id="website" value="www."  onchange="Inputvalidation('Supplier');">
+											</div>
+										</div>
+										<div class="eight wide field">
+											<label>Fax</label>
+											<input type="text" name="fax" id="fax" onkeyup="Inputvalidation('Supplier');">
+										</div>
+								    </div>
 								  <!--Tabs-->
 						<br>
 						<div class="row">
@@ -239,7 +244,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

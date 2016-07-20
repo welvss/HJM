@@ -1,4 +1,45 @@
-var email = $('#email').val();
+var e = $('#email').val();
+
+function Inputvalidation(loc) {
+  
+  var dataString={
+    firstname: $('#firstName').val(),
+    middlename: $('#middleName').val(),
+    lastname: $('#lastName').val(),
+    email: $('#email').val(),
+    emails: e,
+    telephone: $('#telephone').val(),
+    website: $('#website').val(),
+    fax: $('#fax').val(),
+    mobile: $('#mobile').val(),
+  };
+  $.ajax({
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/"+loc+"/Inputvalidation",
+  data:dataString,
+  dataType: 'json',
+  cache: false,
+  success: function(data){
+    if(data.success==true)
+    {
+      $('#error').html(data.error);
+      document.getElementById('submit').disabled = true;
+    }
+    else
+    {
+      $('#error').html(data.error);
+      document.getElementById('submit').disabled = false;
+    }
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
 function checkemail(val,loc) {
   $.ajax({
   type: "POST",
@@ -95,7 +136,12 @@ function getInfo(val){
   });
 }
 
-
+function test(){
+  
+  var files = document.getElementById("file").files[0].fileName;
+  alert(files);
+  $('#test').html('<img src="'+files+'">')
+}
 function getItems(val){
 
   $.ajax({
@@ -173,6 +219,15 @@ $(document).ready(function(){
         rules: [
           {
             type   : 'email',
+            prompt : 'Please enter your Email Address'
+          }
+        ]
+      },
+      website: {
+        identifier: 'website',
+        rules: [
+          {
+            type   : 'url',
             prompt : 'Please enter your Email Address'
           }
         ]
@@ -375,18 +430,28 @@ $(document).ready(function(){
               city=$('#city').val(),
               brgy=$('#brgy').val();
           document.getElementById("ship-street").disabled = true;
+
           $('#ship-street').text(street);
+          
           document.getElementById("ship-city").disabled = true;
+          
           $('#ship-city').val(city);
+          
           document.getElementById("ship-baranggay").disabled = true;
+          
           $('#ship-baranggay').val(brgy);
+          
         }
         else{
           document.getElementById("ship-street").disabled = false;
+          
           $('#ship-street').text(shipstreet);
+
           document.getElementById("ship-city").disabled = false;
+          
           $('#ship-city').val(shipcity);
           document.getElementById("ship-baranggay").disabled = false;
+          
           $('#ship-baranggay').val(shipbaranggay);
         } 
     });

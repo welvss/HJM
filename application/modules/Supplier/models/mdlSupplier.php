@@ -160,10 +160,6 @@ class MdlSupplier extends CI_Model {
         $result = $this->db->get('tblsupplier');
         if($result->num_rows()>0)
         {
-            return false;
-        }
-        else
-        {
             return true;
         }
     }

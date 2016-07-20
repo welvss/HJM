@@ -67,4 +67,6 @@ $lang['form_validation_greater_than_equal_to']	= 'The {field} field must contain
 $lang['form_validation_error_message_not_set']	= 'Unable to access an error message corresponding to your field name {field}.';
 $lang['form_validation_in_list']		= 'The {field} field must be one of: {param}.';
 $lang['form_validation_validate_credentials']		= 'Incorrect username/password!';
+$lang['form_validation_check_email']		= 'The {field} is already taken.  Please enter another {field}.';
+$lang['form_validation_check_website']		= 'The {field} field must contain a valid URL.';
 

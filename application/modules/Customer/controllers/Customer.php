@@ -70,9 +70,24 @@ class Customer extends MX_Controller
 
 	public function AddDentist()
 	{
-		
-			
+			if($this->input->post('website')=="www.")
+				$ws="";
+			else
+				$ws='http://'.$this->input->post('website');
+			if($this->input->post('same'))
 			{
+				$street=$_POST['bstreet'];
+				$city=$_POST['bcity'];
+				$brgy=$_POST['bbrgy'];
+			}
+			else
+			{
+				$street=$_POST['shipstreet'];
+				$city=$_POST['shipcity'];
+				$brgy=$_POST['shipbrgy'];
+			}
+			{
+
 						$dentist = array(
 									'title'=>$_POST['title'],
 									'firstname'=>$_POST['firstname'],
@@ -83,13 +98,13 @@ class Customer extends MX_Controller
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
 									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
+									'website' => $ws,
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
 									'bcity' => $_POST['bcity'],
-									'shipstreet' => $_POST['shipstreet'],
-									'shipcity' => $_POST['shipcity'],
-									'shipbrgy' => $_POST['shipbrgy'],
+									'shipstreet' => $street,
+									'shipcity' => $city,
+									'shipbrgy' => $brgy,
 									'notes' => $_POST['notes'] );
 						
 						if($this->MdlCustomer->AddDentist($dentist))
@@ -110,8 +125,23 @@ class Customer extends MX_Controller
 
 	public function EditDentist()
 	{
+			if($this->input->post('website')=="www.")
+				$ws="";
+			else
+				$ws='http://'.$this->input->post('website');
 	
-		
+			if($this->input->post('same'))
+			{
+				$street=$_POST['bstreet'];
+				$city=$_POST['bcity'];
+				$brgy=$_POST['bbrgy'];
+			}
+			else
+			{
+				$street=$_POST['shipstreet'];
+				$city=$_POST['shipcity'];
+				$brgy=$_POST['shipbrgy'];
+			}
 			
 			{
 						$dentist = array(
@@ -126,13 +156,13 @@ class Customer extends MX_Controller
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
 									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
+									'website' => $ws,
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
 									'bcity' => $_POST['bcity'],
-									'shipstreet' => $_POST['shipstreet'],
-									'shipcity' => $_POST['shipcity'],
-									'shipbrgy' => $_POST['shipbrgy'],
+									'shipstreet' => $street,
+									'shipcity' => $city,
+									'shipbrgy' => $brgy,
 									'notes' => $_POST['notes'] );
 						
 						if($this->MdlCustomer->modifyDentist($dentist))
@@ -159,18 +189,52 @@ class Customer extends MX_Controller
 	
 	
 
-	public function checkemail()
+	
+
+
+
+   public function Inputvalidation(){
+    	
+   		if($_POST['emails']!=$_POST['email'])
+   			$this->form_validation->set_rules('email','Email Address','valid_email|callback_check_email');
+        $this->form_validation->set_rules('firstname','First Name','alpha');
+        $this->form_validation->set_rules('middlename','Middle Name','alpha');
+        $this->form_validation->set_rules('lastname','Last Name','alpha');
+        $this->form_validation->set_rules('website','Website','callback_check_website');
+        $this->form_validation->set_rules('telephone','Telephone','numeric');
+        $this->form_validation->set_rules('mobile','Mobile','numeric');
+        $this->form_validation->set_rules('fax','Fax','numeric');
+       
+
+    	if($this->form_validation->run($this)){
+    		$data['error']= "";
+    		$data['success']=false;
+            
+    		
+    	}
+    	else{
+    		$err="Ooops! &nbsp;There is an error!";
+    		//$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
+    		$data['error']='<div class="ui red message"><i class="close icon"></i><div class="header">'.$err.'</div><ul class="list">'.validation_errors('<li>', '</li>').'</ul></div>';
+    		$data['success']=true;
+    	}
+
+    	echo json_encode($data);
+    }
+
+    public function check_email($email)
     {
-            $email_available = $this->MdlCustomer->check_if_email_exists($_POST['email']);
+           	
+            $email_available = $this->MdlCustomer->check_if_email_exists($email);
             if($email_available)
             {
-                
+               
                 return false;
             }
             else
             {
                 
-                
+              
              	return true;
    			
             }
@@ -178,29 +242,25 @@ class Customer extends MX_Controller
     }
 
 
-
-    function Inputvalidation(){
-    	
-
-        $this->form_validation->set_rules('username','Username','required|callback_validate_credentials');
-        $this->form_validation->set_rules('email','Email','callback_checkemail');
-        $this->form_validation->set_rules('firstname','First Name','alpha');
-        $this->form_validation->set_rules('lastname','Last Name','alpha');
-        $this->form_validation->set_rules('telephone','Telephone','numeric');
-        $this->form_validation->set_rules('mobile','Mobile','numeric');
-
-
-    	if($this->form_validation->run($this)){
-    		$data['error']= "";
-            $data['success']=false;
-    		
-    	}
-    	else{
-    		$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
-    		$data['success']=true;
-    	}
-
-    	echo json_encode($data);
+    public function check_website($url){
+           	$www = substr($url,0,4);
+           	$www2 = substr($url,0,5);
+           	$compare=strcasecmp($www,"www.");
+            $compare2=strcasecmp($www2,"www..");
+            $compare3=strcasecmp($url,"www. .com");
+            if($compare!=0 || $compare2==0 || $compare3==0)
+            {
+               
+                return false;
+            }
+            else
+            {
+                
+              	
+             	return true;
+   			
+            }
+            
     }
 }
 ?>

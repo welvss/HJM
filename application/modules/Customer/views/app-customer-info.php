@@ -451,19 +451,19 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First name</label>
-								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $dentist->firstname;?>" id="firstName">
+								      <input type="text" placeholder="First Name" name="firstname" value="<?php echo $dentist->firstname;?>" id="firstName" onkeyup="Inputvalidation('Customer');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle name</label>
-								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $dentist->middlename;?>">
+								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $dentist->middlename;?>" id="middleName" onkeyup="Inputvalidation('Customer');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Last name</label>
-								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $dentist->lastname;?>" id="lasttName">
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $dentist->lastname;?>" id="lastName" onkeyup="Inputvalidation('Customer');">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $dentist->email;?>" id="email" onkeyup="checkemail(this.value,'Customer');">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $dentist->email;?>" id="email" onchange="Inputvalidation('Customer');">
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -473,23 +473,28 @@
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
-								    		<input type="text" name="telephone" value="<?php echo $dentist->telephone;?>">
+								    		<input type="text" name="telephone" value="<?php echo $dentist->telephone;?>" id="telephone" onkeyup="Inputvalidation('Customer');">
 								    	</div>
 								    	<div class="four wide field">
 								    		<label>Mobile</label>
-								    		<input type="text" name="mobile" value="<?php echo $dentist->mobile;?>">
+								    		<input type="text" name="mobile" value="<?php echo $dentist->mobile;?>" id="mobile" onkeyup="Inputvalidation('Customer');">
 								    	</div>
 								  </div>
-								  <div class="fields">
-								  	<div class="eight wide field">
-									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" value="<?php echo $dentist->website;?>">
-									  </div>
-									  <div class="eight wide field">
-									  	<label>Fax</label>
-									  	<input type="text" name="fax" value="<?php echo $dentist->fax;?>">
-									  </div>
-								  </div>
+									<div class="fields">
+									  	<div class="eight wide field">
+											<label>Website</label>
+										  	<div class="ui labeled input">
+												<div class="ui label">
+													http://
+												</div>
+										  		<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" id="website" value="<?php echo substr($dentist->website,7);?>"  onchange="Inputvalidation('Customer');">
+											</div>
+										</div>
+										<div class="eight wide field">
+											<label>Fax</label>
+											<input type="text" name="fax" id="fax" onkeyup="Inputvalidation('Customer');">
+										</div>
+								    </div>
 								  <!--Tabs-->
 						<br>
 						<div class="row">
@@ -836,7 +841,9 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" >
+								    <input type="file" id="file" onchange="test();">
+								<div id="test"></div>
+							
 							</div>
 							<div class="ui header">
 					  				Due

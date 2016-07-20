@@ -278,19 +278,19 @@
 								  </div>
 								    <div class="two wide field">
 								      <label>First Name</label>
-								      <input type="text" placeholder="First Name" name="firstname"  value="<?php echo $supplier->firstname;?>" id="firstName">
+								      <input type="text" placeholder="First Name" name="firstname"  value="<?php echo $supplier->firstname;?>" id="firstName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Middle Name</label>
-								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $supplier->middlename;?>">
+								      <input type="text" placeholder="Middle Name" name="middlename" value="<?php echo $supplier->middlename;?>" id="middleName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
 								      <label>Last Name</label>
-								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $supplier->lastname;?>" id="lastname">
+								      <input type="text" placeholder="Last Name" name="lastname" value="<?php echo $supplier->lastname;?>" id="lastName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="email" onkeyup="checkemail(this.value,'Supplier');">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="email" onchange="Inputvalidation('Supplier');">
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -300,23 +300,28 @@
 									  </div>
 									  <div class="four wide field">
 								    		<label>Telephone</label>
-								    		<input type="text" name="telephone" value="<?php echo $supplier->telephone;?>">
+								    		<input type="text" name="telephone" value="<?php echo $supplier->telephone;?>" id="telephone" onkeyup="Inputvalidation('Supplier');">
 								    	</div>
 								    	<div class="four wide field">
 								    		<label>Mobile</label>
-								    		<input type="text" name="mobile" name="mobile" value="<?php echo $supplier->mobile;?>">
+								    		<input type="text" name="mobile" name="mobile" value="<?php echo $supplier->mobile;?>" id="mobile" onkeyup="Inputvalidation('Supplier');">
 								    	</div>
 								  </div>
 								  <div class="fields">
-								  	<div class="eight wide field">
-									  	<label>Website</label>
-									  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" value="<?php echo $supplier->website;?>">
-									  </div>
-									  <div class="eight wide field">
-									  	<label>Fax</label>
-									  	<input type="text" name="fax" value="<?php echo $supplier->fax;?>">
-									  </div>
-								  </div>
+									  	<div class="eight wide field">
+											<label>Website</label>
+										  	<div class="ui labeled input">
+												<div class="ui label">
+													http://
+												</div>
+										  	<input type="text" placeholder="i.e. www.hjmdentallaboratory.com" name="website" id="website" value="<?php echo substr($supplier->website,7);?>"  onchange="Inputvalidation('Supplier');">
+											</div>
+										</div>
+										<div class="eight wide field">
+											<label>Fax</label>
+										<input type="text" name="fax" id="fax" onkeyup="Inputvalidation('Supplier');">
+										</div>
+								   </div>
 								  <!--Tabs-->
 						<br>
 						<div class="row">

@@ -62,7 +62,10 @@ class Supplier extends MX_Controller
 
 	public function AddSupplier()
 	{
-
+			if($this->input->post('website')=="www.")
+				$ws="";
+			else
+				$ws='http://'.$this->input->post('website');
 						$supplier = array(
 									'title'=>$_POST['title'],
 									'firstname'=>$_POST['firstname'],
@@ -73,7 +76,7 @@ class Supplier extends MX_Controller
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
 									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
+									'website' => $ws,
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
 									'bcity' => $_POST['bcity'],
@@ -89,8 +92,11 @@ class Supplier extends MX_Controller
 	public function EditSupplier()
 	{
 	
-		
-			
+			if($this->input->post('website')=="www.")
+				$ws="";
+			else
+				$ws='http://'.$this->input->post('website');		
+						
 						$supplier = array(
 							
 									'title'=>$_POST['title'],
@@ -103,7 +109,7 @@ class Supplier extends MX_Controller
 									'telephone' => $_POST['telephone'],
 									'mobile' => $_POST['mobile'],
 									'fax' => $_POST['fax'],
-									'website' => $_POST['website'],
+									'website' => $ws,
 									'bstreet' => $_POST['bstreet'],
 									'bbrgy' => $_POST['bbrgy'],
 									'bcity' => $_POST['bcity'],
@@ -125,32 +131,75 @@ class Supplier extends MX_Controller
 		$this->MdlSupplier->deleteSupplier($this->uri->segment(3));	
 		redirect('Supplier');
 	}
+
 	
-	public function checkemail()
-    {
-            $email_available = $this->MdlSupplier->check_if_email_exists($_POST['email']);
+    public function Inputvalidation(){
+    	
+   		if($_POST['emails']!=$_POST['email'])
+   			$this->form_validation->set_rules('email','Email Address','valid_email|callback_check_email');
+        $this->form_validation->set_rules('firstname','First Name','alpha');
+        $this->form_validation->set_rules('middlename','Middle Name','alpha');
+        $this->form_validation->set_rules('lastname','Last Name','alpha');
+        $this->form_validation->set_rules('website','Website','callback_check_website');
+        $this->form_validation->set_rules('telephone','Telephone','numeric');
+        $this->form_validation->set_rules('mobile','Mobile','numeric');
+        $this->form_validation->set_rules('fax','Fax','numeric');
+       
+
+    	if($this->form_validation->run($this)){
+    		$data['error']= "";
+    		$data['success']=false;
+            
+    		
+    	}
+    	else{
+    		$err="Ooops! &nbsp;There is an error!";
+    		//$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
+    		$data['error']='<div class="ui red message"><i class="close icon"></i><div class="header">'.$err.'</div><ul class="list">'.validation_errors('<li>', '</li>').'</ul></div>';
+    		$data['success']=true;
+    	}
+
+    	echo json_encode($data);
+    }
+
+    public function check_email($email){
+           	
+            $email_available = $this->MdlSupplier->check_if_email_exists($email);
             if($email_available)
             {
-                 $data['error']= "";
-                 $data['success']=false;
+               
+                return false;
             }
             else
             {
-                 $data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
-                 $data['success']=true;
-             
+                
+              
+             	return true;
    			
             }
-            echo json_encode($data);
+            
     }
 
-    public function getDetails(){
 
-    	$data = $this->MdlSupplier->getSupplier(array('SupplierID'=>$_POST['SupplierID']));
-    	$arr['email'] = $data->email;
-    	$arr['address'] = $data->bstreet.', '.$data->bbrgy.', '.$data->bcity;
-    	echo json_encode($arr);
+    public function check_website($url){
+           	$www = substr($url,0,4);
+           	$www2 = substr($url,0,5);
+           	$compare=strcasecmp($www,"www.");
+            $compare2=strcasecmp($www2,"www..");
+            $compare3=strcasecmp($url,"www. .com");
+            if($compare!=0 || $compare2==0 || $compare3==0)
+            {
+               
+                return false;
+            }
+            else
+            {
+                
+              	
+             	return true;
+   			
+            }
+            
     }
-	
 }
 ?>

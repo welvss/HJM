@@ -230,18 +230,15 @@ class MdlCustomer extends CI_Model {
 	}
 
 
-	public function check_if_email_exists($email)
+	public function check_if_email_exists($data)
     {
-        $this->db->where('Email',$email);
+        $this->db->where('email',$data);
         $result = $this->db->get('tbldentist');
         if($result->num_rows()>0)
         {
-            return false;
-        }
-        else
-        {
             return true;
         }
+       
     }
 }
 ?>
