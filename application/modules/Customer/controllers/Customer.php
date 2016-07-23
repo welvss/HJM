@@ -245,9 +245,10 @@ class Customer extends MX_Controller
     public function check_website($url){
            	$www = substr($url,0,4);
            	$www2 = substr($url,0,5);
+           	$www3 = substr($url,0,6);
            	$compare=strcasecmp($www,"www.");
             $compare2=strcasecmp($www2,"www..");
-            $compare3=strcasecmp($url,"www. .com");
+            $compare3=strcasecmp($www3,"www. .");
             if($compare!=0 || $compare2==0 || $compare3==0)
             {
                
