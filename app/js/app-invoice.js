@@ -1,76 +1,3 @@
-$( document ).ready(function() {
- 
- $(".mode").click(function(){
-  	$('.edit-customer.modal')
-  	.modal('setting', 'transition', 'vertical flip')
-  	.modal('show');
-  });
-
-  $(".case-modal").click(function(){
-  	   		 $('.case.modal')
- .modal('setting', 'transition', 'fade down')
- .modal('show')
- ;
-  });
-  $(".invoice-modal").click(function(){
-    $('.invoice.modal')
-    .modal('setting', 'transition', 'fade down')
- .modal('show')
- ;
-  });
-
-  $('.menu .item')
-  .tab()
-;
-
-// Initialize sidebar
-$('.sidebar')
-    .sidebar({
-      dimPage: true,
-      closable: true
-    });
- $('.right.menu.open').on("click",function(e){
-    e.preventDefault();
-    $('.ui.vertical.menu').toggle();
-  });
-    
-  $('.ui.dropdown').dropdown();
-
-$(".sidebar-button").click(function(){
-    $('.sidebar')
-  .sidebar('toggle')
-;
-  });
- $('#main-case').DataTable( {
-        "scrollY":        '40vh',
-        "scrollCollapse": true,
-        "paging":         false,
-        'aoColumnDefs': [{
-        'bSortable': true,
-        'aTargets': [-1, -2], /* 1st one, start by the right */
-    }]
-    } );
-  var dataTable = $('#main-case').dataTable();
-    $("#search-case").keyup(function() {
-        dataTable.fnFilter(this.value);
-    });    
- 
-    $('.popup')
-  .popup()
-;
-$('.ui.checkbox')
-  .checkbox()
-;
-
-  $('.select')
-  .dropdown();
-});
-
-
-
-
-
-
 
 var x =1;
 var y=0;
@@ -93,17 +20,20 @@ $( document ).ready(function(){
      $('#Bin'+y).hide();
   }
   $('#Bin1').hide();
+ $('.select')
+  .dropdown();
 
 
 });
 
 
+
 function Addrow(){
-   
+    
     if($('#Item'+x).val()!=''){
       x++;
-      var id= $('#SupplierID').val();
-      $('#Add').append('<tr id="Row'+x+'"><td>'+x+'</td><td ><div class="ui selection dropdown" id="dropdown'+x+'"><input type="hidden" id="Item'+x+'"  name="po['+x+'][ItemID]" onchange="getItemDesc(this.value,'+x+');"><i class="dropdown icon"></i><div class="default text">Select Item</div><div class="menu" id="items'+x+'"></div></div></td><td id="ItemDesc'+x+'"></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="po['+x+'][QTY]" onkeyup="multiply('+x+');addSubtotal('+x+');" value="0"></td><td><input type="text" id="Amount'+x+'" name="po['+x+'][Amount]"  onkeyup="multiply('+x+');addSubtotal('+x+');numberCheck('+x+');" value="0"></td><td ><input type="text" id="SubTotal'+x+'" name="po['+x+'][SubTotal]" value="0"></td><td><a href="#" onClick="deleteRow('+x+')"><i class="trash icon" id="Bin'+x+'"></i></a></td></tr>');
+      var id= $('#DentistID').val();
+      $('#Add').append('<tr id="Row'+x+'"><td>'+x+'</td><td ></td><td id="ItemDesc'+x+'"></td><td><input type="number" style="width: 100px" id="QTY'+x+'" name="invoice['+x+'][QTY]" onkeyup="multiply('+x+');addSubtotal('+x+');"></td><td><input type="text" id="Amount'+x+'" name="invoice['+x+'][Amount]"  onkeyup="multiply('+x+');addSubtotal('+x+');numberCheck('+x+');"></td><td ><input type="text" id="SubTotal'+x+'" name="invoice['+x+'][SubTotal]" ></td><td><a href="#" onClick="deleteRow('+x+')"><i class="trash icon" id="Bin'+x+'"></i></a></td></tr>');
       document.getElementById('AddRow').disabled = true;
       $('#Bin'+(x-1)).hide();
       getItems(id);
@@ -115,35 +45,56 @@ function Addrow(){
       $('#Bin1').hide();
     }
 
-     rows = document.getElementById("Add").getElementsByTagName("tr").length;
+
 
 };
 
 
- function numberCheck(y) {
-  var sanitized = $('#Amount'+y).val().replace(/[^0-9.]/g, '');
-  $('#Amount'+y).val(sanitized);
-  /*if($('#Amount'+y).val()=='')
-    $('#Amount'+y).val(0);
-  if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
-  {
-    alert(sanitized);
+function numberCheck(y) {
+
+  if(y!==0){
+    var sanitized = $('#Amount'+y).val().replace(/[^0-9.]/g, '');
     $('#Amount'+y).val(sanitized);
-  }*/
+    /*if($('#Amount'+y).val()=='')
+      $('#Amount'+y).val(0);
+    if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
+    {
+      alert(sanitized);
+      $('#Amount'+y).val(sanitized);
+    }*/
+  }
+  else
+  if(y===0){
+    var sanitized = $('#age').val().replace(/[^0-9.]/g, '');
+    $('#age').val(sanitized);
+  }
+}
+
+function letterCheck(y) {
+
+
+    var sanitized = $('#'+y).val().replace(/[^a-zA-Z.]/g, '');
+    $('#'+y).val(sanitized);
+    /*if($('#Amount'+y).val()=='')
+      $('#Amount'+y).val(0);
+    if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
+    {
+      alert(sanitized);
+      $('#Amount'+y).val(sanitized);
+    }*/
+
 }
 
 
 
 
-
-            
-                  
+               
 
 function addSubtotal(val){
  
-    for (var i = rows; i>0; i--){
+    for (var i = val; i>0; i--){
 
-      if(i===rows){
+      if(i===val){
         sum= parseFloat($('#SubTotal'+i).val());
         y=sum;
       }
@@ -164,7 +115,7 @@ function deleteRow(val){
     $('#TotalSave').html('<input type hidden name="Total" id="sum" value="'+sum+'"/>PHP '+sum.toLocaleString());
     $('#Total').html('PHP '+sum.toLocaleString());
   }
-
+  alert(x);
   x--;
   if($('#Item'+x).val()!='')
     document.getElementById('AddRow').disabled = false;
@@ -192,27 +143,32 @@ function multiply(x){
 
 
 
-function getInfo(val){
+
+function getID(val){
+    $.get("http://"+window.location.hostname+"/HJM/Order/getCount", function(data){
+        $("#CaseID").text(val+'-'+data);
+    });
+}
+
+
+function getItems(val){
+
   $.ajax({
   type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Supplier/getDetails",
-  data:'SupplierID='+$('#SupplierID').val(),
-  dataType: 'json',
-  cache: true,
+  url: "http://"+window.location.hostname+"/HJM/Inventory/getItems",
+  data:'SupplierID='+val,
   success: function(data){
-      $('#email').val(data.email);
-      $('#address').val(data.address);
-      getItems($('#SupplierID').val());
+      $('#items'+x).html(data);
+      $('.ui.dropdown').dropdown();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
               alert(error);
-              alert(xhr.status);
-              alert(xhr.responseText);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
             },
 
   });
 }
-
-
 
 function getItems(val){
 
@@ -288,25 +244,6 @@ for( i=rows; i >=1; i--) {
 
     });
   }
-  
- 
-
-
-$(document).ready(function(){
-  $('#SupplierID').on('change', function(){  
-   
-   
-    for (var y =  x; y >0; y--) {
-        deleteRow(y);   
-      }; 
-      Addrow();
-
-  
-   
-      
-  });
- });
-
 
 
 

@@ -216,29 +216,9 @@ class MdlCustomer extends CI_Model {
 		$this->db->delete('tbldentist');	
 		return true;
 	}
-	function validate()
-	{
-		$this->db->where('username', $this->input->post('username'));
-		$this->db->where('password',md5($this->input->post('password')));
-		$query =$this->db->get('users');
-
-		if($query->num_rows ==1)
-		{
-			return true;
-		}
-			
-	}
+	
 
 
-	public function check_if_email_exists($data)
-    {
-        $this->db->where('email',$data);
-        $result = $this->db->get('tbldentist');
-        if($result->num_rows()>0)
-        {
-            return true;
-        }
-       
-    }
+
 }
 ?>

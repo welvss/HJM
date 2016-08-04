@@ -29,7 +29,7 @@
 		  		<div class="ui tiny statistics">
 							  <div class="green statistic">
 							    <div class="value">
-							      <i class="file text outline icon hvr-wobble-vertical"></i> 23
+							      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $Draft;?>
 							    </div>
 							    <div class="label">
 							      <a href="#">Draft</a>
@@ -37,7 +37,7 @@
 							  </div>
 							  <div class="purple statistic">
 							    <div class="value">
-							      <i class="lab icon hvr-buzz-out"></i> 11
+							      <i class="lab icon hvr-buzz-out"></i> <?php echo $Approved;?>
 							    </div>
 							    <div class="label">
 							      <a href="#">Approved</a>
@@ -45,20 +45,13 @@
 							  </div>
 							  <div class="blue statistic">
 							    <div class="value">
-							      <i class="circle check icon hvr-float"></i> 5
+							      <i class="circle check icon hvr-float"></i> <?php echo $PR;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">Partially Received</a>
+							      <a href="#">Received</a>
 							    </div>
 							  </div>
-							  <div class="red statistic">
-							    <div class="value">
-							      <i class="warning circle icon hvr-buzz"></i> 5
-							    </div>
-							    <div class="label">
-							    <a href="#">Received</a>
-							    </div>
-							  </div>
+							 
 				</div>
 		  	</div>
 	  	  </div> 
@@ -116,8 +109,8 @@
 					<th>Supplier Company</th>
 					<th>Date Created</th>
 					<th>Requested Ship Date</th>
-					<th>Status</th>
-					<th>ACTION</th>
+					<th><center>Status</center></th>
+					<th><center>ACTION</center></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -125,15 +118,15 @@
 			foreach($pos as $po){
 				echo
 				'<tr>
-					<td><a href="#">#SERDS-'.$po->POID.'</a></td>
+					<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
 					<td>
 						<h4 class="ui image header">
-							          <img src="'.base_url().'img/hjm-logo.png" class="ui mini rounded image">
+							          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
 							          <div class="content">';
 							          foreach($suppliers as $supplier){
 								          if($po->SupplierID == $supplier->SupplierID)
 								          	echo
-								            '<a href="app-customer-info.html">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
+								            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
 								            <div class="sub header">HJM Dental Laboratory';
 							          }
 							echo    '</div>
@@ -142,37 +135,49 @@
 					</td>
 					<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
 					<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
-					<td>
- 						<div class="ui form">
-							<div class="ten wide field">
-							 <select name="POStatusID">';
+					<td><center>';
 							 foreach ($status as $stat) {
-							 	if($stat->POStatusID==$po->POStatusID)
-							 		echo '<option value="'.$stat->POStatusID.'">'.$stat->status.'</option>';
-							 	else
-							 		echo '<option value="'.$stat->POStatusID.'">'.$stat->status.'</option>';
+							 	if($stat->POStatusID==$po->POStatusID){
+							 		if($po->POStatusID==1)
+							 			echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+							 		else
+							 		if($po->POStatusID==2)
+							 			echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+							 		else
+							 		if($po->POStatusID=3)
+							 			echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+							 	}
+							 	
 							 }
 							  
-						echo '</select>
-							</div>
-					    </div>						
+						echo 
+						'
+						</center>			
 					</td>
 					<td>
-						<a href="#">
-			  			<i class="file icon"></i>
-			  			View
-			  			</a>				
-					</td>
-					<td>
-						<a href="#" class="green">
+					<center>
+						<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
 			  			<i class="green check icon"></i>
 			  			Update
 			  			</a>
-			  			&nbsp;
-			  			<a href="#">
-			  			<i class="orange write icon"></i>
-			  			Edit
-			  			</a>
+			  			&nbsp;';
+			  			if($po->POStatusID>1){
+				  			echo
+							'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
+				  			<i class="file icon"></i>
+				  			View
+				  			</a>';
+			  			}
+			  			else{
+			  				echo
+							'<button class="ui button blue" disabled>
+				  			<i class="file icon"></i>
+				  			View
+				  			</button>';
+			  			}
+			  							
+					echo
+			  		'</center>	
 					</td>
 				</tr>';
 			}
@@ -198,8 +203,8 @@
 							<div class="inline fields">
 							<div class="eight wide field">
 								<label>Supplier</label>
-								<div class="ui selection dropdown" id="SupplierID">
-								  <input type="hidden" name="SupplierID" onchange="getInfo(this.value);" >
+								<div class="ui selection dropdown" id="dropdown1">
+								  <input type="hidden" name="SupplierID"   id="SupplierID" onchange="getInfo();">
 								  <i class="dropdown icon"></i>
 								  <div class="default text">Select Supplier</div>
 								  <div class="menu">
@@ -246,7 +251,7 @@
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
-	  							<input type="date">
+	  							<input type="date" id="duedate" name="shipdate">
 	  						</div>
 	  					</div>
 	  				</div>
@@ -269,31 +274,33 @@
 		  					<th></th>
 		  				</tr>
 		  			</thead>
-		  			<tbody>
-		  				<tr>
+		  			<tbody id="Add">
+		  				<tr id="Row1">
 		  					<td>1</td>
 		  					<td >
 								<div class="ui selection dropdown" id="Idropdown">
-								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value);">
+								  <input type="hidden" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
 								  <i class="dropdown icon"></i>
 								  <div class="default text">Select Item</div>
-								  <div class="menu" id="items">
+								  <div class="menu" id="items1">
 								 
 								  </div>
 								</div>
 								  
 		  					</td>
-		  					<td id="ItemDesc">
+		  					<td id="ItemDesc1">
 		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px">
+		  						<input type="number" style="width: 100px" name="po[1][QTY]" id="QTY1" onkeyup="multiply(1);addSubtotal(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text">
+		  						<input type="text" name="po[1][Amount]"  id="Amount1" onkeyup="multiply(1);addSubtotal(1);numberCheck(1);">
 		  					</td>
-		  					<td>500</td>
-		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  					<td>
+		  						<input type="text" name="po[1][SubTotal]" id="SubTotal1">
+		  					</td>
+		  					<td></td>
 		  				</tr>
 		  			</tbody>
 		  		</table>
@@ -302,7 +309,7 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<button class="ui button green">
+		  		<button class="ui button blue" id="AddRow" onclick="Addrow();">
 		  			Add Row
 		  		</button>
 		  	</div>
@@ -311,45 +318,22 @@
 					<div class="fifteen wide column">
 						<hr>
 						<div class="ui grid">
-							<div class="ten wide column">
-								<div class="eight wide field">
-									<label>Message displayed on PO</label>
-									<textarea row="2"></textarea>
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
 								</div>
 							</div>
-							<div class="three wide column">
-								<div class="item">
-									<h4>Subtotal</h4>
-								</div>
-								<br>
-								<div class="inline fields">
-									<div class="field">
-										<select class="ui dropdown">
-										  <option value="1">Discount Value</option>
-										  <option value="0">Discount Percent</option>
-										</select>
-									</div>
-									<div class="field">
-										<input type="text">
-									</div>
-									<div class="field">
-									<h4>PHP -200</h4>
-								</div>
-								</div>
-								<br>
-								<div class="item">
-									<h3>TOTAL</h3>
-								</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Subtotal</h4>
+								<h2>Total</h2>
 							</div>
 							<div class="three wide column">
-								<div class="item">
-									<h4>PHP 500</h4>
-								</div>
-								<br><br>
-								<br><br><br>
-								<div class="item">
-									<h3>PHP 200</h3>
-								</div>
+								<h4 id="TotalSave"></h4>
+								<h2 id="Total"></h2>
+
 							</div>
 						</div>
 					</div>
@@ -364,7 +348,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit" >
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

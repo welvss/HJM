@@ -7,6 +7,8 @@ class Order extends MX_Controller
 
 		$this->load->module('Customer');
 		$this->load->model('MdlCustomer');
+		$this->load->library('form_validation');
+    	$this->form_validation->CI =& $this; 
 		if($this->session->userdata('is_logged_in') != TRUE)	
 		{
 			redirect();
@@ -28,12 +30,12 @@ class Order extends MX_Controller
 		$this->headercheck();
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
-
+			$data['casetype'] = $this->MdlOrder->getCaseType();
 			$data['cases'] = $this->MdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
 			$data['status'] = $this->MdlOrder->getStatus();
 			$data['invoice'] = $this->MdlInvoice->getInvoice();
 			$data['dentists'] = $this->MdlCustomer->getDentist(array());
-			$data['Count']	= $this->MdlOrder->countOrder(array());
+			
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1));
 			$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2));
@@ -41,7 +43,7 @@ class Order extends MX_Controller
 			$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4));
 
 			$this->load->view('app-orders',$data);
-			$data['script']='<script src="'.base_url().'app/js/cases.js"><script src="'.base_url().'app/js/app-validation.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
 		else
@@ -116,77 +118,14 @@ class Order extends MX_Controller
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{				
-					/*
-						if(isset( $_POST['Tray'])==null)
-						{
-							$data =array('Tray' => 0);
-						}
-						else
-						{
-							$data =array('Tray' => $_POST['Tray']);
-						}
-						if(isset( $_POST['SG'])==null)
-						{
-							$data =array('SG' => 0);
-						}
-						else
-						{
-							$data =array('SG' => $_POST['SG']);
-						}
-						if( isset($_POST['BW'])==null)
-						{
-							$data =array('BW' => 0);
-						}
-						else
-						{
-							$data =array('BW' => $_POST['BW']);
-						}
-						if(isset( $_POST['MC'])==null)
-						{
-							$data =array('MC' => 0);
-						}
-						else
-						{
-							$data =array('MC' => $_POST['MC']);
-						}
-						if(isset ($_POST['OC'])==null)
-						{
-							$data =array('OC' => 0);
-						}
-						else
-						{
-							$data =array('OC' => $_POST['OC']);
-						}
-						if(isset( $_POST['Photos'])==null)
-						{
-							$data =array('Photos' => 0);
-						}
-						else
-						{
-							$data =array('Photos' => $_POST['Photos']);
-						}
-						if(isset( $_POST['Articulator'])==null)
-						{
-							$data =array('Articulator' => 0);
-						}
-						else
-						{
-							$data =array('Articulator' => $_POST['Articulator']);
-						}
-						if(isset ($_POST['OD'])==null)
-						{
-							$data =array('OD' => 0);
-						}
-						else
-						{
-							$data =array('OD' => $_POST['OD']);
-						}*/
-
+					
 						
 						$data=array(
 									'DentistID'=>$_POST['DentistID'],
 									'patientfirstname'=>$_POST['patientfirstname'],
 									'patientlastname'=>$_POST['patientlastname'],
+									'CaseTypeID'=> $_POST['CaseTypeID'],
+									'Type'=> $_POST['Type'],
 									'duedate' => $_POST['duedate'],
 									'duetime' => $_POST['duetime'],
 									'gender' =>$_POST['gender'],
@@ -270,6 +209,42 @@ class Order extends MX_Controller
 	{
 	
 			
+			
+			
+		if($_POST['status_id']==3){
+				$order = array(
+							'CaseID'=>$_POST['CaseID'],
+							'status_id' => $_POST['status_id'] 
+							);
+				
+				$this->MdlOrder->UpdateOrderStatus($order);
+					
+
+					$invoiceitems= $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$_POST['InvoiceID']));
+					$items=$this->MdlInventory->getItem(array());
+					
+					foreach ($invoiceitems as $invoiceitem){
+
+						foreach ($items as $item){
+							if($invoiceitem->ItemID==$item->ItemID){
+								$data=array(
+									'ItemID'=>$invoiceitem->ItemID,
+									'CurrentQTY'=>($item->CurrentQTY)-($invoiceitem->QTY)
+									);
+								
+								$this->MdlInventory->EditInventory($data);
+							
+							}
+
+						}
+
+					}
+					
+				
+				redirect('Order');
+			}
+			else{
+
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'] 
@@ -283,8 +258,7 @@ class Order extends MX_Controller
 						redirect('Order');
 				}
 			
-			
-		
+			}
 	
 		
 
@@ -357,75 +331,12 @@ class Order extends MX_Controller
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{			/*
-						if(isset( $_POST['Tray'])==)
-						{
-							$data =array('Tray' => 0);
-						}
-						else
-						{
-							$data =array('Tray' => $_POST['Tray']);
-						}
-						if(isset( $_POST['SG'])=="")
-						{
-							$data =array('SG' => 0);
-						}
-						else
-						{
-							$data =array('SG' => $_POST['SG']);
-						}
-						if( isset($_POST['BW'])==null)
-						{
-							$data =array('BW' => 0);
-						}
-						else
-						{
-							$data =array('BW' => $_POST['BW']);
-						}
-						if(isset( $_POST['MC'])==null)
-						{
-							$data =array('MC' => 0);
-						}
-						else
-						{
-							$data =array('MC' => $_POST['MC']);
-						}
-						if(isset ($_POST['OC'])==null)
-						{
-							$data =array('OC' => 0);
-						}
-						else
-						{
-							$data =array('OC' => $_POST['OC']);
-						}
-						if(isset( $_POST['Photos'])==null)
-						{
-							$data =array('Photos' => 0);
-						}
-						else
-						{
-							$data =array('Photos' => $_POST['Photos']);
-						}
-						if(isset( $_POST['Articulator'])==null)
-						{
-							$data =array('Articulator' => 0);
-						}
-						else
-						{
-							$data =array('Articulator' => $_POST['Articulator']);
-						}
-						if(isset ($_POST['OD'])==null)
-						{
-							$data =array('OD' => 0);
-						}
-						else
-						{
-							$data =array('OD' => $_POST['OD']);
-						}*/
-
+		{			
 						{
 							$data=array(
 										'CaseID' => $_POST['CaseID'] , 
+										'CaseTypeID'=> $_POST['CaseTypeID'],
+										'Type'=> $_POST['Type'],
 										'patientfirstname'=>$_POST['patientfirstname'],
 										'patientlastname'=>$_POST['patientlastname'],
 										'duedate' => $_POST['duedate'],
@@ -504,15 +415,16 @@ class Order extends MX_Controller
 			$this->headercheck();
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
+			$data['casetype'] = $this->MdlOrder->getCaseType();
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['caseitems'] = $this->MdlOrder->getCaseItem(array('CaseID'=>$this->uri->segment(3)));
 			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
-			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice[0]->InvoiceID));
+			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice->InvoiceID));
 			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
 			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('app-orders-info',$data);
-			$data['script']='<script src="'.base_url().'app/js/cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-invoice.js"></script>';
 
 			$this->footer($data);
 		}
@@ -531,6 +443,35 @@ class Order extends MX_Controller
 	
 	
 	}
+
+	public function getCount(){
+		$data = $this->MdlOrder->countOrder();
+		echo $data+1;
+
+	}
+
+
+	public function Casevalidation(){
+    
+        $this->form_validation->set_rules('patientfirstname','Patient First Name','alpha');
+        $this->form_validation->set_rules('patientlastname','Patient Last Name','alpha');
+
+    	if($this->form_validation->run($this)){
+    		$data['error']= "";
+    		$data['success']=false;
+            
+    		
+    	}
+    	else{
+    		$err="Ooops! &nbsp;There is an error!";
+    		//$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
+    		$data['error']='<div class="ui red message"><i class="close icon"></i><div class="header">'.$err.'</div><ul class="list">'.validation_errors('<li>', '</li>').'</ul></div>';
+    		$data['success']=true;
+    	}
+
+    	echo json_encode($data);
+    }
+
 
 	
 	

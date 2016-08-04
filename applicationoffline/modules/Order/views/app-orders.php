@@ -260,7 +260,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="age">
+				    <input type="text" name="age" >
 				  </div>
 		  		</div>
 		  		</div>

@@ -75,6 +75,9 @@ class MdlInventory extends CI_Model {
 		if(isset($options['QTY']))
 			$this->db->set('QTY', $options['QTY']);
 
+		if(isset($options['CurrentQTY']))
+			$this->db->set('CurrentQTY', $options['CurrentQTY']);
+
 		if(isset($options['TotalQTY']))
 			$this->db->set('TotalQTY', $options['TotalQTY']);
 

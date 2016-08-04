@@ -6,13 +6,23 @@ class MdlPO extends CI_Model {
 		parent:: __construct();
 	}
 	
+	
+	function deleteItems($options=array())
+	{	
+	
+		$this->db->where('POID', $options['POID']);
+		$this->db->delete('tblpoitem');	
+		return true;
+	}
+
+
 	function countPO($options=array())
 	{
 		if(isset($options['POID']))
 			$this->db->where('POID',$options['POID']);
 
-		if(isset($options['status_id']))
-			$this->db->where('status_id',$options['status_id']);
+		if(isset($options['POStatusID']))
+			$this->db->where('POStatusID',$options['POStatusID']);
 
 
 		return $query = $this->db->count_all_results('tblpo');
@@ -24,6 +34,33 @@ class MdlPO extends CI_Model {
 	{
 		
 		$query = $this->db->get("tblpostatus");
+		
+		return $query->result();
+	}
+
+	public function getPOItem($options = array())
+	{
+		//verification
+		if(isset($options['ItemID']))
+			$this->db->where('ItemID', $options['ItemID']);
+
+		if(isset($options['POID']))
+			$this->db->where('POID', $options['POID']);
+		
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+		
+		$query = $this->db->get("tblpoitem");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
 		
 		return $query->result();
 	}
@@ -60,7 +97,7 @@ class MdlPO extends CI_Model {
 		if(isset($options['count']))
 			return $query->num_rows();
 		
-		if(isset($options['CaseID']))
+		if(isset($options['POID']))
 			return $query->row(0);
 		//die($this->db->last_query());
 		return $query->result();
@@ -73,89 +110,42 @@ class MdlPO extends CI_Model {
 		return $this->db->insert_id();
 		
 	}
+
+	function addPOItem($options = array())
+	{
+		$this->db->insert('tblpoitem', $options);	
+		return $this->db->insert_id();
+		
+	}
 	
-	function modifyOrder($options = array())
+	function EditPO($options = array())
 	{	
-		if(isset($options['CaseID']))
-			$this->db->where('CaseID', $options['CaseID']);
 		
-		if(isset($options['Tray']))
-			$this->db->set('Tray', $options['Tray']);
+		if(isset($options['Total']))
+			$this->db->set('Total', $options['Total']);
 
-		if(isset($options['SG']))
-			$this->db->set('SG', $options['SG']);
-
-		if(isset($options['BW']))
-			$this->db->set('BW', $options['BW']);
-	
-		if(isset($options['MC']))
-			$this->db->set('MC', $options['MC']);
-
-		if(isset($options['OC']))
-			$this->db->set('OC', $options['OC']);
-
-		if(isset($options['Photos']))
-			$this->db->set('Photos', $options['Photos']);
-
-		if(isset($options['Articulator']))
-			$this->db->set('Articulator', $options['Articulator']);
-
-		if(isset($options['OD']))
-			$this->db->set('OD', $options['OD']);							
-
-		if(isset($options['shade1']))
-			$this->db->set('shade1', $options['shade1']);
-
-		if(isset($options['shade2']))
-			$this->db->set('shade2', $options['shade2']);
-
-		if(isset($options['patientfirstname']))
-			$this->db->set('patientfirstname', $options['patientfirstname']);
-
-		if(isset($options['patientlastname']))
-			$this->db->set('patientlastname', $options['patientlastname']);
-			
-			
-		if(isset($options['duetime']))
-			$this->db->set('duetime', $options['duetime']);
-			
-		if(isset($options['duedate']))
-			$this->db->set('duedate', $options['duedate']);
-
-		if(isset($options['orderdatetime']))
-			$this->db->set('orderdatetime', $options['orderdatetime']);
-
-		if(isset($options['gender']))
-			$this->db->set('gender', $options['gender']);
-
-		if(isset($options['age']))
-			$this->db->set('age', $options['age']);
-
-		if(isset($options['notes']))
-			$this->db->set('notes', $options['notes']);
-
-		if(isset($options['file']))
-			$this->db->set('file', $options['file']);
+		if(isset($options['shipdate']))
+			$this->db->set('shipdate', $options['shipdate']);							
 
 		
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->update('tblcase');
+		$this->db->where('POID', $options['POID']);
+		$this->db->update('tblpo');
 		
 		return $this->db->affected_rows();
 		
 	}
 
-	function UpdateOrderStatus($options = array())
+	function UpdatePOStatus($options = array())
 	{		
 		
 
 		
 
-		if(isset($options['status_id']))
-			$this->db->set('status_id', $options['status_id']);
+		if(isset($options['POStatusID']))
+			$this->db->set('POStatusID', $options['POStatusID']);
 		
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->update('tblcase');
+		$this->db->where('POID', $options['POID']);
+		$this->db->update('tblpo');
 		
 		return $this->db->affected_rows();
 		

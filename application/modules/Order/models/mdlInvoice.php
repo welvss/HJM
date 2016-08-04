@@ -69,6 +69,8 @@ class MdlInvoice extends CI_Model {
 		
 		if(isset($options['InvoiceID']))
 			return $query->row(0);
+		if(isset($options['CaseID']))
+			return $query->row(0);
 		return $query->result();
 	}
 

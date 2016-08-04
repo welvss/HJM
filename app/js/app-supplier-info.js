@@ -96,20 +96,4 @@ $('.ui.checkbox')
 
 
 
-function multiply(x){ // run anytime the value changes
-
-  var firstValue = parseFloat($('#QTY'+(x)).val()); // get value of field
-  var secondValue = parseFloat($('#Amount'+(x)).val()); // convert it to a float
-  y=firstValue * secondValue;
-  $('#SubTotal'+(x)).val(y); 
-  $('#Total'+(x)).val(y); 
-     //add them and output it
-}
-
-
-
-
-
-
-
 

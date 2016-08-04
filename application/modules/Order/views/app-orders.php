@@ -136,7 +136,7 @@
 				
 						echo
 					'<tr>
-						<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">#SERDS-'.$case->CaseID.'</a></td>
+						<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
 						<td>'; 
 						foreach ($invoice as $i) 
 						{
@@ -175,7 +175,7 @@
 						echo
 						
 						'<td>
-							'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).'
+							'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).form_hidden('InvoiceID',$i->InvoiceID).'
 	 						<div class="ui form">
 								<div class="ten wide field">
 								 <select name="status_id">';
@@ -227,7 +227,7 @@
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
-			  		<h3>#SERDS-<?php echo $Count+1;?></h3>
+			  		<h3 id="CaseID"></h3>
 			  	</div>
 			  </div>
 		  		<div class="ui teal segment">
@@ -244,11 +244,11 @@
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient First Name</label>
-		  				<input type="text" name="patientfirstname" placeholder="First Name">
+		  				<input type="text" name="patientfirstname" placeholder="First Name" id="pfirstname" onkeyup="letterCheck('pfirstname');">
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient Last Name</label>
-		  				<input type="text" name="patientlastname" placeholder="Last Name">
+		  				<input type="text" name="patientlastname" placeholder="Last Name" id="plastname" onkeyup="letterCheck('plastname');">
 		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
@@ -260,7 +260,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="age">
+				    <input type="text" name="age" onkeyup="numberCheck(0);" id="age">
 				  </div>
 		  		</div>
 		  		</div>
@@ -290,8 +290,33 @@
  		  		</div>
 		  		</div>
 		  	</div>
+
 		  	<div class="eight wide column">
 		  		<div class="ui vertical teal segment">
+		  			<div class="eight wide field">
+		  				<div class="eight wide field">
+					  <label>Type</label>
+					    <select name="Type" class="ui fluid dropdown">
+					      <option value=""></option>
+					      <option value="FIXED">Fixed</option>
+					      <option value="RPD">RPD</option>
+					      <option value="Others">Others</option>
+					    </select>
+				  </div>
+		  			</div>
+		  		</div>
+		  		<div class="ui vertical teal segment">
+		  		  <div class="eight wide field">
+					  <label>Product</label>
+					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
+					    <?php 
+					      echo '<option value=""></option>';
+					      foreach ($casetype as $ct) {
+					      	echo '<option value="'.$ct->CaseTypeID.'">'.$ct->CaseTypeDesc.'</option>';
+					      } 
+					    ?>
+					    </select>
+				  </div>
 		  		  <div class="eight wide field">
 					  <label>Item</label>
 					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
@@ -345,7 +370,7 @@
 						  </div>
 						  <div class="five wide field">
 						  	<select name="shade2">
-						  		<option value=""></option>
+						  		<option value="">Select Shade</option>
 						  		<option value="A1">A1</option>
 						  		<option value="A2">A2.5</option>
 						  		<option value="A3">A3</option>
@@ -500,13 +525,18 @@
 				  	</div>
 				</div>
 	  			<div class="two column row">
-					<div class="nine wide column hidden"></div>
+
+					<div class="nine wide column hidden">
+						<div class="five wide column hidden">
+							<div id="caseerror"></div>
+						</div>
+					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

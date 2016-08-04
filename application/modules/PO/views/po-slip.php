@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<title>HJM | Dental Laboratory</title>
 </head>
-<link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <body>
 <br>
 <div class="wrapper">
 	<div class="brand">
-		 <img src="img/hjm-logo-inverted.png" alt="">
+		 <img src="<?php echo base_url();?>app/img/hjm-logo-inverted.png" alt="">
 		 <p style="display: inline-block;">DENTAL LABORATORY</p>
 	</div>
 	<div class="brand-info">
@@ -22,15 +22,15 @@
 		<div class="row">
 			<div class="left">
 				<p><strong>Supplier:</strong></p>
-				<p>Mr. Ralph Pagayon <br>
-				   Deew Plantation <br>
-				   Signal, Paranque
+				<p><?php echo $supplier->title.' '.$supplier->firstname.' '.$supplier->lastname;?><br>
+				   <?php echo $supplier->company;?><br>
+				   <?php echo $supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity;?>
 				</p>
 			</div>
 			<div class="right">
-				<p><strong>Purchase Order No:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;420</p>
-				<p><strong>Order Date:</strong> 05/06/2016</p>	
-				<p><strong>Requested Ship Date:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/20/2016</p>			
+				<p><strong>Purchase Order No:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $po->POID;?></p>
+				<p><strong>Order Date:</strong>&nbsp;<?php echo date('F d, Y ', strtotime($po->orderdatetime));?></p>	
+				<p><strong>Requested Ship Date:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo date('F d, Y ', strtotime($po->shipdate));?></p>			
 			</div>
 		</div>
 		<div class="row invoice-table">
@@ -45,13 +45,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Em</td>
-						<td>Emax</td>
-						<td>1</td>
-						<td>PHP 500.00</td>
-						<td></td>
-					</tr>
+				<?php
+				foreach ($poitems as $poi){
+					echo
+						'<tr>
+							<td>'.$poi->ItemID.'</td>';
+							foreach ($items as $item) {
+								if($item->ItemID==$poi->ItemID){
+									echo
+									'<td>'.$item->ItemDesc.'</td>';
+								}
+							}
+							
+							echo
+							'<td>'.$poi->QTY.'</td>
+							<td>PHP '.number_format($poi->Amount,2).'</td>
+							<td>PHP '.number_format($poi->SubTotal,2).'</td>
+						</tr>';
+				}
+				?>
 				</tbody>
 			</table>
 		</div>
@@ -66,12 +78,12 @@
 			<div class="right">
 				<div class="subtotal">
 					<p>Sub total:</p>
-					<p>PHP 500.00</p>
+					<p>PHP <?php echo number_format($po->Total,2);?></p>
 				</div>
 				<hr>
 				<div class="total">
 					<h3>TOTAL:</h3>
-					<h3>PHP 500.00</h3>
+					<h3>PHP <?php echo number_format($po->Total,2);?></h3>
 				</div>
 			</div>
 		</div>
@@ -124,5 +136,8 @@
 
 }
 	</style>
+	<script type="text/javascript">
+	window.print();
+	</script>
 </body>
 </html>

@@ -12,10 +12,11 @@ function Inputvalidation(loc) {
     website: $('#website').val(),
     fax: $('#fax').val(),
     mobile: $('#mobile').val(),
+    tblname : loc
   };
   $.ajax({
   type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/"+loc+"/Inputvalidation",
+  url: "http://"+window.location.hostname+"/HJM/Dashboard/Inputvalidation",
   data:dataString,
   dataType: 'json',
   cache: false,
@@ -40,7 +41,46 @@ function Inputvalidation(loc) {
 
   });
 }
-function checkemail(val,loc) {
+
+function Casevalidation() {
+  
+  var dataString={
+    patientfirstname: $('#pfirstname').val(),
+    patientlastname: $('#plastname').val()
+  };
+  $.ajax({
+
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/Order/Casevalidation",
+  data:dataString,
+  dataType: 'json',
+  success: function(data){
+    if(data.success==true)
+    {
+      $('#caseerror').html(data.error);
+      document.getElementById('casesubmit').disabled = true;
+    }
+    else
+    {
+      $('#caseerror').html(data.error);
+      document.getElementById('casesubmit').disabled = false;
+    }
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+
+
+
+
+
+/*function checkemail(val,loc) {
   $.ajax({
   type: "POST",
   url: "http://"+window.location.hostname+"/HJM/"+loc+"/checkemail",
@@ -73,7 +113,7 @@ function checkemail(val,loc) {
             },
 
   });
-}
+}*/
 
 var ItemID= $('#ItemID').val();
 function checkItemCode(val) {
@@ -111,30 +151,22 @@ function checkItemCode(val) {
   });
 }
 
-function getInfo(val){
-  $.ajax({
-  type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Supplier/getDetails",
-  data:'SupplierID='+val,
-  dataType: 'json',
-  cache: true,
-  success: function(data){
-    
-      $('#email').val(data.email);
-      $('#address').val(data.address);
-     
-      
-      
-      getItems(val);
-  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
-                
-                  alert(xhr.responseText);
-            },
 
-  });
+
+
+
+function getID(val){
+    $.get("http://"+window.location.hostname+"/HJM/Order/getCount", function(data){
+        $("#CaseID").text(val+'-'+data);
+    });
 }
+
+
+function changeID(val){
+    $("#CaseID").text(val);
+  
+}
+
 
 function test(){
   
@@ -142,58 +174,10 @@ function test(){
   alert(files);
   $('#test').html('<img src="'+files+'">')
 }
-function getItems(val){
-
-  $.ajax({
-  type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Inventory/getItems",
-  data:'SupplierID='+val,
-  success: function(data){
-    
-      $('#items').html(data);
-      
-  
-  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
-                
-                  alert(xhr.responseText);
-            },
-
-  });
-}
-
-function getItemDesc(val) {
-
-  $.ajax({
-  type: "POST",
-  url: "http://"+window.location.hostname+"/HJM/Inventory/getDetails",
-  data:'ItemID='+val,
-  success: function(data){
-    $("#ItemDesc"+x).html(data);
-    $("#ItemDesc").text(data);
-
-  
-  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
-                
-                  alert(xhr.responseText);
-            },
-
-  });
- }
-
 
 $(document).ready(function(){
-  $('#SupplierID')
-      .on('change', function() {
-         $('#Idropdown')
-      .dropdown('restore defaults');
-  });
 
-
-  $('.ui.form')
+$('.ui.form')
   .form({
     fields: {
       firstName: {
@@ -297,6 +281,24 @@ $(document).ready(function(){
       },
       items: {
         identifier: 'items',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your Email Address'
+          }
+        ]
+      },
+      CaseTypeID: {
+        identifier: 'CaseTypeID',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your Email Address'
+          }
+        ]
+      },
+      Type: {
+        identifier: 'Type',
         rules: [
           {
             type   : 'empty',
@@ -420,6 +422,9 @@ $(document).ready(function(){
 
 
 
+
+//Customer
+
     var shipstreet=$('#ship-street').val(),
         shipcity=$('#ship-city').val(),
         shipbaranggay=$('#ship-baranggay').val();
@@ -483,138 +488,3 @@ $(document).ready(function(){
 
 
 
-$( document ).ready(function() {
-
-    if($('#Tray').val()==1)
-      document.getElementById("Tray1").checked=true;
-    else
-      document.getElementById("Tray1").checked=false;
-
-    $('#Tray1').change(function(){
-      if (this.checked) {
-       $('#Tray').val(1);
-       
-      }
-      else{
-        $('#Tray').val(0);
-      }
-    });
-
-
-    if($('#SG').val()==1)
-      document.getElementById("SG1").checked=true;
-    else
-      document.getElementById("SG1").checked=false
-
-    $('#SG1').change(function(){
-      if (this.checked) {
-       $('#SG').val(1);
-       
-      }
-      else{
-        $('#SG').val(0);
-      }
-    });
-
-
-
-
-    if($('#BW').val()==1)
-      document.getElementById("BW1").checked=true;
-    else
-      document.getElementById("BW1").checked=false
-
-    $('#BW1').change(function(){
-      if (this.checked) {
-       $('#BW').val(1);
-       
-      }
-      else{
-        $('#BW').val(0);
-      }
-    });
-
-
-
-
-    if($('#MC').val()==1)
-      document.getElementById("MC1").checked=true;
-    else
-      document.getElementById("MC1").checked=false
-
-    $('#MC1').change(function(){
-      if (this.checked) {
-       $('#MC').val(1);
-       
-      }
-      else{
-        $('#MC').val(0);
-      }
-    });
-
-
-    if($('#OC').val()==1)
-      document.getElementById("OC1").checked=true;
-    else
-      document.getElementById("OC1").checked=false
-
-    $('#OC1').change(function(){
-      if (this.checked) {
-       $('#OC').val(1);
-       
-      }
-      else{
-        $('#OC').val(0);
-      }
-    });
-
-
-
-    if($('#Photos').val()==1)
-      document.getElementById("Photos1").checked=true;
-    else
-      document.getElementById("Photos1").checked=false
-
-    $('#Photos1').change(function(){
-      if (this.checked) {
-       $('#Photos').val(1);
-       
-      }
-      else{
-        $('#Photos').val(0);
-      }
-    });
-
-
-    if($('#Articulator').val()==1)
-      document.getElementById("Articulator1").checked=true;
-    else
-      document.getElementById("Articulator1").checked=false
-
-    $('#Articulator1').change(function(){
-      if (this.checked) {
-       $('#Articulator').val(1);
-       
-      }
-      else{
-        $('#Articulator').val(0);
-      }
-    });
-
-
-
-    if($('#OD').val()==1)
-      document.getElementById("OD1").checked=true;
-    else
-      document.getElementById("OD1").checked=false
-
-    $('#OD1').change(function(){
-      if (this.checked) {
-       $('#OD').val(1);
-       
-      }
-      else{
-        $('#OD').val(0);
-      }
-  });
-});

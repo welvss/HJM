@@ -78,6 +78,34 @@ class MdlOrder extends CI_Model {
 	}
 
 	
+	function getCaseType($options = array())
+	{
+		//verification
+		if(isset($options['CaseTypeID']))
+			$this->db->where('CaseTypeID', $options['CaseTypeID']);
+
+		if(isset($options['CaseTypeDesc']))
+			$this->db->like('CaseTypeDesc', $options['CaseTypeDesc']);
+
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+		
+		$query = $this->db->get("tblcasetype");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		if(isset($options['CaseTypeID']))
+			return $query->row(0);
+		//die($this->db->last_query());
+		return $query->result();
+	}
 
 	function getOrder($options = array())
 	{
@@ -178,6 +206,12 @@ class MdlOrder extends CI_Model {
 
 		if(isset($options['patientfirstname']))
 			$this->db->set('patientfirstname', $options['patientfirstname']);
+
+		if(isset($options['CaseTypeID']))
+			$this->db->set('CaseTypeID', $options['CaseTypeID']);
+
+		if(isset($options['Type']))
+			$this->db->set('Type', $options['Type']);
 
 		if(isset($options['patientlastname']))
 			$this->db->set('patientlastname', $options['patientlastname']);

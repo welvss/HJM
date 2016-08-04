@@ -66,6 +66,7 @@
 	  						<th>Item Description</th>
 	  						<th><center>Price</center></th>
 	  						<th><center>Current Qty</center></th>
+	  						<th><center>Total Capacity</center></th>
 	  						<th><center>Action</center></th>
 	  					</tr>
 	  				</thead>
@@ -79,6 +80,7 @@
 	  						<td><a href="'.base_url('Inventory/Info/'.$item->ItemID).'">'.$item->ItemID.'</a></td>
 	  						<td>'.$item->ItemDesc.'</td>
 	  						<td><center>'.$item->Price.'</center></td>
+	  						<td><center>'.$item->CurrentQTY.'</center></td>
 	  						<td><center>'.$item->QTY.'</center></td>
 	  						<td>
 	  							<center>

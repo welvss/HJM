@@ -14,7 +14,8 @@ class Customer extends MX_Controller
 		$this->load->model('MdlInvoice');
 		$this->load->model('MdlCustomer');
 		$this->load->library('form_validation');
-        $this->form_validation->CI =& $this; 
+   		$this->form_validation->CI =& $this; 
+		
 	
 	}
 	
@@ -47,6 +48,7 @@ class Customer extends MX_Controller
 	public function CustomerInfo()
 	{
 		$this->headercheck();
+		$data['casetype'] = $this->MdlOrder->getCaseType();
 		$data['Count']	= $this->MdlOrder->countOrder(array());
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
@@ -193,10 +195,11 @@ class Customer extends MX_Controller
 
 
 
-   public function Inputvalidation(){
-    	
-   		if($_POST['emails']!=$_POST['email'])
+    public function Inputvalidation(){
+    
+   		if($_POST['emails']!=$_POST['email']){
    			$this->form_validation->set_rules('email','Email Address','valid_email|callback_check_email');
+       	}
         $this->form_validation->set_rules('firstname','First Name','alpha');
         $this->form_validation->set_rules('middlename','Middle Name','alpha');
         $this->form_validation->set_rules('lastname','Last Name','alpha');
@@ -204,7 +207,7 @@ class Customer extends MX_Controller
         $this->form_validation->set_rules('telephone','Telephone','numeric');
         $this->form_validation->set_rules('mobile','Mobile','numeric');
         $this->form_validation->set_rules('fax','Fax','numeric');
-       
+       	$this->check_email($x);
 
     	if($this->form_validation->run($this)){
     		$data['error']= "";
@@ -263,5 +266,9 @@ class Customer extends MX_Controller
             }
             
     }
+    
+
+
+
 }
 ?>

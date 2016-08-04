@@ -85,7 +85,7 @@
 					  					'</td>
 										<td>'.$ii->QTY.'</td>
 										<td>PHP '.$ii->Amount.'</td>
-										<td>PHP '.$ii->SubTotal.'</td>
+										<td>PHP '.number_format($ii->SubTotal,2).'</td>
 									</tr>';
 							
 								}
@@ -104,12 +104,12 @@
 			<div class="right">
 				<div class="subtotal">
 					<p>Sub total:</p>
-					<p><?php echo 'PHP '.$invoice->Total;?></p>
+					<p><?php echo 'PHP '.number_format($invoice->Total,2);?></p>
 				</div>
 				<hr>
 				<div class="total">
 					<h3>TOTAL:</h3>
-					<h3><?php echo 'PHP '.$invoice->Total;?></h3>
+					<h3><?php echo 'PHP '.number_format($invoice->Total,2);?></h3>
 				</div>
 			</div>
 		</div>

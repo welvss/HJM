@@ -61,7 +61,7 @@
 		  	  									<div class="content">
 		  	  										Case Number
 		  	  										<div class="sub header">
-		  	  											<h2><strong>#SERDS-<?php echo $case->CaseID;?></strong></h2>
+		  	  											<h2><strong><?php echo $case->CaseTypeID.'-'.$case->CaseID;?></strong></h2>
 		  	  										</div>
 		  	  									</div>
 		  	  								</div>
@@ -76,7 +76,8 @@
 				  					<?php echo $case->patientlastname.', '.$case->patientfirstname;?>
 				  				</h3>
 				  				<hr>
-				  			<?php if($case->status_id == 2)
+				  			<?php 
+				  				if($case->status_id == 2)
 				  				{
 					  				echo
 					  				'<div class="ui inverted violet segment">
@@ -167,7 +168,7 @@
 				  					</thead>
 				  					<tbody>
 				  						<tr>
-				  							<td>Crown</td>
+				  							<td><?php echo $case->Type;?></td>
 				  							<td>
 				  								<?php 
 				  								$ctr= count($teeth);
@@ -181,7 +182,7 @@
 				  								?>
 				  							</td>
 				  							<td>Emax</td>
-				  							<td><?php echo $case->shade2;?></td>
+				  							<td><?php echo $case->shade1.' '.$case->shade2;?></td>
 				  							<td></td>
 				  							<td></td>
 				  						</tr>
@@ -225,7 +226,7 @@
 	  	  				<hr>
 	  	  			</h3>
 					<?php 
-					if($invoice[0]->status!=0)
+					if($invoice->status!=0)
 					{
 						echo
 		  	  			'<div class="ui grid">
@@ -238,14 +239,14 @@
 		  	  					<div class="six wide column">
 		  	  						
 									</button>
-									<button onClick="printInvoice(this.value);" value="'.base_url('Invoice/InvoiceSlip/'.$invoice[0]->InvoiceID).'" class="ui blue button mode">
+									<button onClick="printInvoice(this.value);" value="'.base_url('Invoice/InvoiceSlip/'.$invoice->InvoiceID).'" class="ui blue button mode">
 											  Print Invoice
 									</button>
 		  	  					</div>
 		  	  				</div>
 		  	  			</div>';
 		  	  		}
-		  	  		if($invoice[0]->status==0)
+		  	  		if($invoice->status==0)
 	  	  			{
 		  	  			echo
 		  	  			'<div class="ui grid">
@@ -259,7 +260,7 @@
 		  	  						<button type="submit" class="ui button mode invoice-modal">
 											  Edit Invoice
 									</button>
-		  	  					'.form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice[0]->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
+		  	  					'.form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
 
 									
 									<button class="ui green button mode">
@@ -283,39 +284,41 @@
 						</thead>
 						<tbody>
 							<?php
-
+								$sum=0;
 								foreach ($invoiceitems as $ii) 
 								{
 									echo
 									'<tr>';
-									foreach ($items as $item) 
-									{
-										if($ii->ItemID==$item->ItemID)
+									
+											foreach ($items as $item){
+												if($ii->ItemID==$item->ItemID)
 
-										echo '<td>'.$item->ItemDesc.'</td>';
-									}
+												echo '<td>'.$item->ItemDesc.'</td>';
+											}
+												
+					
 										
-			
-								
-									echo '<td>';
-									 
-					  					$ctr= count($teeth);
-					  					$i=0;
-					  					foreach ($teeth as $tooth) 
-					  					{
-						  					if(++$i != $ctr)
-						  						echo $tooth->teeth.', ';
-						  					else
-						  						echo $tooth->teeth;
-					  					}
-					  				
-					  				echo 
-					  					'</td>
-										<td>'.$ii->QTY.'</td>
-										<td>PHP '.$ii->Amount.'</td>
-										<td>PHP '.$ii->SubTotal.'</td>
-									</tr>';
+											echo '<td>';
+											 
+							  					$ctr= count($teeth);
+							  					$i=0;
+							  					foreach ($teeth as $tooth){
+								  					if(++$i != $ctr)
+								  						echo $tooth->teeth.', ';
+								  					else
+								  						echo $tooth->teeth;
+							  					}
+							  				
+							  				echo 
+							  					'</td>
+												<td>'.$ii->QTY.'</td>
+												<td>PHP '.number_format($ii->Amount,2).'</td>
+												<td>PHP '.number_format($ii->SubTotal,2).'</td>
+											</tr>';
+										$sum=$sum+$ii->SubTotal;
+										
 							
+									
 								}
 							?>
 							
@@ -336,10 +339,10 @@
 							</div>
 							<div class="three wide column">
 								<div class="item">
-									PHP <?php echo $invoice[0]->Total;?>
+									PHP <?php echo number_format($invoice->Total,2);?>
 								</div>
 								<div class="item">
-									<h2>PHP <?php echo $invoice[0]->Total;?></h2>
+									<h2>PHP <?php echo number_format($invoice->Total,2);?></h2>
 								</div>
 							</div>
 						</div>
@@ -366,7 +369,7 @@
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
-			  		<h3>#SERDS-<?php echo $case->CaseID;?></h3>
+			  		<h3><label id="CaseID"><?php echo $case->CaseTypeID;?></label>-<?php echo $case->CaseID;?></h3>
 			  	</div>
 			  </div>
 		  		<div class="ui teal segment">
@@ -377,16 +380,16 @@
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient first name</label>
-		  				<input type="text" name="patientfirstname" placeholder="First Name" value="<?php echo $case->patientfirstname;?>">
+		  				<input type="text" name="patientfirstname" placeholder="First Name" value="<?php echo $case->patientfirstname;?>" id="pfirstname" onkeyup="letterCheck('pfirstname');" <?php if($invoice->status==1) echo 'readonly';?>>
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient last name</label>
-		  				<input type="text" name="patientlastname" placeholder="Last Name" value="<?php echo $case->patientlastname;?>">
+		  				<input type="text" name="patientlastname" placeholder="Last Name" value="<?php echo $case->patientlastname;?>" id="plastname" onkeyup="letterCheck('plastname');" <?php if($invoice->status==1) echo 'readonly';?>>
 		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
 				
-					    <select name="gender">
+					    <select name="gender" class="ui fluid dropdown selection" <?php if($invoice->status==1) echo 'disabled';?>>
 					      <option value="">Gender</option>
 					      <option value="1" <?php if($case->gender==1) echo 'selected';?>>Male</option>
 					      <option value="0" <?php if($case->gender==0) echo 'selected';?>>Female</option>
@@ -394,7 +397,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="age" value="<?php echo $case->age;?>">
+				    <input type="text" name="age" value="<?php echo $case->age;?>" <?php if($invoice->status==1) echo 'readonly';?> onkeyup="numberCheck(0);" id="age">
 				  </div>
 		  		</div>
 		  		</div>
@@ -409,7 +412,7 @@
 		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth">
+ 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth" <?php if($invoice->status==1) echo 'disabled';?>>
  				  	<?php 
  				  	$i =1;
  				  	$ctr= count($teeth);
@@ -461,9 +464,36 @@
 		  	</div>
 		  	<div class="eight wide column">
 		  		<div class="ui vertical teal segment">
+		  			<div class="eight wide field">
+		  				<div class="eight wide field">
+					  <label>Type</label>
+					    <select name="Type" class="ui fluid dropdown" <?php if($invoice->status==1) echo 'disabled';?>>
+					      <option value=""></option>
+					      <option value="FIXED" <?php if($case->Type=="FIXED") echo 'selected';?>>Fixed</option>
+					      <option value="RPD" <?php if($case->Type=="RPD") echo 'selected';?>>RPD</option>
+					      <option value="Others" <?php if($case->Type=="Others") echo 'selected';?>>Others</option>
+					    </select>
+				  </div>
+		  			</div>
+		  		</div>
+		  		<div class="ui vertical teal segment">
+		  		  <div class="eight wide field">
+					  <label>Product</label>
+					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="changeID(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <?php 
+					      echo '<option value=""></option>';
+					      foreach ($casetype as $ct) {
+					      	if($ct->CaseTypeID==$case->CaseTypeID)
+					      		echo '<option value="'.$ct->CaseTypeID.'" selected>'.$ct->CaseTypeDesc.'</option>';
+					      	else
+					      		echo '<option value="'.$ct->CaseTypeID.'">'.$ct->CaseTypeDesc.'</option>';
+					      } 
+					    ?>
+					    </select>
+				  </div>
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
+					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
 					      
 					    <?php 
 					     $bool=false;
@@ -511,19 +541,19 @@
 					     <div class="inline fields">
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="1"<?php if($case->shade1==1) echo ' checked=""';?>>
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="1"<?php if($case->shade1==1) echo ' checked=""';?> <?php if($invoice->status==1) echo 'readonly';?>>
 						        <label>1 Shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="2"<?php if($case->shade1==2) echo ' checked=""';?>>
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="2"<?php if($case->shade1==2) echo ' checked=""';?> <?php if($invoice->status==1) echo 'readonly';?>>
 						        <label>2 shades</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="3"<?php if($case->shade1==3) echo ' checked=""';?>>
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="3"<?php if($case->shade1==3) echo ' checked=""';?> <?php if($invoice->status==1) echo 'readonly';?>>
 						        <label>3 shades</label>
 						      </div>
 						    </div>
@@ -531,19 +561,19 @@
 						  <div class="inline fields">
 						  	  <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="0"<?php if($case->shade1==0) echo ' checked=""';?>>
+						        <input type="radio" name="shade1" tabindex="0" class="hidden" value="0"<?php if($case->shade1==0) echo ' checked=""';?> <?php if($invoice->status==1) echo 'readonly';?>>
 						        <label>No shade</label>
 						      </div>
 						    </div>
 						    <div class="field">
 						      <div class="ui radio checkbox">
-						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="4"<?php if($case->shade1==4) echo ' checked=""';?>>
+						        <input type="radio" name="shade1"  tabindex="0" class="hidden" value="4"<?php if($case->shade1==4) echo ' checked=""';?> <?php if($invoice->status==1) echo 'readonly';?>>
 						        <label>Provide Shade Later</label>
 						      </div>
 						    </div>
 						  </div>
 						  <div class="five wide field">
-						  	<select name="shade2">
+						  	<select name="shade2" <?php if($invoice->status==1) echo 'disabled';?>>
 						  		<option value=""></option>
 						  		<option value="A1"<?php if($case->shade2=="A1") echo ' selected';?>>A1</option>
 						  		<option value="A2.5"<?php if($case->shade2=="A2.5") echo ' selected';?>>A2.5</option>
@@ -602,56 +632,56 @@
 				  					 <hr>
 								  <div class="field">
 								  	<div class="ui checkbox">
-								      <input type="checkbox" tabindex="0" class="hidden" id="Tray1">
-								      <input type="hidden" id="Tray" name="Tray" value="<?php echo $case->Tray;?>">
+								      <input type="checkbox" tabindex="0" class="hidden" id="Tray1" <?php if($invoice->status==1) echo 'readonly';?>>
+								      <input type="hidden" id="Tray" name="Tray" value="<?php echo $case->Tray;?>" >
 								      <label>Tray</label>
 								    </div>
 								  </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="SG1">
-									      <input type="hidden" id="SG" name="SG" value="<?php echo $case->SG;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="SG1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="SG" name="SG" value="<?php echo $case->SG;?>" >
 									      <label>Shade Guide</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="BW1">
-									      <input type="hidden" id="BW" name="BW" value="<?php echo $case->BW;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="BW1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="BW" name="BW" value="<?php echo $case->BW;?>" >
 									      <label>Bite Wax</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="MC1" >
-									      <input type="hidden" id="MC" name="MC" value="<?php echo $case->MC;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="MC1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="MC" name="MC" value="<?php echo $case->MC;?>" >
 									      <label>Model Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="OC1" >
-									      <input type="hidden" id="OC" name="OC" value="<?php echo $case->OC;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="OC1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="OC" name="OC" value="<?php echo $case->OC;?>" >
 									      <label>Opposing Cast</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="Photos1" >
-									      <input type="hidden" id="Photos" name="Photos" value="<?php echo $case->Photos;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="Photos1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="Photos" name="Photos" value="<?php echo $case->Photos;?>" >
 									      <label>Photos</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="Articulator1" >
-									      <input type="hidden" id="Articulator" name="Articulator" value="<?php echo $case->Articulator;?>">
+									      <input type="checkbox" tabindex="0" class="hidden" id="Articulator1" <?php if($invoice->status==1) echo 'readonly';?>>
+									      <input type="hidden" id="Articulator" name="Articulator" value="<?php echo $case->Articulator;?>" >
 									      <label>Articulator</label>
 									    </div>
 								    </div>
 								    <div class="field">
 									    <div class="ui checkbox">
-									      <input type="checkbox" tabindex="0" class="hidden" id="OD1" >
+									      <input type="checkbox" tabindex="0" class="hidden" id="OD1"  <?php if($invoice->status==1) echo 'readonly';?>>
 									      <input type="hidden" id="OD" name="OD" value="<?php echo $case->OD;?>">
 									      <label>Old Denture</label>
 									    </div>
@@ -661,7 +691,7 @@
 				  					<h3 class="ui header">Doctor's Special Instruction</h3>
 				  					 <hr>
 				  					   <div class="field">
-										    <textarea name="notes"></textarea>
+										    <textarea name="notes" <?php if($invoice->status==1) echo 'readonly';?>></textarea>
 									   </div>
 				  				</div>
 				  			</div>
@@ -674,7 +704,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" >
+								    <input type="file" id="file" <?php if($invoice->status==1) echo 'disabled';?> >
 							</div>
 							<div class="ui header">
 					  				Due
@@ -682,11 +712,11 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>" id="duedate">
+							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>" id="duedate" <?php if($invoice->status==1) echo 'readonly';?>>
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime" value="<?php echo date($case->duetime);?>" id="duetime">
+							    <input type="time" name="duetime" value="<?php echo date($case->duetime);?>" id="duetime" <?php if($invoice->status==1) echo 'readonly';?>>
 							  </div>
 							</div>
 							  
@@ -694,18 +724,31 @@
 				  	</div>
 				  </div>
 	  			<div class="two column row">
-					<div class="nine wide column hidden"></div>
+					<div class="nine wide column hidden">
+						<div class="five wide column hidden">
+							<div id="caseerror"></div>
+						</div>
+					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
-						      Cancel
+						    <?php
+								if($invoice->status!=1) 
+						      		echo 'Cancel';
+						      	else
+						      		echo 'Close';
+						  	?>
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit">
+						<?php
+						if($invoice->status!=1) 
+						echo
+						    '<button class="ui animated teal right button" tabindex="0" type="submit" value="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
 							  </div>
-							</button>
+							</button>';
+						?>
 						  </div>
 					</div>
 					<div class="one wide column hidden"></div>
@@ -720,7 +763,7 @@
 	  	<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
 	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
 	  	<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
-	  	<?php echo form_hidden('InvoiceID',$invoice[0]->InvoiceID);?>
+	  	<?php echo form_hidden('InvoiceID',$invoice->InvoiceID);?>
 
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
@@ -765,7 +808,7 @@
 	  						</div>
 	  						<div class="field">
 	  							<label>Due Date</label>
-	  							<input type="date" name="duedate">
+	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>">
 	  						</div>
 	  					</div>
 	  				</div>
@@ -792,6 +835,7 @@
 		  			<?php 
 		  			$ctr=1;
 		  			$x=count($caseitems);
+
 		  			foreach ($items as $item) 
 		  			{
 		  				
@@ -803,11 +847,28 @@
 				  				'<tr id="Row'.$ctr.'">
 				  					<td>'.$ctr.'</td>
 				  					<td><input type="text" style="width: 100px"  name="invoice['.$ctr.'][ItemID]" value="'.$item->ItemID.'"></td>
-				  					<td id="ItemDesc">'.$item->ItemDesc.'</td>
-				  					<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');"  value="0" ><br></td>
-				  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');" value="'.$item->Price.'" ></td>
-				  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="0" /></td>
-				  					<td><a href="#"  onClick="deleteRow('.$ctr.')" ><i class="trash icon"></i></a></td>
+				  					<td id="ItemDesc">'.$item->ItemDesc.'</td>';
+				  					$available=false;
+				  					foreach ($invoiceitems as $ii) {
+				  						
+				  						if($ii->ItemID==$ci->ItemID){
+					  						echo
+						  					'<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');"  value="'.$ii->QTY.'" ><br></td>
+						  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');" value="'.$ii->Amount.'" ></td>
+						  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="'.$ii->SubTotal.'" /></td>';
+					  						$available=true;
+					  					}
+				  					}
+				  					if(!$available){
+				  						echo
+						  					'<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');"  value="0" ><br></td>
+						  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');" value="'.$item->Price.'" ></td>
+						  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="0" /></td>';
+
+				  					}
+
+				  					echo
+				  					'<td></td>
 				  				
 				  				</tr>';
 				  				$ctr++;
@@ -815,7 +876,6 @@
 			  			}
 		  			}
 		  			?>
-					
 		  			</tbody>
 		  		
 		  		</table>
@@ -823,9 +883,11 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<!--<a class="ui button green" id="AddRow" >
+		  	<!--
+		  		<a class="ui button green" id="AddRow" onclick="Addrow();" >
 		  			Add Row
-		  		</a>-->
+		  		</a>
+		  	-->
 		  	</div>
 		  </div>
 				<div class="row">
@@ -845,8 +907,8 @@
 								<h2>Total</h2>
 							</div>
 							<div class="three wide column">
-								<h4 id="TotalSave"></h4>
-								<h2 id="Total"></h2>
+								<h4 id="TotalSave"><input type hidden name="Total" value="<?php echo $invoice->Total;?>"/>PHP <?php echo number_format($invoice->Total,2);?></h4>
+								<h2 id="Total">PHP <?php echo number_format($invoice->Total,2);?></h2>
 
 							</div>
 						</div>

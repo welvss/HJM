@@ -10,7 +10,9 @@ class Dashboard extends MX_Controller
 		$this->load->module('Customer');
 		$this->load->model('MdlOrder');
 		$this->load->model('MdlCustomer');
-
+		$this->load->model('MdlDashboard');
+		$this->load->library('form_validation');
+    $this->form_validation->CI =& $this; 
 
 		
 	}
@@ -73,6 +75,82 @@ class Dashboard extends MX_Controller
 			$this->load->view('template/frontfooter');
 		}
 	}
+
+
+
+    public function Inputvalidation(){
+    
+   		if($_POST['emails']!=$_POST['email']){
+   			$this->form_validation->set_rules('email','Email Address','valid_email|callback_check_email');
+       	}
+        $this->form_validation->set_rules('firstname','First Name','alpha');
+        $this->form_validation->set_rules('middlename','Middle Name','alpha');
+        $this->form_validation->set_rules('lastname','Last Name','alpha');
+        $this->form_validation->set_rules('website','Website','callback_check_website');
+        $this->form_validation->set_rules('telephone','Telephone','numeric');
+        $this->form_validation->set_rules('mobile','Mobile','numeric');
+        $this->form_validation->set_rules('fax','Fax','numeric');
+       	
+
+    	if($this->form_validation->run($this)){
+    		$data['error']= "";
+    		$data['success']=false;
+            
+    		
+    	}
+    	else{
+    		$err="Ooops! &nbsp;There is an error!";
+    		//$data['error']= '<div class="ui red message"><div class="header"><center>This email address belongs to an existing account. &nbsp;Please enter another email address.</center></div></div>';
+    		$data['error']='<div class="ui red message"><i class="close icon"></i><div class="header">'.$err.'</div><ul class="list">'.validation_errors('<li>', '</li>').'</ul></div>';
+    		$data['success']=true;
+    	}
+
+    	echo json_encode($data);
+    }
+
+    public function check_email($email)
+    {
+           	
+            $email_available = $this->MdlDashboard->check_if_email_exists($email);
+            if($email_available)
+            {
+               
+                return false;
+            }
+            else
+            {
+                
+              
+             	return true;
+   			
+            }
+            
+    }
+
+
+    public function check_website($url){
+
+           	$www = substr($url,0,4);
+           	$www2 = substr($url,0,5);
+           	$www3 = substr($url,0,6);
+           	$compare=strcasecmp($www,"www.");
+            $compare2=strcasecmp($www2,"www..");
+            $compare3=strcasecmp($www3,"www. .");
+
+            if($compare!=0 || $compare2==0 || $compare3==0)
+            {
+               
+               return false;
+            }
+            else
+            {
+                
+              	
+             	return true;
+   			
+            }
+            
+    }
 		
 }
 ?>

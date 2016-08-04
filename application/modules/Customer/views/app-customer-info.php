@@ -599,7 +599,7 @@
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
-			  		<h3>#SERDS-<?php echo $Count+1;?></h3>
+			  		<h3 id="CaseID"></h3>
 			  	</div>
 			  </div>
 		  		<div class="ui teal segment">
@@ -610,12 +610,12 @@
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient First Name</label>
-		  				<input type="text" name="patientfirstname" placeholder="First Name">
+		  				<input type="text" name="patientfirstname" placeholder="First Name" id="pfirstname" onkeyup="Casevalidation();">
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient Last Name</label>
-		  				<input type="text" name="patientlastname" placeholder="Last Name">
-		  			</div>	  		
+		  				<input type="text" name="patientlastname" placeholder="Last Name" id="plastname" onkeyup="Casevalidation();">
+		  			</div>	  	
 				  <div class="three wide field">
 					  <label>Gender</label>
 					    <select name="gender">
@@ -658,8 +658,32 @@
 		  	</div>
 		  	<div class="eight wide column">
 		  		<div class="ui vertical teal segment">
+		  			<div class="eight wide field">
+		  				<div class="eight wide field">
+					  <label>Type</label>
+					    <select name="Type" class="ui fluid dropdown">
+					      <option value=""></option>
+					      <option value="FIXED">Fixed</option>
+					      <option value="RPD">RPD</option>
+					      <option value="Others">Others</option>
+					    </select>
+				  </div>
+		  			</div>
+		  		</div>
+		  		<div class="ui vertical teal segment">
+		  		  	<div class="eight wide field">
+					  	<label>Product</label>
+					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
+					    <?php 
+					      echo '<option value=""></option>';
+					      foreach ($casetype as $ct) {
+					      	echo '<option value="'.$ct->CaseTypeID.'">'.$ct->CaseTypeDesc.'</option>';
+					      } 
+					    ?>
+					    </select>
+				  	</div>
 		  		  <div class="eight wide field">
-					  <label>Item</label>
+					  	<label>Item</label>
 					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
 					      
 					      <?php 
@@ -868,13 +892,17 @@
 				  	</div>
 				</div>
 	  			<div class="two column row">
-					<div class="nine wide column hidden"></div>
+					<div class="nine wide column hidden">
+						<div class="five wide column hidden">
+							<div id="caseerror"></div>
+						</div>
+					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
