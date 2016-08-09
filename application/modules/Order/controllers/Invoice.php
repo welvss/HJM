@@ -9,6 +9,8 @@ class Invoice extends MX_Controller
 		{
 			redirect();
 		}
+		$this->load->module('Inventory');
+		$this->load->model('MdlInventory');
 		$this->load->model('MdlInvoice');
 		
 

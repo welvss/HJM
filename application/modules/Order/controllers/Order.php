@@ -6,6 +6,8 @@ class Order extends MX_Controller
 		parent::__construct();
 
 		$this->load->module('Customer');
+		$this->load->module('Inventory');
+		$this->load->model('MdlInventory');
 		$this->load->model('MdlCustomer');
 		$this->load->library('form_validation');
     	$this->form_validation->CI =& $this; 

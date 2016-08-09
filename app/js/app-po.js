@@ -234,7 +234,7 @@ function getItems(val){
 }
 
 function getItemDesc(val,y){
-  
+
 var i;
   
 for( i=rows; i >=1; i--) {
@@ -256,28 +256,30 @@ for( i=rows; i >=1; i--) {
     type: "POST",
     url: "http://"+window.location.hostname+"/HJM/Inventory/getDetails",
     data:'ItemID='+val,
+    dataType: 'json',
+    cache: true,
     success: function(data){
       if(value){
     
-        $("#ItemDesc"+y).html(data);
-       
+        $("#ItemDesc"+y).html(data.ItemDesc);
+        $("#QTY"+y).val(data.ReorderQTY);
         document.getElementById('AddRow').disabled = false;
         document.getElementById('QTY'+x).disabled = false;
-        document.getElementById('Amount'+x).disabled = false;
+         document.getElementById('Amount'+x).disabled = false;
+        document.getElementById('Amount'+x).value = 0;
         document.getElementById('SubTotal'+x).disabled = false;
+         document.getElementById('SubTotal'+x).value = 0;
         value=false;
          
       }
       else{
-        $("#ItemDesc"+y).html('');
+        $("#ItemDesc"+y).html(data.ItemDesc);
         $('#dropdown'+y).dropdown('restore defaults');
         document.getElementById('AddRow').disabled = true;
         document.getElementById('QTY'+x).disabled = true;
         document.getElementById('Amount'+x).disabled = true;
         document.getElementById('SubTotal'+x).disabled = true;
-        value=false;
-        
-        
+        value=false;        
       }
     },error: function(xhr, status, error,ajaxOptions, thrownErro) {
                 alert(error);

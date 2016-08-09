@@ -146,12 +146,14 @@ class Inventory extends MX_Controller
 	public function getDetails()
 	{
 		$data = $this->MdlInventory->getItem(array('ItemID' => $this->input->POST('ItemID')));
-			if($this->input->post('ItemID')!=null)
-				echo $data->ItemDesc;
+			if($this->input->post('ItemID')!=null){
+				$arr['ItemDesc']=$data->ItemDesc;
+				$arr['ReorderQTY']=$data->ReorderQTY;
+			}
 			else
-				echo " ";
+				$arr['ItemDesc']='';
 	
-			
+		echo json_encode($arr);
 	}
 
 	public function checkItemCode()

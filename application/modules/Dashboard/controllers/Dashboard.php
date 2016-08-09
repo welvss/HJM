@@ -9,6 +9,7 @@ class Dashboard extends MX_Controller
 		$this->load->module('Order');
 		$this->load->module('Customer');
 		$this->load->model('MdlOrder');
+    $this->load->model('MdlInvoice');
 		$this->load->model('MdlCustomer');
 		$this->load->model('MdlDashboard');
 		$this->load->library('form_validation');
@@ -59,7 +60,11 @@ class Dashboard extends MX_Controller
 		if($this->session->userdata('ps_id')==2 )
 
 		{	
-
+      $data['i']=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
+      $data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
+      $data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+      $data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));
+      $data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
 			$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1));
 			$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2));
 			$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3));

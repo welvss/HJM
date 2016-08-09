@@ -224,21 +224,74 @@
 			  					</tr>
 			  				</thead>
 			  				<tbody>
-			  					<tr>
-			  						<td><a href="view-po.html">PO-GR@C3</a></td>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>50, 000</td>
-			  						<td>
-									   New
-			  						</td>
-			  						<td>
-			  							<a href="#" class="green">
-			  								<i class="red trash icon"></i>
-			  								Delete
-			  							</a>
-			  						</td>
-			  					</tr>
-			  				</tbody>
+			<?php 
+			foreach($pos as $po){
+				echo
+				'<tr>
+					<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
+					
+					<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
+					<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
+					<td><center>';
+							 foreach ($status as $stat) {
+							 	if($stat->POStatusID==$po->POStatusID){
+							 		if($po->POStatusID==1)
+							 			echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+							 		else
+							 		if($po->POStatusID==2)
+							 			echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+							 		else
+							 		if($po->POStatusID=3)
+							 			echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+							 	}
+							 	
+							 }
+							  
+						echo 
+						'
+						</center>			
+					</td>
+					<td>
+					<center>';
+						if($po->POStatusID<3){
+							echo
+							'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
+				  			<i class="green check icon"></i>
+				  			Update
+				  			</a>
+				  			&nbsp;';
+				  		}
+				  		else{
+				  			echo
+							'<button class="ui button blue" class="green" disabled>
+				  			<i class="green check icon"></i>
+				  			Update
+				  			</button>
+				  			&nbsp;';
+
+				  		}
+			  			if($po->POStatusID>1){
+				  			echo
+							'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
+				  			<i class="file icon"></i>
+				  			View
+				  			</a>';
+			  			}
+			  			else{
+			  				echo
+							'<button class="ui button blue" disabled>
+				  			<i class="file icon"></i>
+				  			View
+				  			</button>';
+			  			}
+			  							
+					echo
+			  		'</center>	
+					</td>
+				</tr>';
+			}
+			?>
+			</tbody>
 			  			</table>
 				</div>
 	  		</div>
@@ -290,7 +343,7 @@
 								    </div>
 								    <div class="eight wide field">
 								      <label>Email</label>
-								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="email" onchange="Inputvalidation('Supplier');">
+								      <input type="text" placeholder="i.e. hjmdentallaboratory@gmail.com" name="email" value="<?php echo $supplier->email;?>" id="emails" onchange="Inputvalidation('Supplier');">
 								    </div>
 								  </div>
 								  <div class="fields">
@@ -391,7 +444,8 @@
 	
 	<!--Invoice-->
 	<div class="ui modal fullscreen invoice">
-	<?php echo form_open('Supplier/AddPO','class="ui form"');?>
+	 
+	  <?php echo form_open('PO/AddPO','class="ui form"');?>
 	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
@@ -405,11 +459,17 @@
 							<div class="inline fields">
 							<div class="eight wide field">
 								<label>Supplier</label>
-								<input type="text" value="<?php echo $supplier->company;?>">
+								
+								  <input type="hidden" name="SupplierID"   id="SupplierID" value="<?php echo $supplier->SupplierID;?>">
+								  <textarea type="text" rows="2"  readonly><?php echo $supplier->company;?></textarea>
+								
+								 
+								  
+							
 							</div>
 							<div class="eight wide field">
 								<label>Email</label>
-								<input type="text" value="<?php echo $supplier->email;?>">
+								<input type="text" value="<?php echo $supplier->email;?>" readonly>
 							</div>
 							</div>
 						</div>
@@ -425,7 +485,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								Total
-								<h1>PHP 500.00</h1>
+								<h1></h1>
 							</div>	
 						</div>						
 						</div>
@@ -439,11 +499,11 @@
 	  					<div class="fields">
 	  						<div class="four wide field">
 	  							<label>Billing Address</label>
-	  							 <textarea rows="2"><?php echo $supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity;?></textarea>
+	  							 <textarea rows="2" readonly id="address"></textarea>
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
-	  							<input type="date">
+	  							<input type="date" id="duedate" name="shipdate">
 	  						</div>
 	  					</div>
 	  				</div>
@@ -469,34 +529,34 @@
 		  			<tbody id="Add">
 		  				<tr id="Row1">
 		  					<td>1</td>
-		  					<td>
-		  						<div class="ui selection dropdown">
-								  <input type="hidden" name="ItemID" onchange="getItemDesc(this.value,1);">
-								  <i class="dropdown icon"></i>
-								  <div class="default text">Select Item</div>
-								  <div class="menu">
-								  	<?php 
-								  		foreach ($items as $item) 
-								  		{
-								  			echo '<div class="item" data-value="'.$item->ItemID.'">'.$item->ItemDesc.'</div>';
-								  		}
-								    ?>
-								  </div>
+		  					<td >
+								<div class="ui selection dropdown" id="Idropdown">
+									<input type="hidden" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
+									<i class="dropdown icon"></i>
+									<div class="default text">Select Item</div>
+									<div class="menu" id="items1">
+										<?php 
+											foreach ($items as $item) {
+												echo '<div class="item" data-value="'.$item->ItemID.'">'.$item->ItemID.'</div>';
+											}
+										?>
+									</div>
 								</div>
+								  
 		  					</td>
 		  					<td id="ItemDesc1">
 		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px" name="QTY" id="QTY1" onkeyup="multiply(1);">
+		  						<input type="number" style="width: 100px" name="po[1][QTY]" id="QTY1" onkeyup="multiply(1);addSubtotal(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text" name="Amount" id="Amount1" onkeyup="multiply(1);">
+		  						<input type="text" name="po[1][Amount]"  id="Amount1" onkeyup="multiply(1);addSubtotal(1);numberCheck(1);" >
 		  					</td>
 		  					<td>
-		  						<input type="text" name="SubTotal" id="SubTotal1">
+		  						<input type="text" name="po[1][SubTotal]" id="SubTotal1" >
 		  					</td>
-		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  					<td></td>
 		  				</tr>
 		  			</tbody>
 		  		</table>
@@ -505,9 +565,9 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<a class="ui button green" id="AddRow">
+		  		<button class="ui button blue" id="AddRow" onclick="Addrow();">
 		  			Add Row
-		  		</a>
+		  		</button>
 		  	</div>
 		  </div>
 				<div class="row">
@@ -544,7 +604,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit" >
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -557,142 +617,5 @@
 	 		 <br><br>
 		  </div>
 	</form>
+	<br><br>
 	</div>
-
-	<div class="ui modal fullscreen payment">
-	  <form class="ui form">
-	  		<div class="ui inverted blue segment">
-	  			  <div class="ui header">
-				  <i class="large dollar icon"></i>
-					  Receive Payment
-				  </div>
-	  		</div>
-	  		<div class="ui grid">
-		  		<div class="two column row">
-					<div class="column">
-						<div class="ui segment">
-							<div class="inline fields">
-							<div class="eight wide field">
-								<label>Customer</label>
-								<input type="text" value="Dr. Mark Serhijos">
-							</div>
-							<div class="eight wide field">
-								<label>Email</label>
-								<input type="text" value="hjmdentallaboratory@gmail.com">
-							</div>
-							</div>
-						</div>
-					</div>
-					<div class="right aligned column">
-						<div class="ui segment">
-							<div class="ui header">
-								Ammount Receive
-								<h1>PHP 500.00</h1>
-							</div>							
-						</div>
-					</div>
-				</div>
-	  		</div>
-
-	  		<div class="ui centered grid">
-	  			<div class="row">
-	  				<div class="fifteen wide column">
-	  					<div class="fields">
-	  						<div class="four wide field">
-	  							<label>Payment date</label>
-	  							 <input type="date">
-	  						</div>
-	  						<div class="field">
-	  							<label>Payment Method</label>
-	  							<input type="text">
-	  						</div>
-	  						<div class="field">
-	  							<label>Due Date</label>
-	  							<input type="date">
-	  						</div>
-	  					</div>
-	  				</div>
-	  			</div>
-	  		</div>
-
-		  <div class="ui centered grid">
-		  <div class="row">
-		  	<div class="fifteen wide column">
-		  		<table class="ui table">
-		  			<thead>
-		  				<tr>
-		  					<th>DESCRIPTION</th>
-		  					<th>DUE DATE</th>
-		  					<th>ORIGINAL AMMOUNT</th>
-		  					<th>OPEN BALANCE</th>
-		  					<th>PAYMENT</th>
-		  					<th></th>
-		  				</tr>
-		  			</thead>
-		  			<tbody>
-		  				<tr>
-		  					<td>
-		  					Invoice #420 (05/18/2016)
-		  					</td>
-		  					<td>
-		  						06/17/2016
-		  					</td>
-		  					<td>1000.00</td>
-		  					<td>500</td>
-		  					<td>
-		  						<div class="ui form">
-		  							<input type="text" value="500">
-		  						</div>
-		  					</td>
-		  					<td><a href="#"><i class="trash icon"></i></a></td>
-		  				</tr>
-		  			</tbody>
-		  		</table>
-		  	</div>
-		  </div>
-				<div class="row">
-					<div class="fifteen wide column">
-						<hr>
-						<div class="ui grid">
-							<div class="eight wide column">
-								<div class="field">
-									<label>Message displayed on Invoice</label>
-									<textarea></textarea>
-								</div>
-							</div>
-							<div class="two wide column hidden">
-							</div>
-							<div class="three wide right aligned column">
-								<h4>Amount to apply</h4>
-							</div>
-							<div class="three wide column">
-								<h2>PHP 500.00</h2>
-							</div>
-						</div>
-					</div>
-				</div>
-	  			<div class="two column row">
-	  				<div class="six wide column"></div>
-					<div class="three wide column">
-						<a href="receipt.html" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print</a>
-					</div>
-					<div class="right aligned six wide column">
-						  <div class="actions" id="footer-modal">
-						    <div class="ui grey deny button">
-						      Cancel
-						    </div>
-						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
-							  <div class="visible content">Submit</div>
-							  <div class="hidden content">
-							    <i class="right arrow icon"></i>
-							  </div>
-							</button>
-						  </div>
-					</div>
-					<div class="one wide column hidden"></div>
-				</div>
-	 		 <br><br>
-		  </div>
-	</form>
-	</div>
-	

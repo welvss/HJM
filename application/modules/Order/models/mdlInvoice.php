@@ -4,8 +4,7 @@ class MdlInvoice extends CI_Model {
 	
 	public function __construct(){
 		parent:: __construct();
-		$this->load->module('Inventory');
-		$this->load->model('MdlInventory');
+		
 	}
 
 	function deleteInvoiceItem($id)
@@ -41,8 +40,7 @@ class MdlInvoice extends CI_Model {
 		return $query->result();
 	}
 
-	public function getInvoice($options = array())
-	{
+	public function getInvoice($options = array()){
 		//verification
 		if(isset($options['DentistID']))
 			$this->db->like('DentistID', $options['DentistID']);
@@ -52,7 +50,16 @@ class MdlInvoice extends CI_Model {
 
 		if(isset($options['InvoiceID']))
 			$this->db->where('InvoiceID', $options['InvoiceID']);
-		
+
+		if(isset($options['paid']))
+			$this->db->where('paid', $options['paid']);
+
+		if(isset($options['status']))
+			$this->db->where('status', $options['status']);
+
+		if(isset($options['duedate']))
+			$this->db->where('duedate <',$options['duedate']);
+
 		if(isset($options['limit']) && isset($options['offset']))
 			$this->db->limit($options['limit'], $options['offset']);
 		
@@ -61,28 +68,78 @@ class MdlInvoice extends CI_Model {
 		
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
-		
-		$query = $this->db->get("tblinvoice");
-		
+
+		if(isset($options['paid']))
+			return $query = $this->db->count_all_results('tblinvoice');
+		else
+			$query = $this->db->get("tblinvoice");
+
+
 		if(isset($options['count']))
 			return $query->num_rows();
 		
 		if(isset($options['InvoiceID']))
 			return $query->row(0);
+		
 		if(isset($options['CaseID']))
 			return $query->row(0);
-		return $query->result();
+
+		if(!isset($options['paid']))	
+			return $query->result();
 	}
 
-	function countInvoice($options=array())
-	{
+
+	public function addInvoiceTotal($options = array()){
+		//verification
+		if(isset($options['DentistID']))
+			$this->db->like('DentistID', $options['DentistID']);
+
+		if(isset($options['InvoiceID']))
+			$this->db->where('InvoiceID', $options['InvoiceID']);
+
+		if(isset($options['status']))
+			$this->db->where('status', $options['status']);
+
+		if(isset($options['paid']))
+			$this->db->where('paid', $options['paid']);
+
+
+		if(isset($options['paid']) && isset($options['duedate'])){
+			$this->db->select_sum('Total');
+			$this->db->where('duedate <',$options['duedate']);
+			$this->db->where('paid', $options['paid']);
+		}
+
+
+		if(isset($options['paid'])  && !isset($options['duedate'])){
+			$this->db->select_sum('Total');
+			$this->db->where('paid', $options['paid']);
+		}
+		
+	
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		$query = $this->db->get("tblinvoice");
+
+		if(isset($options['InvoiceID']) || isset($options['paid']) || isset($options['CaseID']))
+			return $query->row(0);
+		
+		return $query->result();
+		
+	}
+
+
+
+	function countInvoice($options=array()){
 		if(isset($options['CaseID']))
 			$this->db->where('CaseID',$options['CaseID']);
 
 		return $query = $this->db->count_all_results('tblinvoice');
 	}
-	function createInvoice($options = array())
-	{
+
+
+	function createInvoice($options = array()){
 		$this->db->insert('tblinvoice', $options);	
 		return $this->db->insert_id();
 		

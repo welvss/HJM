@@ -155,12 +155,24 @@
 						</center>			
 					</td>
 					<td>
-					<center>
-						<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
-			  			<i class="green check icon"></i>
-			  			Update
-			  			</a>
-			  			&nbsp;';
+					<center>';
+						if($po->POStatusID<3){
+							echo
+							'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
+				  			<i class="green check icon"></i>
+				  			Update
+				  			</a>
+				  			&nbsp;';
+				  		}
+				  		else{
+				  			echo
+							'<button class="ui button blue" class="green" disabled>
+				  			<i class="green check icon"></i>
+				  			Update
+				  			</button>
+				  			&nbsp;';
+
+				  		}
 			  			if($po->POStatusID>1){
 				  			echo
 							'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">

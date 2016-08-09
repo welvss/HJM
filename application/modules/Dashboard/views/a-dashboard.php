@@ -12,9 +12,11 @@
 				<div class="ui five doubling cards">
 				  <div class="card hvr-grow">
 				   <div class="card-content">
-				      <div class="box" id="customer-card">
-				      	<h1 class="case-number"><i class="doctor icon"></i></h1>
-				      </div>
+				   		<a href="<?php echo base_url();?>Customer">
+				      		<div class="box" id="customer-card">
+				      			<h1 class="case-number"><i class="doctor icon"></i></h1>
+				      		</div>
+				      	</a>
 				    </div>
 				    <div class="content">
 				      <div class="header">Customer</div>
@@ -24,9 +26,11 @@
 				  </div>
 				  <div class="card hvr-grow">
 				    <div class="card-content">
-				      <div class="box" id="cases-card">
-				      	<h1 class="case-number"><i class="file text outline icon"></i></h1>
-				      </div>
+				    	<a href="<?php echo base_url();?>Order">
+					    	<div class="box" id="cases-card">
+					    		<h1 class="case-number"><i class="file text outline icon"></i></h1>
+					    	</div>
+					    </a>
 				    </div>
 				    <div class="content">
 				      <div class="header">Cases</div>
@@ -36,9 +40,11 @@
 				  </div>
 				    <div class="card hvr-grow">
 				    <div class="card-content">
-				      <div class="box" id="inventory-card">
-				      	<h1 class="case-number"><i class="cubes icon"></i></h1>
-				      </div>
+				    	<a href="<?php echo base_url();?>Inventory">
+					    	<div class="box" id="inventory-card">
+					    		<h1 class="case-number"><i class="cubes icon"></i></h1>
+					    	</div>
+					    </a>
 				    </div>
 				    <div class="content">
 				      <div class="header">Inventory</div>
@@ -48,21 +54,25 @@
 				  </div>
 				  <div class="card hvr-grow">
 				    <div class="card-content">
+				    <a href="<?php echo base_url();?>PO">
 				      <div class="box" id="po-card">
 				      	<h1 class="case-number"><i class="cart icon"></i></h1>
 				      </div>
+				  	</a>
 				    </div>
 				    <div class="content">
 				      <div class="header">Purchase Order</div>
-				        <a href="#" class="hvr-icon-forward">View or Add New Stocks
+				        <a href="<?php echo base_url();?>PO" class="hvr-icon-forward">View or Add New Stocks
 				     </a>
 				    </div>
 				  </div>
 				  <div class="card hvr-grow">
 				    <div class="card-content">
-				      <div class="box" id="supplier-card">
-				      	<h1 class="case-number"><i class="truck icon"></i></h1>
-				      </div>
+				    	<a href="<?php echo base_url();?>Supplier">
+					      <div class="box" id="supplier-card">
+					      	<h1 class="case-number"><i class="truck icon"></i></h1>
+					      </div>
+					    </a>
 				    </div>
 				    <div class="content">
 				      <div class="header">Supplier</div>
@@ -114,7 +124,7 @@
 						<div class="ui large header">Inventory</div>
 						<div class="ui statistics">
 							<div class="statistic">
-								<div class="value"><i class="cubes icon hvr-hang"></i>09</div>
+								<div class="value"><i class="cubes icon hvr-hang"></i><?php echo $i;?></div>
 								<div class="label">
 									<a href="#">Running Low</a>
 								</div>
@@ -126,22 +136,22 @@
 				  <h4 class="ui large header">Income</h4>
 				 <div class="ui horizontal segments income">
 					  <div class="ui segment openInvoices ">
-					    <h3>7,000 PHP</h3>
+					    <h3><?php echo number_format($sum->Total,2);?> PHP</h3>
 					  </div>
 					  <div class="ui segment partial">
 					    <h3>5, 000 PHP</h3>
 					  </div>
 					  <div class="ui segment overdue">
-					    <h3>13, 000 PHP</h3>
+					    <h3><?php echo number_format($overdue->Total,2);?> PHP</h3>
 					  </div>
 					  <div class="ui segment paid">
 					    <h3>43,000 PHP</h3>
 					  </div>
 				 </div>
 					<div class="ui four column grid">
-					  <div class="column"><h1>04</h1><a href="#">OPEN INVOICES</a></div>
+					  <div class="column"><h1><?php echo $OI;?></h1><a href="#">OPEN INVOICES</a></div>
 					  <div class="column"><h1>02</h1><a href="#">PARTIAL</a></div>
-					  <div class="column"><h1>02</h1><a href="#">OVERDUE</a></div>
+					  <div class="column"><h1><?php echo $OD;?></h1><a href="#">OVERDUE</a></div>
 					  <div class="column"><h1>17</h1><a href="#">PAID LAST 30 DAYS </a></div>
 					</div>
 				</div>

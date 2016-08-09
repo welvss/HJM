@@ -27,12 +27,13 @@ class MdlInventory extends CI_Model {
 		if(isset($options['Price']))
 			$this->db->like('Price', $options['Price']);
 
-		if(isset($options['QTY']))
-			$this->db->like('QTY', $options['QTY']);
-
 		if(isset($options['QTYBelow']))
 			$this->db->like('QTYBelow', $options['QTYBelow']);
 
+		if(isset($options['CurrentQTY'])){
+			$this->db->where('QTYBelow >= CurrentQTY');
+			return $query = $this->db->count_all_results('tblitem');
+		}
 		if(isset($options['ReorderQTY']))
 			$this->db->like('ReorderQTY', $options['ReorderQTY']);
 
@@ -45,8 +46,9 @@ class MdlInventory extends CI_Model {
 		
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
-		
-		$query = $this->db->get("tblitem");
+
+		if(!isset($options['CurrentQTY']))
+			$query = $this->db->get("tblitem");
 		
 		if(isset($options['count']))
 			return $query->num_rows();
@@ -54,7 +56,8 @@ class MdlInventory extends CI_Model {
 		if(isset($options['ItemID']))
 			return $query->row(0);
 		//die($this->db->last_query());
-		return $query->result();
+		if(!isset($options['CurrentQTY']))
+			return $query->result();
 	}
 
 	function EditInventory($options = array())

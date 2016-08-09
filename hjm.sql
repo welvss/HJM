@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2016 at 06:31 AM
+-- Generation Time: Aug 04, 2016 at 04:47 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -30,6 +30,8 @@ USE `hjm`;
 
 CREATE TABLE `tblcase` (
   `CaseID` int(11) NOT NULL,
+  `Type` varchar(500) NOT NULL,
+  `CaseTypeID` varchar(10) NOT NULL,
   `DentistID` int(11) NOT NULL,
   `orderdatetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `patientfirstname` varchar(50) NOT NULL,
@@ -57,8 +59,9 @@ CREATE TABLE `tblcase` (
 -- Dumping data for table `tblcase`
 --
 
-INSERT INTO `tblcase` (`CaseID`, `DentistID`, `orderdatetime`, `patientfirstname`, `patientlastname`, `gender`, `age`, `shade1`, `shade2`, `Tray`, `SG`, `BW`, `MC`, `OC`, `Photos`, `Articulator`, `OD`, `notes`, `file`, `duedate`, `duetime`, `status_id`) VALUES
-(1, 1, '2016-07-14 11:16:09', 'Abdul', 'Jabar', '1', 51, 2, 'A2.5', 1, 0, 1, 0, 1, 0, 1, 0, '', '', '2016-08-31', '12:30', 2);
+INSERT INTO `tblcase` (`CaseID`, `Type`, `CaseTypeID`, `DentistID`, `orderdatetime`, `patientfirstname`, `patientlastname`, `gender`, `age`, `shade1`, `shade2`, `Tray`, `SG`, `BW`, `MC`, `OC`, `Photos`, `Articulator`, `OD`, `notes`, `file`, `duedate`, `duetime`, `status_id`) VALUES
+(1, 'FIXED', 'C', 1, '2016-08-02 08:59:37', 'Sidharta', 'Buddha', '1', 45, 2, '', 1, 0, 1, 0, 1, 0, 0, 1, '', '', '2016-08-31', '05:06', 2),
+(2, 'FIXED', 'C', 1, '2016-08-04 07:41:22', 'Ghajini', 'Ganja', '1', 50, 1, 'A1', 1, 1, 0, 0, 1, 0, 1, 1, '', '', '2016-08-31', '12:31', 3);
 
 -- --------------------------------------------------------
 
@@ -76,7 +79,10 @@ CREATE TABLE `tblcaseitem` (
 --
 
 INSERT INTO `tblcaseitem` (`CaseID`, `ItemID`) VALUES
-(1, 'TP');
+(1, 'EXS'),
+(1, 'LU'),
+(1, 'TP'),
+(2, 'LU');
 
 -- --------------------------------------------------------
 
@@ -99,7 +105,37 @@ INSERT INTO `tblcaseteeth` (`CaseID`, `teeth`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(1, 6);
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcasetype`
+--
+
+CREATE TABLE `tblcasetype` (
+  `CaseTypeID` varchar(10) NOT NULL,
+  `CaseTypeDesc` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblcasetype`
+--
+
+INSERT INTO `tblcasetype` (`CaseTypeID`, `CaseTypeDesc`) VALUES
+('C', 'Ceramage'),
+('D', 'Denture'),
+('IM', 'Implant'),
+('P', 'Porcelain'),
+('S', 'Success'),
+('V', 'Valplast'),
+('Z', 'Cercon');
 
 -- --------------------------------------------------------
 
@@ -134,9 +170,9 @@ CREATE TABLE `tbldentist` (
 --
 
 INSERT INTO `tbldentist` (`DentistID`, `title`, `firstname`, `middlename`, `lastname`, `company`, `email`, `telephone`, `mobile`, `fax`, `website`, `bstreet`, `bbrgy`, `bcity`, `shipstreet`, `shipbrgy`, `shipcity`, `notes`, `active`) VALUES
-(1, 'Mr.', 'Kenneth ', 'Bonagua', 'Rufino', 'Dope Dental Clinic', 'htennek@gmail.com', '8374265', '09156396650', '', 'www.ljrufino.com', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'We''re living in the world of ganja.', 1),
-(6, 'Dr.', 'Welvin', 'Olamit', 'Medina', 'Stoned Barbs Clinic', 'wom@gmail.com', '', '09776343033', '', 'www.stonedbarbsclinic.com', '#420 Kalantas St.', 'Western Bicutan', 'Taguig City', 'Shelter 7', 'Eastern Bicutan', 'Taguig City', 'We cut hairs ang build razors.', 0),
-(7, 'Mr.', 'Ralph', 'Bogus', 'Pagayon', 'Bogus Ticketing System Corporation', 'hplar@gmail.com', '', '09161775808', '', 'www.BTSC.com', 'Bogusan St. Extension', 'Bokahan', 'Paranaque City', 'Bogusan St. Extension', 'Bokahan', 'Paranaque City', '', 0);
+(1, 'Mr.', 'Kenneth ', 'Bonagua', 'Rufino', 'Dope Dental Clinic', 'htennek@gmail.com', '8374265', '09156396650', '', 'http://www.ljrufino.com', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'We''re living in the world of ganja.', 1),
+(6, 'Dr.', 'Welvin', 'Olamit', 'Medina', 'Stoned Barbs Clinic', 'wom@gmail.com', '1', '09776343033', '', 'http://www.sbc.com', '#420 Kalantas St.', 'Western Bicutan', 'Taguig City', 'Shelter 7', 'Eastern Bicutan', 'Taguig City', 'We cut hairs ang build razors.', 0),
+(7, 'Mr.', 'Ralph', 'Bogus', 'Pagayon', 'Bogus Ticketing System Corporation', 'hplar@gmail.com', '', '09161775808', '', 'http://www.BTSC.com', 'Bogusan St. Extension', 'Bokahan', 'Paranaque City', 'Bogusan St. Extension', 'Bokahan', 'Paranaque City', '', 0);
 
 -- --------------------------------------------------------
 
@@ -160,7 +196,8 @@ CREATE TABLE `tblinvoice` (
 --
 
 INSERT INTO `tblinvoice` (`InvoiceID`, `DentistID`, `CaseID`, `datecreated`, `duedate`, `Total`, `status`, `paid`) VALUES
-(1, 1, 1, '2016-07-14 05:19:02', '2016-07-31', 4750, 0, 0);
+(1, 1, 1, '2016-08-03 19:03:50', '2016-08-31', 4070, 0, 0),
+(2, 1, 2, '2016-08-04 03:31:42', '2016-08-31', 4000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -181,7 +218,10 @@ CREATE TABLE `tblinvoiceitem` (
 --
 
 INSERT INTO `tblinvoiceitem` (`InvoiceID`, `ItemID`, `QTY`, `Amount`, `SubTotal`) VALUES
-(1, 'TP', 1, 1500, 1500);
+(1, 'EXS', 3, 750, 2250),
+(1, 'LU', 4, 80, 320),
+(1, 'TP', 1, 1500, 1500),
+(2, 'LU', 5, 800, 4000);
 
 -- --------------------------------------------------------
 
@@ -193,9 +233,9 @@ CREATE TABLE `tblitem` (
   `ItemID` varchar(50) NOT NULL,
   `SupplierID` int(11) NOT NULL,
   `ItemDesc` varchar(500) NOT NULL,
-  `Cost` float NOT NULL,
   `Price` float NOT NULL,
   `QTY` int(11) NOT NULL,
+  `CurrentQTY` int(11) NOT NULL DEFAULT '0',
   `QTYBelow` int(11) NOT NULL,
   `ReorderQTY` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -204,10 +244,10 @@ CREATE TABLE `tblitem` (
 -- Dumping data for table `tblitem`
 --
 
-INSERT INTO `tblitem` (`ItemID`, `SupplierID`, `ItemDesc`, `Cost`, `Price`, `QTY`, `QTYBelow`, `ReorderQTY`) VALUES
-('EXS', 6, 'Expansion Screw (ES)', 0, 750, 25, 5, 20),
-('LU', 7, 'Lucitone', 500, 800, 30, 15, 15),
-('TP', 7, 'Tilite Porcelain Jacket Crown (TPJC)', 500, 1500, 100, 50, 55);
+INSERT INTO `tblitem` (`ItemID`, `SupplierID`, `ItemDesc`, `Price`, `QTY`, `CurrentQTY`, `QTYBelow`, `ReorderQTY`) VALUES
+('EXS', 6, 'Expansion Screw (ES)', 750, 50, 0, 5, 20),
+('LU', 7, 'Lucitone', 800, 50, 25, 15, 15),
+('TP', 7, 'Tilite Porcelain Jacket Crown (TPJC)', 1500, 50, 35, 50, 55);
 
 -- --------------------------------------------------------
 
@@ -219,10 +259,21 @@ CREATE TABLE `tblpo` (
   `POID` int(11) NOT NULL,
   `SupplierID` int(11) NOT NULL,
   `POStatusID` int(11) NOT NULL DEFAULT '1',
-  `orderdatetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `orderdatetime` datetime NOT NULL,
   `shipdate` varchar(15) NOT NULL,
+  `receivedate` varchar(50) DEFAULT NULL,
   `Total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpo`
+--
+
+INSERT INTO `tblpo` (`POID`, `SupplierID`, `POStatusID`, `orderdatetime`, `shipdate`, `receivedate`, `Total`) VALUES
+(1, 7, 3, '2016-08-03 22:55:03', '2016-08-31', NULL, 3250),
+(2, 7, 1, '2016-08-03 23:28:41', '2016-08-31', NULL, 628),
+(3, 7, 1, '2016-08-04 02:25:55', '2016-08-31', NULL, 876),
+(4, 7, 3, '2016-08-04 02:33:24', '2016-08-31', NULL, 7000);
 
 -- --------------------------------------------------------
 
@@ -237,6 +288,20 @@ CREATE TABLE `tblpoitem` (
   `Amount` float NOT NULL,
   `SubTotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpoitem`
+--
+
+INSERT INTO `tblpoitem` (`POID`, `ItemID`, `QTY`, `Amount`, `SubTotal`) VALUES
+(1, 'LU', 20, 100, 2000),
+(1, 'TP', 25, 50, 1250),
+(2, 'LU', 11, 32, 352),
+(2, 'TP', 12, 23, 276),
+(3, 'TP', 12, 32, 384),
+(3, 'LU', 123, 4, 492),
+(4, 'LU', 10, 500, 5000),
+(4, 'TP', 10, 200, 2000);
 
 -- --------------------------------------------------------
 
@@ -254,7 +319,7 @@ CREATE TABLE `tblpostatus` (
 --
 
 INSERT INTO `tblpostatus` (`POStatusID`, `status`) VALUES
-(1, 'New'),
+(1, 'Draft'),
 (2, 'Approved'),
 (3, 'Received');
 
@@ -308,7 +373,7 @@ CREATE TABLE `tblsupplier` (
 --
 
 INSERT INTO `tblsupplier` (`SupplierID`, `title`, `firstname`, `middlename`, `lastname`, `company`, `email`, `telephone`, `mobile`, `fax`, `website`, `bstreet`, `bbrgy`, `bcity`, `notes`) VALUES
-(1, 'Mr.', 'Linji', 'Bonagua', 'Rufino', 'Dope Dental Clinic', 'htennek@gmail.com', '8374265', '09156396650', '', 'www.ljrufino.com', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'We''re living in the world of ganja.'),
+(1, 'Mr.', 'Linji', 'Bonagua', 'Rufino', 'Dope Dental Clinic', 'htennek@gmail.com', '8374265', '09156396650', '', 'http://www.ljrufino.com', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'We''re living in the world of ganja.'),
 (6, 'Mr.', 'Welvin', 'Olamit', 'Medina', 'Stoned Barbs Company', 'wom@gmail.com', '8374265', '09156396650', '', 'www.ljrufino.com', 'Blk. 12 Lot 1 Damudamu St.', 'Damu', 'Tagaytay CIty', 'We''re living in the world of ganja.'),
 (7, 'Mr.', 'Ralph', 'Bogus', 'Pagayon', 'Bogus Ticketing System Corporation', 'hplar@gmail.com', '', '09161775808', '', 'www.BTSC.com', 'Bogusan St. Extension', 'Bokahan', 'Paranaque City', '');
 
@@ -344,7 +409,8 @@ INSERT INTO `tbluser` (`UserID`, `DentistID`, `username`, `password`, `ps_id`) V
 ALTER TABLE `tblcase`
   ADD PRIMARY KEY (`CaseID`),
   ADD KEY `DentistID` (`DentistID`),
-  ADD KEY `status_id` (`status_id`);
+  ADD KEY `status_id` (`status_id`),
+  ADD KEY `CaseTypeID` (`CaseTypeID`);
 
 --
 -- Indexes for table `tblcaseitem`
@@ -358,6 +424,12 @@ ALTER TABLE `tblcaseitem`
 --
 ALTER TABLE `tblcaseteeth`
   ADD KEY `CaseID` (`CaseID`);
+
+--
+-- Indexes for table `tblcasetype`
+--
+ALTER TABLE `tblcasetype`
+  ADD PRIMARY KEY (`CaseTypeID`);
 
 --
 -- Indexes for table `tbldentist`
@@ -439,7 +511,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tblcase`
 --
 ALTER TABLE `tblcase`
-  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbldentist`
 --
@@ -449,7 +521,7 @@ ALTER TABLE `tbldentist`
 -- AUTO_INCREMENT for table `tblpo`
 --
 ALTER TABLE `tblpo`
-  MODIFY `POID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `POID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblpostatus`
 --
@@ -479,7 +551,8 @@ ALTER TABLE `tbluser`
 --
 ALTER TABLE `tblcase`
   ADD CONSTRAINT `tblcase_ibfk_1` FOREIGN KEY (`DentistID`) REFERENCES `tbldentist` (`DentistID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tblcase_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `tblstatus` (`status_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `tblcase_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `tblstatus` (`status_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tblcase_ibfk_3` FOREIGN KEY (`CaseTypeID`) REFERENCES `tblcasetype` (`CaseTypeID`);
 
 --
 -- Constraints for table `tblcaseitem`

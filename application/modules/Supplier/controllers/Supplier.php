@@ -48,9 +48,11 @@ class Supplier extends MX_Controller
 		$this->headercheck();
 		$data['Count']	= $this->MdlPO->countPO(array());
 		$data['supplier'] = $this->MdlSupplier->getSupplier(array('SupplierID'=>$this->uri->segment(3)));	
+		$data['pos'] = $this->MdlPO->getPO(array('SupplierID'=>$this->uri->segment(3)));	
+		$data['status'] = $this->MdlPO-> getPOStatus(array());
 		$data['items'] = $this->MdlInventory->getItem(array('SupplierID'=>$this->uri->segment(3)));	
 		$this->load->view('app-supplier-info',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-supplier-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
+		$data['script']='<script src="'.base_url().'app/js/app-supplier-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-po.js"></script>';
 		$this->footer($data);
 	
 	
