@@ -263,7 +263,7 @@
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
-	  							<input type="date" id="duedate" name="shipdate">
+	  							<input type="date" id="duedate" name="shipdate" class="datepicker">
 	  						</div>
 	  					</div>
 	  				</div>

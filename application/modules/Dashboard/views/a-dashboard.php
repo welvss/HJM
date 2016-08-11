@@ -124,7 +124,7 @@
 						<div class="ui large header">Inventory</div>
 						<div class="ui statistics">
 							<div class="statistic">
-								<div class="value"><i class="cubes icon hvr-hang"></i><?php echo $i;?></div>
+								<div class="value" id="inventory_count_dashboard"><i class="cubes icon hvr-hang"></i><?php echo $i;?></div>
 								<div class="label">
 									<a href="#">Running Low</a>
 								</div>
@@ -139,20 +139,20 @@
 					    <h3><?php echo number_format($sum->Total,2);?> PHP</h3>
 					  </div>
 					  <div class="ui segment partial">
-					    <h3>5, 000 PHP</h3>
+					    <h3>0.00 PHP</h3>
 					  </div>
 					  <div class="ui segment overdue">
 					    <h3><?php echo number_format($overdue->Total,2);?> PHP</h3>
 					  </div>
 					  <div class="ui segment paid">
-					    <h3>43,000 PHP</h3>
+					    <h3>0.00 PHP</h3>
 					  </div>
 				 </div>
 					<div class="ui four column grid">
 					  <div class="column"><h1><?php echo $OI;?></h1><a href="#">OPEN INVOICES</a></div>
-					  <div class="column"><h1>02</h1><a href="#">PARTIAL</a></div>
+					  <div class="column"><h1>0</h1><a href="#">PARTIAL</a></div>
 					  <div class="column"><h1><?php echo $OD;?></h1><a href="#">OVERDUE</a></div>
-					  <div class="column"><h1>17</h1><a href="#">PAID LAST 30 DAYS </a></div>
+					  <div class="column"><h1>0</h1><a href="#">PAID LAST 30 DAYS </a></div>
 					</div>
 				</div>
 	   		</div>

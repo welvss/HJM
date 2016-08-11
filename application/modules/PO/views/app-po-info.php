@@ -269,7 +269,7 @@
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
-	  							<input type="date" id="duedate" name="shipdate" value="<?php echo date($po->shipdate);?>">
+	  							<input type="date" id="duedate" name="shipdate" value="<?php echo date($po->shipdate);?>" class="datepicker">
 	  						</div>
 	  					</div>
 	  				</div>

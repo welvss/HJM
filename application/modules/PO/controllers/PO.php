@@ -4,17 +4,12 @@ class PO extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-
-		$this->load->module('Customer');
-		$this->load->model('MdlCustomer');
-		$this->load->module('Inventory');
-		$this->load->model('MdlInventory');
-		$this->load->model('MdlPO');
 		if($this->session->userdata('is_logged_in') != TRUE)	
 		{
 			redirect();
 		}
 		
+		echo modules::run('Dashboard/models');
 	}
 	function headercheck()
 	{	
@@ -90,6 +85,10 @@ class PO extends MX_Controller
 									'Total'=> $_POST['Total']
 								);
 						$POID=$this->MdlPO->AddPO($data);
+
+						
+
+						//Item Insert
 						$x=1;
 						foreach ($_POST['po'] as $po){
 							if($po['ItemID']!=''){

@@ -4,29 +4,37 @@ class Order extends MX_Controller
 {
 	function __construct(){
 		parent::__construct();
-
-		$this->load->module('Customer');
-		$this->load->module('Inventory');
-		$this->load->model('MdlInventory');
-		$this->load->model('MdlCustomer');
-		$this->load->library('form_validation');
-    	$this->form_validation->CI =& $this; 
 		if($this->session->userdata('is_logged_in') != TRUE)	
 		{
 			redirect();
 		}
 		
+		echo modules::run('Dashboard/models');
 	}
+	
 	function headercheck()
 	{	
 		
 		$data['active'] =3;
 		echo modules::run('Dashboard/headercheck', $data);
 	}
+
+
+
+	public function countNewOrder(){
+
+	$data = $this->MdlOrder->countOrder(array('status_id'=>1));
+
+	echo $data;
+
+	}
+
+
 	public function footer($data)
 	{
 		$this->load->view('template/footer',$data);
 	}
+
 	public function index(){
 
 		$this->headercheck();
@@ -76,46 +84,7 @@ class Order extends MX_Controller
 		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			
-						$data['DentistID'] = $this->input->post('DentistID');
-						$data['patientfirstname'] = $this->input->post('patient');
-						$data['duedate'] = $this->input->post('duedate');
-						$data['duetime'] = $this->input->post('duetime');
-						$data['gender'] = $this->input->post('gender');
-						$data['age'] = $this->input->post('age');
-						$data['notes'] = $this->input->post('notes');
-									
-								/*$data=array(
-									'DentistID'=>$_POST['DentistID'],
-									'patient'=>$_POST['patient'],
-									'duedate' => $_POST['due-date'],
-									'duetime' => $_POST['due-time'],
-									'gender' =>$_POST['gender'],
-									'age' => $_POST['age'],
-									'notes' => $_POST['notes'],
-									//'file' => $upload_data['file_name']
-								);*/
 						
-						if($this->MdlOrder->AddOrder($data))
-						{
-							$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
-							$dentist = $this->MdlCustomer->getDentist(array('DentistID'=>$this->input->post('DentistID')));
-							$data['CaseID'] = $info->CaseID;
-							$data['DentistID'] = $dentist->DentistID;
-							$data['fullname'] = $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
-							$data['company'] = $dentist->company;
-							$data['patient'] = $info->patientfirstname;
-							$data['orderdatetime'] = $info->orderdatetime;
-							$data['duedate'] = $info->duedate;
-							$data['duetime'] = $info->duetime;
-							$data['status'] = $info->status;
-							$data['success'] = true;
-							$data['new_count_order'] = $this->MdlOrder->countOrder(array('status'=>'New'));
-						}
-						else
-						{
-							$data['success'] = false;
-						}
-						echo json_encode($data);
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
@@ -154,6 +123,9 @@ class Order extends MX_Controller
 							'DentistID'=>$_POST['DentistID']
 							);
 						$this->MdlInvoice->createInvoice($invoice);
+
+
+						//Teeth Insert
 						if(isset($_POST['teeth'])!=null)
 						{	
 							$teeth=$_POST['teeth'];
@@ -168,6 +140,9 @@ class Order extends MX_Controller
 							}
 						}
 
+
+
+						//Items Insert
 						if(isset($_POST['items'])!=null)
 						{	
 							$items=$_POST['items'];
@@ -182,6 +157,8 @@ class Order extends MX_Controller
 							}
 						}
 
+
+						//Create Invoice
 						if(isset($_POST['invoice'])!=null)
 						{
 							redirect('Order/Info/'.$CaseID);
@@ -242,8 +219,7 @@ class Order extends MX_Controller
 
 					}
 					
-				
-				redirect('Order');
+				echo "";
 			}
 			else{
 
@@ -254,12 +230,9 @@ class Order extends MX_Controller
 				
 				if($this->MdlOrder->UpdateOrderStatus($order))
 				{
-					if( $_POST['DentistID']!=Null)
-						redirect('Customer/Info/'.$_POST['DentistID'].'/'.$_POST['Info']);
-					else
-						redirect('Order');
+					
+					echo "";
 				}
-			
 			}
 	
 		
@@ -290,46 +263,6 @@ class Order extends MX_Controller
 		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			
-						$data['DentistID'] = $this->input->post('DentistID');
-						$data['patientfirstname'] = $this->input->post('patient');
-						$data['duedate'] = $this->input->post('duedate');
-						$data['duetime'] = $this->input->post('duetime');
-						$data['gender'] = $this->input->post('gender');
-						$data['age'] = $this->input->post('age');
-						$data['notes'] = $this->input->post('notes');
-									
-								/*$data=array(
-									'DentistID'=>$_POST['DentistID'],
-									'patient'=>$_POST['patient'],
-									'duedate' => $_POST['due-date'],
-									'duetime' => $_POST['due-time'],
-									'gender' =>$_POST['gender'],
-									'age' => $_POST['age'],
-									'notes' => $_POST['notes'],
-									//'file' => $upload_data['file_name']
-								);*/
-						
-						if($this->MdlOrder->AddOrder($data))
-						{
-							$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->db->insert_id()));
-							$dentist = $this->MdlCustomer->getDentist(array('DentistID'=>$this->input->post('DentistID')));
-							$data['CaseID'] = $info->CaseID;
-							$data['DentistID'] = $dentist->DentistID;
-							$data['fullname'] = $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
-							$data['company'] = $dentist->company;
-							$data['patient'] = $info->patientfirstname;
-							$data['orderdatetime'] = $info->orderdatetime;
-							$data['duedate'] = $info->duedate;
-							$data['duetime'] = $info->duetime;
-							$data['status'] = $info->status;
-							$data['success'] = true;
-							$data['new_count_order'] = $this->MdlOrder->countOrder(array('status'=>'New'));
-						}
-						else
-						{
-							$data['success'] = false;
-						}
-						echo json_encode($data);
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
@@ -417,6 +350,7 @@ class Order extends MX_Controller
 			$this->headercheck();
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
+			$data['status']=$this->MdlOrder->getStatus(array('status_id'=>$info->status_id));
 			$data['casetype'] = $this->MdlOrder->getCaseType();
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['caseitems'] = $this->MdlOrder->getCaseItem(array('CaseID'=>$this->uri->segment(3)));

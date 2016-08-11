@@ -43,7 +43,7 @@ class MdlInvoice extends CI_Model {
 	public function getInvoice($options = array()){
 		//verification
 		if(isset($options['DentistID']))
-			$this->db->like('DentistID', $options['DentistID']);
+			$this->db->where('DentistID', $options['DentistID']);
 
 		if(isset($options['CaseID']))
 			$this->db->where('CaseID', $options['CaseID']);
@@ -53,6 +53,11 @@ class MdlInvoice extends CI_Model {
 
 		if(isset($options['paid']))
 			$this->db->where('paid', $options['paid']);
+
+		if(isset($options['datecreated'])){
+			$this->db->group_by('datecreated');
+			$this->db->order_by('datecreated', 'DESC');
+		}
 
 		if(isset($options['status']))
 			$this->db->where('status', $options['status']);

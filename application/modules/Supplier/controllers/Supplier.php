@@ -8,16 +8,8 @@ class Supplier extends MX_Controller
 		{
 			redirect();
 		}
-		$this->load->module('Dashboard');
-		$this->load->module('Order');
-		$this->load->module('Inventory');
-		$this->load->module('Customer');
-		$this->load->module('PO');
-		$this->load->model('MdlCustomer');
-		$this->load->model('MdlOrder');
-		$this->load->model('MdlInvoice');
-		$this->load->model('MdlSupplier');
-		$this->load->model('MdlPO');
+		
+		echo modules::run('Dashboard/models');
 	
 	}
 	
@@ -85,8 +77,10 @@ class Supplier extends MX_Controller
 									'notes' => $_POST['notes'] 
 									);
 						
-						if($this->MdlSupplier->AddSupplier($supplier))
-							redirect('Supplier');
+						$SupplierID=$this->MdlSupplier->AddSupplier($supplier);
+
+
+						redirect('Supplier');
 
 
 	}

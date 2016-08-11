@@ -8,15 +8,9 @@ class Inventory extends MX_Controller
 		{
 			redirect();
 		}
-		$this->load->module('Customer');
-		$this->load->module('Supplier');
-		$this->load->model('MdlCustomer');
-		$this->load->model('MdlSupplier');
-		$this->load->model('MdlInventory');
+
 		
-
-			
-
+		echo modules::run('Dashboard/models');
 		
 	}
 
@@ -41,7 +35,7 @@ class Inventory extends MX_Controller
 			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('app-inventory',$data);
-			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js">';
+			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
 		else
@@ -183,6 +177,11 @@ class Inventory extends MX_Controller
 	    	}
 		
 		
+	}
+
+	public function countInventory(){
+		 $data=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
+		 echo $data;
 	}
 }
 ?>

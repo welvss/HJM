@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>HJM | Dental Laboratory</title>
+ 
 </head>
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
@@ -10,7 +11,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/app.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/hover-min.css">
 <link rel="shortcut icon" href="<?php echo base_url();?>app/favicon.ico">
-<body class="app">
+<body class="app" onload="notifCase();notifInventory();">
 <!--Sidebar-->
   <div class="ui left vertical sidebar menu" id="app-main-sidebar">
     <div class="app-avatar">
@@ -47,15 +48,11 @@
       </a>
       <a href="<?php echo base_url('Order');?>" class="<?php if($active==3){ echo "active blue";}?> item" id="new_count_sidebar">
         <i class="large file text outline icon" ></i>
-        <?php $this->load->model('Order/MdlOrder'); if($this->MdlOrder->countOrder(array('status_id'=>1))!=0) echo
-     '<div class="ui left label" id="number-notif" >'.$this->MdlOrder->countOrder(array('status_id'=>1)).'</div>';
-      ?>
-    
+        
         Cases
       </a>
-      <a href="<?php echo base_url('Inventory');?>" class="<?php if($active==4){ echo "active blue";}?> item">
+      <a href="<?php echo base_url('Inventory');?>" class="<?php if($active==4){ echo "active blue";}?> item" id="inventory_count_sidebar">
         <i class="large cubes icon"></i>
-         <div class="ui left red label" id="number-notif">9</div>
         Inventory
       </a>
       <a href="<?php echo base_url('PO');?>" class="<?php if($active==5){ echo "active blue";}?> item">

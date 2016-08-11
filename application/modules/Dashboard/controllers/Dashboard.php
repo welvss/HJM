@@ -5,17 +5,13 @@ class Dashboard extends MX_Controller
 	function __construct()
 	{
 		parent::__construct();
+    if($this->session->userdata('is_logged_in') != TRUE)  
+    {
+      redirect();
+    }
+    $this->models();
+    
 
-		$this->load->module('Order');
-		$this->load->module('Customer');
-		$this->load->model('MdlOrder');
-    $this->load->model('MdlInvoice');
-		$this->load->model('MdlCustomer');
-		$this->load->model('MdlDashboard');
-		$this->load->library('form_validation');
-    $this->form_validation->CI =& $this; 
-
-		
 	}
 	
 	public function footer()
@@ -24,6 +20,25 @@ class Dashboard extends MX_Controller
 		$this->load->view('template/footer',$data);
 	}
 
+  function models(){
+    $this->load->module('Dashboard');
+    $this->load->module('Order');
+    $this->load->module('Inventory');
+    $this->load->module('Customer');
+    $this->load->module('PO');
+    $this->load->module('Order');
+    $this->load->module('Supplier');
+    $this->load->model('MdlDashboard');
+    $this->load->model('MdlCustomer');
+    $this->load->model('MdlOrder');
+    $this->load->model('MdlInvoice');
+    $this->load->model('MdlSupplier');
+    $this->load->model('MdlPO');
+    $this->load->model('MdlInventory');
+    $this->load->library('form_validation');
+    $this->form_validation->CI =& $this; 
+
+  }
 
 	function headercheck($data)
 	{	

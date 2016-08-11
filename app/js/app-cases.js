@@ -202,6 +202,10 @@ $( document ).ready(function() {
         $('#OD').val(0);
       }
   });
+
+
+    var x =$('#status_id').val();
+    changeStatus(x);
 });
 
 
@@ -241,8 +245,59 @@ function letterCheck(y) {
 
 }
 
+function changeStatus(val){
+        
+        if(val==1){
+            $('#statuscolor').removeClass();
+            $('#statuscolor').addClass('ui inverted green segment');
+        }
+        if(val==2){
+            $('#statuscolor').removeClass();
+            $('#statuscolor').addClass('ui inverted violet segment');
+            $('#New').hide();
+        }
+        if(val==3){
+            $('#statuscolor').removeClass();
+            $('#statuscolor').addClass('ui inverted blue segment');
+            $('#DI').hide();
+            $('#New').hide();
+            $('#IP').hide();
+            $('#OH').hide();
+            $('#Completed').hide();
+        }
 
+        if(val==4){
+            $('#statuscolor').removeClass();
+            $('#statuscolor').addClass('ui inverted red segment');
+            $('#New').hide();
+            $('#IP').show();
+        }
+}
 
+function updateStatus(val){
+
+  var dataString={
+    CaseID: $('#CID').val(),
+    InvoiceID:$('#InvoiceID').val(),
+    status_id:val,
+  };
+  $.ajax({
+
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/Order/UpdateOrderStatus",
+  data:dataString,
+  success: function(data){
+    
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
 
 
 

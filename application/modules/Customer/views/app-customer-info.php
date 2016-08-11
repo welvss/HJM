@@ -88,7 +88,7 @@
 		  			<h2 class="ui header">
 				<a class="ui red circular label"></a>
 				<div class="content">
-						  PHP 0.00
+						  PHP <?php echo number_format($overdue->Total,2);?>
 				  <div class="sub header">Overdue</div>
 				</div>
 				</h2>
@@ -347,10 +347,10 @@
 			  						<th>Case#</th>
 			  						<th>INVOICE</th>
 			  						<th>PATIENT</th>
-			  						<th>DATE</th>
-			  						<th>DUE</th>
+			  						<th>ORDERED DATE</th>
+			  						<th>DUE DATE</th>
 			  						<th>STATUS</th>
-			  						<th>LAB SLIP</th>
+			  						<th>ACTIONS</th>
 			  					
 			  					</tr>
 			  				</thead>
@@ -377,39 +377,55 @@
 											'</td>
 											<td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
 											<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
-											<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>';
-											echo
-											
-											'<td>
-												'.form_open('Order/UpdateOrderStatus').form_hidden('CaseID',$case->CaseID).form_hidden('DentistID',$this->uri->segment(3)).'
-						 						<div class="ui form">
-													<div class="ten wide field">
-													 <select name="status_id">';
-														foreach($status as $s)
-														{
-
-														   echo '<option value="'.$s->status_id.'"';  if($case->status_id==$s->status_id)echo 'selected'; else echo ' '; echo '>'.$s->status.'</option>';
-														
-														}
-												
-													echo
-													 '</select>
-													</div>
-											    </div>	
-											    <button type="submit" class="ui blue button" value="submit">
-									  			<i class="green check icon"></i>
+											<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+											<td><center>';
+											foreach ($status as $stat){
+												if($stat->status_id==$case->status_id){
+												 	if($stat->status_id==1)
+												 		echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+												 	else
+												 	if($stat->status_id==2)
+												 		echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+												 	else
+												 	if($stat->status_id==3)
+												 		echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+												 	else
+												 	if($stat->status_id==4)
+												 		echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+												}
+												 	
+											}		
+	
+				  			
+									  		echo			
+											'</center></td>
+											<td>
+											<center>';
+											if($case->status_id!=3){
+												echo
+												'<a href="'.base_url('Order/Info/'.$case->CaseID).'" class="ui blue button">
+												<i class="green check icon"></i>
+									  			Update
+									  			</a>
+									  			<br><br>';
+									  		}else{
+									  			echo
+												'<button class="ui blue button" disabled>
+												<i class="green check icon"></i>
 									  			Update
 									  			</button>
-									  			</form>				
+									  			<br><br>';
+									  		}
+
+											echo
+												'<button class="ui blue button" onClick="printRX(this.value);" value="'.base_url('Order/RX/'.$case->CaseID).'">
+													<i class="file icon"></i>
+													View&nbsp;RX
+												</button>
+												&nbsp;	
+											</center>		
 											</td>
-											<td>
-												<button class="ui blue button" onClick="printRX(this.value);" value="'.base_url('index.php/Order/RX/'.$case->CaseID).'">
-									  			<i class="file icon"></i>
-									  			View
-									  			</button>				
-											</td>
-											
-											
+																
 
 										</tr>';
 								}
@@ -877,7 +893,7 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" placeholder="Last Name">
+							    <input type="date" name="duedate" placeholder="Last Name" class="datepicker">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>

@@ -62,6 +62,8 @@
 		  	  										Case Number
 		  	  										<div class="sub header">
 		  	  											<h2><strong><?php echo $case->CaseTypeID.'-'.$case->CaseID;?></strong></h2>
+		  	  											<input type="hidden" id="CID" value="<?php echo $case->CaseID;?>"/>
+		  	  											<input type="hidden" id="InvoiceID" value="<?php echo $invoice->InvoiceID;?>"/>
 		  	  										</div>
 		  	  									</div>
 		  	  								</div>
@@ -69,47 +71,29 @@
 		  	  						</div>
 		  	  					</div>
 		  	  				</div>
-				  		</div>	
+				  		</div>
+
 				  		<div class="eight wide column">
 				  			<div class="ui teal segment">
 				  				<h3 class="ui header">
 				  					<?php echo $case->patientlastname.', '.$case->patientfirstname;?>
 				  				</h3>
 				  				<hr>
-				  			<?php 
-				  				if($case->status_id == 2)
-				  				{
-					  				echo
-					  				'<div class="ui inverted violet segment">
-					  					<label for="">Status:</label>
-					  				<i class="lab icon"></i>In Production
-					  				</div>';
-					  			}
-					  			if($case->status_id == 1)
-					  			{
-					  				echo
-					  				'<div class="ui inverted green segment">
-					  					<label for="">Status:</label>
-					  				<i class="file text outline icon"></i>New
-					  				</div>';
-					  			}
-					  			if($case->status_id == 4)
-					  			{
-					  				echo
-					  				'<div class="ui inverted red segment">
-					  					<label for="">Status:</label>
-					  				<i class="warning circle icon"></i>On Hold
-					  				</div>';
-					  			}
-					  			if($case->status_id == 3)
-					  			{
-					  				echo
-					  				'<div class="ui inverted blue segment">
-					  					<label for="">Status:</label>
-					  				<i class="check icon"></i>Completed
-					  				</div>';
-				  				}
-				  			?>
+				  				<div class="" id="statuscolor">
+									<label for="">Status:</label>
+									<div class="ui dropdown">
+										<input type="hidden"    id="status_id"  onchange="changeStatus(this.value);updateStatus(this.value);" value="<?php echo $case->status_id;?>">
+										<div class="text"></div>
+											<i class="dropdown icon" id="DI"></i>
+											<div class="menu">
+											<div class="item" data-value="1" id="New"><i class="file text outline icon hvr-wobble-vertical"></i>New</div>
+											<div class="item" data-value="2" id="IP"><i class="lab icon"></i> In Production</div>
+											<div class="item" data-value="3" id="Completed"><i class="circle check icon hvr-float"></i>Completed </div>
+											<div class="item" data-value="4" id="OH"><i class="warning circle icon hvr-buzz"></i>On Hold</div>
+										</div>
+									</div>
+								</div>	
+				  			
 					  			<div class="ui horizontal segments">
 					  				<div class="ui segment">
 					  					<div class="ui small statistic">
@@ -370,6 +354,7 @@
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
 			  		<h3><label id="CaseID"><?php echo $case->CaseTypeID;?></label>-<?php echo $case->CaseID;?></h3>
+
 			  	</div>
 			  </div>
 		  		<div class="ui teal segment">
@@ -808,7 +793,7 @@
 	  						</div>
 	  						<div class="field">
 	  							<label>Due Date</label>
-	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>">
+	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>" class="datepicker">
 	  						</div>
 	  					</div>
 	  				</div>

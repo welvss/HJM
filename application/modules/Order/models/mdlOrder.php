@@ -60,8 +60,13 @@ class MdlOrder extends CI_Model {
 
 	function getStatus($options = array())
 	{
-		
+		if(isset($options['status_id']))
+			$this->db->where('status_id',$options['status_id']);
+
 		$query = $this->db->get("tblstatus");
+		
+		if(isset($options['status_id']))
+			return $query->row(0);
 		
 		return $query->result();
 	}

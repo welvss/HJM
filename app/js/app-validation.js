@@ -177,6 +177,10 @@ function test(){
 
 $(document).ready(function(){
 
+$(function() {
+  $(".datepicker").datepicker({ minDate: 0});
+});
+
 $('.ui.form')
   .form({
     fields: {

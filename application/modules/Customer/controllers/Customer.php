@@ -8,14 +8,12 @@ class Customer extends MX_Controller
 		{
 			redirect();
 		}
-		$this->load->module('Dashboard');
-		$this->load->module('Order');
-		$this->load->model('MdlOrder');
-		$this->load->model('MdlInvoice');
-		$this->load->model('MdlCustomer');
+		
 		$this->load->library('form_validation');
    		$this->form_validation->CI =& $this; 
 		
+		
+		echo modules::run('Dashboard/models');
 	
 	}
 	
@@ -49,7 +47,8 @@ class Customer extends MX_Controller
 	{
 		$this->headercheck();
 		$data['casetype'] = $this->MdlOrder->getCaseType();
-		$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3)));
+		$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3),'status'=>1));
+		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
 		$data['Count']	= $this->MdlOrder->countOrder(array());
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
@@ -110,8 +109,10 @@ class Customer extends MX_Controller
 									'shipbrgy' => $brgy,
 									'notes' => $_POST['notes'] );
 						
-						if($this->MdlCustomer->AddDentist($dentist))
-							redirect('Customer');
+						$DentistID=$this->MdlCustomer->AddDentist($dentist);
+						
+
+						redirect('Customer');
 			}
 	
 
