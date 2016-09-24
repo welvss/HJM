@@ -80,10 +80,10 @@ class Dashboard extends MX_Controller
       $data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
       $data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));
       $data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
-			$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1));
-			$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2));
-			$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3));
-			$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4));
+			$data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>''));
+			$data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>''));
+			$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>''));
+			$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
 
 			$this->load->view('a-dashboard',$data);
 			$this->footer();		

@@ -372,7 +372,7 @@ $config['encryption_key'] = '7bcadddd9518bf123483efd133d7b956ad1d87d125323aa5294
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
+$config['sess_cookie_name'] = 'hjm_session';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;

@@ -213,7 +213,6 @@ class CI_Config {
 		{
 			return '';
 		}
-
 		return rtrim($this->config[$item], '/').'/';
 	}
 

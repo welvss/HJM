@@ -233,7 +233,7 @@
 </div>
 	<!--New Case-->
 	<div class="ui modal large case">
-	  <?php echo form_open('Order/AddOrder','class="ui form"');?>
+	  <?php echo form_open_multipart('Order/AddOrder','class="ui form"');?>
 	  	<?php echo form_hidden('module',2);?>
 
 	  		<div class="ui inverted teal segment">
@@ -519,7 +519,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" >
+								    <input type="file" id="file" name="file" size="20"/>
 							</div>
 							<div class="ui header">
 					  				Due
@@ -555,7 +555,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit" id="casesubmit">
+						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit" name="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

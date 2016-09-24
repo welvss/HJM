@@ -155,13 +155,14 @@
 				  							<td><?php echo $case->Type;?></td>
 				  							<td>
 				  								<?php 
+				  								$teeth = explode(',',$case->teeth);
 				  								$ctr= count($teeth);
 				  								$i=0;
 				  								foreach ($teeth as $tooth) {
 				  								if(++$i != $ctr)
-				  								echo $tooth->teeth.', ';
+				  								echo $tooth.', ';
 				  								else
-				  								echo $tooth->teeth;
+				  								echo $tooth;
 				  								}
 				  								?>
 				  							</td>
@@ -197,6 +198,11 @@
 	  	  						Attachments
 	  	  						<hr>
 	  	  					</h3>
+	  	  					<?php
+	  	  					if($case->file!=null)
+	  	  					echo
+	  	  					'<img class="ui centered large image" src="'.base_url('uploads/'.$case->file).'" alt="">';
+	  	  					?>
 	  	  				</div>
 	  	  			</div>
 	  	  		</div>
@@ -243,15 +249,20 @@
 		  	  					<div class="six wide column">
 		  	  						<button type="submit" class="ui button mode invoice-modal">
 											  Edit Invoice
-									</button>
-		  	  					'.form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
+									</button>';
 
-									
-									<button class="ui green button mode">
-											  Approve Invoice
-									</button>
-									</form>
-		  	  					</div>
+								if($invoice->datecreated!=null){
+									echo
+										form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
+
+										
+										<button class="ui green button mode">
+												  Approve Invoice
+										</button>
+										</form>';
+								}
+							echo
+		  	  					'</div>
 		  	  				</div>
 		  	  			</div>';
 	  	  			}
@@ -399,6 +410,7 @@
  				  	<label>Teeth</label>
  				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth" <?php if($invoice->status==1) echo 'disabled';?>>
  				  	<?php 
+ 				  	$teeth = explode(',', $case->teeth);
  				  	$i =1;
  				  	$ctr= count($teeth);
  				  	$j=1;
@@ -410,7 +422,7 @@
 	 				  	foreach ($teeth as $tooth) 
 	 				  	{
 	 				  		
-			 				if($tooth->teeth == $i)
+			 				if($tooth == $i)
 			 				{
 			 				  	echo '<option value="'.$i.'" selected>'.$i.'</option>';
 
@@ -481,6 +493,7 @@
 					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
 					      
 					    <?php 
+					    $caseitems = explode(',',$case->items);
 					     $bool=false;
 					     $positive=false;
 					     
@@ -490,7 +503,7 @@
 			
 							    foreach ($caseitems as $ci) 
 							    {
-							    	if($ci->ItemID==$item->ItemID)
+							    	if($ci==$item->ItemID)
 							   			$positive=true;
 							   		
 							   		
@@ -727,7 +740,7 @@
 						<?php
 						if($invoice->status!=1) 
 						echo
-						    '<button class="ui animated teal right button" tabindex="0" type="submit" value="submit" id="casesubmit">
+						    '<button class="ui animated teal right button" tabindex="0" name="submit" type="submit" value="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -745,10 +758,7 @@
 	<!--Invoice-->
 	<div class="ui modal fullscreen invoice">
 	
-	  	<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
-	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
-	  	<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
-	  	<?php echo form_hidden('InvoiceID',$invoice->InvoiceID);?>
+	  	
 
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
@@ -756,6 +766,10 @@
 					  Invoice
 				  </div>
 	  		</div>
+	  		<?php echo form_open('Invoice/addInvoice','class="ui form"');?>
+	  		<?php echo form_hidden('DentistID',$case->DentistID);?>
+	  		<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
+	  		<?php echo form_hidden('InvoiceID',$invoice->InvoiceID);?>
 	  		<div class="ui grid">
 		  		<div class="two column row">
 					<div class="column">
@@ -819,6 +833,7 @@
 		  			<tbody id="Add">
 		  			<?php 
 		  			$ctr=1;
+		  			$caseitems = explode(',',$case->items);
 		  			$x=count($caseitems);
 
 		  			foreach ($items as $item) 
@@ -826,7 +841,7 @@
 		  				
 		  				foreach ($caseitems as $ci) 
 		  				{
-		  					if($ci->ItemID==$item->ItemID)
+		  					if($ci==$item->ItemID)
 		  					{
 				  				echo
 				  				'<tr id="Row'.$ctr.'">
@@ -836,7 +851,7 @@
 				  					$available=false;
 				  					foreach ($invoiceitems as $ii) {
 				  						
-				  						if($ii->ItemID==$ci->ItemID){
+				  						if($ii->ItemID==$ci){
 					  						echo
 						  					'<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');"  value="'.$ii->QTY.'" ><br></td>
 						  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');" value="'.$ii->Amount.'" ></td>

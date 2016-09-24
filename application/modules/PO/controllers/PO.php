@@ -77,7 +77,7 @@ class PO extends MX_Controller
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  ){
 						
 
-						
+					if($_POST['submit'])
 						$data=array(
 									'SupplierID'=>$_POST['SupplierID'],
 									'orderdatetime'=>date('Y-m-d H:i:s'),

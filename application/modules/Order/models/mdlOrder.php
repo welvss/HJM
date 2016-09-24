@@ -6,56 +6,7 @@ class MdlOrder extends CI_Model {
 		parent:: __construct();
 	}
 	
-	function deleteTeeth($options=array())
-	{	
 	
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->delete('tblcaseteeth');	
-		return true;
-	}
-	function deleteItems($options=array())
-	{	
-	
-		$this->db->where('CaseID', $options['CaseID']);
-		$this->db->delete('tblcaseitem');	
-		return true;
-	}
-
-	function InsertCaseTeeth($options=array())
-	{
-		$this->db->insert('tblcaseteeth', $options);	
-		return $this->db->insert_id();
-	}
-
-	function InsertCaseItem($options=array())
-	{
-		$this->db->insert('tblcaseitem', $options);	
-		return $this->db->insert_id();
-	}
-	
-	function getCaseItem($options = array())
-	{
-		
-		$this->db->like('CaseID', $options['CaseID']);
-		$query = $this->db->get("tblcaseitem");
-		return $query->result();
-	}
-
-	function getCaseTeeth($options = array())
-	{
-		//verification
-		
-		
-		
-	
-		$this->db->like('CaseID', $options['CaseID']);
-		$query = $this->db->get("tblcaseteeth");
-		
-		
-		
-		//die($this->db->last_query());
-		return $query->result();
-	}
 
 
 	function getStatus($options = array())
@@ -71,16 +22,6 @@ class MdlOrder extends CI_Model {
 		return $query->result();
 	}
 
-	function countOrder($options=array())
-	{
-		if(isset($options['DentistID']))
-			$this->db->where('DentistID',$options['DentistID']);
-
-		if(isset($options['status_id']))
-			$this->db->where('status_id',$options['status_id']);
-
-		return $query = $this->db->count_all_results('tblcase');
-	}
 
 	
 	function getCaseType($options = array())
@@ -144,6 +85,9 @@ class MdlOrder extends CI_Model {
 
 		if(isset($options['file']))
 			$this->db->like('file', $options['file']);
+
+		if(isset($options['status_id']))
+			$this->db->where('status_id',$options['status_id']);
 
 
 		if(isset($options['limit']) && isset($options['offset']))
@@ -242,6 +186,17 @@ class MdlOrder extends CI_Model {
 
 		if(isset($options['file']))
 			$this->db->set('file', $options['file']);
+
+		if(isset($options['teeth']))
+			$this->db->set('teeth', $options['teeth']);
+
+		if(isset($options['items']))
+			$this->db->set('items', $options['items']);
+
+		
+		if(isset($options['status_id']))
+			$this->db->set('status_id', $options['status_id']);
+		
 
 		
 		$this->db->where('CaseID', $options['CaseID']);

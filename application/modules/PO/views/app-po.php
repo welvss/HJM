@@ -360,7 +360,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit" >
+						    <button class="ui animated green right button" tabindex="0" name="submit" type="submit" value="submit" >
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
