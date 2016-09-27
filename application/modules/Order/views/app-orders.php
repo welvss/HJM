@@ -33,12 +33,13 @@
 		  	<div class="eight wide column">
 		  	<br>
 		  		<div class="ui tiny statistics">
+		  					<input type="hidden" id="stat">
 							  <div class="green statistic">
 							    <div class="value" id="new_count_order">
 							      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $New;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">New Cases</a>
+							      <a href="#" onclick="filterStatus('New');">New Cases</a>
 							    </div>
 							  </div>
 							  <div class="purple statistic">
@@ -46,7 +47,7 @@
 							      <i class="lab icon hvr-buzz-out"></i> <?php echo $IP;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">In Production</a>
+							      <a href="#" onclick="filterStatus('In Production');">In Production</a>
 							    </div>
 							  </div>
 							  <div class="blue statistic">
@@ -54,7 +55,7 @@
 							      <i class="circle check icon hvr-float"></i> <?php echo $Completed;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">Completed Cases</a>
+							      <a href="#"  onclick="filterStatus('Completed');">Completed Cases</a>
 							    </div>
 							  </div>
 							  <div class="red statistic">
@@ -62,7 +63,7 @@
 							      <i class="warning circle icon hvr-buzz"></i> <?php echo $Hold;?>
 							    </div>
 							    <div class="label">
-							    <a href="#">On Hold</a>
+							    <a href="#" onclick="filterStatus('On Hold');">On Hold</a>
 							    </div>
 							  </div>
 				</div>
@@ -85,32 +86,7 @@
 						  <div class="results"></div>
 						</div>
 				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
-				    </div>
+				    <div id="print"></div>
 				    </div>
 	  			</div>
 	  </div>
@@ -315,7 +291,7 @@
 		  			<div class="eight wide field">
 		  				<div class="eight wide field">
 					  <label>Type</label>
-					    <select name="Type" class="ui fluid dropdown">
+					    <select name="Type" class="ui fluid dropdown" onchange="getCaseType(this.value);">
 					      <option value=""></option>
 					      <option value="FIXED">Fixed</option>
 					      <option value="RPD">RPD</option>
@@ -327,13 +303,8 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Product</label>
-					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
-					    <?php 
-					      echo '<option value=""></option>';
-					      foreach ($casetype as $ct) {
-					      	echo '<option value="'.$ct->CaseTypeID.'">'.$ct->CaseTypeDesc.'</option>';
-					      } 
-					    ?>
+					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
+					    
 					    </select>
 				  </div>
 		  		  <div class="eight wide field">

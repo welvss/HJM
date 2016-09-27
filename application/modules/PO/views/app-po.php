@@ -32,7 +32,7 @@
 							      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $Draft;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">Draft</a>
+							      <a href="#" onclick="filterStatus('Draft');">Draft</a>
 							    </div>
 							  </div>
 							  <div class="purple statistic">
@@ -40,7 +40,7 @@
 							      <i class="lab icon hvr-buzz-out"></i> <?php echo $Approved;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">Approved</a>
+							      <a href="#" onclick="filterStatus('Approved');">Approved</a>
 							    </div>
 							  </div>
 							  <div class="blue statistic">
@@ -48,7 +48,7 @@
 							      <i class="circle check icon hvr-float"></i> <?php echo $PR;?>
 							    </div>
 							    <div class="label">
-							      <a href="#">Received</a>
+							      <a href="#" onclick="filterStatus('Received');">Received</a>
 							    </div>
 							  </div>
 							 
@@ -72,32 +72,7 @@
 						  <div class="results"></div>
 						</div>
 				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
-				    </div>
+				    <div id="print"></div>
 				    </div>
 	  			</div>
 	  </div>

@@ -37,6 +37,7 @@
 	  	</div>
 	  	<div class="six wide right aligned column">
 	  	<br><br>
+			<!--
 		  	<div class="ui horizontal list">
 		  		<div class="item">
 		  			<h2 class="ui header">
@@ -57,10 +58,17 @@
 				</h2>
 		  		</div>
 		  	</div>
+			-->
 	  	</div>
 	  </div>    
 	  </div>
-	  <!--Tab-->
+
+
+
+
+
+
+	
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="fourteen wide column centered grid">
@@ -183,32 +191,7 @@
 									  <div class="results"></div>
 									</div>
 							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
+							    <div id="printcase"></div>
 							    </div>
 				  			</div>
 				  		</div>

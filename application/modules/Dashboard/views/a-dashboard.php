@@ -86,12 +86,12 @@
 					<div class="ui segment">
 						<div class="ui large header">Case Statistics</div>
 						<div class="ui statistics">
-						  <div class="green statistic">
+						  <div class="green statistic testing">
 						    <div class="value" id="new_count_dashboard">
-						      <i class="file text outline icon hvr-wobble-vertical"></i> <?php echo $New;?>
+						      <i class="file text outline icon hvr-wobble-vertical ">1</i> <?php echo $New;?>
 						    </div>
 						    <div class="label">
-						      <a href="#">New Cases</a>
+						      <a href="#" >New Cases</a>
 						    </div>
 						  </div>
 						  <div class="purple statistic">
@@ -277,5 +277,32 @@
 	   		</div>
 	  </div>
 	  </div>
+</div>
+
+<div class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Archive Old Messages
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui cancel red basic inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui ok green basic inverted button">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
 </div>
 

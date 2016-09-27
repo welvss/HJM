@@ -103,6 +103,46 @@ class MdlPO extends CI_Model {
 		return $query->result();
 	}
 
+	public function addPOTotal($options = array()){
+		//verification
+		if(isset($options['SupplierID']))
+			$this->db->where('SupplierID', $options['SupplierID']);
+
+		if(isset($options['POID']))
+			$this->db->where('POID', $options['POID']);
+
+		if(isset($options['POStatusID']))
+			$this->db->where('POStatusID', $options['POStatusID']);
+
+		if(isset($options['paid']))
+			$this->db->where('paid', $options['paid']);
+
+
+		if(isset($options['paid']) && isset($options['duedate'])){
+			$this->db->select_sum('Total');
+			$this->db->where('duedate <',$options['duedate']);
+			$this->db->where('paid', $options['paid']);
+		}
+
+
+		if(isset($options['paid'])  && !isset($options['duedate'])){
+			$this->db->select_sum('Total');
+			$this->db->where('paid', $options['paid']);
+		}
+		
+	
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		$query = $this->db->get("tblinvoice");
+
+		if(isset($options['InvoiceID']) || isset($options['paid']) || isset($options['CaseID']))
+			return $query->row(0);
+		
+		return $query->result();
+		
+	}
+
 	
 	function AddPO($options = array())
 	{

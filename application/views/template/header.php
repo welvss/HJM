@@ -7,11 +7,12 @@
 </head>
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/datatables.net-dt/css/buttons.dataTables.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/app.css">
 <link rel="stylesheet" href="<?php echo base_url();?>app/css/hover-min.css">
 <link rel="shortcut icon" href="<?php echo base_url();?>app/favicon.ico">
-<body class="app" onload="notifCase();notifInventory();">
+<body class="app" onload="getNotif();">
 <!--Sidebar-->
   <div class="ui left vertical sidebar menu" id="app-main-sidebar">
     <div class="app-avatar">
@@ -80,8 +81,8 @@
       </div>
       <div class="right menu">
         <div class="ui transparent inverted icon input">
-          <input type="text" placeholder="Search HJM Dental La..">
-          <i class="search icon"></i>
+          
+        
         </div>
       </div>
       </div>

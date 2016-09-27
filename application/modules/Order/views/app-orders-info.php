@@ -130,7 +130,7 @@
 				  					Tooth Selection
 				  				</h3>
 				  				<hr>
-				  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
+				  			<img class="ui centered large image" src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  				</div>
 	  	  			</div>
 	  	  			<div class="ten wide column">
@@ -352,8 +352,8 @@
 	<div class="ui modal large case">
 	<?php echo form_open('Order/EditOrder','class="ui form"');?>
 	 
-	  	<?php echo form_hidden('CaseID',$this->uri->segment(3));?>
-
+	  
+			<input type="hidden" name="CaseID" id="CaseIDhidden" value="<?php echo $this->uri->segment(3);?>">
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
 				  <i class="large file text outline icon"></i>
@@ -364,7 +364,7 @@
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>
 			  	<div class="ui header">
-			  		<h3><label id="CaseID"><?php echo $case->CaseTypeID;?></label>-<?php echo $case->CaseID;?></h3>
+			  		<h3 id="Case"><label ><?php echo $case->CaseTypeID;?></label>-<?php echo $case->CaseID;?></h3>
 
 			  	</div>
 			  </div>
@@ -464,7 +464,7 @@
 		  			<div class="eight wide field">
 		  				<div class="eight wide field">
 					  <label>Type</label>
-					    <select name="Type" class="ui fluid dropdown" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <select name="Type" class="ui fluid dropdown" onchange="getCaseType(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
 					      <option value=""></option>
 					      <option value="FIXED" <?php if($case->Type=="FIXED") echo 'selected';?>>Fixed</option>
 					      <option value="RPD" <?php if($case->Type=="RPD") echo 'selected';?>>RPD</option>
@@ -476,7 +476,7 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Product</label>
-					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="changeID(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid dropdown" onchange="getIDs(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
 					    <?php 
 					      echo '<option value=""></option>';
 					      foreach ($casetype as $ct) {

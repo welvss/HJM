@@ -151,14 +151,43 @@ function checkItemCode(val) {
   });
 }
 
+function getCaseType(val) {
+  $.ajax({
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/Order/getCaseType",
+  data:'Type='+val,
+  success: function(data){
+    $('#CaseTypeID').dropdown('clear');
+     $('#CaseTypeID').dropdown();
+    $('#items').dropdown('clear');
+    $('#CaseID').html('');
+    $('#Case').html('');
+    $('#CaseTypeID').val();
+    $('#CaseTypeID').html(data);
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
 
+  });
+}
 
 
 
 function getID(val){
     $.get("http://"+window.location.hostname+"/HJM/Order/getCount", function(data){
-        $("#CaseID").text(val+'-'+data);
+        if(val!='')
+        $("#CaseID").html('<label>'+val+'-'+data+'</label>');
     });
+}
+
+function getIDs(val){
+        var x =$('#CaseIDhidden').val();
+        $("#Case").html('<label>'+val+'-'+x+'</label>');
+   
 }
 
 

@@ -2,6 +2,10 @@
     <script src="<?php echo base_url();?>app/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo base_url();?>app/bower_components/semantic/dist/semantic.min.js"></script>
     <script src="<?php echo base_url();?>app/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url();?>app/bower_components/datatables.net/js/dataTables.buttons.min.js"></script>
+    <script src="<?php echo base_url();?>app/bower_components/datatables.net/js/buttons.print.min.js"></script>
+    <script src="<?php echo base_url();?>app/bower_components/datatables.net/js/buttons.html5.min.js"></script>
+    <script src="<?php echo base_url();?>app/bower_components/datatables.net/js/buttons.colVis.min.js"></script>
     <?php echo $script;?>
    <!-- <script src="<?php echo base_url();?>node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
   	<script src="<?php echo base_url();?>app/js/socketio.js"></script>-->

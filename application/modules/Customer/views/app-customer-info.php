@@ -120,32 +120,10 @@
 									  <div class="results"></div>
 									</div>
 							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
+							    <div  id="printtransaction">
+				    	
+				    	
+				    			</div>
 							    </div>
 				  			</div>
 				  		</div>
@@ -311,32 +289,10 @@
 									  <div class="results"></div>
 									</div>
 							    </div>
-							    <div class="right floated right aligned eight wide column">
-							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-							    	<a class="ui icon top left pointing dropdown">
-									  <i class="setting big icon"></i>
-									  <div class="menu">
-									    <div class="header">Columns</div>
-									    <div class="ui checkbox input">
-										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Phone</label>
-										</div>
-										<div class="ui checkbox input">
-										  <input type="checkbox" name="example">
-										  <label>Email</label>
-										</div>
-										<div class="ui divider"></div>
-										<div class="item">
-											Close
-										</div>
-									  </div>
-									</a>
-							    </div>
+							     <div  id="printcase">
+				    	
+				    	
+				    			</div>
 							    </div>
 				  			</div>
 				  		</div>
@@ -601,11 +557,12 @@
 		  			
 
 	</div>
-<!--New Case-->
+
+	
+		<!--New Case-->
 	<div class="ui modal large case">
-	  <?php echo form_open('Order/AddOrder','class="ui form"');?>
-	  <?php echo form_hidden('DentistID',$this->uri->segment(3));?>
-	  	<?php echo form_hidden('module',1);?>
+	  <?php echo form_open_multipart('Order/AddOrder','class="ui form"');?>
+	  	<?php echo form_hidden('module',2);?>
 
 	  		<div class="ui inverted teal segment">
 	  			  <div class="ui header">
@@ -628,12 +585,12 @@
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient First Name</label>
-		  				<input type="text" name="patientfirstname" placeholder="First Name" id="pfirstname" onkeyup="Casevalidation();">
+		  				<input type="text" name="patientfirstname" placeholder="First Name" id="pfirstname" onkeyup="letterCheck('pfirstname');">
 		  			</div>
 		  			<div class="four wide field">
 		  				<label>Patient Last Name</label>
-		  				<input type="text" name="patientlastname" placeholder="Last Name" id="plastname" onkeyup="Casevalidation();">
-		  			</div>	  	
+		  				<input type="text" name="patientlastname" placeholder="Last Name" id="plastname" onkeyup="letterCheck('plastname');">
+		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
 					    <select name="gender">
@@ -644,7 +601,7 @@
 				  </div>
 				   <div class="one wide field">
 				    <label>Age</label>
-				    <input type="text" name="age">
+				    <input type="text" name="age" onkeyup="numberCheck(0);" id="age">
 				  </div>
 		  		</div>
 		  		</div>
@@ -674,12 +631,13 @@
  		  		</div>
 		  		</div>
 		  	</div>
+
 		  	<div class="eight wide column">
 		  		<div class="ui vertical teal segment">
 		  			<div class="eight wide field">
 		  				<div class="eight wide field">
 					  <label>Type</label>
-					    <select name="Type" class="ui fluid dropdown">
+					    <select name="Type" class="ui fluid dropdown" onchange="getCaseType(this.value);">
 					      <option value=""></option>
 					      <option value="FIXED">Fixed</option>
 					      <option value="RPD">RPD</option>
@@ -689,19 +647,14 @@
 		  			</div>
 		  		</div>
 		  		<div class="ui vertical teal segment">
-		  		  	<div class="eight wide field">
-					  	<label>Product</label>
-					    <select name="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
-					    <?php 
-					      echo '<option value=""></option>';
-					      foreach ($casetype as $ct) {
-					      	echo '<option value="'.$ct->CaseTypeID.'">'.$ct->CaseTypeDesc.'</option>';
-					      } 
-					    ?>
-					    </select>
-				  	</div>
 		  		  <div class="eight wide field">
-					  	<label>Item</label>
+					  <label>Product</label>
+					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
+					    
+					    </select>
+				  </div>
+		  		  <div class="eight wide field">
+					  <label>Item</label>
 					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
 					      
 					      <?php 
@@ -753,7 +706,7 @@
 						  </div>
 						  <div class="five wide field">
 						  	<select name="shade2">
-						  		<option value=""></option>
+						  		<option value="">Select Shade</option>
 						  		<option value="A1">A1</option>
 						  		<option value="A2">A2.5</option>
 						  		<option value="A3">A3</option>
@@ -801,7 +754,7 @@
 		  			</div>
 		  		</div>			
 		  		</div>
-				<div class="row">
+				  <div class="row">
 				  	<div class="ten wide column">
 				  		<div class="ui teal segment">
 				  			<div class="ui grid">
@@ -883,9 +836,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" onchange="test();">
-								<div id="test"></div>
-							
+								    <input type="file" id="file" name="file" size="20"/>
 							</div>
 							<div class="ui header">
 					  				Due
@@ -893,11 +844,11 @@
 							<div class="fields">
 								<div class="field">
 							    <label>Due Date</label>
-							    <input type="date" name="duedate" placeholder="Last Name" class="datepicker">
+							    <input type="date" name="duedate" placeholder="Last Name" id="duedate">
 							  </div>
 							  <div class="field">
 							    <label>Due Time</label>
-							    <input type="time" name="duetime" placeholder="Last Name">
+							    <input type="time" name="duetime" placeholder="Last Name" id="duetime" class="datepicker">
 							  </div>
 							</div>
 							  <div class="field">
@@ -910,6 +861,7 @@
 				  	</div>
 				</div>
 	  			<div class="two column row">
+
 					<div class="nine wide column hidden">
 						<div class="five wide column hidden">
 							<div id="caseerror"></div>
@@ -920,7 +872,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated teal right button" tabindex="0" name="submit" type="submit" value="submit" id="casesubmit">
+						    <button class="ui animated teal right button" tabindex="0" type="submit" value="submit" name="submit" id="casesubmit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

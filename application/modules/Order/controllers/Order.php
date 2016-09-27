@@ -89,7 +89,8 @@ class Order extends MX_Controller
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{				
-				if($_POST['submit']){	
+				if($_POST['submit']){
+					if($_POST['file']){	
 						$config['upload_path']          = './uploads/';
                 		$config['allowed_types']        = 'gif|jpg|png';
                 		$config['max_size']             = 100;
@@ -100,14 +101,16 @@ class Order extends MX_Controller
 						if ( ! $this->upload->do_upload('file'))
 		                {
 		                    $error = array('error' => $this->upload->display_errors());
-
+		                    die($this->upload->display_errors());
 		                   
 		                }
                 		
-                		else{
+                		else
                 			 $data = $this->upload->data();
                 			 
-                			
+                	}
+                	else 
+                		$data['file_name']	='';	
 							$data=array(
 									'DentistID'=>$_POST['DentistID'],
 									'patientfirstname'=>$_POST['patientfirstname'],
@@ -160,10 +163,11 @@ class Order extends MX_Controller
 						
 								
 							}
-					}
+					
 				}
 				else
 					redirect('Order');
+
 						
 					
 						
@@ -315,7 +319,7 @@ class Order extends MX_Controller
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['status']=$this->MdlOrder->getStatus(array('status_id'=>$info->status_id));
-			$data['casetype'] = $this->MdlOrder->getCaseType();
+			$data['casetype'] = $this->MdlOrder->getCaseType(array('Type'=>$info->Type));
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice->InvoiceID));
@@ -334,7 +338,7 @@ class Order extends MX_Controller
 			
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
-			$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$this->uri->segment(3)));	
+			
 			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('rx-slip',$data);
 			
@@ -370,6 +374,16 @@ class Order extends MX_Controller
     	echo json_encode($data);
     }
 
+
+
+    public function getCaseType(){
+    	$data = $this->MdlOrder->getCaseType(array('Type'=>$_POST['Type']));
+    	foreach ($data as $datus) {
+    		echo '<option value="'.$datus->CaseTypeID.'">'.$datus->CaseTypeDesc.'</option>';
+    	}
+    	
+
+    }
 
 	
 	

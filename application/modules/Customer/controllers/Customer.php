@@ -35,7 +35,11 @@ class Customer extends MX_Controller
 		$this->headercheck();
 		if($this->session->userdata('ps_id')==2 )
 		{	
-			$data['dentists'] = $this->MdlCustomer->getDentist();	
+			$data['dentists'] = $this->MdlCustomer->getDentist();
+			$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
+      		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+      		$data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));
+     		$data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));	
 			$this->load->view('app-customer',$data);
 			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
@@ -49,16 +53,16 @@ class Customer extends MX_Controller
 		$data['casetype'] = $this->MdlOrder->getCaseType();
 		$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3),'status'=>1));
 		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
-		$data['Count']	= $this->MdlOrder->countOrder(array());
+		$data['Count']	= $this->MdlOrder->getOrder(array('count'=>''));
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
 		$data['status'] = $this->MdlOrder->getStatus();
 		$data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->uri->segment(3)));	
-		$data['New'] = $this->MdlOrder->countOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3)));
-		$data['IP'] = $this->MdlOrder->countOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3)));
+		$data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'DentistID'=>$this->uri->segment(3),'count'=>''));
+		$data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'DentistID'=>$this->uri->segment(3),'count'=>''));
 		$data['items'] = $this->MdlInventory->getItem(array());
-		$data['Completed'] = $this->MdlOrder->countOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3)));
-		$data['Hold'] = $this->MdlOrder->countOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3)));
+		$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3),'count'=>''));
+		$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3),'count'=>''));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);

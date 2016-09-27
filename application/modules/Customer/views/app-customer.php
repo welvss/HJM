@@ -16,15 +16,15 @@
 	  	<div class="thirteen wide column centered grid">
 				 <div class="ui horizontal segments income">
 					  <button class="ui segment openInvoices hvr-sweep-to-bottom">
-					    <h3>PHP 13, 000</h3>
-					    <p class="sub-header"><span><strong>0</strong></span> OPEN INVOICES</p>
+					    <h3>PHP <?php echo number_format($sum->Total,2);?></h3>
+					    <p class="sub-header"><span><strong><?php echo $OI;?></strong></span> OPEN INVOICES</p>
 					  </button>
 					  <button class="ui segment overdue hvr-sweep-to-bottom">
-					    <h3>PHP 14, 000</h3>
-					     <p class="sub-header"><span><strong>0</strong></span> OVERDUE</p>
+					    <h3>PHP <?php echo number_format($overdue->Total,2);?></h3>
+					     <p class="sub-header"><span><strong><?php echo $OD;?></strong></span> OVERDUE</p>
 					  </button>
 					  <button class="ui segment paid hvr-sweep-to-bottom">
-					    <h3>43,000 PHP</h3>
+					    <h3>PHP 0.00</h3>
 					     <p class="sub-header"><span><strong>23</strong></span> PAID LAST 30 DAYS</p>
 					  </button>
 				 </div>
@@ -47,31 +47,9 @@
 						  <div class="results"></div>
 						</div>
 				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
+				    <div  id="print">
+				    	
+				    	
 				    </div>
 				    </div>
 	  			</div>

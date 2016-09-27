@@ -26,7 +26,17 @@ $(".sidebar-button").click(function(){
   .sidebar('toggle')
 ;
   });
- $('#customer-table').DataTable( {
+
+ var table = $('#customer-table').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+          {
+                extend:    'print',
+                text:      '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+               
+               
+          },
+        ],
         "scrollY":        '40vh',
         "scrollCollapse": true,
         "paging":         false,
@@ -35,8 +45,8 @@ $(".sidebar-button").click(function(){
         'aTargets': [-1, -2, -3] /* 1st one, start by the right */
     }]
     } );
-
-  var dataTable = $('#customer-table').dataTable();
+    table.buttons().container().appendTo('#print');
+  
     $("#search-customer").keyup(function() {
         dataTable.fnFilter(this.value);
     });    
@@ -44,5 +54,12 @@ $(".sidebar-button").click(function(){
     $('.popup')
   .popup()
 ;
+
+
+
+
+$(".testing").click(function(){
+  $('.ui.basic.modal').modal('show');
+});
 
 });

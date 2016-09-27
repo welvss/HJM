@@ -84,14 +84,15 @@
 			<div class="five wide column">
 				<h4 class="ui header">
 					<?php 
+						$teeth=explode(',',$case->teeth);
 				  		$ctr= count($teeth);
 				  		$i=0;
 				  		foreach ($teeth as $tooth) 
 				  		{
 				  			if(++$i != $ctr)
-				  				echo '#'.$tooth->teeth.', ';
+				  				echo '#'.$tooth.', ';
 				  			else
-				  				echo '#'.$tooth->teeth;
+				  				echo '#'.$tooth;
 				  		}
 				  	?>
 				</h4>

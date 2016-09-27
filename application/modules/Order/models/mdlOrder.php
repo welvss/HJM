@@ -33,6 +33,9 @@ class MdlOrder extends CI_Model {
 		if(isset($options['CaseTypeDesc']))
 			$this->db->like('CaseTypeDesc', $options['CaseTypeDesc']);
 
+		if(isset($options['Type']))
+			$this->db->like('Type', $options['Type']);
+
 		if(isset($options['limit']) && isset($options['offset']))
 			$this->db->limit($options['limit'], $options['offset']);
 		

@@ -49,19 +49,43 @@ $(".sidebar-button").click(function(){
   .sidebar('toggle')
 ;
   });
- $('#case-history').DataTable( {
+var table = $('#case-history').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+          {
+                extend:    'print',
+                text:      '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+                
+                
+                
+          },
+        ],
+       
+        
         'aoColumnDefs': [{
         'bSortable': false,
         'aTargets': [-1, -2] /* 1st one, start by the right */
     }]
     } );
-  $('#transaction-history').DataTable( {
+ table.buttons().container().appendTo('#printcase');
+
+var table = $('#transaction-history').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+          {
+                extend:    'print',
+                text:      '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+                
+
+          },
+        ],
+
         'aoColumnDefs': [{
         'bSortable': false,
         'aTargets': [-1] /* 1st one, start by the right */
     }]
     } );
-
+  table.buttons().container().appendTo('#printtransaction');
   var dataTable = $('#case-history').dataTable();
     $("#search-case").keyup(function() {
         dataTable.fnFilter(this.value);
