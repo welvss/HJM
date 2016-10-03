@@ -86,15 +86,15 @@
 					<div class="ui segment">
 						<div class="ui large header">Case Statistics</div>
 						<div class="ui statistics">
-						  <div class="green statistic testing">
+						  <div class="green statistic dashboardcasemodal" onclick="filterStatus('NEW')">
 						    <div class="value" id="new_count_dashboard">
-						      <i class="file text outline icon hvr-wobble-vertical ">1</i> <?php echo $New;?>
+						      <i class="file text outline icon hvr-wobble-vertical "></i> <?php echo $New;?>
 						    </div>
 						    <div class="label">
 						      <a href="#" >New Cases</a>
 						    </div>
 						  </div>
-						  <div class="purple statistic">
+						  <div class="purple statistic dashboardcasemodal" onclick="filterStatus('IN PRODUCTION')">
 						    <div class="value">
 						      <i class="lab icon hvr-buzz-out"></i>  <?php echo $IP;?>
 						    </div>
@@ -102,7 +102,7 @@
 						      <a href="#">In Production</a>
 						    </div>
 						  </div>
-						  <div class="blue statistic">
+						  <div class="blue statistic dashboardcasemodal" onclick="filterStatus('COMPLETED')">
 						    <div class="value">
 						      <i class="circle check icon hvr-float"></i>  <?php echo $Completed;?>
 						    </div>
@@ -110,7 +110,7 @@
 						      <a href="#">Completed Cases</a>
 						    </div>
 						  </div>
-						  <div class="red statistic">
+						  <div class="red statistic dashboardcasemodal" onclick="filterStatus('ON HOLD')">
 						    <div class="value">
 						      <i class="warning circle icon hvr-buzz"></i>  <?php echo $Hold;?>
 						    </div>
@@ -123,7 +123,7 @@
 					<div class="ui segment">
 						<div class="ui large header">Inventory</div>
 						<div class="ui statistics">
-							<div class="statistic">
+							<div class="statistic dashboardinventorymodal">
 								<div class="value" id="inventory_count_dashboard"><i class="cubes icon hvr-hang"></i><?php echo $i;?></div>
 								<div class="label">
 									<a href="#">Running Low</a>
@@ -276,33 +276,138 @@
 				</div>
 	   		</div>
 	  </div>
-	  </div>
+	</div>
 </div>
 
-<div class="ui basic modal">
-  <i class="close icon"></i>
-  <div class="header">
-    Archive Old Messages
-  </div>
+<div class="ui case modal">
   <div class="image content">
-    <div class="image">
-      <i class="archive icon"></i>
-    </div>
-    <div class="description">
-      <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
-    </div>
-  </div>
-  <div class="actions">
-    <div class="two fluid ui inverted buttons">
-      <div class="ui cancel red basic inverted button">
-        <i class="remove icon"></i>
-        No
-      </div>
-      <div class="ui ok green basic inverted button">
-        <i class="checkmark icon"></i>
-        Yes
-      </div>
-    </div>
-  </div>
+     <table id="dashboardcase" class="display ui blue table" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th width="25%">Case#</th>
+					<th>INVOICE</th>
+					<th>CUSTOMER/COMPANY</th>
+					<th>PATIENT</th>
+					<th>ORDERED DATE</th>
+					<th>DUE DATE</th>
+					<th>STATUS</th>			
+				</tr>
+			</thead>
+			<tbody id="order_notif">
+			<?php 
+			foreach ($cases as $case) 
+			{
+				
+				echo
+					'<tr>
+						<td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
+						<td>'; 
+						foreach ($invoice as $i) 
+						{
+							if ($i->CaseID==$case->CaseID) 
+							{
+								if($i->datecreated!=null)
+									echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+								else
+									echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+							}
+						}
+
+
+				echo
+						'</td>
+						<td>
+							<h4 class="ui image header">
+								        <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+								        <div class="content">';
+						foreach ($dentists as $dentist) 
+						{
+							if($case->DentistID==$dentist->DentistID)
+							{     
+								echo
+								            '<a href="Customer/Info/'.$case->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+								            <div class="sub header">'.$dentist->company.'</div>';
+							}
+						}
+				echo	          
+										'</div>
+							</h4>
+						</td>
+						<td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+						<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+						<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+						<td><center>';
+						foreach ($status as $stat){
+							if($stat->status_id==$case->status_id){
+							 	if($stat->status_id==1)
+							 		echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+							 	else
+							 	if($stat->status_id==2)
+							 		echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+							 	else
+							 	if($stat->status_id==3)
+							 		echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+							 	else
+							 	if($stat->status_id==4)
+							 		echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+							}
+							 	
+						}		
+							
+							
+						    
+				  			
+				  		echo			
+						'</center></td>
+						
+						
+
+					</tr>';
+			}
+			?>
+			</tbody>
+		</table>
+  	</div>
 </div>
+
+<div class="ui inventory modal">
+  	<div class="image content">
+     		<table id="dashboardinventory" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Item Code</th>
+	  						<th>Item Description</th>
+	  						<th><center>Price</center></th>
+	  						<th><center>Current Qty</center></th>
+	  						<th><center>Total Capacity</center></th>
+	  						<th><center>Action</center></th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<?php
+	  					foreach ($items as $item) 
+	  					{
+	  						
+	  					echo
+	  					'<tr>
+	  						<td><a href="'.base_url('Inventory/Info/'.$item->ItemID).'">'.$item->ItemID.'</a></td>
+	  						<td>'.$item->ItemDesc.'</td>
+	  						<td><center>'.$item->Price.'</center></td>
+	  						<td><center>'.$item->CurrentQTY.'</center></td>
+	  						<td><center>'.$item->QTY.'</center></td>
+	  						<td>
+	  							<center>
+	  								<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
+	  							</center>
+	  						</td>
+	  					</tr>';
+	  					}
+	  					?>
+	  				</tbody>
+	  		</table>
+  	</div>
+  
+</div>
+
+
 

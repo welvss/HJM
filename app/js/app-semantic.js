@@ -27,7 +27,7 @@ $(".sidebar-button").click(function(){
 ;
   });
 
- var table = $('#customer-table').DataTable( {
+ var data = $('#customer-table').DataTable( {
         dom: 'Bfrtip',
         buttons: [
           {
@@ -45,10 +45,10 @@ $(".sidebar-button").click(function(){
         'aTargets': [-1, -2, -3] /* 1st one, start by the right */
     }]
     } );
-    table.buttons().container().appendTo('#print');
+   data.buttons().container().appendTo('#print');
   
     $("#search-customer").keyup(function() {
-        dataTable.fnFilter(this.value);
+       $('#customer-table').dataTable().fnFilter(this.value);
     });    
 
     $('.popup')
@@ -56,10 +56,27 @@ $(".sidebar-button").click(function(){
 ;
 
 
+var dataTable = $('#dashboardcase').DataTable({
+
+  
+});
 
 
-$(".testing").click(function(){
-  $('.ui.basic.modal').modal('show');
+$('#dashboardinventory').DataTable({});
+$(".dashboardcasemodal").click(function(){
+  $('.ui.case.modal').modal('show');
+ 
+});
+$(".dashboardinventorymodal").click(function(){
+  $('.ui.inventory.modal').modal('show');
+ 
 });
 
 });
+
+
+function filterStatus(data){
+
+
+ $('#dashboardcase').dataTable().fnFilter(data);
+}

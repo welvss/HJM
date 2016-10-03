@@ -85,6 +85,11 @@ class Dashboard extends MX_Controller
 			$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>''));
 			$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
 
+      $data['cases'] = $this->MdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
+      $data['status'] = $this->MdlOrder->getStatus();
+      $data['invoice'] = $this->MdlInvoice->getInvoice();
+      $data['dentists'] = $this->MdlCustomer->getDentist(array());
+      $data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('a-dashboard',$data);
 			$this->footer();		
 		}

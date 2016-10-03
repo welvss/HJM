@@ -35,7 +35,7 @@ class Customer extends MX_Controller
 		$this->headercheck();
 		if($this->session->userdata('ps_id')==2 )
 		{	
-			$data['dentists'] = $this->MdlCustomer->getDentist();
+			$data['dentists'] = $this->MdlCustomer->getDentist(array('active'=>1));
 			$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
       		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
       		$data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));

@@ -89,8 +89,10 @@ class Order extends MX_Controller
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{				
-				if($_POST['submit']){
-					if($_POST['file']){	
+				if(isset($_POST['submit']))
+				{
+					if(isset($_POST['file']) && $_POST['file']!=null)
+					{	
 						$config['upload_path']          = './uploads/';
                 		$config['allowed_types']        = 'gif|jpg|png';
                 		$config['max_size']             = 100;
@@ -105,76 +107,126 @@ class Order extends MX_Controller
 		                   
 		                }
                 		
-                		else
-                			 $data = $this->upload->data();
-                			 
-                	}
-                	else 
-                		$data['file_name']	='';	
-							$data=array(
-									'DentistID'=>$_POST['DentistID'],
-									'patientfirstname'=>$_POST['patientfirstname'],
-									'patientlastname'=>$_POST['patientlastname'],
-									'CaseTypeID'=> $_POST['CaseTypeID'],
-									'Type'=> $_POST['Type'],
-									'duedate' => $_POST['duedate'],
-									'duetime' => $_POST['duetime'],
-									'gender' =>$_POST['gender'],
-									'age' => $_POST['age'],
-									'shade1' => $_POST['shade1'],
-									'shade2' => $_POST['shade2'],
-									'notes' => $_POST['notes'],
-									'Tray' => $_POST['Tray'],
-									'SG' => $_POST['SG'],
-									'BW' => $_POST['BW'],
-									'MC' => $_POST['MC'],
-									'OC' => $_POST['OC'],
-									'Photos' => $_POST['Photos'],
-									'Articulator' => $_POST['Articulator'],
-									'OD' => $_POST['OD'],
-									'teeth' => implode(',',$_POST['teeth']),
-									'items' => implode(',',$_POST['items']),
-									'file' => $data['file_name']
+	                	else{
+	                			 $datus = $this->upload->data();
 
-									//'file' => $upload_data['file_name']
-								);
-							$CaseID = $this->MdlOrder->AddOrder($data);
-							$i=$this->MdlInvoice->countInvoice();
-							$invoice= array('CaseID' => $CaseID,
-								'InvoiceID' => $this->MdlInvoice->countInvoice()+1,
-								'DentistID'=>$_POST['DentistID']
-								);
-							$this->MdlInvoice->createInvoice($invoice);
+	                			 $data=array(
+										'DentistID'=>$_POST['DentistID'],
+										'patientfirstname'=>$_POST['patientfirstname'],
+										'patientlastname'=>$_POST['patientlastname'],
+										'CaseTypeID'=> $_POST['CaseTypeID'],
+										'Type'=> $_POST['Type'],
+										'duedate' => $_POST['duedate'],
+										'duetime' => $_POST['duetime'],
+										'gender' =>$_POST['gender'],
+										'age' => $_POST['age'],
+										'shade1' => $_POST['shade1'],
+										'shade2' => $_POST['shade2'],
+										'notes' => $_POST['notes'],
+										'Tray' => $_POST['Tray'],
+										'SG' => $_POST['SG'],
+										'BW' => $_POST['BW'],
+										'MC' => $_POST['MC'],
+										'OC' => $_POST['OC'],
+										'Photos' => $_POST['Photos'],
+										'Articulator' => $_POST['Articulator'],
+										'OD' => $_POST['OD'],
+										'teeth' => implode(',',$_POST['teeth']),
+										'items' => implode(',',$_POST['items']),
+										'file' => $datus['file_name']
+
+										//'file' => $upload_data['file_name']
+									);
+								$CaseID = $this->MdlOrder->AddOrder($data);
+								$i=$this->MdlInvoice->countInvoice();
+								$invoice= array('CaseID' => $CaseID,
+									'InvoiceID' => $this->MdlInvoice->countInvoice()+1,
+									'DentistID'=>$_POST['DentistID']
+									);
+								$this->MdlInvoice->createInvoice($invoice);
 
 
-							//Create Invoice
-							if(isset($_POST['invoice'])!=null)
-							{
-								redirect('Order/Info/'.$CaseID);
-							}
-							else
-							{
-								if($_POST['module']==2)
-									redirect('Order');
+								//Create Invoice
+								if(isset($_POST['invoice'])!=null)
+								{
+									redirect('Order/Info/'.$CaseID);
+								}
+								else
+								{
+									if($_POST['module']==2)
+										redirect('Order');
 
 
-								if($_POST['module']==1)
-									redirect('Customer/Info/'.$_POST['DentistID']);
+									if($_POST['module']==1)
+										redirect('Customer/Info/'.$_POST['DentistID']);
+							
+									
+								}
 						
-								
-							}
+	                		}
+                		}
+
+	                	else
+	                			
+								$data=array(
+										'DentistID'=>$_POST['DentistID'],
+										'patientfirstname'=>$_POST['patientfirstname'],
+										'patientlastname'=>$_POST['patientlastname'],
+										'CaseTypeID'=> $_POST['CaseTypeID'],
+										'Type'=> $_POST['Type'],
+										'duedate' => $_POST['duedate'],
+										'duetime' => $_POST['duetime'],
+										'gender' =>$_POST['gender'],
+										'age' => $_POST['age'],
+										'shade1' => $_POST['shade1'],
+										'shade2' => $_POST['shade2'],
+										'notes' => $_POST['notes'],
+										'Tray' => $_POST['Tray'],
+										'SG' => $_POST['SG'],
+										'BW' => $_POST['BW'],
+										'MC' => $_POST['MC'],
+										'OC' => $_POST['OC'],
+										'Photos' => $_POST['Photos'],
+										'Articulator' => $_POST['Articulator'],
+										'OD' => $_POST['OD'],
+										'teeth' => implode(',',$_POST['teeth']),
+										'items' => implode(',',$_POST['items']),
+										'file' => ''
+
+										//'file' => $upload_data['file_name']
+									);
+								$CaseID = $this->MdlOrder->AddOrder($data);
+								$i=$this->MdlInvoice->countInvoice();
+								$invoice= array('CaseID' => $CaseID,
+									'InvoiceID' => $this->MdlInvoice->countInvoice()+1,
+									'DentistID'=>$_POST['DentistID']
+									);
+								$this->MdlInvoice->createInvoice($invoice);
+
+
+								//Create Invoice
+								if(isset($_POST['invoice'])!=null)
+								{
+									redirect('Order/Info/'.$CaseID);
+								}
+								else
+								{
+									if($_POST['module']==2)
+										redirect('Order');
+
+
+									if($_POST['module']==1)
+										redirect('Customer/Info/'.$_POST['DentistID']);
+							
+									
+								}
+						
 					
 				}
 				else
 					redirect('Order');
-
-						
-					
-						
+				
 		}
-			
-			
-		//}
 
 	}
 
