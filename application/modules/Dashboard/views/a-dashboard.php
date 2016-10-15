@@ -95,7 +95,7 @@
 						    </div>
 						  </div>
 						  <div class="purple statistic dashboardcasemodal" onclick="filterStatus('IN PRODUCTION')">
-						    <div class="value">
+						    <div class="value" id="IP_count_dashboard">
 						      <i class="lab icon hvr-buzz-out"></i>  <?php echo $IP;?>
 						    </div>
 						    <div class="label">
@@ -103,7 +103,7 @@
 						    </div>
 						  </div>
 						  <div class="blue statistic dashboardcasemodal" onclick="filterStatus('COMPLETED')">
-						    <div class="value">
+						    <div class="value" id="Complete_count_dashboard">
 						      <i class="circle check icon hvr-float"></i>  <?php echo $Completed;?>
 						    </div>
 						    <div class="label">
@@ -111,7 +111,7 @@
 						    </div>
 						  </div>
 						  <div class="red statistic dashboardcasemodal" onclick="filterStatus('ON HOLD')">
-						    <div class="value">
+						    <div class="value" id="OH_count_dashboard">
 						      <i class="warning circle icon hvr-buzz"></i>  <?php echo $Hold;?>
 						    </div>
 						    <div class="label">
@@ -159,107 +159,89 @@
 	   		<div class="four wide column">
 	   			<div class="ui horizontal segment">
 					<div class="transaction-feed">
-						<div class="ui feed">
-							<div class="ui sizer vertical segment">
+						<div class="ui feed" id="recent_activities">
+						<?php
+					
+							echo
+							'<div class="ui sizer vertical segment">
 							  <div class="ui large header">Recent Activities</div>
-							</div>
-							<div class="ui sizer vertical segment">
-							  <div class="ui header">May 15, 2016</div>
-							  <div class="sub header">Today</div>
-							</div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="check circle icon invoice-icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						       <a href="#">Paid Invoice 420:</a> <p>Paid PHP 2,000 in full by Dr. Hugo Strange.</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="circle thin icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						        <a href="#">Invoice 420:</a><p>added for Dr. Hugo Strange</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <hr>
-						  <div class="ui sizer vertical segment">
-							  <div class="ui header">May 15, 2016</div>
-							  <div class="sub header">Today</div>
-							</div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="check circle icon invoice-icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						       <a href="#">Paid Invoice 420:</a> <p>Paid PHP 2,000 in full by Dr. Hugo Strange.</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="circle thin icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						        <a href="#">Invoice 420:</a><p>added for Dr. Hugo Strange</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <hr>
-						  <div class="ui sizer vertical segment">
-							  <div class="ui header">May 15, 2016</div>
-							  <div class="sub header">Today</div>
-							</div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="check circle icon invoice-icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						       <a href="#">Paid Invoice 420:</a> <p>Paid PHP 2,000 in full by Dr. Hugo Strange.</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="circle thin icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						        <a href="#">Invoice 420:</a><p>added for Dr. Hugo Strange</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <hr>
-						  <div class="ui sizer vertical segment">
-							  <div class="ui header">May 15, 2016</div>
-							  <div class="sub header">Today</div>
-							</div>
-						  <div class="event">
-						    <div class="label">
-						      <i class="check circle icon invoice-icon"></i>
-						    </div>
-						    <div class="content">
-						      <div class="summary">
-						       <a href="#">Paid Invoice 420:</a> <p>Paid PHP 2,000 in full by Dr. Hugo Strange.</p>
-						        <div class="date">Today</div>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="event">
+							</div>';
+							if(count($invoicepayment)>0)
+							{
+							foreach ($invoicepayment as $ip){
+								echo 
+									'<div class="ui sizer vertical segment">
+										  <div class="ui header">'.date('F d, Y',strtotime($ip->datecreated)).'</div>
+										  <div class="sub header">'.( date('F d, Y',strtotime($ip->datecreated))==date('F d, Y',strtotime('now'))  ? 'Today' : ( date('F d, Y',strtotime($ip->datecreated))==date('F d, Y',strtotime('yesterday')) ? 'Yesterday' : ceil(((time()-strtotime($ip->datecreated))/60/60/24)-1)." days ago")).'</div>
+									</div>';
+								
+								
+								foreach ($invpay as $ips) {
+									//echo date('F d, Y',strtotime($date." days ago")).' '.date('F d, Y',strtotime($ips->datecreated));
+									if(date('F d, Y',strtotime($ip->datecreated))==date('F d, Y',strtotime($ips->datecreated))){
+										foreach ($dentists as $dentist) {
+											if($ips->DentistID == $dentist->DentistID)
+												$name=$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
+										}
+										if($ips->PaymentMethod=="New"){
+						                	echo 
+						                    '<div class="event">
+						                          <div class="label">
+						                            <i class="circle thin icon"></i>
+						                          </div>
+						                          <div class="content">
+						                            <div class="summary">
+						                              <a href="#">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
+						                              <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
+						                            </div>
+						                          </div>
+						                        </div>';
+						                }
+						                else{
+						                  echo
+						                  '<div class="event">
+						                    <div class="label">
+						                      <i class="check circle icon invoice-icon"></i>
+						                    </div>
+						                    <div class="content">
+						                      <div class="summary">
+						                       <a href="#">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
+						                        <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
+						                      </div>
+						                    </div>
+						                  </div>';
+						                }
+
+									}
+									
+									
+
+									 
+								}
+								echo '<hr>';
+
+							}
+
+						}
+						else{
+								echo
+									'<div class="event">
+										<div class="content">
+										    <div class="summary">
+										    <br>
+										    <center>No Activity Found!</center>
+										    <br>
+										     </div>
+										</div>
+									</div>
+									<hr>';
+										//break;
+									}
+						
+						?>
+
+						   <!---
+						   <div class="event">
 						    <div class="label">
 						      <i class="circle thin icon"></i>
 						    </div>
@@ -270,7 +252,7 @@
 						      </div>
 						    </div>
 						  </div>
-						  <hr>
+						 -->
 						</div>
 					</div>
 				</div>

@@ -406,7 +406,7 @@
 		  			<div class="ui centered header blue ">
 		  				<h1>Crown</h1>
 		  			</div>
-		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
+		  			<img class="ui centered large image src="<?php echo base_url('app/img/teeth-structure.png');?>" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
  				  	<select multiple name="teeth[]" class="ui fluid dropdown">
@@ -713,6 +713,7 @@
 	  	<?php echo form_hidden('DentistID',$case->DentistID);?>
 	  	<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
 	  	<?php echo form_hidden('InvoiceID',$invoice[0]->InvoiceID);?>
+	  	<?php echo form_hidden('Amount',$invoice[0]->Total);?>
 
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
@@ -740,7 +741,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								Balance Due
-								<h1>PHP 500.00</h1>
+								<h1>PHP 0.00</h1>
 							</div>							
 						</div>
 					</div>

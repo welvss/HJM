@@ -44,13 +44,13 @@
 		  	  								</div>
 		  	  							</div>
 		  	  							<div class="ui middle aligned divided list">
-		  	  								<div class="item">
-		  	  									<label>Created On: </label>
-		  	  									
+		  	  								<div class="item" id="createdon">
+		  	  									<label>Created On: </label>&nbsp;
+		  	  									 <?php echo (strtotime($case->createdon)!=0 ? date('m/d/Y', strtotime($case->createdon)) : "--/--/----");?>
 		  	  								</div>
-		  	  								<div class="item">
-		  	  									<label>Completed On: </label>
-		  	  									
+		  	  								<div class="item" id="completedon">
+		  	  									<label>Completed On: </label>&nbsp;
+		  	  									<?php echo (strtotime($case->completedon)!=0 ? date('m/d/Y', strtotime($case->completedon)) : "--/--/----");?>
 		  	  								</div>
 		  	  							</div>
 		  	  						</div>
@@ -143,8 +143,8 @@
 				  					<thead>
 				  						<tr>
 				  							<th>Type</th>
-				  							<th>Tooth #</th>
-				  							<th>ITEM</th>
+				  							<th><center>Tooth #</center></th>
+				  							<th><center>ITEM</center></th>
 				  							<th>SHADE</th>
 				  							<th>DESIGN</th>
 				  							<th>ADDITIONAL FEATURES</th>
@@ -153,20 +153,8 @@
 				  					<tbody>
 				  						<tr>
 				  							<td><?php echo $case->Type;?></td>
-				  							<td>
-				  								<?php 
-				  								$teeth = explode(',',$case->teeth);
-				  								$ctr= count($teeth);
-				  								$i=0;
-				  								foreach ($teeth as $tooth) {
-				  								if(++$i != $ctr)
-				  								echo $tooth.', ';
-				  								else
-				  								echo $tooth;
-				  								}
-				  								?>
-				  							</td>
-				  							<td>Emax</td>
+				  							<td><center><?php echo $case->teeth;?></center></td>
+				  							<td><center><?php echo $case->items;?></center></td>
 				  							<td><?php echo $case->shade1.' '.$case->shade2;?></td>
 				  							<td></td>
 				  							<td></td>
@@ -201,7 +189,7 @@
 	  	  					<?php
 	  	  					if($case->file!=null)
 	  	  					echo
-	  	  					'<img class="ui centered large image" src="'.base_url('uploads/'.$case->file).'" alt="">';
+	  	  					'<img class="ui centered large image" src="'.base_url('app/uploads/'.$case->file).'" alt="">';
 	  	  					?>
 	  	  				</div>
 	  	  			</div>
@@ -253,7 +241,7 @@
 
 								if($invoice->datecreated!=null){
 									echo
-										form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).'
+										form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).form_hidden('DentistID',$dentist->DentistID).'
 
 										
 										<button class="ui green button mode">
@@ -293,19 +281,14 @@
 												
 					
 										
-											echo '<td>';
+											echo '<td>'.
 											 
-							  					$ctr= count($teeth);
-							  					$i=0;
-							  					foreach ($teeth as $tooth){
-								  					if(++$i != $ctr)
-								  						echo $tooth->teeth.', ';
-								  					else
-								  						echo $tooth->teeth;
-							  					}
+							  					
+							  					$case->teeth
+
+
 							  				
-							  				echo 
-							  					'</td>
+							  					.'</td>
 												<td>'.$ii->QTY.'</td>
 												<td>PHP '.number_format($ii->Amount,2).'</td>
 												<td>PHP '.number_format($ii->SubTotal,2).'</td>
@@ -350,7 +333,7 @@
 	  </div>
 	<!--New Case-->
 	<div class="ui modal large case">
-	<?php echo form_open('Order/EditOrder','class="ui form"');?>
+	<?php echo form_open_multipart('Order/EditOrder','class="ui form"');?>
 	 
 	  
 			<input type="hidden" name="CaseID" id="CaseIDhidden" value="<?php echo $this->uri->segment(3);?>">
@@ -689,7 +672,7 @@
 				  					<h3 class="ui header">Doctor's Special Instruction</h3>
 				  					 <hr>
 				  					   <div class="field">
-										    <textarea name="notes" <?php if($invoice->status==1) echo 'readonly';?>></textarea>
+										    <textarea name="notes" <?php if($invoice->status==1) echo 'readonly';?>><?php echo $case->notes;?></textarea>
 									   </div>
 				  				</div>
 				  			</div>
@@ -702,7 +685,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" <?php if($invoice->status==1) echo 'disabled';?> >
+								    <input type="file" id="file" name="file" <?php if($invoice->status==1) echo 'disabled';?> accept="image/*" />
 							</div>
 							<div class="ui header">
 					  				Due
@@ -770,6 +753,7 @@
 	  		<?php echo form_hidden('DentistID',$case->DentistID);?>
 	  		<?php echo form_hidden('CaseID',$case->CaseID,'id="CaseID"');?>
 	  		<?php echo form_hidden('InvoiceID',$invoice->InvoiceID);?>
+
 	  		<div class="ui grid">
 		  		<div class="two column row">
 					<div class="column">

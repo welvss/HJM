@@ -93,6 +93,57 @@ class MdlInvoice extends CI_Model {
 			return $query->result();
 	}
 
+	public function getInvoicePayment($options = array()){
+		//verification
+		if(isset($options['DentistID']))
+			$this->db->where('DentistID', $options['DentistID']);
+
+		if(isset($options['CaseID']))
+			$this->db->where('CaseID', $options['CaseID']);
+
+		if(isset($options['InvoiceID']))
+			$this->db->where('InvoiceID', $options['InvoiceID']);
+
+		if(isset($options['PaymentMethod']))
+			$this->db->where('PaymentMethod', $options['PaymentMethod']);
+
+		if(isset($options['datecreated'])){
+			$this->db->where('datecreated', $options['datecreated']);
+			$this->db->order_by('datecreated', 'DESC');
+		}
+
+		if(isset($options['group_by']))
+			$this->db->group_by($options['group_by']);
+		if(isset($options['status']))
+			$this->db->where('status', $options['status']);
+
+		if(isset($options['duedate']))
+			$this->db->where('duedate <',$options['duedate']);
+
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+
+	
+	
+		$query = $this->db->get("tblinvoicepayment");
+
+
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		if(isset($options['InvoiceID']))
+			return $query->row(0);
+	
+		
+		return $query->result();
+	}
+
 
 	public function addInvoiceTotal($options = array()){
 		//verification
@@ -178,6 +229,11 @@ class MdlInvoice extends CI_Model {
 		$this->db->insert('tblinvoiceitem', $options);	
 		return $this->db->insert_id();
 		
+	}
+
+	function addInvoicePayment($options = array()){
+		$this->db->insert('tblinvoicepayment', $options);	
+		return $this->db->insert_id();
 	}
 	
 	function modifyOrder($options = array())

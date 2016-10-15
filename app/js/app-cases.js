@@ -60,11 +60,11 @@ var table = $('#main-case').DataTable( {
         "scrollY":        '40vh',
         "scrollCollapse": true,
         "paging":         false,
-        'aoColumnDefs': [{
+        "ordering": false,
+        /*'aoColumnDefs': [{
         'bSortable': true,
         'aTargets': [-1, -2] /* 1st one, start by the right */
-
-    }]
+        //}]
     } );
   table.buttons().container().appendTo('#print');
   var dataTable = $('#main-case').dataTable();
@@ -250,7 +250,7 @@ function numberCheck(y) {
 function letterCheck(y) {
 
 
-    var sanitized = $('#'+y).val().replace(/[^a-zA-Z.]/g, '');
+    var sanitized = $('#'+y).val().replace(/[^a-z A-Z.]/g, '');
     $('#'+y).val(sanitized);
     /*if($('#Amount'+y).val()=='')
       $('#Amount'+y).val(0);
@@ -267,11 +267,13 @@ function changeStatus(val){
         if(val==1){
             $('#statuscolor').removeClass();
             $('#statuscolor').addClass('ui inverted green segment');
+            $('#Completed').hide();
         }
         if(val==2){
             $('#statuscolor').removeClass();
             $('#statuscolor').addClass('ui inverted violet segment');
             $('#New').hide();
+            $('#Completed').show();
         }
         if(val==3){
             $('#statuscolor').removeClass();
@@ -303,9 +305,12 @@ function updateStatus(val){
   type: "POST",
   url: "http://"+window.location.hostname+"/HJM/Order/UpdateOrderStatus",
   data:dataString,
+  dataType: 'JSON',
   success: function(data){
-    
-  
+  if(data.createdon!='')
+    $('#createdon').html('<label>Created On: </label>&nbsp; '+data.createdon);
+  if(data.completedon!='')
+    $('#completedon').html('<label>Completed On: </label>&nbsp; '+data.completedon);
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
               alert(error);
                alert(xhr.status);

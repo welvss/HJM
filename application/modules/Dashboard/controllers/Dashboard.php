@@ -72,9 +72,8 @@ class Dashboard extends MX_Controller
 	{
 		$data['active'] =1;
 		$this->headercheck($data);
-		if($this->session->userdata('ps_id')==2 )
+		if($this->session->userdata('ps_id')==2){	
 
-		{	
       $data['i']=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
       $data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
       $data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
@@ -84,14 +83,16 @@ class Dashboard extends MX_Controller
 			$data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>''));
 			$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>''));
 			$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
-
       $data['cases'] = $this->MdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
       $data['status'] = $this->MdlOrder->getStatus();
       $data['invoice'] = $this->MdlInvoice->getInvoice();
       $data['dentists'] = $this->MdlCustomer->getDentist(array());
       $data['items'] = $this->MdlInventory->getItem(array());
+      $data['invoicepayment'] = $this->MdlInvoice->getInvoicePayment(array('sort_by'=>'datecreated','sort_direction'=>'DESC','group_by'=>'datecreated','limit'=>5));
+      $data['invpay'] = $this->MdlInvoice->getInvoicePayment(array('sort_by'=>'PaymentID','sort_direction'=>'DESC'));
 			$this->load->view('a-dashboard',$data);
-			$this->footer();		
+			$this->footer();	
+      	
 		}
 		else
 		if($this->session->userdata('ps_id')==1 )
@@ -174,6 +175,97 @@ class Dashboard extends MX_Controller
              	return true;
    			
             }
+            
+    }
+
+
+    public function recentactivities()
+    {
+        $dentists = $this->MdlCustomer->getDentist(array());
+        $invoicepayment = $this->MdlInvoice->getInvoicePayment(array('sort_by'=>'datecreated','sort_direction'=>'DESC','group_by'=>'datecreated','limit'=>5));
+        //die($this->db->last_query());
+        echo
+        '<div class="ui sizer vertical segment">
+          <div class="ui large header">Recent Activities</div>
+        </div>';
+        if(count($invoicepayment)>0){
+          foreach($invoicepayment as $ip){
+            echo 
+            '<div class="ui sizer vertical segment">
+                <div class="ui header">'.date('F d, Y',strtotime($ip->datecreated)).'</div>
+                <div class="sub header">'.( date('F d, Y',strtotime($ip->datecreated))==date('F d, Y',strtotime('now'))  ? 'Today' : ( date('F d, Y',strtotime($ip->datecreated))==date('F d, Y',strtotime('yesterday')) ? 'Yesterday' : ceil(((time()-strtotime($ip->datecreated))/60/60/24)-1)." days ago")).'</div>
+            </div>'; 
+            $invoice = $this->MdlInvoice->getInvoicePayment(array('datecreated'=>date('Y-m-d',strtotime($ip->datecreated)),'sort_by'=>'PaymentID','sort_direction'=>'DESC'));
+            foreach ($invoice as $ips) {
+                    //echo date('F d, Y',strtotime($date." days ago")).' '.date('F d, Y',strtotime($ips->datecreated));
+                foreach ($dentists as $dentist) {
+                  if($ips->DentistID == $dentist->DentistID)
+                     $name=$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;
+                }
+                if($ips->PaymentMethod=="New"){
+                  echo 
+                  '<div class="event">
+                          <div class="label">
+                            <i class="circle thin icon"></i>
+                          </div>
+                          <div class="content">
+                            <div class="summary">
+                              <a href="#">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
+                              <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
+                            </div>
+                          </div>
+                        </div>';
+                }
+                else{
+                  echo
+                  '<div class="event">
+                    <div class="label">
+                      <i class="check circle icon invoice-icon"></i>
+                    </div>
+                    <div class="content">
+                      <div class="summary">
+                       <a href="#">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
+                        <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
+                      </div>
+                    </div>
+                  </div>';
+                }
+
+           
+                    
+                     
+            }
+              /*
+              if($ctr==0){
+                echo
+                    '<div class="event">
+                        <div class="content">
+                          <div class="summary">
+                          <br>
+                          <center>No Activity Found!</center>
+                          <br>
+                          </div>
+                        </div>
+                    </div>';
+                      //break;
+              }*/
+              echo '<hr>';
+          }
+      }
+       else{
+                echo
+                    '<div class="event">
+                        <div class="content">
+                          <div class="summary">
+                          <br>
+                          <center>No Activity Found!</center>
+                          <br>
+                          </div>
+                        </div>
+                    </div>';
+                      //break;
+        }
+
             
     }
 		

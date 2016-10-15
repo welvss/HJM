@@ -47,7 +47,7 @@ class Customer extends MX_Controller
 
 	}
 	
-	public function CustomerInfo()
+	public function Info()
 	{
 		$this->headercheck();
 		$data['casetype'] = $this->MdlOrder->getCaseType();
@@ -63,6 +63,8 @@ class Customer extends MX_Controller
 		$data['items'] = $this->MdlInventory->getItem(array());
 		$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'DentistID'=>$this->uri->segment(3),'count'=>''));
 		$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3),'count'=>''));
+		$data['inv'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3),'status'=>1));
+		$data['invoicepayment'] = $this->MdlInvoice->getInvoicePayment(array(''));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
@@ -272,6 +274,26 @@ class Customer extends MX_Controller
             }
             
     }
+    public function getInvoiceInfo()
+	{	
+		$info = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$_POST['InvoiceID']));
+		$ips = $this->MdlInvoice->getInvoicePayment();
+		$sum = 0;
+		foreach ($ips as $ip) {
+			if($_POST['InvoiceID']==$ip->InvoiceID)
+				$sum=$sum + $ip->Amount;
+		}
+		
+		$data['InvoiceID'] = $_POST['InvoiceID'];
+		$data['duedate'] = date('l F d, Y', strtotime($info->duedate));
+		$data['datecreated'] = '('.date('l F d, Y', strtotime($info->datecreated)).')';
+		$data['total'] =  number_format(($info->Total),2);
+		$data['balance'] =  number_format(($info->Total-$sum),2);
+		$data['sum'] = number_format(($sum),2);
+		echo json_encode($data);
+
+		
+	}
     
 
 

@@ -199,6 +199,13 @@ class MdlOrder extends CI_Model {
 		
 		if(isset($options['status_id']))
 			$this->db->set('status_id', $options['status_id']);
+
+		if(isset($options['createdon']))
+			$this->db->set('createdon', $options['createdon']);
+		
+		if(isset($options['completedon']))
+			$this->db->set('completedon', $options['completedon']);
+		
 		
 
 		
@@ -212,9 +219,12 @@ class MdlOrder extends CI_Model {
 	function UpdateOrderStatus($options = array())
 	{		
 		
-
+		if(isset($options['createdon']))
+			$this->db->set('createdon', $options['createdon']);
 		
-
+		if(isset($options['completedon']))
+			$this->db->set('completedon', $options['completedon']);
+		
 		if(isset($options['status_id']))
 			$this->db->set('status_id', $options['status_id']);
 		

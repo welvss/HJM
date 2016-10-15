@@ -75,7 +75,7 @@
 	  							<h4 class="ui image header">
 							          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
 							          <div class="content">
-							            <a href="Customer/Info/'.$dentist->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+							            <a href="'.base_url().'Customer/Info/'.$dentist->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
 							            <div class="sub header">'.$dentist->company.'
 							          </div>
 							        </div>

@@ -21,12 +21,12 @@ class Order extends MX_Controller
 
 
 
-	public function countNewOrder(){
-
-	$data = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>''));
-
-	echo $data;
-
+	public function countOrder(){
+		$data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>''));
+		$data['In_Production'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>''));
+		$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>''));
+		$data['On_Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
+		echo json_encode($data);
 	}
 
 
@@ -64,23 +64,6 @@ class Order extends MX_Controller
 	public function AddOrder()
 	{
 	
-		/*$config['upload_path'] = './assets/file';
-        $config['allowed_types'] = 'jpeg|png|jpg';
-        $config['max_size']    = '30720';
-
-        //load upload class library
-        $this->load->library('upload', $config);*/
-
-        /*if (!$this->upload->do_upload('filename'))
-        {
-            // case - failure
-            $upload_error = array('error' => $this->upload->display_errors());
-            $this->load->view('upload_file_view', $upload_error);
-        }
-        else
-        {
-            // case - success
-           $upload_data = $this->upload->data();*/
 		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			
@@ -91,13 +74,12 @@ class Order extends MX_Controller
 		{				
 				if(isset($_POST['submit']))
 				{
-					if(isset($_POST['file']) && $_POST['file']!=null)
+					if($_FILES['file']['name']!='')
 					{	
-						$config['upload_path']          = './uploads/';
-                		$config['allowed_types']        = 'gif|jpg|png';
-                		$config['max_size']             = 100;
-                		$config['max_width']            = 1024;
-                		$config['max_height']           = 768;
+
+						$config['upload_path']          = './app/uploads/';
+                		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+                		$config['max_size']             = 2048;
                 		$config['encrypt_name']			= TRUE;
                 		$this->load->library('upload', $config);
 						if ( ! $this->upload->do_upload('file'))
@@ -108,65 +90,16 @@ class Order extends MX_Controller
 		                }
                 		
 	                	else{
-	                			 $datus = $this->upload->data();
 
-	                			 $data=array(
-										'DentistID'=>$_POST['DentistID'],
-										'patientfirstname'=>$_POST['patientfirstname'],
-										'patientlastname'=>$_POST['patientlastname'],
-										'CaseTypeID'=> $_POST['CaseTypeID'],
-										'Type'=> $_POST['Type'],
-										'duedate' => $_POST['duedate'],
-										'duetime' => $_POST['duetime'],
-										'gender' =>$_POST['gender'],
-										'age' => $_POST['age'],
-										'shade1' => $_POST['shade1'],
-										'shade2' => $_POST['shade2'],
-										'notes' => $_POST['notes'],
-										'Tray' => $_POST['Tray'],
-										'SG' => $_POST['SG'],
-										'BW' => $_POST['BW'],
-										'MC' => $_POST['MC'],
-										'OC' => $_POST['OC'],
-										'Photos' => $_POST['Photos'],
-										'Articulator' => $_POST['Articulator'],
-										'OD' => $_POST['OD'],
-										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items']),
-										'file' => $datus['file_name']
+	                		$datus = $this->upload->data();
+	                		$file=true;
 
-										//'file' => $upload_data['file_name']
-									);
-								$CaseID = $this->MdlOrder->AddOrder($data);
-								$i=$this->MdlInvoice->countInvoice();
-								$invoice= array('CaseID' => $CaseID,
-									'InvoiceID' => $this->MdlInvoice->countInvoice()+1,
-									'DentistID'=>$_POST['DentistID']
-									);
-								$this->MdlInvoice->createInvoice($invoice);
+	                	}
+                }
 
-
-								//Create Invoice
-								if(isset($_POST['invoice'])!=null)
-								{
-									redirect('Order/Info/'.$CaseID);
-								}
-								else
-								{
-									if($_POST['module']==2)
-										redirect('Order');
-
-
-									if($_POST['module']==1)
-										redirect('Customer/Info/'.$_POST['DentistID']);
-							
-									
-								}
-						
-	                		}
-                		}
-
-	                	else
+	            else{
+	            	$file=false;
+	            }
 	                			
 								$data=array(
 										'DentistID'=>$_POST['DentistID'],
@@ -191,7 +124,7 @@ class Order extends MX_Controller
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
 										'items' => implode(',',$_POST['items']),
-										'file' => ''
+										'file' => ( $file ? $datus['file_name'] : '' )
 
 										//'file' => $upload_data['file_name']
 									);
@@ -239,7 +172,8 @@ class Order extends MX_Controller
 		if($_POST['status_id']==3){
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
-							'status_id' => $_POST['status_id'] 
+							'status_id' => $_POST['status_id'],
+							'completedon'=>date('Y-m-d') 
 							);
 				
 				$this->MdlOrder->UpdateOrderStatus($order);
@@ -255,6 +189,7 @@ class Order extends MX_Controller
 								$data=array(
 									'ItemID'=>$invoiceitem->ItemID,
 									'CurrentQTY'=>($item->CurrentQTY)-($invoiceitem->QTY)
+									
 									);
 								
 								$this->MdlInventory->EditInventory($data);
@@ -264,22 +199,40 @@ class Order extends MX_Controller
 						}
 
 					}
-					
-				echo "";
-			}
-			else{
+				$arr['createdon']='';	
+				$arr['completedon']=date('m/d/Y');	
+				echo json_encode($arr);
+		}
+		else
+		if($_POST['status_id']==2){
+				$order= array(
+							'CaseID'=>$_POST['CaseID'],
+							'status_id' => $_POST['status_id'],
+							'createdon'=>date('Y-m-d') 
+						);
+				
+				$this->MdlOrder->UpdateOrderStatus($order);	
+				$data=$this->MdlOrder->getOrder(array('CaseID'=>$_POST['CaseID']));
+				$arr['createdon']=date('m/d/Y');	
+				$arr['completedon']='';		
+				echo json_encode($arr);
+			
+		}
+		else{
 
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
-							'status_id' => $_POST['status_id'] 
+							'status_id' => $_POST['status_id'],
+							'createdon'=> ''
 							);
 				
 				if($this->MdlOrder->UpdateOrderStatus($order))
 				{
-					
-					echo "";
+					$arr['createdon']='--/--/----';	
+					$arr['completedon']='';		
+					echo json_encode($arr);
 				}
-			}
+		}
 	
 		
 
@@ -289,32 +242,44 @@ class Order extends MX_Controller
 	public function EditOrder()
 	{
 	
-		/*$config['upload_path'] = './assets/file';
-        $config['allowed_types'] = 'jpeg|png|jpg';
-        $config['max_size']    = '30720';
-
-        //load upload class library
-        $this->load->library('upload', $config);*/
-
-        /*if (!$this->upload->do_upload('filename'))
-        {
-            // case - failure
-            $upload_error = array('error' => $this->upload->display_errors());
-            $this->load->view('upload_file_view', $upload_error);
-        }
-        else
-        {
-            // case - success
-           $upload_data = $this->upload->data();*/
+		
 		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
 		{
 			
 		}
 
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
-		{			
-						if($_POST['submit'])
-						{
+		{		if(isset($_POST['submit']))
+				{	
+					//die(serialize($_FILES['file']));
+					if($_FILES['file']['name']!='')
+					{	
+						
+						$config['upload_path']          = './app/uploads/';
+                		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+                		$config['max_size']             = 2048;
+                		$config['encrypt_name']			= TRUE;
+                		$this->load->library('upload', $config);
+						if ( ! $this->upload->do_upload('file'))
+		                {
+		                    $error = array('error' => $this->upload->display_errors());
+		                    die($this->upload->display_errors());
+		                   
+		                }
+                		
+	                	else{
+
+	                		$datus = $this->upload->data();
+	                		$data=array(
+										'CaseID' => $_POST['CaseID'] , 
+										'file' => $datus['file_name']
+									);
+							$this->MdlOrder->modifyOrder($data);
+
+
+	                	}
+                }
+
 							$data=array(
 										'CaseID' => $_POST['CaseID'] , 
 										'CaseTypeID'=> $_POST['CaseTypeID'],
@@ -338,9 +303,6 @@ class Order extends MX_Controller
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
 										'items' => implode(',',$_POST['items'])
-
-
-										//'file' => $upload_data['file_name']
 									);
 							$this->MdlOrder->modifyOrder($data);
 						

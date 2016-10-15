@@ -71,15 +71,15 @@
 								
 									echo '<td>';
 									 
-					  					$ctr= count($teeth);
-					  					$i=0;
-					  					foreach ($teeth as $tooth) 
-					  					{
-						  					if(++$i != $ctr)
-						  						echo $tooth->teeth.', ';
-						  					else
-						  						echo $tooth->teeth;
-					  					}
+					  					$teeth = explode(',',$case->teeth);
+				  						$ctr= count($teeth);
+				  						$i=0;
+				  						foreach ($teeth as $tooth) {
+				  							if(++$i != $ctr)
+				  								echo $tooth.', ';
+				  							else
+				  								echo $tooth;
+				  						}
 					  				
 					  				echo 
 					  					'</td>

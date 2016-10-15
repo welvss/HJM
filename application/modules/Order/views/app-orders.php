@@ -43,7 +43,7 @@
 							    </div>
 							  </div>
 							  <div class="purple statistic">
-							    <div class="value">
+							    <div class="value" id="ip_count_order">
 							      <i class="lab icon hvr-buzz-out"></i> <?php echo $IP;?>
 							    </div>
 							    <div class="label">
@@ -51,7 +51,7 @@
 							    </div>
 							  </div>
 							  <div class="blue statistic">
-							    <div class="value">
+							    <div class="value" id="completed_count_order">
 							      <i class="circle check icon hvr-float"></i> <?php echo $Completed;?>
 							    </div>
 							    <div class="label">
@@ -59,7 +59,7 @@
 							    </div>
 							  </div>
 							  <div class="red statistic">
-							    <div class="value">
+							    <div class="value" id="oh_count_order">
 							      <i class="warning circle icon hvr-buzz"></i> <?php echo $Hold;?>
 							    </div>
 							    <div class="label">
@@ -118,7 +118,7 @@
 						{
 							if ($i->CaseID==$case->CaseID) 
 							{
-								if($i->datecreated!=null)
+								if($i->status==1)
 									echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
 								else
 									echo '<p >Invoice # '.$i->InvoiceID.'</p>';
@@ -490,7 +490,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" name="file" size="20"/>
+								    <input type="file" id="file" name="file" accept="image/*"/>
 							</div>
 							<div class="ui header">
 					  				Due

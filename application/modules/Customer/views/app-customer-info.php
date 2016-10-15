@@ -142,36 +142,55 @@
 			  					</tr>
 			  				</thead>
 			  				<tbody>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Invoice</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 500.00</td>
-			  						<td>PHP 500.00</td>
-			  						<td>Open</td>
-			  						<td></td>
-			  					</tr>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Payment</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 0.00</td>
-			  						<td>PHP -500.00</td>
-			  						<td>Closed</td>
-			  						<td></td>
-			  					</tr>
-			  					<tr>
-			  						<td>Fr 05/20/2016 10 Am</td>
-			  						<td>Invoice</td>
-			  						<td>420</td>
-			  						<td>Su 06/20/2016 10 Am</td>
-			  						<td>PHP 500.00</td>
-			  						<td>PHP 1000.00</td>
-			  						<td>Partial</td>
-			  						<td></td>
-			  					</tr>
+			  				<?php
+
+			  				foreach($inv as $invo){
+			  					$sum=0;
+			  					$count=0;
+			  					foreach ($invoicepayment as $ip){
+			  						if($ip->InvoiceID==$invo->InvoiceID){
+			  							$sum=$sum+$ip->Amount;
+			  							$count++;
+			  						}
+			  					}
+				  				echo
+				  					'<tr>
+				  						<td>'.date('l F d, Y', strtotime($invo->datecreated)).'</td>
+				  						<td>Invoice</td>
+				  						<td>'.$invo->InvoiceID.'</td>
+				  						<td>'.date('l F d, Y', strtotime($invo->duedate)).'</td>
+				  						
+				  						<td>PHP '.number_format(($invo->Total-$sum),2).'</td>
+				  						<td>PHP '.number_format($invo->Total,2).'</td>
+				  						<td>';
+				  						if($count>0 && ($invo->Total-$sum)==0){
+				  							echo 'Closed';
+				  						}
+				  						else{
+				  							echo 'Open';
+				  						}
+
+
+				  						
+				  						echo
+				  						'</td>
+				  						<td>';
+				  						if($count>0 && ($invo->Total-$sum)==0){
+					  						echo 
+						  						'<button class="ui button payment-modal" disabled>Receive Payment</button>
+						  						<a href="#"><i class="print icon"></i></a>';
+				  						}
+				  						else{
+					  						echo 
+						  						'<button class="ui button payment-modal" onClick="getInvoiceDetails('.$invo->InvoiceID.')">Receive Payment</button>
+						  						<a href="#"><i class="print icon"></i></a>';
+				  						}
+				  						echo
+				  						'</td>
+				  					</tr>';
+				  			}
+			  				?>	
+			  					
 			  				</tbody>
 			  			</table>
 					</div>
@@ -323,7 +342,7 @@
 											{
 												if ($i->CaseID==$case->CaseID) 
 												{
-													if($i->datecreated!=null)
+													if($i->status==1)
 														echo '<a href="'.base_url().'/Invoice/InvoiceSlip/'.$i->InvoiceID.'">Invoice # '.$i->InvoiceID.'</a>';
 													else
 														echo '<p>Invoice # '.$i->InvoiceID.'</p>';
@@ -836,7 +855,7 @@
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" name="file" size="20"/>
+								    <input type="file" id="file" name="file">
 							</div>
 							<div class="ui header">
 					  				Due
@@ -883,6 +902,149 @@
 					<div class="one wide column hidden"></div>
 				</div>
 	 		 <br>
+		  </div>
+	</form>
+	</div>
+
+
+
+	<div class="ui modal fullscreen payment">
+	
+		<?php echo form_open('Invoice/AddInvoicePayment','class="ui form"');?>
+	  		<div class="ui inverted blue segment">
+	  			  <div class="ui header">
+				  <i class="large dollar icon"></i>
+					  Receive Payment
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Customer</label>
+								<div id="InvoiceIDHidden"></div>
+	  							<input type="hidden" name="DentistID" value="<?php echo $this->uri->segment(3);?>">
+								<input type="text" value="<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?> ">
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="<?php echo $dentist->email;?> ">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="right aligned column">
+						<div class="ui segment">
+							<div class="ui header">
+								Amount Received
+								<h1 id="sum"></h1>
+							</div>							
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						
+	  						<div class="field">
+	  							<label>Payment Method</label>
+	  							<select name="PaymentMethod" class="ui fluid dropdown">
+	  								<option value=""></option>
+	  								<option value="Partial">Partial</option>
+	  								<option value="Full">Full</option>
+
+	  							</select>
+	  						</div>
+	  						<div class="field">
+	  							
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>DESCRIPTION</th>
+		  					<th>DUE DATE</th>
+		  					<th>ORIGINAL AMMOUNT</th>
+		  					<th>OPEN BALANCE</th>
+		  					<th>PAYMENT</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td id="InvoiceIDOut">
+		  					
+		  					</td>
+		  					<td id="duedateout">
+		  						
+		  					</td>
+		  					<td id="totalout"></td>
+		  					<td id="balance"></td>
+		  					<td>
+		  						<div class="ui form">
+		  							<input type="text" value="" name="Amount" onkeyup="totalUpdate(this.value)">
+		  						</div>
+		  					</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
+								</div>
+							</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Amount to apply</h4>
+							</div>
+							<div class="three wide column">
+								<h2 id="Amounttoapply">PHP 0.00</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="receipt.html" data-content="Print invoice" class="popup"><i class="print big icon"></i>Print</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
 		  </div>
 	</form>
 	</div>

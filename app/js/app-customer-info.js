@@ -134,6 +134,37 @@ function getCaseItems(val) {
 }
 
 
+function getInvoiceDetails(val) {
+ 
+  $.ajax({
+  type: "POST",
+  url:"http://"+window.location.hostname+"/HJM/Customer/getInvoiceInfo",
+  dataType:'JSON',
+  data: "InvoiceID="+val,
+  cache: true,
+  
+  success: function(data){
+    $('#InvoiceIDHidden').html('<input type="hidden" name="InvoiceID" value="'+data.InvoiceID+'">');
+    $('#InvoiceIDOut').html('Invoice #'+data.InvoiceID+' '+data.datecreated);
+    $('#sum').html('PHP '+data.sum);
+    $('#totalout').html('PHP '+data.total);
+    $('#duedateout').html(data.duedate);
+    $('#balance').html('PHP '+data.balance);
+    $('#duedateval').val(data.duedate);
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+function totalUpdate(val){
+  $('#Amounttoapply').html('PHP '+val);
+}
+
 
 
 

@@ -23,7 +23,7 @@ class Invoice extends MX_Controller
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
 		$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$this->uri->segment(3)));
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));
-		$data['teeth'] = $this->MdlOrder->getCaseTeeth(array('CaseID'=>$info->CaseID));
+		$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$info->CaseID));
 		
 		$this->load->view('invoice-slip',$data);
 			
@@ -70,21 +70,54 @@ class Invoice extends MX_Controller
 
 	}
 
-	public function UpdateInvoiceStatus()
+	public function UpdateInvoiceStatus(){
+		$invoice = array(
+					'InvoiceID'=>$_POST['InvoiceID'],
+					'status' => $_POST['status'] 
+					);
+		
+		$this->MdlInvoice->addInvoice($invoice);
+		$data=array(
+					'InvoiceID' => $_POST['InvoiceID'],
+					'DentistID'=>$_POST['DentistID'],
+					'PaymentMethod' =>'New',
+		
+					'datecreated'=>date('Y-m-d'),
+					 
+
+								);
+		$this->MdlInvoice->addInvoicePayment($data);
+			redirect('Order/Info/'.$_POST['CaseID']);
+	}
+
+	public function getInvoiceInfo()
+	{	
+		$info = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$_POST['InvoiceID']));
+
+		echo $_POST['InvoiceID'];
+	}
+
+
+	public function addInvoicePayment()
 	{
 	
-			
-				$invoice = array(
-							'InvoiceID'=>$_POST['InvoiceID'],
-							'status' => $_POST['status'] 
-							);
-				
-				if($this->MdlInvoice->addInvoice($invoice))
-					redirect('Order/Info/'.$_POST['CaseID']);
+						
+						$data=array(
+									'InvoiceID' => $_POST['InvoiceID'],
+									'DentistID'=>$_POST['DentistID'],
+									'PaymentMethod' => $_POST['PaymentMethod'],
+									'Amount'=>$_POST['Amount'],
+									'datecreated'=>date('Y-m-d'),
+						);
+						$this->MdlInvoice->addInvoicePayment($data);	
+						redirect('Customer/Info/'.$_POST['DentistID']);
+						
 					
+						
+	
 			
-		
-		
+			
+		//}
 
 	}
 
