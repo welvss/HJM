@@ -7,7 +7,7 @@
 		   		<h1 class="ui header">
 		   		<img src="<?php echo base_url();?>app/img/hjm-logo.png" class="ui circular image">
 		   		<div class="content">
-		   			<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?> 
+		   			<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>
 		   			<div class="sub header">
 		   			<span><?php echo $dentist->company;?></span>
 		   			&nbsp;&nbsp; | &nbsp;&nbsp;
@@ -36,7 +36,7 @@
 	  <div class="row">
 	  	<div class="one wide column hidden"></div>
 	  	<div class="eight wide column">
-	  	<br>
+	  	<br><br><br><br>
 	  		<div class="ui tiny statistics">
 						  <div class="green statistic">
 						    <div class="value">
@@ -73,14 +73,23 @@
 			</div>
 	  	</div>
 	  	<div class="six wide right aligned column">
-	  	<br><br>
+	  	<br><br><br><br><br>
 		  	<div class="ui horizontal list">
 		  		<div class="item">
 		  			<h2 class="ui header">
 				<a class="ui orange circular label"></a>
 				<div class="content">
-						  PHP <?php echo number_format($sum->Total,2);?>
+						  PHP <?php echo number_format($sum,2);?>
 				  <div class="sub header">Open Balance</div>
+				</div>
+				</h2>
+		  		</div>
+		  		<div class="item">
+		  			<h2 class="ui header">
+				<a class="ui blue circular label"></a>
+				<div class="content">
+						  PHP <?php echo number_format($Partial,2);?>
+				  <div class="sub header">Partial</div>
 				</div>
 				</h2>
 		  		</div>
@@ -88,7 +97,7 @@
 		  			<h2 class="ui header">
 				<a class="ui red circular label"></a>
 				<div class="content">
-						  PHP <?php echo number_format($overdue->Total,2);?>
+						  PHP <?php echo number_format($overdue,2);?>
 				  <div class="sub header">Overdue</div>
 				</div>
 				</h2>
@@ -950,7 +959,7 @@
 	  			<div class="row">
 	  				<div class="fifteen wide column">
 	  					<div class="fields">
-	  						
+	  						<!--
 	  						<div class="field">
 	  							<label>Payment Method</label>
 	  							<select name="PaymentMethod" class="ui fluid dropdown">
@@ -960,6 +969,7 @@
 
 	  							</select>
 	  						</div>
+	  						-->
 	  						<div class="field">
 	  							
 	  						</div>
@@ -995,6 +1005,7 @@
 		  					<td>
 		  						<div class="ui form">
 		  							<input type="text" value="" name="Amount" onkeyup="totalUpdate(this.value)">
+		  							<div id="balancehidden"></div>
 		  						</div>
 		  					</td>
 		  					<td><a href="#"><i class="trash icon"></i></a></td>

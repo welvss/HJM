@@ -36,7 +36,7 @@
 		  	  							<div class="ui horizontal list">
 		  	  								<div class="item">
 		  	  									<label><strong>Doctor: </strong></label>
-		  	  									<?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?>
+		  	  									<a href="<?php echo base_url('Customer/Info/'.$dentist->DentistID);?>"><?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></a>
 		  	  								</div>
 		  	  								<div class="item">
 		  	  									<label><strong>Company: </strong></label>
@@ -388,7 +388,7 @@
 		  			<div class="ui centered header blue ">
 		  				<h1>Crown</h1>
 		  			</div>
-		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
+		  			<img class="ui centered large image" src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
  				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth" <?php if($invoice->status==1) echo 'disabled';?>>

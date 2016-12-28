@@ -158,7 +158,7 @@ function getCaseType(val) {
   data:'Type='+val,
   success: function(data){
     $('#CaseTypeID').dropdown('clear');
-     $('#CaseTypeID').dropdown();
+    $('#CaseTypeID').dropdown();
     $('#items').dropdown('clear');
     $('#CaseID').html('');
     $('#Case').html('');
@@ -237,6 +237,7 @@ $('.ui.form')
           }
         ]
       },
+      /*
       website: {
         identifier: 'website',
         rules: [
@@ -245,7 +246,7 @@ $('.ui.form')
             prompt : 'Please enter your Email Address'
           }
         ]
-      },
+      },*/
       street: {
         identifier: 'street',
         rules: [

@@ -36,10 +36,75 @@ class Customer extends MX_Controller
 		if($this->session->userdata('ps_id')==2 )
 		{	
 			$data['dentists'] = $this->MdlCustomer->getDentist(array('active'=>1));
-			$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
-      		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
-      		$data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));
-     		$data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));	
+			//$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1,'notduedate'=> date("Y-m-d")));
+      		//$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+      		//$data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1,'notduedate'=> date("Y-m-d")));
+     		//$data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+     		$data['invoices']= $this->MdlInvoice->getInvoice(array('status'=>1));	
+     		$data['invoicepayment'] = $this->MdlInvoice->getInvoicePayment();
+     		$ODinvoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+	      	$invoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'notduedate'=>date("Y-m-d") ,'status'=>1));
+	     	$ips=$this->MdlInvoice->getInvoicePayment(array('PaymentMethod'=>'Partial'));
+
+		    $sumOI=0;
+		    $sumOD=0;
+		    $sumPartial=0;
+		    $sumPayment=0;
+		    $sumPaymentOD=0;
+		    $countOI=0;
+		    $countOD=0;
+		    $countPartial=array();
+	      	foreach ($invoices as $invoice) {
+	        	$passed=true;
+		        foreach ($ips as $ip) {
+		         
+		          if($ip->InvoiceID==$invoice->InvoiceID) {   
+		              $passed=false;
+		              $countPartial[]=$ip->InvoiceID;
+		          }
+		        }
+		        if($passed){
+		          
+		          $sumOI=$sumOI+$invoice->Total;
+		          $countOI++;
+		        }
+	        
+	     	}
+	      	$InvoiceIDS=array_unique($countPartial);
+
+	      	foreach ($InvoiceIDS as $InvoiceID) {
+	        	foreach ($ips as $ip) {
+	        		if($ip->InvoiceID==$InvoiceID) {   
+	            		$sumPayment=$sumPayment+$ip->Amount;
+	         		}
+	        	}   
+	      	}
+
+	      	foreach ($invoices as $invoice) {
+	      		foreach ($InvoiceIDS as $InvoiceID) {
+		          	if($invoice->InvoiceID==$InvoiceID) {               
+		              	$sumPartial=$sumPartial+$invoice->Total;
+		          	}
+	    	}   }
+	      
+
+	      	foreach ($ODinvoices as $invoice) {
+		        $passed=true;
+		        foreach ($ips as $ip) {
+		          if($ip->InvoiceID==$invoice->InvoiceID) {   
+		            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+		          }
+		        }
+		        $sumOD=$sumOD+$invoice->Total;
+		        $countOD++;
+		    }
+	   
+	      	$data['sum']=number_format($sumOI,2);
+	     	$data['OI']=$countOI;
+	      	$data['OD']=$countOD;
+	      	$data['Partial']=number_format($sumPartial-$sumPayment,2);
+	      	$data['overdue']=number_format($sumOD-$sumPaymentOD,2);
+	      	$data['PCount']=count(array_unique($countPartial));
 			$this->load->view('app-customer',$data);
 			$data['script']='<script src="'.base_url().'app/js/app-semantic.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
@@ -51,8 +116,8 @@ class Customer extends MX_Controller
 	{
 		$this->headercheck();
 		$data['casetype'] = $this->MdlOrder->getCaseType();
-		$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3),'status'=>1));
-		$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
+		//$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3),'status'=>1,'notduedate'=> date("Y-m-d")));
+		//$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
 		$data['Count']	= $this->MdlOrder->getOrder(array('count'=>''));
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));
@@ -65,6 +130,68 @@ class Customer extends MX_Controller
 		$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'DentistID'=>$this->uri->segment(3),'count'=>''));
 		$data['inv'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3),'status'=>1));
 		$data['invoicepayment'] = $this->MdlInvoice->getInvoicePayment(array(''));
+		
+	   	$invoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'notduedate'=>date("Y-m-d") ,'status'=>1,'DentistID'=>$this->uri->segment(3)));
+	   	$ODinvoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
+	  	$ips = $this->MdlInvoice->getInvoicePayment(array('PaymentMethod'=>'Partial','DentistID'=>$this->uri->segment(3)));
+
+		$sumOI=0;
+		$sumOD=0;
+		$sumPartial=0;
+		$sumPayment=0;
+		$sumPaymentOD=0;
+		$countOI=0;
+		$countOD=0;
+		$countPartial=array();
+	    foreach ($invoices as $invoice) {
+	        $passed=true;
+		    foreach ($ips as $ip) {
+		         
+		        if($ip->InvoiceID==$invoice->InvoiceID) {   
+		            $passed=false;
+		            $countPartial[]=$ip->InvoiceID;
+		        }
+		    }
+		    if($passed){ 
+		        $sumOI=$sumOI+$invoice->Total;
+		        $countOI++;
+		    }
+	        
+	    }
+	    $InvoiceIDS=array_unique($countPartial);
+
+	    foreach ($InvoiceIDS as $InvoiceID) {
+	      	foreach ($ips as $ip) {
+	        	if($ip->InvoiceID==$InvoiceID) {   
+	            	$sumPayment=$sumPayment+$ip->Amount;
+	         	}
+	        }   
+	    }
+
+	    foreach ($invoices as $invoice) {
+	      	foreach ($InvoiceIDS as $InvoiceID) {
+		        if($invoice->InvoiceID==$InvoiceID) {               
+		            $sumPartial=$sumPartial+$invoice->Total;
+		        }
+	    	} 
+	    }
+	      
+
+	    foreach ($ODinvoices as $invoice) {
+		    foreach ($ips as $ip) {
+		    	if($ip->InvoiceID==$invoice->InvoiceID) {   
+		            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+		        }
+		    }
+		    $sumOD=$sumOD+$invoice->Total;
+		    $countOD++;
+		}
+		$data['sum']=$sumOI;
+     	$data['OI']=$countOI;
+      	$data['OD']=$countOD;
+      	$data['Partial']=$sumPartial-$sumPayment;
+      	$data['overdue']=$sumOD-$sumPaymentOD;
+      	$data['PCount']=count(array_unique($countPartial));
 		$this->load->view('app-customer-info',$data);
 		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 		$this->footer($data);
@@ -116,16 +243,75 @@ class Customer extends MX_Controller
 									'notes' => $_POST['notes'] );
 						
 						$DentistID=$this->MdlCustomer->AddDentist($dentist);
-						
+						$length = 5;
+						$alphabets = range('A','Z');
+					    $numbers = range('0','9');
+					    $additional_characters = array('_','.');
+					    $final_array = array_merge($alphabets,$numbers,$additional_characters);
+					         
+					    $password = '';
+					  
+					    while($length--) {
+					      $key = array_rand($final_array);
+					      $password .= $final_array[$key];
+					    }
 
-						redirect('Customer');
-			}
+						$email= array('title'=>$_POST['title'],
+									'firstname'=>$_POST['firstname'],
+									'lastname' => $_POST['lastname'],
+									'middlename' => $_POST['middlename'],
+									'company' =>$_POST['company'],
+									'email' => $_POST['email'],
+									'password'=>$password
+								);
+						$this->send_new_email($email);
+						$user= array(
+								'DentistID'=>$DentistID,
+								'username' => $_POST['email'],
+								'password'=>md5($password)
+							);
+						$this->MdlCustomer->AddUser($user);
+						
+						
+			
+						
+		    }
+		    redirect('Customer');
 	
 
 
 		
 
 	}
+
+	function send_new_email($options=array()){
+      $this->load->library('email');
+
+      $this->email->from('hjm@pup-taguig.net', 'HJM Dental Laboratory');
+      $this->email->to($options['email']);
+      $this->email->subject('HJM Dental Laboratory Management System User Account');
+
+      $message =  '<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Strict//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+            <meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+            <body>';
+      $message .= '<p>Dear '.$options['title'].' '.$options['firstname'].' '.$options['lastname'].',</p><br>';
+      $message .= 'We would like to inform you that you are now part of the HJM Dental Laboratory Mangament System. Here is your account details:</p><br>
+            <p>USERNAME: '.$options['email'].'</p><br>
+            <p>PASSWORD:'.$options['password'].'</p><br>';
+      $message .= '<p>Thank You!</p>';
+      $message .= '<p>The Team at HJM Dental Laboratory Management</p>';
+      $message .= '</body></html>';
+
+      $this->email->message($message);
+      if(!$this->email->send()){
+        
+        show_error($this->email->print_debugger());
+      }
+      else
+        return true;
+    
+    }
 
 
 	
@@ -135,6 +321,7 @@ class Customer extends MX_Controller
 
 	public function EditDentist()
 	{
+		if($this->session->userdata('ps_id')==2&&$this->session->userdata('is_logged_in')){
 			if($this->input->post('website')=="www.")
 				$ws="";
 			else
@@ -179,6 +366,49 @@ class Customer extends MX_Controller
 					redirect('Customer/Info/'.$_POST['DentistID']);
 				redirect('Customer/Info/'.$_POST['DentistID']);
 			}
+		}
+		else
+		if($this->session->userdata('ps_id')==1&&$this->session->userdata('is_logged_in')){
+			if($this->input->post('website')=="www.")
+				$ws="";
+			else
+				$ws='http://'.$this->input->post('website');
+	
+		
+			{
+				$street=$_POST['shipstreet'];
+				$city=$_POST['shipcity'];
+				$brgy=$_POST['shipbrgy'];
+			}
+			
+			{
+						$dentist = array(
+							
+									
+									'DentistID' => $this->session->userdata('DentistID'),
+									'firstname'=>$_POST['firstname'],
+									'lastname' => $_POST['lastname'],
+									'middlename' => $_POST['middlename'],
+									'company' =>$_POST['company'],
+									'email' => $_POST['email'],
+									'telephone' => $_POST['telephone'],
+									'mobile' => $_POST['mobile'],
+									'fax' => $_POST['fax'],
+									'website' => $ws,
+									'bstreet' => $_POST['bstreet'],
+									'bbrgy' => $_POST['bbrgy'],
+									'bcity' => $_POST['bcity'],
+									'shipstreet' => $street,
+									'shipcity' => $city,
+									'shipbrgy' => $brgy,
+									'notes' => $_POST['notes'] );
+						
+						$this->MdlCustomer->modifyDentist($dentist);
+						redirect('Dashboard');
+				
+			}
+
+		}
 	
 		
 
@@ -294,6 +524,68 @@ class Customer extends MX_Controller
 
 		
 	}
+
+
+	public function AccountSettings(){
+
+		if($this->session->userdata('ps_id')==1&&$this->session->userdata('is_logged_in')){
+			$this->headercheck();
+			if(isset($_POST['submit'])){
+				/*
+		    	$this->form_validation->set_rules('password','Password','required|callback_validate_password');
+		    	$this->form_validation->set_rules('newpassword','New Password','required');   
+		    	$this->form_validation->set_rules('newpasswordconf','New Password Confirmation','required|matches[newpassword]');      	
+				*/
+				if($this->validate_password($_POST['password'])){
+			    	if(md5($_POST['newpassword'])==md5($_POST['newpasswordconf'])){
+				    	{
+				    		$data= array(
+				    			'DentistID'=>$this->session->userdata('DentistID'),
+				    			'password'=>md5($_POST['newpassword'])
+				    		);
+				    		$this->MdlCustomer->EditUser($data);
+				    	}
+				    }
+				}
+				die('Error');
+
+    	
+    		}
+    		else{
+				
+				$this->load->view('accountsettings');
+				$this->load->view('template/frontfooter');
+			}
+		}
+	}
+
+	public function validate_password($password)
+    {
+       
+        if($this->MdlCustomer->password_check($password))
+        {
+            
+            return true;
+                         
+        }
+        else
+        {	
+        
+            return 'Incorrect password!';
+        }
+    }
+
+
+    public function Profile(){
+    	if($this->session->userdata('ps_id')==1&&$this->session->userdata('is_logged_in')){
+			$this->headercheck();
+			
+			$data['dentist']=$this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));
+			$this->load->view('profile',$data);
+			$this->load->view('template/frontfooter');
+		}
+
+    }
     
 
 

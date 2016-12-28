@@ -60,17 +60,29 @@ var dataTable = $('#dashboardcase').DataTable({
 
   
 });
+  $("#dashboardOImodal").DataTable({});
+  $("#dashboardODmodal").DataTable({});
+  $("#dashboardPartialmodal").DataTable({});
+  $('#dashboardinventory').DataTable({});
 
+  $(".dashboardcasemodal").click(function(){
+    $('.ui.case.modal').modal('show'); 
+  });
+  $(".dashboardinventorymodal").click(function(){
+    $('.ui.inventory.modal').modal('show');
+  });
+  
+  $(".dashboardODmodal").click(function(){
+    $('.ui.OD.modal').modal('show');
+  });
 
-$('#dashboardinventory').DataTable({});
-$(".dashboardcasemodal").click(function(){
-  $('.ui.case.modal').modal('show');
- 
-});
-$(".dashboardinventorymodal").click(function(){
-  $('.ui.inventory.modal').modal('show');
- 
-});
+  $(".dashboardOImodal").click(function(){
+    $('.ui.OI.modal').modal('show');
+  });
+
+  $(".dashboardPartialmodal").click(function(){
+    $('.ui.Partial.modal').modal('show');
+  });
 
 });
 

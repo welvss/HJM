@@ -1,206 +1,363 @@
-<section class="d-dash-board">
-		<div class="row">
-		<ul class="doctor-tabs" data-tabs id="doc-tabs">
-	  		<a href="Dashboard/logout" class="button secondary float-right">Sign Out</a>
-		  <li class="tabs-title<?php if($this->uri->segment(3) == null){ echo " is-active";}?>"><a href="#panel1">Dashboard</a></li>
-		  <li class="tabs-title"><a href="#panel2">New Case</a></li>
-		  <li class="tabs-title"><a href="#panel3">Case History</a></li>
-		  <li class="tabs-title"><a href="#panel4">Statements</a></li>
-		  <li class="tabs-title"><a href="#panel5">Account Details</a></li>
-		  
-		  <?php
-			if($this->uri->segment(3) != null)
-			{
-			  echo
-			  '<li class="tabs-title is-active"><a href="#panel6">Edit Case</a></li>';
-			}
-			?>
-		</ul>
-		<div class="tabs-content" data-tabs-content="doc-tabs">
-			
-			<?php 
-			 if($this->uri->segment(3) == null)
-			 {
-			 	echo ' <div class="tabs-panel is-active" id="panel1">';
-			 }
-			 else
-				echo ' <div class="tabs-panel" id="panel1">';
-			 ?>
-				<!-- -->
-		  
-		  	<div class="row expanded">
-		  		<!--Display Picture-->
-				<div class="large-6 columns">
-					<div id="doctor-dp-greeting">
-						<div class="dp">
-						<h1 id="initial-dp"><strong><?php echo substr($dentist->firstname, 0,1).substr($dentist->lastname, 0,1);?></strong></h1>
-						</div>
-						<h1 id="greetings"><strong>Welcome</strong>, <?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1>
-					</div>
-				</div>
-				<!--Clndr jquery Plugin-->
-				<div class="large-6 columns">
-					<div class="container">
-						<div class="cal1"></div>
-						<script type="text/template" id="template-calendar">
-							<div class="clndr-controls">
-								<div class="clndr-previous-button">&lsaquo;</div>
-								<div class="month"><%= intervalStart.format('M/DD') + ' &mdash; ' + intervalEnd.format('M/DD') %></div>
-								<div class="clndr-next-button">&rsaquo;</div>
-							</div>
-							<div class="clndr-grid">
-								<div class="days-of-the-week">
-								<% _.each(daysOfTheWeek, function(day) { %>
-									<div class="header-day"><%= day %></div>
-								<% }); %>
-									<div class="days">
-									<% _.each(days, function(day) { %>
-										<div class="<%= day.classes %>"><%= day.day %></div>
-									<% }); %>
-									</div>
-								</div>
-							</div>
-							<div class="clndr-today-button">Today</div>
-						</script>     
-					</div>
-				</div>
-		   </div>
-	 	  </div>
-		  <div class="tabs-panel" id="panel2">
-			<h3><i class="fa fa-pencil-square-o"></i><strong>New Case</strong></h3>
-								<hr>
-								<form action="">
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Patient:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="text" name="patient" id="patient">
-										</div>
-									</div>
-									<input type="hidden" id="DentistID" value="<?php echo $this->session->userdata('DentistID')?>">
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Date:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="date" name="due-date" id="duedate">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="medium-2 small-3 columns">
-										  <label for="right-label" class="text-right middle"><strong>Due Time:</strong></label>
-										</div>
-										<div class="medium-4 small-12 columns end">
-										    <input type="time" name="due-time" id="duetime">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Gender:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <select id="gender" name='gender'>
-										    	<option value=""></option>
-									  			<option value="Male">Male</option>
-									  			<option value="Female">Female</option>
-									  		</select>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Age:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="age" id="age">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Shade:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <input type="text" name="shade">
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Crown:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-										    <a href="#">[+] Add a crown or bridge</a>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Notes:</strong></label>
-										</div>
-										<div class="medium-9 small-12 columns end">
-										  <textarea name="notes" id="notes" cols="30" rows="5"></textarea>
-										</div>
-									</div>
-									<div class="row">
-										 <div class="small-2 columns">
-										  <label for="right-label" class="text-right middle"><strong>Attachment:</strong></label>
-										</div>
-										<div class="medium-3 small-12 columns end">
-									    <label for="exampleFileUpload" class="button">Upload File</label>
-										    <input type="file" id="exampleFileUpload" class="show-for-sr">
-										</div>
-									</div>
-									<hr>
-									<div class="row columns" id="messages">
-										<fieldset class="float-right">
-										  <button type="button" id="s" class="button success hvr-icon-forward">Submit Order</button>
-										</fieldset>
-									</div>
-								</form>
-		  </div>
-		  <div class="tabs-panel" id="panel3">
-		  
-		  	<div class="row expanded">
-				<div class="column medium-12 medium-order-2 large-12 large-order-1">
-				<table id="j-table" class="display responsive" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Invoice</th>
-							<th><center>Patient</center></th>
-							<th><center>Ordered Date</center></th>
-							<th><center>Due Date</center></th>
-							<th><center>Status</center></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php
-					$ctr=1;
-					foreach($cases as $case)
-					{
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="container-fluid main">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="profile">
+              <center><img src="<?php echo base_url('appclient');?>/img/dp2.jpg" alt="">
+              <h1>Hello, <?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1></center>
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <center><h3><i class="fa fa-file-o" style="color: #21ba45;" aria-hidden="true"></i>&nbsp; <strong><?php echo $New;?></strong> <br><h4>New Cases</h4></h3></center>
+              </div>
+              <div class="col-md-3">
+                <center><h3><i class="fa fa-flask" style="color: #a333c8;" aria-hidden="true"></i>&nbsp; <strong><?php echo $IP;?></strong> <br><h4>In Production</h4></h3></center>
+              </div>
+              <div class="col-md-3">
+                <center><h3><i class="fa fa-check-square-o" style="color: #2185d0;" aria-hidden="true"></i>&nbsp; <strong><?php echo $Completed;?></strong> <br><h4>Completed Cases</h4></h3></center>
+              </div>
+              <div class="col-md-3">
+                <center><h3><i class="fa fa-exclamation-triangle" style="color: #db2828;" aria-hidden="true"></i>&nbsp; <strong><?php echo $Hold;?></strong> <br><h4>On Hold</h4></h3></center>
+              </div>
+            </div>     
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              <div class="col-md-4 col-sm-6">
+                <center><h3><i class="fa fa-circle" style="color: #f2711c;" aria-hidden="true"></i>&nbsp; <strong>PHP <?php echo $sum;?></strong> <br><h4>Open Balance</h4></h3></center>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                 <center><h3><i class="fa fa-circle" style="color: #2185d0;" aria-hidden="true"></i>&nbsp; <strong>PHP <?php echo $Partial;?></strong><br><h4>Partial</h4></h3></center>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                 <center><h3><i class="fa fa-circle" style="color: #db2828;" aria-hidden="true"></i>&nbsp; <strong>PHP <?php echo $overdue;?></strong><br><h4>Overdue</h4></h3></center>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+          <div class="col-md-9"></div>
+          <div class="col-md-3">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Case Entry</button>
+            <!-- Modal -->
+              <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                
+                  <!-- Modal content-->
+                  <?php echo form_open_multipart('Order/AddOrder');?>
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h2 class="modal-title">New Case</h2>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <h6>Case Number:</h6>
+                          <h3 id="CaseID"></h3>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <h6>Patient First Name:</h6>
+                            <input type="text" class="form-control" id="pFname" name="patientfirstname">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <h6>Patient Last Name:</h6>
+                            <input type="text" class="form-control" id="pFname" name="patientlastname">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                              <h6>Gender</h6>
+                              <select class="form-control" id="sel1" name="gender">
+                                <option value=""></option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                              </select>
+                            </div>
+                        </div>
+                    <!--End of Row-->  
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                        <h6>Select Teeth</h6>
+                          <center>
+                          <div class="teeth-img">
+                          <img src="<?php echo base_url('appclient');?>/img/teeth-structure.png" class="hidden-xs" alt="">
+                          <img src="<?php echo base_url('appclient');?>/img/teeth-structure.png" class="visible-xs" alt="" style="height: 450px;">
+                          </div>
+                          </center>
+                          <br>
+                          <center>
+                            <select class="selectpicker" multiple name="teeth[]" required>
+                            <?php
+			 					$x=1; 
+			 					while ($x <= 32) 
+			 					{
+			 						
+			 						echo '<option value="'.$x.'">'.$x.'</option>';
+			 						$x++;
+			 					}	
+			 				?>
+                          </select>
+                          </center>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                                <h6>Type</h6>
+                                <select class="form-control" name="Type" onchange="getCaseType(this.value);" required>
+                                    <option value=""></option>
+							      	<option value="FIXED">Fixed</option>
+							      	<option value="RPD">RPD</option>
+							    	<option value="Others">Others</option>
+                                </select>
+                          </div>
+                          <div class="form-group">
+                                <h6>Product</h6>
+                                <select class="form-control" name="CaseTypeID" id="CaseTypeID" onchange="getID(this.value);" required="">
+                                  
+                                </select>
+                          </div>
+                          <div class="form-group">
+                                <h6>Item</h6>
+                                <select class="selectpicker" multiple name="items[]" required="">
+                                <?php 
+								    $caseitems = explode(',',$case->items);
+								     $bool=false;
+								     $positive=false;
+								     
+								     
+								    foreach ($items as $item) 
+								    {
+						
+										    foreach ($caseitems as $ci) 
+										    {
+										    	if($ci==$item->ItemID)
+										   			$positive=true;
+										   		
+										   		
+										    }
+										    if($positive)
+										    {
+										    	echo '<option value="'.$item->ItemID.'" selected>'.$item->ItemDesc.'</option>';
+										    	 $positive=false;
+										    }
+										    else
+										    {
+						 						echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+						 						
+						 					}
+						 				
+						 				if($caseitems==null)
+						 					echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+
+						 				
+								 	}
+								?>
+                                </select>
+                          </div>
+                          <h3>Shade Guide</h3>
+                          <div class="form-group">
+                          <label class="radio-inline"><input type="radio" name="shade1" required>1 Shade</label>
+                          <label class="radio-inline"><input type="radio" name="shade1">2 Shades</label>
+                          <label class="radio-inline"><input type="radio" name="shade1">3 Shades</label>
+                          <br>
+                          <label class="radio-inline"><input type="radio" name="shade1">No Shade</label>
+                          <label class="radio-inline"><input type="radio" name="shade1">Provide Shade Later</label>
+                          </div>
+                          <br>
+                           <div class="form-group">
+                                <select class="form-control" id="sel1" name="shade2" required>
+                                  <option></option>
+                                  <option value="A1">A1</option>
+                                  <option value="A2.5">A2.5</option>
+                                  <option value="A3">A3</option>
+                                  <option value="A3.5">A3.5</option>
+                                </select>
+                          </div>
+                          </div>
+                      </div>
+                    <div class="row">
+                      <div class="col-md-12"><h2>Optional</h2></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h4>Return:</h4>
+                        <hr>
+                        <div class="checkbox">
+                          	<label>
+                          		<input type="checkbox" tabindex="0"  id="Tray1">
+								<input type="hidden" id="Tray" name="Tray" value="0">
+								Tray
+							</label>
+                        </div>
+                        <div class="checkbox">
+                          	<label>
+                          		<input type="checkbox" tabindex="0"  id="SG1">
+								<input type="hidden" id="SG" name="SG" value="0">
+								Shade Guide
+							</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0"  id="BW1">
+								<input type="hidden" id="BW" name="BW" value="0">
+								Bite Wax
+                        	</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0"  id="MC1">
+								<input type="hidden" id="MC" name="MC" value="0">
+                        		Model Cast
+                        	</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0"  id="OC1">
+								<input type="hidden" id="OC" name="OC" value="0">
+                        		Opposing Cast
+                        	</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0"  id="Photos1" >
+								<input type="hidden" id="Photos" name="Photos" value="0">
+                        		Photos
+                        	</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0"  id="Articulator1" >
+								<input type="hidden" id="Articulator" name="Articulator" value="0">
+                        		Articulator
+                        	</label>
+                        </div>
+                        <div class="checkbox">
+                        	<label>
+                        		<input type="checkbox" tabindex="0" id="OD1" >
+								<input type="hidden" id="OD" name="OD" value="0">
+                        		Old Denture
+                        	</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <h4>Doctor's Special Instruction</h4>
+                        <hr>
+                        <div class="form-group">
+                          <label for="comment">Comment:</label>
+                          <textarea class="form-control" rows="5" id="comment" name="notes"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <h4>Attachment</h4>
+                        <hr>
+                        <input type="file" id="file" name="file" accept="image/*">
+                        <h5>Due</h5>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                            <h6>Due Date</h6>
+                            <input type="date" class="form-control" id="date" name="duedate" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                            <h6>Due Time</h6>
+                            <input type="time" class="form-control" id="time" name="duetime" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                      
+                      <input type="submit" name="submit"  type="submit" class="btn btn-success"  value="Submit">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+          <h1><strong>Schedules</strong></h1>
+            <div id='calendar'></div>
+          </div>
+          <div class="col-md-6">
+           <h1><strong>Recent Cases</strong></h1>
+            <div class="table-responsive">
+              <table class="table">
+	            <thead>
+	                <tr>
+		                <th>Case #</th>
+		                <th>Invoice</th>
+		                <th>Patient</th>
+		                <th>Date</th>
+		                <th>Due</th>
+		                <th>Status</th>
+		                <th>Lab Slip</th>
+		                <th>Action</th>
+		        	</tr>
+                </thead>
+				<tbody>
+				<?php 
+					foreach($cases as $case){
 						echo
-						'<tr>
-							<td></td>
-							<td>'.$ctr.'</td>
-							<td>'.$case->patient.'</td>
-							<td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
-							<td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
-							<td><center>'.$case->status.'</center></td>
-							<td><a href="#">Lab Slip</a></td>
-							<td><a href="'.base_url().'Dashboard/EditCase/'.$case->CaseID.'">Edit</a></td>
-						</tr>';
-						$ctr++;
-					}
-					?>
-					</tbody>
-				</table>
-				</div>
-			</div>
-		  </div>
-		  
+			                '<tr class="'.($case->status_id==1 ? 'new' : ($case->status_id==2 ? 'in-prod' : ($case->status_id==3 ? 'completed' : 'on-hold'))).'">
+				                <td>'.$case->CaseTypeID.'-'.$case->CaseID.'</td>
+				                <td>';
+				                foreach ($invoice as $i) 
+								{
+									if ($i->CaseID==$case->CaseID) 
+									{
+										if($i->status==1)
+											echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+										else
+											echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+									}
+								}
 
-		</div>
-	   <div class="row">
+				           echo '</td>
+				                <td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+				                <td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+				                <td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+				                <td>';
+				                foreach ($status as $stat){
+									if($stat->status_id==$case->status_id){
+									 	
+									 	echo strtoupper($stat->status);
+									 
+									}	 	
+								}		
 
-	   </div>
-    </section>
+				            echo    
+				            	'</td>
+				                <td><a href="'.base_url('Order/RX/'.$case->CaseID).'">View</a></td>
+				                <td><a href="'.base_url('Order/Info/'.$case->CaseID).'">Edit</a></td>
+			                </tr>';
+		            }
+	            ?>
+               	</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      

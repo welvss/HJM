@@ -23,11 +23,17 @@ class Home extends MX_Controller
     }
 	public function index(){
 		
-		$this->load->view('template/frontheader');
-		$this->load->view('sign-in');
-		$this->load->view('template/frontfooter');
+		$this->load->view('template/webheader');
+		$this->load->view('index');
+		$this->load->view('template/webfooter');
 
 	}
+    public function login(){
+
+        $this->load->view('template/webheader');
+        $this->load->view('login');
+        $this->load->view('template/webfooter');
+    }
    
 	public function login_validation() 
 	{
@@ -53,9 +59,9 @@ class Home extends MX_Controller
             }
             else
             {
-                $this->load->view('template/frontheader');
-                $this->load->view('sign-in');
-                $this->load->view('template/frontfooter');
+                $this->load->view('template/webheader');
+                $this->load->view('login');
+                $this->load->view('template/webfooter');
             }
     }
         

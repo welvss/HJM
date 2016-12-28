@@ -24,7 +24,7 @@
      <div class="ui sub header"><?php echo $dentist->firstname.' '.$dentist->lastname;?></div>
           Admin
       <i class="dropdown icon"></i>
-      <div class="menu">
+      <div class="menu"><!--
         <div class="item"><i class="settings icon"></i>
         Edit Username</div>
         <div class="item"> <i class="user icon"></i>
@@ -33,7 +33,7 @@
         <div class="item"> <i class="browser icon"></i>
         Manage Site</div>
         <div class="item"> <i class="configure icon"></i>
-        Account settings</div>
+        Account settings</div>-->
         <div class="item"> <a href="<?php echo base_url();?>Dashboard/Logout"><i class="sign out icon"></i>
         Sign Out</a></div>
       </div>

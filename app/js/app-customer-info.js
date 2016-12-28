@@ -150,6 +150,7 @@ function getInvoiceDetails(val) {
     $('#totalout').html('PHP '+data.total);
     $('#duedateout').html(data.duedate);
     $('#balance').html('PHP '+data.balance);
+    $('#balancehidden').html('<input type="hidden" name="Balance" value="'+data.balance+'"/>');
     $('#duedateval').val(data.duedate);
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {

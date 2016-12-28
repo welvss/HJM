@@ -9,7 +9,7 @@ class Order extends MX_Controller
 			redirect();
 		}
 		
-		echo modules::run('Dashboard/models');
+		modules::run('Dashboard/models');
 	}
 	
 	function headercheck()
@@ -64,13 +64,8 @@ class Order extends MX_Controller
 	public function AddOrder()
 	{
 	
-		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-			
-						
-		}
-
-		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
 		{				
 				if(isset($_POST['submit']))
 				{
@@ -160,6 +155,82 @@ class Order extends MX_Controller
 					redirect('Order');
 				
 		}
+		else
+		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+			if(isset($_POST['submit']))
+			{
+					if($_FILES['file']['name']!='')
+					{	
+
+						$config['upload_path']          = './app/uploads/';
+                		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+                		$config['max_size']             = 2048;
+                		$config['encrypt_name']			= TRUE;
+                		$this->load->library('upload', $config);
+						if ( ! $this->upload->do_upload('file'))
+		                {
+		                    $error = array('error' => $this->upload->display_errors());
+		                    die($this->upload->display_errors());
+		                   
+		                }
+                		
+	                	else{
+
+	                		$datus = $this->upload->data();
+	                		$file=true;
+
+	                	}
+                }
+
+	            else{
+	            	$file=false;
+	            }
+	                			
+								$data=array(
+										'DentistID'=>$this->session->userdata('DentistID'),
+										'patientfirstname'=>$_POST['patientfirstname'],
+										'patientlastname'=>$_POST['patientlastname'],
+										'CaseTypeID'=> $_POST['CaseTypeID'],
+										'Type'=> $_POST['Type'],
+										'duedate' => $_POST['duedate'],
+										'duetime' => $_POST['duetime'],
+										'gender' =>$_POST['gender'],
+										'shade1' => $_POST['shade1'],
+										'shade2' => $_POST['shade2'],
+										'notes' => $_POST['notes'],
+										'Tray' => $_POST['Tray'],
+										'SG' => $_POST['SG'],
+										'BW' => $_POST['BW'],
+										'MC' => $_POST['MC'],
+										'OC' => $_POST['OC'],
+										'Photos' => $_POST['Photos'],
+										'Articulator' => $_POST['Articulator'],
+										'OD' => $_POST['OD'],
+										'teeth' => implode(',',$_POST['teeth']),
+										'items' => implode(',',$_POST['items']),
+										'file' => ( $file ? $datus['file_name'] : '' )
+
+										//'file' => $upload_data['file_name']
+									);
+								$CaseID = $this->MdlOrder->AddOrder($data);
+								$i=$this->MdlInvoice->countInvoice();
+								$invoice= array('CaseID' => $CaseID,
+									'InvoiceID' => $this->MdlInvoice->countInvoice()+1,
+									'DentistID'=>$this->session->userdata('DentistID')
+									);
+								$this->MdlInvoice->createInvoice($invoice);
+
+
+								redirect('Dashboard');
+								
+						
+						
+			}
+
+		}
+		
+
 
 	}
 
@@ -173,7 +244,7 @@ class Order extends MX_Controller
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							'completedon'=>date('Y-m-d') 
+							//'completedon'=>date('Y-m-d') 
 							);
 				
 				$this->MdlOrder->UpdateOrderStatus($order);
@@ -208,7 +279,7 @@ class Order extends MX_Controller
 				$order= array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							'createdon'=>date('Y-m-d') 
+							//'createdon'=>date('Y-m-d') 
 						);
 				
 				$this->MdlOrder->UpdateOrderStatus($order);	
@@ -223,7 +294,7 @@ class Order extends MX_Controller
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							'createdon'=> ''
+							//'createdon'=> ''
 							);
 				
 				if($this->MdlOrder->UpdateOrderStatus($order))
@@ -243,11 +314,7 @@ class Order extends MX_Controller
 	{
 	
 		
-		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
-		{
-			
-		}
-
+		
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
 		{		if(isset($_POST['submit']))
 				{	
@@ -314,6 +381,77 @@ class Order extends MX_Controller
 							redirect('Order');
 
 		}
+		else
+		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+			if(isset($_POST['submit']))
+			{
+					if($_FILES['file']['name']!='')
+					{	
+
+						$config['upload_path']          = './app/uploads/';
+                		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+                		$config['max_size']             = 2048;
+                		$config['encrypt_name']			= TRUE;
+                		$this->load->library('upload', $config);
+						if ( ! $this->upload->do_upload('file'))
+		                {
+		                    $error = array('error' => $this->upload->display_errors());
+		                    die($this->upload->display_errors());
+		                   
+		                }
+                		
+	                	else{
+
+	                		$datus = $this->upload->data();
+	                		$file=true;
+
+	                	}
+                }
+
+	            else{
+	            	$file=false;
+	            }
+	                			
+								$data=array(
+										'CaseID' => $_POST['CaseID'] , 
+										'patientfirstname'=>$_POST['patientfirstname'],
+										'patientlastname'=>$_POST['patientlastname'],
+										'CaseTypeID'=> $_POST['CaseTypeID'],
+										'Type'=> $_POST['Type'],
+										'duedate' => $_POST['duedate'],
+										'duetime' => $_POST['duetime'],
+										'gender' =>$_POST['gender'],
+										'shade1' => $_POST['shade1'],
+										'shade2' => $_POST['shade2'],
+										'notes' => $_POST['notes'],
+										'Tray' => $_POST['Tray'],
+										'SG' => $_POST['SG'],
+										'BW' => $_POST['BW'],
+										'MC' => $_POST['MC'],
+										'OC' => $_POST['OC'],
+										'Photos' => $_POST['Photos'],
+										'Articulator' => $_POST['Articulator'],
+										'OD' => $_POST['OD'],
+										'teeth' => implode(',',$_POST['teeth']),
+										'items' => implode(',',$_POST['items']),
+										'file' => ( $file ? $datus['file_name'] : '' )
+
+										//'file' => $upload_data['file_name']
+									);
+								$this->MdlOrder->modifyOrder($data);
+
+								$array = array('CaseID' => $_POST['CaseID']); 
+								redirect('Order/Info/'.$_POST['CaseID']);
+
+					
+								
+						
+						
+			}
+			else
+				redirect('Dashboard');
+		}
 
 		
 						
@@ -343,6 +481,24 @@ class Order extends MX_Controller
 			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-invoice.js"></script>';
 
 			$this->footer($data);
+		}
+		else
+		if($this->session->userdata('ps_id')==1 && $this->session->userdata('is_logged_in') == TRUE  )
+		{	
+			$this->headercheck();
+			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
+			$data['status']=$this->MdlOrder->getStatus(array('status_id'=>$info->status_id));
+			$data['casetype'] = $this->MdlOrder->getCaseType(array('Type'=>$info->Type));
+			$data['items'] = $this->MdlInventory->getItem(array());
+			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
+			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice->InvoiceID));
+			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
+			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->session->userdata('DentistID')));	
+			$this->load->view('app-orders-info-client',$data);
+			$this->load->view('template/frontfooter');
+
+			
 		}
 	
 	
@@ -392,6 +548,7 @@ class Order extends MX_Controller
 
     public function getCaseType(){
     	$data = $this->MdlOrder->getCaseType(array('Type'=>$_POST['Type']));
+    	echo '<option value=""></option>';
     	foreach ($data as $datus) {
     		echo '<option value="'.$datus->CaseTypeID.'">'.$datus->CaseTypeDesc.'</option>';
     	}

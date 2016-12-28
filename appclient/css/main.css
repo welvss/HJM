@@ -1,0 +1,361 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro:200,400';
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+html, body{
+	height: 100%;
+    margin: 0px;
+    width: 100%;
+}
+body{
+	overflow-x: hidden;
+}
+.navbar{
+	padding-top: 12.5px;
+	padding-bottom: 12.5px;
+}
+.navbar-nav{
+	letter-spacing: 3px;
+}
+.navbar-inverse{
+	background: #2d3f51;
+}
+.top-header {
+	background-image: linear-gradient(to right, #6c6c6c 25%, skyblue 25%, deepskyblue 50%);
+	background-size: 100% 6px;
+	background-repeat: no-repeat; 
+}
+.top-header-inverse{
+	background-image: linear-gradient(to right, white 25%, skyblue 25%, deepskyblue 50%);
+	background-size: 100% 6px;
+	background-repeat: no-repeat; 
+}
+}
+.primary-body{
+	margin-top: 25px;
+}
+.mobile-section {
+	background-image: url('../img/mobile3.jpg');
+	background-size: cover;
+}
+.mobile-text{
+	text-align: center;
+	padding-right: 50px;
+	padding-top: 100px;
+	padding-bottom: 120px;
+	color: white;
+}
+.mobile-text>img{
+	height: 40px;
+}
+.mobile-text>h1{
+	font-size: 4em;
+}
+.hjm-app-p{
+	letter-spacing: 10px;
+	color: white;
+}
+
+.section {
+    height: 100vh;
+}
+
+.left-h {
+    background-image: url('../img/body1.jpg');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+    background-position: center;
+    float: left;
+    padding: 0px;
+    color: white;
+
+}
+.heading{
+	color: white;
+	position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+@media (min-width: 701px) {
+	.heading {
+		    top: 40%;
+	}
+}
+
+@media (max-width: 700px) {
+	.heading {
+		    top: 20%;
+	}
+}
+
+.text {
+	display: inline-block;
+}
+
+
+@media (min-width: 1300px) {
+	.left-h,
+	.right-h {
+		width: 49vw;
+		display: inline-block;
+		height: 100%;
+	}
+}
+@media (max-width: 1299px) {
+	.left-h,
+	.right-h {
+		width: 100vw;
+		display: inline-block;
+		height: 70%;
+		border-bottom: 10px white solid;
+	}
+}
+
+.right-h {
+    background-image: url('../img/body2.jpg');
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+    background-position: center;
+    float: right;
+}
+.navbar-right>li>a{
+	color: black;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.navbar-right>li>a:hover{
+	background: none;
+	color: #3498db;
+}
+/* Underline From Center */
+.hvr-underline-from-center {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-center:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background: #3498db;
+  height: 4px;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+  left: 0;
+  right: 0;
+}
+.welcome>p{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 25pt;
+	font-weight: 200;
+	color: #353535;
+	text-align: center;
+}
+.ceo-img{
+	border-radius: 50%;
+	border: solid white 5px;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+	height:200px;
+}
+
+.main-header{
+	background-image: url("../img/stardust.png");
+	background-size: 500px;
+	background-repeat: repeat-x;
+}
+
+.contact-details{
+	background: #3498db;
+	height: 500px;
+	color: white; 
+	padding-top: 100px;
+	text-align: center;
+	
+}
+.contact-details>h1{
+	letter-spacing: 5px;
+}
+footer{
+	text-align: center;
+}
+
+.fa-map-marker{
+	color: #96281B;
+}
+.fa-mobile{
+	color: black;
+}
+.fa-envelope-o{
+	color: lightgreen;
+}
+
+.login-header{
+	background-image: url("../img/toothbrush.jpeg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 35vh;
+}
+.login-header>h1{
+	color: white;
+	text-align: center;
+	letter-spacing: 10px;
+	padding-top: 12.5vh;
+	font-size: 35px;
+}
+.login{
+	background: red;
+}
+.signin{
+	background-image: url("../img/geometry2.png");
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+.signin button{
+	float: right;
+}
+.signin h1{
+	text-align: center;
+	letter-spacing: 10px;
+}
+.signin p{
+	text-align: center;
+	letter-spacing: 5px;
+}
+.footer{
+	color: white;
+	background-image: url("../img/stardust.png");
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.about-section{
+	background: #2d3f51;
+	height: 500px;
+}
+.about-section img{
+	display: block;
+    margin: 0 auto;
+    padding-top: 25px;
+	height: 75px;
+	text-align: center;
+}
+.services-section{
+	background: #3498db;
+	padding-top: 75px;
+	padding-bottom: 75px;
+	color: white;
+	text-align: left;
+}
+.services-section h1{
+	letter-spacing: 5px;
+}
+.services-section-slide{
+	padding-top: 65px;
+	padding-bottom: 65px;
+	display: none;
+}
+.services-section-slide h1{
+	color: #3498db;
+}
+.services-section-slide h2{
+	color: #3498db;
+}
+.services-img{
+	height: auto;
+	width: 100%;
+}
+
+.d-login-heading{
+	display: inline-block;
+}
+.d-app-content{
+	margin-top: 10px;
+
+}
+.profile img{
+	border-radius: 50%;
+	border: solid white 5px;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+	height:150px;
+	display: inline;
+}
+.profile h1{
+	display: inline;
+}
+.main{
+	margin-top: 50px;
+}
+#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+.blu-con{
+	background: #3498db;
+	color: white;
+	border-radius: 50px;
+	border: 5px solid white;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.6);
+	
+}
+.or-con{
+	background: #e67e22;
+	color: white;
+	border-radius: 50px;
+	border: 5px solid white;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.6);
+}
+.table-responsive {
+	height: 500px;
+	overflow: auto;
+}
+.btn-view-case{
+	float: right;
+}
+.modal-content{
+	background: #00b5ad;
+	color: white;
+}
+.teeth-img img{
+	border-radius: 50px;
+}
+
+.new{
+	background: #21ba45;
+	color: white;
+}
+.in-prod{
+	background: #a333c8;
+	color: white;
+}
+.completed{
+	background: #2185d0;
+	color: white;
+}
+.on-hold{
+	background: #db2828;
+	color: white;
+}
+

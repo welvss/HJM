@@ -136,23 +136,27 @@
 				  <h4 class="ui large header">Income</h4>
 				 <div class="ui horizontal segments income">
 					  <div class="ui segment openInvoices ">
-					    <h3><?php echo number_format($sum->Total,2);?> PHP</h3>
+					    <h3 id="sum"><?php echo $sum;?> PHP</h3>
 					  </div>
 					  <div class="ui segment partial">
-					    <h3>0.00 PHP</h3>
+					    <h3 id="Partial"><?php echo $Partial;?> PHP</h3>
 					  </div>
 					  <div class="ui segment overdue">
-					    <h3><?php echo number_format($overdue->Total,2);?> PHP</h3>
+					    <h3 id="overdue"><?php echo $overdue;?> PHP</h3>
 					  </div>
+					  <!--
 					  <div class="ui segment paid">
 					    <h3>0.00 PHP</h3>
 					  </div>
+					  -->
 				 </div>
-					<div class="ui four column grid">
-					  <div class="column"><h1><?php echo $OI;?></h1><a href="#">OPEN INVOICES</a></div>
-					  <div class="column"><h1>0</h1><a href="#">PARTIAL</a></div>
-					  <div class="column"><h1><?php echo $OD;?></h1><a href="#">OVERDUE</a></div>
+					<div class="ui three column grid">
+					  <div class="column dashboardOImodal"><h1 id="OI"><?php echo $OI;?></h1><a href="#">OPEN INVOICES</a></div>
+					  <div class="column dashboardPartialmodal"><h1 id="PCount"><?php echo $PCount;?></h1><a href="#">PARTIAL</a></div>
+					  <div class="column dashboardODmodal"><h1 id="OD"><?php echo $OD;?></h1><a href="#">OVERDUE</a></div>
+					   <!--
 					  <div class="column"><h1>0</h1><a href="#">PAID LAST 30 DAYS </a></div>
+					  -->
 					</div>
 				</div>
 	   		</div>
@@ -191,7 +195,7 @@
 						                          </div>
 						                          <div class="content">
 						                            <div class="summary">
-						                              <a href="#">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
+						                              <a href="'.base_url('Invoice/InvoiceSlip/'.$ips->InvoiceID).'">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
 						                              <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
 						                            </div>
 						                          </div>
@@ -205,7 +209,7 @@
 						                    </div>
 						                    <div class="content">
 						                      <div class="summary">
-						                       <a href="#">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
+						                       <a href="'.base_url('Invoice/InvoiceSlip/'.$ips->InvoiceID).'">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
 						                        <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
 						                      </div>
 						                    </div>
@@ -260,6 +264,7 @@
 	  </div>
 	</div>
 </div>
+
 
 <div class="ui case modal">
   <div class="image content">
@@ -383,6 +388,182 @@
 	  							</center>
 	  						</td>
 	  					</tr>';
+	  					}
+	  					?>
+	  				</tbody>
+	  		</table>
+  	</div>
+  
+</div>
+
+<div class="ui OD modal">
+  	<div class="image content">
+     		<table id="dashboardODmodal" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Invoice #</th>
+			  				<th>CUSTOMER/COMPANY</th>
+			  				<th>DUE DATE</th>
+			  				<th>BALANCE</th>
+			  				<th>TOTAL</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<?php
+	  				
+						$sumPaymentOD=0;
+	  					foreach ($ODinvoices as $invoice) {
+						   	$sumPaymentOD=0;
+
+	  						foreach ($InvoicePayments as $ip) {
+
+						    	if($ip->InvoiceID==$invoice->InvoiceID) {   
+						            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+						        }
+						    }
+						   
+
+		  					echo
+		  					'<tr>
+		  						<td><a href="'.base_url('Invoice/InvoiceSlip/'.$invoice->InvoiceID).'">Invoice #'.$invoice->InvoiceID.'</a></td>
+		  						<td>
+									<h4 class="ui image header">
+										        <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+										        <div class="content">';
+								foreach ($dentists as $dentist) 
+								{
+									if($invoice->DentistID==$dentist->DentistID)
+									{     
+										echo
+										'<a href="Customer/Info/'.$invoice->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+										<div class="sub header">'.$dentist->company.'</div>';
+									}
+								}
+								echo	          
+											'</div>
+									</h4>
+								</td>
+		  						<td><center>'.date('l F d, Y h:i A', strtotime($invoice->duedate)).'</center></td>
+		  						<td><center>PHP '.number_format(($invoice->Total-$sumPaymentOD),2).'</center></td>
+		  						<td><center>PHP '.number_format($invoice->Total,2).'</center></td>
+		  					</tr>';
+	  					}
+	  					?>
+	  				</tbody>
+	  		</table>
+  	</div>
+  
+</div>
+
+<div class="ui OI modal">
+  	<div class="image content">
+     		<table id="dashboardOImodal" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Invoice #</th>
+			  				<th>CUSTOMER/COMPANY</th>
+			  				<th>DUE DATE</th>
+			  				<th>BALANCE</th>
+			  				<th>TOTAL</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<?php
+	  				
+						$sumPaymentOD=0;
+	  					foreach ($OIinvoices as $invoice) {
+						   	$sumPaymentOD=0;
+
+	  						foreach ($InvoicePayments as $ip) {
+
+						    	if($ip->InvoiceID==$invoice->InvoiceID) {   
+						            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+						        }
+						    }
+						   
+
+		  					echo
+		  					'<tr>
+		  						<td><a href="'.base_url('Invoice/InvoiceSlip/'.$invoice->InvoiceID).'">Invoice #'.$invoice->InvoiceID.'</a></td>
+		  						<td>
+									<h4 class="ui image header">
+										        <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+										        <div class="content">';
+								foreach ($dentists as $dentist) 
+								{
+									if($invoice->DentistID==$dentist->DentistID)
+									{     
+										echo
+										'<a href="Customer/Info/'.$invoice->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+										<div class="sub header">'.$dentist->company.'</div>';
+									}
+								}
+								echo	          
+											'</div>
+									</h4>
+								</td>
+		  						<td><center>'.date('l F d, Y h:i A', strtotime($invoice->duedate)).'</center></td>
+		  						<td><center>PHP '.number_format(($invoice->Total-$sumPaymentOD),2).'</center></td>
+		  						<td><center>PHP '.number_format($invoice->Total,2).'</center></td>
+		  					</tr>';
+	  					}
+	  					?>
+	  				</tbody>
+	  		</table>
+  	</div>
+  
+</div>
+
+<div class="ui Partial modal">
+  	<div class="image content">
+     		<table id="dashboardPartialmodal" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Invoice #</th>
+			  				<th>CUSTOMER/COMPANY</th>
+			  				<th>DUE DATE</th>
+			  				<th>BALANCE</th>
+			  				<th>TOTAL</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<?php
+						
+	  					foreach ($Partialinvoices as $invoice) {
+						   	$sumPaymentOD=0;
+
+	  						foreach ($InvoicePayments as $ip) {
+
+						    	if($ip->InvoiceID==$invoice->InvoiceID) {   
+						            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+						        }
+						    }
+						   
+
+		  					echo
+		  					'<tr>
+		  						<td><a href="'.base_url('Invoice/InvoiceSlip/'.$invoice->InvoiceID).'">Invoice #'.$invoice->InvoiceID.'</a></td>
+		  						<td>
+									<h4 class="ui image header">
+										        <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+										        <div class="content">';
+								foreach ($dentists as $dentist) 
+								{
+									if($invoice->DentistID==$dentist->DentistID)
+									{     
+										echo
+										'<a href="Customer/Info/'.$invoice->DentistID.'">'.$dentist->title.' '.$dentist->firstname.' '.$dentist->lastname.'</a>
+										<div class="sub header">'.$dentist->company.'</div>';
+									}
+								}
+								echo	          
+											'</div>
+									</h4>
+								</td>
+		  						<td><center>'.date('l F d, Y h:i A', strtotime($invoice->duedate)).'</center></td>
+		  						<td><center>PHP '.number_format(($invoice->Total-$sumPaymentOD),2).'</center></td>
+		  						<td><center>PHP '.number_format($invoice->Total,2).'</center></td>
+		  					</tr>';
 	  					}
 	  					?>
 	  				</tbody>

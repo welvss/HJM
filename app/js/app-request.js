@@ -21,6 +21,10 @@ function getNotif(){
 			$( "#Complete_count_dashboard" ).html('<i class="circle check icon hvr-float"></i> '+data.Completed);
 			$( "#OH_count_dashboard" ).html('<i class="warning circle icon hvr-buzz"></i> '+data.On_Hold);
     });
+    $.get("http://"+window.location.hostname+"/HJM/Dashboard/recentactivities", function(data){
+        	
+			$( "#recent_activities" ).html(data);
+    });
     $.get("http://"+window.location.hostname+"/HJM/Inventory/countInventory", function(data){
         	if(data>0){
 				$( "#inventory_count_sidebar" ).html('<i class="large cubes icon"></i><div class="ui left red label" id="number-notif" >'+data+'</div> Inventory');
@@ -33,6 +37,15 @@ function getNotif(){
     $.get("http://"+window.location.hostname+"/HJM/Dashboard/recentactivities", function(data){
         	
 			$( "#recent_activities" ).html(data);
+    });
+    $.getJSON("http://"+window.location.hostname+"/HJM/Invoice/getInvoiceCount", function(data){
+    		$( "#OI" ).text(data.OI);
+        	$( "#OD" ).text(data.OD);
+        	$( "#PCount" ).text(data.PCount);
+        	$( "#sum" ).text(data.sum+' PHP');
+        	$( "#overdue" ).text(data.overdue+' PHP');
+        	$( "#Partial" ).text(data.Partial+' PHP');
+			
     });
 }
 

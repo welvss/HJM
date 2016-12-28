@@ -65,6 +65,9 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['duedate']))
 			$this->db->where('duedate <',$options['duedate']);
 
+		if(isset($options['notduedate']))
+			$this->db->where('duedate >',$options['notduedate']);
+
 		if(isset($options['limit']) && isset($options['offset']))
 			$this->db->limit($options['limit'], $options['offset']);
 		
@@ -74,10 +77,11 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
 			$this->db->order_by($options['sort_by'], $options['sort_direction']);
 
-		if(isset($options['paid']))
+		if(isset($options['paid']) && isset($options['count']))
 			return $query = $this->db->count_all_results('tblinvoice');
-		else
-			$query = $this->db->get("tblinvoice");
+
+			
+		$query = $this->db->get("tblinvoice");
 
 
 		if(isset($options['count']))
@@ -89,8 +93,8 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['CaseID']))
 			return $query->row(0);
 
-		if(!isset($options['paid']))	
-			return $query->result();
+		
+		return $query->result();
 	}
 
 	public function getInvoicePayment($options = array()){
@@ -110,10 +114,15 @@ class MdlInvoice extends CI_Model {
 		if(isset($options['datecreated'])){
 			$this->db->where('datecreated', $options['datecreated']);
 			$this->db->order_by('datecreated', 'DESC');
+
 		}
+
+		if(isset($options['notequalcolumn']) && isset($options['notequalvalue']))
+			$this->db->where($options['notequalcolumn'].'!=', $options['notequalvalue']);
 
 		if(isset($options['group_by']))
 			$this->db->group_by($options['group_by']);
+
 		if(isset($options['status']))
 			$this->db->where('status', $options['status']);
 
@@ -160,10 +169,16 @@ class MdlInvoice extends CI_Model {
 			$this->db->where('paid', $options['paid']);
 
 
-		if(isset($options['paid']) && isset($options['duedate'])){
+		if(isset($options['duedate'])){
 			$this->db->select_sum('Total');
 			$this->db->where('duedate <',$options['duedate']);
-			$this->db->where('paid', $options['paid']);
+			
+		}
+
+		if(isset($options['notduedate'])){
+			$this->db->select_sum('Total');
+			$this->db->where('duedate >',$options['notduedate']);
+			
 		}
 
 
@@ -173,10 +188,11 @@ class MdlInvoice extends CI_Model {
 		}
 		
 	
+	
+		$query = $this->db->get("tblinvoice");
+
 		if(isset($options['count']))
 			return $query->num_rows();
-		
-		$query = $this->db->get("tblinvoice");
 
 		if(isset($options['InvoiceID']) || isset($options['paid']) || isset($options['CaseID']))
 			return $query->row(0);
@@ -217,6 +233,9 @@ class MdlInvoice extends CI_Model {
 
 		if(isset($options['status']))
 			$this->db->set('status', $options['status']);
+
+		if(isset($options['paid']))
+			$this->db->set('paid', $options['paid']);
 		
 		$this->db->where('InvoiceID', $options['InvoiceID']);
 		$this->db->update('tblinvoice');

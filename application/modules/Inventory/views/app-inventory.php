@@ -45,7 +45,7 @@
 	  						<th><center>Price</center></th>
 	  						<th><center>Current Qty</center></th>
 	  						<th><center>Total Capacity</center></th>
-	  						<th><center>Action</center></th>
+	  						
 	  					</tr>
 	  				</thead>
 	  				<tbody>
@@ -60,11 +60,7 @@
 	  						<td><center>'.$item->Price.'</center></td>
 	  						<td><center>'.$item->CurrentQTY.'</center></td>
 	  						<td><center>'.$item->QTY.'</center></td>
-	  						<td>
-	  							<center>
-	  								<a href="'.base_url('Inventory/DeleteItem/'.$item->ItemID).'"><i class="trash icon"></i></a>
-	  							</center>
-	  						</td>
+	  	
 	  					</tr>';
 	  					}
 	  					?>

@@ -16,17 +16,18 @@
 	  	<div class="thirteen wide column centered grid">
 				 <div class="ui horizontal segments income">
 					  <button class="ui segment openInvoices hvr-sweep-to-bottom">
-					    <h3>PHP <?php echo number_format($sum->Total,2);?></h3>
-					    <p class="sub-header"><span><strong><?php echo $OI;?></strong></span> OPEN INVOICES</p>
+					    <h3 id="sum"><?php echo $sum;?> PHP</h3>
+					    <p class="sub-header"><span><strong id="OI"><?php echo $OI;?></strong></span> OPEN INVOICES</p>
+					  </button>
+					  <button class="ui segment partial hvr-sweep-to-bottom">
+					    <h3 id="Partial"><?php echo $Partial;?> PHP</h3>
+					     <p class="sub-header"><span><strong id="PCount"><?php echo $PCount;?></strong></span> PAID LAST 30 DAYS</p>
 					  </button>
 					  <button class="ui segment overdue hvr-sweep-to-bottom">
-					    <h3>PHP <?php echo number_format($overdue->Total,2);?></h3>
-					     <p class="sub-header"><span><strong><?php echo $OD;?></strong></span> OVERDUE</p>
+					    <h3 id="overdue"><?php echo $overdue;?> PHP</h3>
+					     <p class="sub-header"><span><strong id="OD"><?php echo $OD;?></strong></span> OVERDUE</p>
 					  </button>
-					  <button class="ui segment paid hvr-sweep-to-bottom">
-					    <h3>PHP 0.00</h3>
-					     <p class="sub-header"><span><strong>23</strong></span> PAID LAST 30 DAYS</p>
-					  </button>
+					  
 				 </div>
 	  	</div>
 	  </div>      
@@ -61,14 +62,27 @@
 	  						<th>CUSTOMER / COMPANY</th>
 	  						<th>PHONE</th>
 	  						<th>OPEN BALANCE</th>
-	  						<th>ACTION</th>
+	  						
 	  					</tr>
 	  				</thead>
 	  				<tbody>
 	  					
 	  				<?php
-	  					foreach ($dentists as $dentist) 
-	  					{
+	  				foreach ($dentists as $dentist) 
+	  				{
+	  					$sumInvoice=0;
+	  					foreach($invoices as $invoice){
+	  						if($dentist->DentistID == $invoice->DentistID){
+					  			$sumInvoice=$sumInvoice+$invoice->Total;
+					  		}
+				  		}
+				  		$sumPayment=0;
+				  		foreach ($invoicepayment as $ip){
+	  						if($dentist->DentistID == $ip->DentistID){
+					  			$sumPayment=$sumPayment+$ip->Amount;
+					  		}		
+					  								  		
+				  		}
 	  					echo
 	  					'<tr>	
 	  						<td>
@@ -82,14 +96,10 @@
 							    </h4>
 	  						</td>
 	  						<td>'.$dentist->mobile.'</td>
-	  						<td>PHP 0.00</td>
-	  						<td>
-	  							<a href="Customer/DeleteDentist/'.$dentist->DentistID.'" class="ui red  icon button">
-	  								<i class="remove circle icon"></i>
-	  							</a>
-	  						</td>
+	  						<td>PHP '.number_format($sumInvoice-$sumPayment,2).'</td>
+	  						
 	  					</tr>';
-	  					}
+	  				}
 	  				?>
 	  			</table>
 	  		</div>

@@ -209,13 +209,55 @@ class MdlCustomer extends CI_Model {
 		return $this->db->affected_rows();
 		
 	}
-	
+
+	function EditUser($options = array()){
+		if(isset($options['password']))
+			$this->db->set('password', $options['password']);
+			
+		if(isset($options['username']))
+			$this->db->set('username', $options['username']);
+			
+		if(isset($options['ps_id']))
+			$this->db->set('ps_id', $options['ps_id']);
+		
+		
+		$this->db->where('DentistID', $options['DentistID']);
+		$this->db->update('tbluser');
+		
+		return $this->db->affected_rows();
+	}
+	function AddUser($options = array()){
+		
+		$this->db->insert('tbluser', $options);	
+		return $this->db->insert_id();
+	}
+
 	function deleteDentist($id)
 	{
 		$this->db->where('DentistID', $id);
 		$this->db->delete('tbldentist');	
 		return true;
 	}
+
+	public function password_check($password)
+    {
+       
+        $this->db->where('DentistID', $this->session->userdata('DentistID'));
+        $this->db->where('password', md5($password));
+      	
+        $query = $this->db->get('tbluser');
+       	
+        if($query->num_rows()>0)
+        {
+            die(md5($password));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
 	
 
 

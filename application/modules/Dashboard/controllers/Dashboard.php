@@ -65,7 +65,7 @@ class Dashboard extends MX_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect();
+        redirect('Home/Login');
     }
 
 	public function index()
@@ -74,32 +74,192 @@ class Dashboard extends MX_Controller
 		$this->headercheck($data);
 		if($this->session->userdata('ps_id')==2){	
 
-      $data['i']=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
-      $data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1));
-      $data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
-      $data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1));
-      $data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+     
 			$data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>''));
 			$data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>''));
 			$data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>''));
 			$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
+      //$data['OI'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'status'=>1,'notduedate'=> date("Y-m-d"),'count'=>''));
+     // $data['OD'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'count'=>''));
+      $data['i']=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
+
       $data['cases'] = $this->MdlOrder->getOrder(array('sort_by'=>'CaseID','sort_direction'=>'DESC'));
       $data['status'] = $this->MdlOrder->getStatus();
       $data['invoice'] = $this->MdlInvoice->getInvoice();
       $data['dentists'] = $this->MdlCustomer->getDentist(array());
       $data['items'] = $this->MdlInventory->getItem(array());
+      
       $data['invoicepayment'] = $this->MdlInvoice->getInvoicePayment(array('sort_by'=>'datecreated','sort_direction'=>'DESC','group_by'=>'datecreated','limit'=>5));
       $data['invpay'] = $this->MdlInvoice->getInvoicePayment(array('sort_by'=>'PaymentID','sort_direction'=>'DESC'));
+      
+      //$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1,'notduedate'=> date("Y-m-d")));
+      //$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+
+
+
+      $ODinvoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+      $invoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'notduedate'=>date("Y-m-d") ,'status'=>1));
+      $ips=$this->MdlInvoice->getInvoicePayment(array('PaymentMethod'=>'Partial'));
+
+      $sumOI=0;
+      $sumOD=0;
+      $sumPartial=0;
+      $sumPayment=0;
+      $sumPaymentOD=0;
+      $countOI=0;
+      $countOD=0;
+      $countPartial=array();
+      $OIInvoice=array();
+      $PartialInvoice=array();
+
+      foreach ($invoices as $invoice) {
+        $passed=true;
+        foreach ($ips as $ip) {
+         
+          if($ip->InvoiceID==$invoice->InvoiceID) {   
+              $passed=false;
+              $countPartial[]=$ip->InvoiceID;
+              $PartialInvoice[]=$invoice;
+              break;
+          }
+        }
+        if($passed){
+          $OIInvoice[]=$invoice;
+          $sumOI=$sumOI+$invoice->Total;
+          $countOI++;
+        }
+        
+      }
+      $InvoiceIDS=array_unique($countPartial);
+
+      foreach ($InvoiceIDS as $InvoiceID) {
+        foreach ($ips as $ip) {
+          if($ip->InvoiceID==$InvoiceID) {   
+            $sumPayment=$sumPayment+$ip->Amount;
+          }
+        }  
+      } 
+
+      foreach ($invoices as $invoice) {
+          foreach ($InvoiceIDS as $InvoiceID) {
+              if($invoice->InvoiceID==$InvoiceID) {               
+                  $sumPartial=$sumPartial+$invoice->Total;
+              }
+        }   
+      }
+      
+
+      foreach ($ODinvoices as $invoice) {
+        $passed=true;
+        foreach ($ips as $ip) {
+          if($ip->InvoiceID==$invoice->InvoiceID) {   
+            $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+          }
+        }
+        $sumOD=$sumOD+$invoice->Total;
+        $countOD++;
+      }
+   
+      $data['sum']=number_format($sumOI,2);
+      $data['OI']=$countOI;
+      $data['OD']=$countOD;
+      $data['Partial']=number_format($sumPartial-$sumPayment,2);
+      $data['overdue']=number_format($sumOD-$sumPaymentOD,2);
+      $data['PCount']=count(array_unique($countPartial));
+      $data['ODinvoices'] = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1));
+      $data['OIinvoices'] = $OIInvoice;
+      $data['Partialinvoices'] = $PartialInvoice;
+      $data['InvoicePayments'] = $this->MdlInvoice->getInvoicePayment(array('PaymentMethod'=>'Partial'));
+
 			$this->load->view('a-dashboard',$data);
 			$this->footer();	
       	
 		}
+
 		else
+
 		if($this->session->userdata('ps_id')==1 )
 		{
-			$this->load->view('d-dashboard');
+      $data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>'','DentistID'=>$this->session->userdata('DentistID')));
+      $data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>'','DentistID'=>$this->session->userdata('DentistID')));
+      $data['Completed'] = $this->MdlOrder->getOrder(array('status_id'=>3,'count'=>'','DentistID'=>$this->session->userdata('DentistID')));
+      $data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>'','DentistID'=>$this->session->userdata('DentistID')));
+			$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'status'=>1,'notduedate'=> date("Y-m-d"),'DentistID'=>$this->session->userdata('DentistID')));
+      $data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->session->userdata('DentistID')));
+      $data['cases'] = $this->MdlOrder->getOrder(array('DentistID'=>$this->session->userdata('DentistID'),'sort_by'=>'CaseID','sort_direction'=>'DESC'));
+      $data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->session->userdata('DentistID')));
+      $data['status'] = $this->MdlOrder->getStatus();
+      $data['items'] = $this->MdlInventory->getItem(array());
+      $ODinvoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->session->userdata('DentistID')));
+      $invoices = $this->MdlInvoice->getInvoice(array('paid'=>0,'notduedate'=>date("Y-m-d") ,'status'=>1,'DentistID'=>$this->session->userdata('DentistID')));
+      $ips=$this->MdlInvoice->getInvoicePayment(array('PaymentMethod'=>'Partial','DentistID'=>$this->session->userdata('DentistID')));
+
+      $sumOI=0;
+      $sumOD=0;
+      $sumPartial=0;
+      $sumPayment=0;
+      $sumPaymentOD=0;
+      $countOI=0;
+      $countOD=0;
+      $countPartial=array();
+        foreach ($invoices as $invoice) {
+          $passed=true;
+          foreach ($ips as $ip) {
+           
+            if($ip->InvoiceID==$invoice->InvoiceID) {   
+                $passed=false;
+                $countPartial[]=$ip->InvoiceID;
+            }
+          }
+          if($passed){
+            
+            $sumOI=$sumOI+$invoice->Total;
+            $countOI++;
+          }
+        
+      }
+        $InvoiceIDS=array_unique($countPartial);
+
+        foreach ($InvoiceIDS as $InvoiceID) {
+          foreach ($ips as $ip) {
+            if($ip->InvoiceID==$InvoiceID) {   
+                $sumPayment=$sumPayment+$ip->Amount;
+            }
+          }   
+        }
+
+        foreach ($invoices as $invoice) {
+          foreach ($InvoiceIDS as $InvoiceID) {
+              if($invoice->InvoiceID==$InvoiceID) {               
+                  $sumPartial=$sumPartial+$invoice->Total;
+              }
+        }   
+      }
+      
+
+        foreach ($ODinvoices as $invoice) {
+          $passed=true;
+          foreach ($ips as $ip) {
+            if($ip->InvoiceID==$invoice->InvoiceID) {   
+              $sumPaymentOD=$sumPaymentOD+$ip->Amount;
+            }
+          }
+          $sumOD=$sumOD+$invoice->Total;
+          $countOD++;
+      }
+   
+      $data['sum']=number_format($sumOI,2);
+      $data['OI']=$countOI;
+      $data['OD']=$countOD;
+      $data['Partial']=number_format($sumPartial-$sumPayment,2);
+      $data['overdue']=number_format($sumOD-$sumPaymentOD,2);
+      $data['PCount']=count(array_unique($countPartial));
+      $this->load->view('d-dashboard',$data);
 			$this->load->view('template/frontfooter');
 		}
+
+
+
 	}
 
 
@@ -189,6 +349,7 @@ class Dashboard extends MX_Controller
           <div class="ui large header">Recent Activities</div>
         </div>';
         if(count($invoicepayment)>0){
+
           foreach($invoicepayment as $ip){
             echo 
             '<div class="ui sizer vertical segment">
@@ -210,7 +371,7 @@ class Dashboard extends MX_Controller
                           </div>
                           <div class="content">
                             <div class="summary">
-                              <a href="#">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
+                              <a href="'.base_url('Invoice/InvoiceSlip/'.$ips->InvoiceID).'">Invoice '.$ips->InvoiceID.':</a><p>added for '.$name.'</p>
                               <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
                             </div>
                           </div>
@@ -224,7 +385,7 @@ class Dashboard extends MX_Controller
                     </div>
                     <div class="content">
                       <div class="summary">
-                       <a href="#">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
+                       <a href="'.base_url('Invoice/InvoiceSlip/'.$ips->InvoiceID).'">Paid Invoice '.$ips->InvoiceID.':</a> <p>Paid PHP '.number_format($ips->Amount,2).' in '.$ips->PaymentMethod.' by '.$name.'.</p>
                         <div class="date">'.date('h:i a',strtotime($ips->timecreated)).'</div>
                       </div>
                     </div>
@@ -268,6 +429,10 @@ class Dashboard extends MX_Controller
 
             
     }
+
+
+    
+
 		
 }
 ?>

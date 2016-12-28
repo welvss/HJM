@@ -59,8 +59,8 @@
 	  					<tr>
 	  						<th>SUPPLIER/ COMPANY</th>
 	  						<th>PHONE</th>
-	  						<th>OPEN BILL</th>
-	  						<th>ACTION</th>
+	  						<th>EMAIL ADDRESS</th>
+	  						
 	  					</tr>
 	  				</thead>
 	  				<tbody>
@@ -79,13 +79,9 @@
 								        </div>
 								    </h4>
 		  						</td>
-		  						<td>'.$supplier->mobile.'</td>
-		  						<td>PHP 0.00</td>
-		  						<td>
-		  							<a href="'.base_url('Supplier/deleteSupplier/'.$supplier->SupplierID).'" class="ui red  icon button">
-		  								<i class="remove circle icon"></i>
-		  							</a>
-		  						</td>
+		  						<td>'.$supplier->telephone.'</td>
+		  						<td>'.$supplier->email.'</td>
+		  						
 		  					</tr>';
 	  					}
 	  					?>

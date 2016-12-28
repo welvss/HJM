@@ -165,6 +165,9 @@ color: red;
 .partial>h3{
 	color: white !important;
 }
+.partial>p{
+	color: white !important;
+}
 .partial{
 	background: #29a1e4 !important;
 }
