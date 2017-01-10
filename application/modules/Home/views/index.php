@@ -26,14 +26,14 @@
               </h2>
               </div>
               <br>
-              <button type="button" class="btn btn-info">Learn More</button>
+              <button type="button" id="nasdp" class="btn btn-info">Learn More</button>
             </div>
           </div>
         </div>
         <div class="row">
         	<div class="col-md-offset-2 col-md-8 col-md-offset-2">
               <div class="welcome">
-              <p>"Our vision is to establish digital dentistry as the standard of care and to make it affordable and accessible to patients all over the world. "<span style="font-size: 14pt">-&nbsp;Romeo Serohijos, CEO, HJM Dental Laboratory</span>
+              <p>"Our vision is to establish digital dentistry as the standard of care and to make it affordable and accessible to patients all over the Philippines."<span style="font-size: 14pt">-&nbsp;Romeo Serohijos, CEO, HJM Dental Laboratory</span>
               <br><br><img src="<?php echo base_url('appclient');?>/img/rom1.jpg" alt="" class="ceo-img"></p>
             </div> 
           </div>
@@ -48,14 +48,14 @@
                </div>
                <div class="row">
                  <div class="col-md-6 col-sm-12 col-xs-12">
-                   <h4><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium, animi aliquam quos hic ipsum, architecto.</div>
+                   <h4><div>Mission</div>
                    <br>
-                   <div>Deleniti harum tempora, eaque modi. Omnis iure nam, autem pariatur quisquam repellat ipsum.</div></h4>
+                   <div>To provide premium dental restorations to our customers, maintaining good relations with our clients and continuously developing our skills to improve quality.</div></h4>
                  </div>
                  <div class="col-md-6 col-sm-12 col-xs-12">
-                   <h4><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium, animi aliquam quos hic ipsum.</div>
+                   <h4><div>Vision</div>
                    <br>
-                   <div>Deleniti harum tempora, eaque modi. Omnis iure nam, autem pariatur quisquam repellat ipsum, adipisci! Molestiae quae sapiente tempore voluptas, dolore corrupti animi esse illum ipsa ratione, rerum tempora eius, dignissimos.</div></h4>
+                   <div>To become the #1 selected dental laboratory in the Philippines for technology, quality, and service.</div></h4>
                  </div>
                </div>
                <br>
@@ -160,12 +160,21 @@
               &nbsp;hjmdentallaboratory@gmail.com</h4>
           	</div>
       		</div>
-      		<div class="col-md-6 col-sm-12 col-xs-12 hjm-building">
-      			<center>Google Maps Here.</center>
+      		<div class="col-md-6 col-sm-12 col-xs-12 hjm-building" id="map">
+      			<!-- <center>Google Maps Here.</center> -->
+           
       		</div>
       	</div>
       </div><!--End Row-->
       </div>
     </div>
     
- 
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#nasdp").click(function(){
+        var win = window.open("https://www.facebook.com/nadpli/", '_blank');
+        win.focus();
+      });
+    });
+    </script>
+    

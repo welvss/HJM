@@ -1,19 +1,23 @@
 $(document).ready(function() {
-		
-		$('#calendar').fullCalendar({
+		var events=[];
+
+		$.getJSON("http://"+window.location.hostname+"/HJM/Dashboard/getdate",function(data){
+			
+			$('#calendar').fullCalendar({
+
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
-			defaultDate: '2016-09-12',
+			
 			navLinks: true, // can click day/week names to navigate views
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: [
-				/*{
+			events: data
+				/*[{
 					title: 'All Day Event',
-					start: '2016-09-01'
+					start: '2016-12-01'
 				},
 				{
 					title: 'Long Event',
@@ -64,8 +68,15 @@ $(document).ready(function() {
 					title: 'Click for Google',
 					url: 'http://google.com/',
 					start: '2016-09-28'
-				}*/
-			]
+				}]*/
+			
 		});
+
+
+
+		});
+		
+		
+		
 		
 	});

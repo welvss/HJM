@@ -73,13 +73,14 @@ class Order extends MX_Controller
 					{	
 
 						$config['upload_path']          = './app/uploads/';
-                		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+                		$config['allowed_types']        = 'gif|jpg|jpeg|png|JPG|JPEG|PNG|GIF';
                 		$config['max_size']             = 2048;
                 		$config['encrypt_name']			= TRUE;
                 		$this->load->library('upload', $config);
 						if ( ! $this->upload->do_upload('file'))
 		                {
 		                    $error = array('error' => $this->upload->display_errors());
+		                   
 		                    die($this->upload->display_errors());
 		                   
 		                }
@@ -90,7 +91,7 @@ class Order extends MX_Controller
 	                		$file=true;
 
 	                	}
-                }
+                	}
 
 	            else{
 	            	$file=false;

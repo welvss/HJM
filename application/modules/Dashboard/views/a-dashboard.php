@@ -161,8 +161,8 @@
 				</div>
 	   		</div>
 	   		<div class="four wide column">
-	   			<div class="ui horizontal segment">
-					<div class="transaction-feed">
+	   			<div class="ui horizontal segment" style="position: fixed;overflow-y: scroll;height: 100%;width: 23%;">
+					<div class="transaction-feed" style="top: -2%;width: 100%;position: relative;padding-bottom: 60px;">
 						<div class="ui feed" id="recent_activities">
 						<?php
 					

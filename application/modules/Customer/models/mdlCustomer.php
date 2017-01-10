@@ -202,6 +202,9 @@ class MdlCustomer extends CI_Model {
 
 		if(isset($options['active']))
 			$this->db->set('active', $options['active']);
+
+		if(isset($options['image']))
+			$this->db->set('image', $options['image']);
 		
 		$this->db->where('DentistID', $options['DentistID']);
 		$this->db->update('tbldentist');
@@ -239,24 +242,18 @@ class MdlCustomer extends CI_Model {
 		return true;
 	}
 
-	public function password_check($password)
+	function password_check($password)
     {
        
-        $this->db->where('DentistID', $this->session->userdata('DentistID'));
+       	
         $this->db->where('password', md5($password));
+        $this->db->where('DentistID', $this->session->userdata('DentistID'));
       	
         $query = $this->db->get('tbluser');
-       	
-        if($query->num_rows()>0)
-        {
-            die(md5($password));
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+   		$x=count($query->result());
         
+        return $x;
+       
     }
 	
 

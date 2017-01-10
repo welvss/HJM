@@ -50,4 +50,4 @@ function getNotif(){
 }
 
 
-setInterval(function(){getNotif();},300);
+setInterval(function(){getNotif();},2000);

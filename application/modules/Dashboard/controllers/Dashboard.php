@@ -431,6 +431,23 @@ class Dashboard extends MX_Controller
     }
 
 
+    public function getdate(){
+      $data1=array();
+
+      $data = $this->MdlOrder->getOrder(array('DentistID'=>$this->session->userdata('DentistID')));
+      foreach ($data as $key) {
+        array_push($data1, array("title"=>"Case #".$key->CaseID,"start"=>$key->orderdatetime,"end"=>$key->duedate.' '.$key->duetime));
+      }
+    
+     
+      
+      echo json_encode($data1);
+      
+
+
+    }
+
+
     
 
 		

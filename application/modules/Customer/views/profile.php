@@ -4,14 +4,15 @@
       <br>
       <center><h1>Dentist Profile</h1></center>
       <br>
+       <?php echo form_open_multipart('Customer/EditDentist');?>
       <div class="row">
         <div class="col-md-5"></div>
         <div class="col-md-4">
           <div class="profile">
-              <img src="<?php echo base_url('appclient');?>/img/dp2.jpg" alt="">
+              <img src="<?php echo (empty($dentist->image) ? base_url('appclient/img/dp2.jpg') : base_url('/app/uploads/'.$dentist->image));?>" alt="">
               <br>
               <br>
-              <input type="file">
+              <input type="file" name="image" accept="image/gif, image/jpeg, image/jpg, image/png">
           </div>
         </div>
         <div class="col-md-3"></div>
@@ -19,7 +20,7 @@
       <br>
       <div class="row">
         <div class="col-md-2"></div>
-        <?php echo form_open('Customer/EditDentist');?>
+       
           <div class="col-md-4">
               <div class="form-group">
                 <label for="email">First Name</label>

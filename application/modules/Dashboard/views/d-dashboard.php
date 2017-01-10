@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="profile">
-              <center><img src="<?php echo base_url('appclient');?>/img/dp2.jpg" alt="">
+              <center><img src="<?php echo (empty($dentist->image) ? base_url('appclient/img/dp2.jpg') : base_url('/app/uploads/'.$dentist->image));?>" alt="">
               <h1>Hello, <?php echo $dentist->title.' '.$dentist->firstname.' '.$dentist->lastname;?></h1></center>
             </div>
           </div>
@@ -13,16 +13,16 @@
         <div class="row">
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" data-toggle="modal" data-target=".bs-example-modal-lg">
                 <center><h3><i class="fa fa-file-o" style="color: #21ba45;" aria-hidden="true"></i>&nbsp; <strong><?php echo $New;?></strong> <br><h4>New Cases</h4></h3></center>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3" data-toggle="modal" data-target=".bs-example-modal-lg2">
                 <center><h3><i class="fa fa-flask" style="color: #a333c8;" aria-hidden="true"></i>&nbsp; <strong><?php echo $IP;?></strong> <br><h4>In Production</h4></h3></center>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3" data-toggle="modal" data-target=".bs-example-modal-lg3">
                 <center><h3><i class="fa fa-check-square-o" style="color: #2185d0;" aria-hidden="true"></i>&nbsp; <strong><?php echo $Completed;?></strong> <br><h4>Completed Cases</h4></h3></center>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3" data-toggle="modal" data-target=".bs-example-modal-lg4">
                 <center><h3><i class="fa fa-exclamation-triangle" style="color: #db2828;" aria-hidden="true"></i>&nbsp; <strong><?php echo $Hold;?></strong> <br><h4>On Hold</h4></h3></center>
               </div>
             </div>     
@@ -327,7 +327,7 @@
 									if ($i->CaseID==$case->CaseID) 
 									{
 										if($i->status==1)
-											echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+											echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" style="color:white;">Invoice # '.$i->InvoiceID.'</a>';
 										else
 											echo '<p >Invoice # '.$i->InvoiceID.'</p>';
 									}
@@ -348,8 +348,8 @@
 
 				            echo    
 				            	'</td>
-				                <td><a href="'.base_url('Order/RX/'.$case->CaseID).'">View</a></td>
-				                <td><a href="'.base_url('Order/Info/'.$case->CaseID).'">Edit</a></td>
+				                <td><a href="'.base_url('Order/RX/'.$case->CaseID).'" style="color:white;">View</a></td>
+				                <td><a href="'.base_url('Order/Info/'.$case->CaseID).'" style="color:white;">'.($case->status_id<2? 'Edit' :'Info').'</a></td>
 			                </tr>';
 		            }
 	            ?>
@@ -360,4 +360,337 @@
         </div>
       </div>
       <br><br>
+
+
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <table id="dashboardcase" class="display ui blue table" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Case#</th>
+          <th>INVOICE</th>
+          <th>PATIENT</th>
+          <th>ORDERED DATE</th>
+          <th>DUE DATE</th>
+          <th>STATUS</th>     
+        </tr>
+      </thead>
+      <tbody id="order_notif">
+      <?php 
+      $count=0;
+      foreach ($cases as $case) 
+      {
+        if($case->status_id==1){
+          $count=1;
+        echo
+          '<tr>
+            <td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
+            <td>'; 
+            foreach ($invoice as $i) 
+            {
+              if ($i->CaseID==$case->CaseID) 
+              {
+                if($i->datecreated!=null)
+                  echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+                else
+                  echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+              }
+            }
+
+
+        echo
+            '</td>
+           
+            <td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+            <td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+            <td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+            <td><center>';
+            foreach ($status as $stat){
+              if($stat->status_id==$case->status_id){
+                if($stat->status_id==1)
+                  echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==2)
+                  echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==3)
+                  echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==4)
+                  echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+              }
+                
+            }   
+              
+              
+                
+                
+              echo      
+            '</center></td>
+            
+            
+
+          </tr>';
+        }
+       
+
+      }
+      if(!$count)
+         echo '<tr><td><div style="position: absolute;left: 392px;">No Data Found!</div></td></tr>';
+      ?>
+      </tbody>
+    </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <table id="dashboardcase" class="display ui blue table" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Case#</th>
+          <th>INVOICE</th>
+          <th>PATIENT</th>
+          <th>ORDERED DATE</th>
+          <th>DUE DATE</th>
+          <th>STATUS</th>     
+        </tr>
+      </thead>
+      <tbody id="order_notif">
+      <?php 
+      $count=0;
+      foreach ($cases as $case) 
+      {
+        if($case->status_id==2){
+          $count=1;
+        echo
+          '<tr>
+            <td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
+            <td>'; 
+            foreach ($invoice as $i) 
+            {
+              if ($i->CaseID==$case->CaseID) 
+              {
+                if($i->datecreated!=null)
+                  echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+                else
+                  echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+              }
+            }
+
+
+        echo
+            '</td>
+           
+            <td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+            <td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+            <td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+            <td><center>';
+            foreach ($status as $stat){
+              if($stat->status_id==$case->status_id){
+                if($stat->status_id==1)
+                  echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==2)
+                  echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==3)
+                  echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==4)
+                  echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+              }
+                
+            }   
+              
+              
+                
+                
+              echo      
+            '</center></td>
+            
+            
+
+          </tr>';
+        }
+       
+
+      }
+      if(!$count)
+         echo '<tr><td><div style="position: absolute;left: 392px;">No Data Found!</div></td></tr>';
+      ?>
+      </tbody>
+    </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <table id="dashboardcase" class="display ui blue table" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Case#</th>
+          <th>INVOICE</th>
+          <th>PATIENT</th>
+          <th>ORDERED DATE</th>
+          <th>DUE DATE</th>
+          <th>STATUS</th>     
+        </tr>
+      </thead>
+      <tbody id="order_notif">
+      <?php 
+      $count=0;
+      foreach ($cases as $case) 
+      {
+        if($case->status_id==3){
+          $count=1;
+        echo
+          '<tr>
+            <td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
+            <td>'; 
+            foreach ($invoice as $i) 
+            {
+              if ($i->CaseID==$case->CaseID) 
+              {
+                if($i->datecreated!=null)
+                  echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+                else
+                  echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+              }
+            }
+
+
+        echo
+            '</td>
+           
+            <td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+            <td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+            <td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+            <td><center>';
+            foreach ($status as $stat){
+              if($stat->status_id==$case->status_id){
+                if($stat->status_id==1)
+                  echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==2)
+                  echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==3)
+                  echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==4)
+                  echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+              }
+                
+            }   
+              
+              
+                
+                
+              echo      
+            '</center></td>
+            
+            
+
+          </tr>';
+        }
+       
+
+      }
+      if(!$count)
+         echo '<tr><td><div style="position: absolute;left: 392px;">No Data Found!</div></td></tr>';
+      ?>
+      </tbody>
+    </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <table id="dashboardcase" class="display ui blue table" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Case#</th>
+          <th>INVOICE</th>
+          <th>PATIENT</th>
+          <th>ORDERED DATE</th>
+          <th>DUE DATE</th>
+          <th>STATUS</th>     
+        </tr>
+      </thead>
+      <tbody id="order_notif">
+      <?php 
+      $count=0;
+      foreach ($cases as $case) 
+      {
+        if($case->status_id==4){
+          $count=1;
+        echo
+          '<tr>
+            <td><a href="'.base_url().'Order/Info/'.$case->CaseID.'">'.$case->CaseTypeID.'-'.$case->CaseID.'</a></td>
+            <td>'; 
+            foreach ($invoice as $i) 
+            {
+              if ($i->CaseID==$case->CaseID) 
+              {
+                if($i->datecreated!=null)
+                  echo '<a href="'.base_url('Invoice/InvoiceSlip/'.$i->InvoiceID).'" >Invoice # '.$i->InvoiceID.'</a>';
+                else
+                  echo '<p >Invoice # '.$i->InvoiceID.'</p>';
+              }
+            }
+
+
+        echo
+            '</td>
+           
+            <td>'.$case->patientfirstname.' '.$case->patientlastname.'</td>
+            <td>'.date('l F d, Y h:i A', strtotime($case->orderdatetime)).'</td>
+            <td>'.date('l F d, Y ', strtotime($case->duedate)).date('h:i A', strtotime($case->duetime)).'</td>
+            <td><center>';
+            foreach ($status as $stat){
+              if($stat->status_id==$case->status_id){
+                if($stat->status_id==1)
+                  echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==2)
+                  echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==3)
+                  echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+                else
+                if($stat->status_id==4)
+                  echo '<div style="color:red;"><b>'.strtoupper($stat->status).'</b></div>';
+              }
+                
+            }   
+              
+              
+                
+                
+              echo      
+            '</center></td>
+            
+            
+
+          </tr>';
+        }
+       
+
+      }
+      if(!$count)
+         echo '<tr><td><div style="position: absolute;left: 392px;">No Data Found!</div></td></tr>';
+      ?>
+      </tbody>
+    </table>
+          </div>
+        </div>
+      </div>
       

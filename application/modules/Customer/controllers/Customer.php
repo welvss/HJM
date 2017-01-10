@@ -380,6 +380,31 @@ class Customer extends MX_Controller
 				$city=$_POST['shipcity'];
 				$brgy=$_POST['shipbrgy'];
 			}
+			if($_FILES['image']['name']!='')
+			{	
+
+				$config['upload_path']          = './app/uploads/';
+                $config['allowed_types']        = 'gif|jpg|jpeg|png';
+                $config['max_size']             = 2048;
+                $config['encrypt_name']			= TRUE;
+                $this->load->library('upload', $config);
+				if ( ! $this->upload->do_upload('image'))
+		        {	 
+		            $error = array('error' => $this->upload->display_errors());
+		            die($this->upload->display_errors());
+		                   
+		        }
+                		
+	            else{
+
+	              	$datus = $this->upload->data();
+	                $file=true;
+
+	            }
+            }
+            else{
+            	$file=false;
+            }
 			
 			{
 						$dentist = array(
@@ -400,8 +425,12 @@ class Customer extends MX_Controller
 									'bcity' => $_POST['bcity'],
 									'shipstreet' => $street,
 									'shipcity' => $city,
-									'shipbrgy' => $brgy,
-									'notes' => $_POST['notes'] );
+									'shipbrgy' => $brgy
+									);
+						if($file){
+							$dentist['image'] = $datus['file_name'];
+
+						}
 						
 						$this->MdlCustomer->modifyDentist($dentist);
 						redirect('Dashboard');
@@ -536,7 +565,7 @@ class Customer extends MX_Controller
 		    	$this->form_validation->set_rules('newpassword','New Password','required');   
 		    	$this->form_validation->set_rules('newpasswordconf','New Password Confirmation','required|matches[newpassword]');      	
 				*/
-				if($this->validate_password($_POST['password'])){
+				if($this->MdlCustomer->password_check($_POST['password'])){
 			    	if(md5($_POST['newpassword'])==md5($_POST['newpasswordconf'])){
 				    	{
 				    		$data= array(
@@ -544,36 +573,34 @@ class Customer extends MX_Controller
 				    			'password'=>md5($_POST['newpassword'])
 				    		);
 				    		$this->MdlCustomer->EditUser($data);
+				    		
 				    	}
+				    	$data['success']=1;
 				    }
-				}
-				die('Error');
+				    else{
 
+				    	$data['error3']=1;
+						
+					}
+				}
+				else{
+					$data['error1']=1;
+					
+				}
+				$this->load->view('accountsettings',$data);
+				$this->load->view('template/frontfooter');
     	
     		}
-    		else{
-				
+    		
+			else{
 				$this->load->view('accountsettings');
 				$this->load->view('template/frontfooter');
 			}
+				
 		}
 	}
 
-	public function validate_password($password)
-    {
-       
-        if($this->MdlCustomer->password_check($password))
-        {
-            
-            return true;
-                         
-        }
-        else
-        {	
-        
-            return 'Incorrect password!';
-        }
-    }
+	
 
 
     public function Profile(){

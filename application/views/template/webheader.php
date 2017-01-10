@@ -13,6 +13,7 @@
         <link rel="shortcut icon" href="<?php echo base_url('appclient');?>/favicon.ico">
         <link rel="stylesheet" href="<?php echo base_url('appclient');?>/css/animate.min.css">
         <link rel="stylesheet" href="<?php echo base_url('appclient');?>/css/bootstrap.min.css">
+        <script src="<?php echo base_url('appclient');?>/js/vendor/jquery-1.11.2.min.js"></script>
         <style>
             body {
                 padding-top: 50px;

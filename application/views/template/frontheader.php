@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="<?php echo base_url('Dashboard');?>">
             <img src="<?php echo base_url('appclient');?>/img/w-hjm.png" class="hidden-xs"alt="" style="height: 35px; position: relative; bottom: 7px;">
             <img src="<?php echo base_url('appclient');?>/img/w-hjm.png" class="visible-xs"alt="" style="height: 25px;">
           </a>

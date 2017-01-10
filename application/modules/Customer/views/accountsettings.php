@@ -15,17 +15,28 @@
             <center>
               <h3>Change Password</h3>
               <?php echo form_open('Customer/AccountSettings');?>
+              <?php
+                if(isset($success))
+                echo
+                 '<div class="form-group">
+                    <div><h1 style="color:#1bce45;">SUCCESS!</h1></div>
+                 </div>';
+              ?>
                 <div class="form-group">
                   <label for="email">Current Password</label>
-                  <input type="password" class="form-control" id="cPass" name="password">
+                  <input type="password" class="form-control" id="cPass" name="password" required>
+                  <div><?php if(isset($error1)) echo "Invalid Password!";?></div>
                 </div>
                 <div class="form-group">
                   <label for="email">New Password</label>
-                  <input type="password" class="form-control" id="Np" name="newpassword">
+                  <input type="password" class="form-control" id="Np" name="newpassword" required>
+                  <div><?php if(isset($error3)) echo "New password didn't match!";?></div>
+                  
                 </div>
                 <div class="form-group">
                   <label for="email">Re-type New Password</label>
-                  <input type="password" class="form-control" id="rtNp" name="newpasswordconf">
+                  <input type="password" class="form-control" id="rtNp" name="newpasswordconf" required>
+                  
                 </div>
                 <input type="submit" class="btn btn-warning" name="submit" value="Update Password"/>
               </form>
