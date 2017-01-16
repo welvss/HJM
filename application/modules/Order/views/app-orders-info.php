@@ -146,7 +146,7 @@
 				  							<th><center>Tooth #</center></th>
 				  							<th><center>ITEM</center></th>
 				  							<th>SHADE</th>
-				  							<th>DESIGN</th>
+				  							<th>DESCRIPTION</th>
 				  							<th>ADDITIONAL FEATURES</th>
 				  						</tr>
 				  					</thead>
@@ -156,7 +156,7 @@
 				  							<td><center><?php echo $case->teeth;?></center></td>
 				  							<td><center><?php echo $case->items;?></center></td>
 				  							<td><?php echo $case->shade1.' '.$case->shade2;?></td>
-				  							<td></td>
+				  							<td><?php echo $case->description;?></td>
 				  							<td></td>
 				  						</tr>
 				  					</tbody>

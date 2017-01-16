@@ -118,8 +118,8 @@ class Order extends MX_Controller
 										'Photos' => $_POST['Photos'],
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
-										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items']),
+										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
+										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : $_POST['base64'] ),
 										'orderdatetime'=> date('Y-m-d H:i:s'),
 										'description'=> $_POST['description'],
@@ -210,8 +210,8 @@ class Order extends MX_Controller
 										'Photos' => $_POST['Photos'],
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
-										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items']),
+										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
+										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' ),
 										'orderdatetime'=> date('Y-m-d H:i:s'),
 										'description'=> $_POST['description'],
@@ -372,8 +372,8 @@ class Order extends MX_Controller
 										'Photos' => $_POST['Photos'],
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
-										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items']),
+										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
+										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
 										'description'=> $_POST['description']
 									);
 							$this->MdlOrder->modifyOrder($data);
@@ -438,8 +438,8 @@ class Order extends MX_Controller
 										'Photos' => $_POST['Photos'],
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
-										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items']),
+										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
+										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' )
 
 										//'file' => $upload_data['file_name']

@@ -164,7 +164,7 @@ function getCaseType(val) {
     $('#Case').html('');
     $('#CaseTypeID').val();
     $('#CaseTypeID').html(data);
-  
+    $('#items').hide();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
               alert(error);
                alert(xhr.status);
@@ -297,6 +297,7 @@ $('.ui.form')
           }
         ]
       },
+      /*
       teeth: {
         identifier: 'teeth',
         rules: [
@@ -315,6 +316,7 @@ $('.ui.form')
           }
         ]
       },
+      */
       CaseTypeID: {
         identifier: 'CaseTypeID',
         rules: [
