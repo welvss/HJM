@@ -9,8 +9,8 @@
 <br>
 <div class="wrapper">
 	<div class="brand">
-		 <img src="<?php echo base_url();?>app/img/hjm-logo-inverted.png" alt="">
-		 <p style="display: inline-block;">DENTAL LABORATORY</p>
+		 <img src="<?php echo base_url();?>app/img/hjm2.png" alt="" width="50%" style="height: 100%;">
+		 <!-- <p style="display: inline-block;">DENTAL LABORATORY</p> -->
 	</div>
 	<div class="brand-info">
 	<p>521 Int. Inocencio St. Pasay City <br>

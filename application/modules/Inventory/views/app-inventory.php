@@ -105,7 +105,7 @@
 							</div>
 					</div>
 					<div class="eight wide column">
-						<div class="field">
+						<!-- <div class="field">
 							<label>Supplier</label>
 							  <select class="ui dropdown" name="SupplierID">
 							  		<option value="">Select Supplier</option>
@@ -116,9 +116,9 @@
 							  		}
 							    ?> 
 							    </select>
-						</div>
+						</div> -->
 						<div class="field">
-								<label>Initial Quantity</label>
+								<label>Max. Quantity</label>
 								<input type="text" name="QTY">
 							</div>
 							<div class="field">

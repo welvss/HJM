@@ -53,7 +53,7 @@ class Order extends MX_Controller
 			$data['Hold'] = $this->MdlOrder->getOrder(array('status_id'=>4,'count'=>''));
 
 			$this->load->view('app-orders',$data);
-			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-camera.js"></script>';
 			$this->footer($data);
 		}
 		else
@@ -120,7 +120,9 @@ class Order extends MX_Controller
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
 										'items' => implode(',',$_POST['items']),
-										'file' => ( $file ? $datus['file_name'] : '' )
+										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : $_POST['base64'] ),
+										'orderdatetime'=> date('Y-m-d H:i:s'),
+										'description'=> $_POST['description'],
 
 										//'file' => $upload_data['file_name']
 									);
@@ -210,8 +212,9 @@ class Order extends MX_Controller
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
 										'items' => implode(',',$_POST['items']),
-										'file' => ( $file ? $datus['file_name'] : '' )
-
+										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' ),
+										'orderdatetime'=> date('Y-m-d H:i:s'),
+										'description'=> $_POST['description'],
 										//'file' => $upload_data['file_name']
 									);
 								$CaseID = $this->MdlOrder->AddOrder($data);
@@ -340,7 +343,7 @@ class Order extends MX_Controller
 	                		$datus = $this->upload->data();
 	                		$data=array(
 										'CaseID' => $_POST['CaseID'] , 
-										'file' => $datus['file_name']
+										'file' => base_url('app/uploads/'.$datus['file_name'])
 									);
 							$this->MdlOrder->modifyOrder($data);
 
@@ -370,7 +373,8 @@ class Order extends MX_Controller
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
-										'items' => implode(',',$_POST['items'])
+										'items' => implode(',',$_POST['items']),
+										'description'=> $_POST['description']
 									);
 							$this->MdlOrder->modifyOrder($data);
 						
@@ -436,7 +440,7 @@ class Order extends MX_Controller
 										'OD' => $_POST['OD'],
 										'teeth' => implode(',',$_POST['teeth']),
 										'items' => implode(',',$_POST['items']),
-										'file' => ( $file ? $datus['file_name'] : '' )
+										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' )
 
 										//'file' => $upload_data['file_name']
 									);
@@ -479,7 +483,7 @@ class Order extends MX_Controller
 			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));	
 			$this->load->view('app-orders-info',$data);
-			$data['script']='<script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-invoice.js"></script>';
+			$data['script']='<script src="'.base_url().'app/js/app-camera.js"></script><script src="'.base_url().'app/js/app-cases.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-invoice.js"></script> ';
 
 			$this->footer($data);
 		}

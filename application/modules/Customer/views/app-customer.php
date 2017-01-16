@@ -21,7 +21,7 @@
 					  </button>
 					  <button class="ui segment partial hvr-sweep-to-bottom">
 					    <h3 id="Partial"><?php echo $Partial;?> PHP</h3>
-					     <p class="sub-header"><span><strong id="PCount"><?php echo $PCount;?></strong></span> PAID LAST 30 DAYS</p>
+					     <p class="sub-header"><span><strong id="PCount"><?php echo $PCount;?></strong></span> PARTIAL</p>
 					  </button>
 					  <button class="ui segment overdue hvr-sweep-to-bottom">
 					    <h3 id="overdue"><?php echo $overdue;?> PHP</h3>

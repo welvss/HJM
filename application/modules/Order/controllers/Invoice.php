@@ -151,7 +151,7 @@ class Invoice extends MX_Controller
 					'InvoiceID' => $_POST['InvoiceID'],
 					'DentistID'=>$_POST['DentistID'],
 					'PaymentMethod' =>'New',
-		
+					'timecreated'=> date('Y-m-d H:i:s'),
 					'datecreated'=>date('Y-m-d'),
 					 
 
@@ -184,7 +184,7 @@ class Invoice extends MX_Controller
 									'DentistID'=>$_POST['DentistID'],
 									'PaymentMethod' => (($_POST['Balance']-$_POST['Amount'])==0?'Full':'Partial'),
 									'Amount'=>$_POST['Amount'],
-									
+									'timecreated'=> date('Y-m-d H:i:s'),
 									'datecreated'=>date('Y-m-d'),
 						);
 						$this->MdlInvoice->addInvoicePayment($data);	

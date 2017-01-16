@@ -132,6 +132,9 @@ class MdlOrder extends CI_Model {
 		if(isset($options['SG']))
 			$this->db->set('SG', $options['SG']);
 
+		if(isset($options['description']))
+			$this->db->set('description', $options['description']);
+
 		if(isset($options['BW']))
 			$this->db->set('BW', $options['BW']);
 	

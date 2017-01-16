@@ -197,12 +197,7 @@ function changeID(val){
 }
 
 
-function test(){
-  
-  var files = document.getElementById("file").files[0].fileName;
-  alert(files);
-  $('#test').html('<img src="'+files+'">')
-}
+
 
 $(document).ready(function(){
 
@@ -228,6 +223,7 @@ $('.ui.form')
           }
         ]
       },
+         /*
       email: {
         identifier: 'email',
         rules: [
@@ -237,7 +233,7 @@ $('.ui.form')
           }
         ]
       },
-      /*
+   
       website: {
         identifier: 'website',
         rules: [

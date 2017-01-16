@@ -181,15 +181,16 @@
 	  	  				</div>
 	  	  			</div>
 	  	  			<div class="eight wide column">
-	  	  				<div class="ui teal segment" style="height: 200px;">
+	  	  				<div class="ui teal segment" style="height: 100%; overflow: hidden;">
 	  	  					<h3 class="ui header">
 	  	  						Attachments
 	  	  						<hr>
 	  	  					</h3>
 	  	  					<?php
-	  	  					if($case->file!=null)
-	  	  					echo
-	  	  					'<img class="ui centered large image" src="'.base_url('app/uploads/'.$case->file).'" alt="">';
+	  	  					if(!empty($case->file)){
+	  	  						echo '<img class="ui centered large image" src="'.$case->file.'" alt="" style="width:65%;">';
+	  	  					}
+	  	  					
 	  	  					?>
 	  	  				</div>
 	  	  			</div>
@@ -564,7 +565,7 @@
 						  </div>
 				  </div>
 		  		</div>
-		  		<div class="ui horizontal segments" style="height: 420px;">
+		  		<!-- <div class="ui horizontal segments" style="height: 420px;">
 		  			<div class="ui disabled segment">
 		  			<br>
 		  				<div class="ui centered grid">
@@ -590,6 +591,16 @@
 		  					</div>
 		  				</div>
 		  			<hr><br>
+		  			</div>
+		  		</div> -->
+		  		<div class="ui vertical teal segment">
+		  			<div class="eight wide field">
+			  			<div class="eight wide field">
+						  <label>Description</label>
+						  	<center>
+						    	<textarea name="description" style="width: 440px;height:220px; resize: none;" <?php if($invoice->status==1) echo 'readonly';?>><?php echo $case->description;?></textarea>
+						    </center>
+					  	</div>
 		  			</div>
 		  		</div>
 		  	</div>
@@ -680,17 +691,55 @@
 				  		</div>
 				  	</div>
 				  	<div class="six wide column">
+				
 				  		<div class="ui teal segment" style="height: 310px;">
 					  		<div class="field">
 					  			<div class="ui header">
 					  				Attachment
 					  			</div>
-								    <input type="file" id="file" name="file" <?php if($invoice->status==1) echo 'disabled';?> accept="image/*" />
+					  			<div id="webcam">
+					  				
+					  			</div>
+					  			<div id="webcam2">
+					  				
+					  			</div>
+					  			<div class="fields">
+						  			<div class="field">
+						  				<textarea name="base64" id="base64image" style="display: none;"></textarea>
+						  				<span class="fa fa-times"  style="padding: 15px;display: none;cursor:pointer;font-size: 36px;position: relative;top: -273px;right: -286px;color: #DB2828;" id="hidewebcam"></span>
+						  				
+										<input type="button" class="ui capture button" value="Capture" id="capture" style="display: none;">
+										<input type="button" class="ui capture recapture button" value="Recapture" id="recapture" style="display:none;left: -59px;">
+										<input type="button" class="ui capture recapture button" value="Save" id="save" style="display: none; left: 72px;">
+						  				<input class="ui button" type="button" style="padding: 15px;" id="usewebcam" value="Use Webcam"/>
+						  			</div>
+						  			<div class="field dues">
+						  				
+						  				<strong style="position: relative;left: -8px;top: 15px;">OR</strong>
+						  				
+									    <input type="file" id="file" name="file" accept="image/*"/ style="width:89%;">
+									</div>
+								</div>
 							</div>
-							<div class="ui header">
+							<style type="text/css">
+						  					.capture {
+						  						position: relative;
+											    top: -61px;
+    											left: 55px;
+											    opacity: 0.6;
+						  					}
+						  					.capture:hover {
+						  						opacity: 1!important;
+						  					}
+
+						  					.recapture {
+
+						  					}
+						  				</style>
+							<div class="ui header dues">
 					  				Due
 					  		</div>
-							<div class="fields">
+							<div class="fields dues">
 								<div class="field">
 							    <label>Due Date</label>
 							    <input type="date" name="duedate" value="<?php echo date($case->duedate);?>" id="duedate" <?php if($invoice->status==1) echo 'readonly';?>>
@@ -702,6 +751,7 @@
 							</div>
 							  
 				  		</div>
+				  	</div>
 				  	</div>
 				  </div>
 	  			<div class="two column row">

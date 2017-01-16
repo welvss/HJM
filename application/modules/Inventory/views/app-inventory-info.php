@@ -33,7 +33,7 @@
 			<br>
 		  <div class="ui right floated red statistic">
 			<div class="value">
-			   <?php echo $item->QTY;?>
+			   <?php echo $item->CurrentQTY;?>
 			  </div>
 			  <div class="label">
 			    Current Stock
@@ -59,7 +59,7 @@
 							</div>
 					</div>
 					<div class="eight wide column">
-						<div class="field">
+						<!-- <div class="field">
 							<label>Supplier</label>
 							  <select class="ui dropdown" name="SupplierID">
 							      <?php 
@@ -72,9 +72,9 @@
 							  		}
 							    ?> 
 							    </select>
-						</div>
+						</div> -->
 						<div class="field">
-								<label>Quantity</label>
+								<label>Max. Quantity</label>
 								<input type="text" name="QTY" value="<?php echo $item->QTY;?>">
 							</div>
 							<div class="field">
@@ -122,46 +122,55 @@
 		    Item Information
 		  </div>
 		  <br><br>
-		  <form class="ui form">
+		  <?php echo form_open('Inventory/AddInventory','class="ui form"');?>
 			<div class="ui centered grid" >
+				<div class="row">
+					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						<div id="error"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
 				<div class="fifteen column centered row">
 					<div class="seven wide column">
 							<div class="field">
 								<label>Item Code</label>
-								<input type="text">
+								<input type="text" name="ItemID" onkeyup="checkItemCode(this.value);">
 							</div>
 							<div class="sixteen wide field">
 								<label for="">Item Description</label>
-								<textarea row="1"></textarea>
+								<textarea row="1" name="ItemDesc"></textarea>
 							</div>
-							<div class="field">
-								<label>Cost</label>
-								<input type="text">
-							</div>
+							
 							<div class="field">
 								<label>Price</label>
-								<input type="text">
+								<input type="text" name="Price">
 							</div>
 					</div>
 					<div class="eight wide column">
-						<div class="field">
+						<!-- <div class="field">
 							<label>Supplier</label>
-							  <select class="ui dropdown">
-							      <option value="1">Supplier A</option>
-							      <option value="0">Supplier B</option>
+							  <select class="ui dropdown" name="SupplierID">
+							  		<option value="">Select Supplier</option>
+							  	<?php 
+							  		foreach($suppliers as $supplier)
+							  		{
+							  			echo '<option value="'.$supplier->SupplierID.'">'.$supplier->company.'</option>';
+							  		}
+							    ?> 
 							    </select>
-						</div>
+						</div> -->
 						<div class="field">
-								<label>Initial Quantity</label>
-								<input type="text">
+								<label>Max. Quantity</label>
+								<input type="text" name="QTY">
 							</div>
 							<div class="field">
 								<label>Alert Qty Falls Below</label>
-								<input type="text">
+								<input type="text" name="QTYBelow">
 							</div>
 							<div class="field">
 								<label>Reorder Qty</label>
-								<input type="text">
+								<input type="text" name="ReorderQTY">
 							</div>
 					</div>
 				</div>
@@ -172,7 +181,7 @@
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit" id="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

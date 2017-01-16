@@ -193,7 +193,7 @@ class Customer extends MX_Controller
       	$data['overdue']=$sumOD-$sumPaymentOD;
       	$data['PCount']=count(array_unique($countPartial));
 		$this->load->view('app-customer-info',$data);
-		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
+		$data['script']='<script src="'.base_url().'app/js/app-customer-info.js"></script><script src="'.base_url().'app/js/app-validation.js"></script><script src="'.base_url().'app/js/app-camera.js"></script>';
 		$this->footer($data);
 	
 	
@@ -243,6 +243,7 @@ class Customer extends MX_Controller
 									'notes' => $_POST['notes'] );
 						
 						$DentistID=$this->MdlCustomer->AddDentist($dentist);
+					if(!empty($_POST['email'])&&isset($_POST['email'])){	
 						$length = 5;
 						$alphabets = range('A','Z');
 					    $numbers = range('0','9');
@@ -271,6 +272,7 @@ class Customer extends MX_Controller
 								'password'=>md5($password)
 							);
 						$this->MdlCustomer->AddUser($user);
+					}
 						
 						
 			
