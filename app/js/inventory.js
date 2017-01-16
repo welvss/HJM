@@ -1,7 +1,13 @@
 $( document ).ready(function() {
   
   $(".mode").click(function(){
-    $('.ui.modal').modal('show');
+    $('.ui.modal.itemmodal').modal('show');
+  });
+  $(".product").click(function(){
+    $('.ui.modal.productmodal').modal('show');
+  });
+  $(".rqform").click(function(){
+    $('.ui.modal.rqformmodal').modal('show');
   });
   $('.menu .item')
   .tab()

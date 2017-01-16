@@ -85,14 +85,11 @@
 	  		<div class="two wide column hidden"></div>
 	   		<div class="seven wide column"><h1 class=""><i class="cubes orange icon"></i>Inventory</h1></div>
 	   		<div class="five wide right aligned column">
-	   		<button class="ui orange circular icon button mode">
-			  		<i class="plus icon"></i>
-			</button>
-			Add New Item
-			<button class="ui red circular icon button mode">
-			  		<i class="plus icon"></i>
-			</button>
-			Requisition form
+	   		<div class="ui buttons">
+			  <button class="ui orange button icon mode"><i class="plus icon"></i>New Item</button>
+			  <button class="ui green button icon product"><i class="plus icon"></i>New Product</button>
+			  <button class="ui red button rqform">Requisition Form</button>
+			</div>
 			</div>
 			<div class="one wide column hidden"></div>
 	  </div>  
@@ -169,10 +166,81 @@
 	  		</div>
 	  		</div>
 	  	</div>
+	  	<!--Product-->
+	  	<div class="row">
+	  		<div class="thirteen wide column centered grid">
+	  		<div class="ui stacked teal segment">
+	  		<div class="row">
+	  			<div class="ui grid">
+	  				<div class="two column row">
+				    <div class="left floated column eight wide column">
+				    	<div class="ui search">
+						  <div class="ui icon input">
+						    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
+						    <i class="search icon"></i>
+						  </div>
+						  <div class="results"></div>
+						</div>
+				    </div>
+				    <div class="right floated right aligned eight wide column">
+				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+				    	<a class="ui icon top left pointing dropdown">
+						  <i class="setting big icon"></i>
+						  <div class="menu">
+						    <div class="header">Columns</div>
+						    <div class="ui checkbox input">
+							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Phone</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui divider"></div>
+							<div class="item">
+								Close
+							</div>
+						  </div>
+						</a>
+				    </div>
+				    </div>
+	  			</div>
+	  		</div>
+	  		<br>
+	  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Product Code</th>
+	  						<th>Product Description</th>
+	  						<th>Price</th>
+	  						<th>Count of Order</th>
+	  						<th>Action</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<tr>
+	  						<td><a href="inventory-edit.html">EM</a></td>
+	  						<td>Emax</td>
+	  						<td>500</td>
+	  						<td>80</td>
+	  						<td>
+	  							<a href="#"><i class="trash icon"></i></a>
+	  						</td>
+	  					</tr>
+	  				</tbody>
+	  			</table>
+	  		</div>
+	  		</div>
+	  	</div>
 	  </div>
 </div>
 <!--New Item Modal-->
-	<div class="ui modal small">
+	<div class="ui modal itemmodal small">
 		  <div class="ui orange header">
 		   <i class="large cube icon"></i>
 		    Item Information
@@ -229,6 +297,100 @@
 						      Cancel
 						    </div>
 						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+				<br>
+			</div>  
+			</form>
+			<br>
+	</div>
+	<div class="ui modal productmodal small">
+		  <div class="ui green header">
+		   <i class="large cube icon"></i>
+		    Product Information
+		  </div>
+		  <br><br>
+		  <form class="ui form">
+			<div class="ui centered grid" >
+				<div class="fifteen column centered row">
+					<div class="ten wide column">
+							<div class="field">
+								<label>Product Code</label>
+								<input type="text">
+							</div>
+							<div class="sixteen wide field">
+								<label for="">Product Description</label>
+								<textarea row="1"></textarea>
+							</div>
+							<div class="field">
+								<label>Price</label>
+								<input type="text">
+							</div>
+					</div>
+				</div>
+				<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+				<br>
+			</div>  
+			</form>
+			<br>
+	</div>
+	<div class="ui modal rqformmodal small">
+		  <div class="ui red header">
+		   <i class="large cube icon"></i>
+		    Requisition Form
+		  </div>
+		  <br><br>
+		  <form class="ui form">
+			<div class="ui centered grid" >
+				<div class="fifteen column centered row">
+					<div class="seven wide column">
+							<div class="field">
+							<label>Item</label>
+							<select name="item" class="ui fluid dropdown">
+						      <option value=""></option>
+						      <option value="ep">Emax Porcelain (epjc)</option>
+						      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
+						      <option value="fw">One Piece (framework only)</option>
+						      <option value="dr">Denture Repair</option>
+						    </select>
+							</div>
+							<div class="field">
+								<label>Quantity</label>
+								<input type="number">
+							</div>
+					</div>
+				</div>
+				<div class="two column row">
+					<div class="nine wide column hidden"></div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated red right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
