@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<style>
+	#feedback { font-size: 1.4em; }
+#selectable .ui-selecting { background: #FECA40; }
+  #selectable .ui-selected { background: #F39814; color: white; }
+  #selectable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
+  #selectable li { margin: 3px; padding: 1px; float: left; width: 100px; height: 80px; font-size: 4em; text-align: center; }
+#btn_select{display:none;}
+</style>
+	<button id="btn_select">End Selection</button>
+
+<ol id="selectable">
+  <li class="ui-state-default n1">1</li>
+  <li class="ui-state-default">2</li>
+  <li class="ui-state-default">3</li>
+  <li class="ui-state-default">4</li>
+  <li class="ui-state-default">5</li>
+  <li class="ui-state-default">6</li>
+  <li class="ui-state-default">7</li>
+  <li class="ui-state-default">8</li>
+  <li class="ui-state-default">9</li>
+  <li class="ui-state-default">10</li>
+  <li class="ui-state-default">11</li>
+  <li class="ui-state-default">12</li>
+</ol>
+	<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+	<script>
+	$(function() {
+    var _clicked = false;
+        
+    $('#btn_select').click(function(){
+        _clicked = false;
+        $(this).hide();
+        $('#selectable li').removeAttr('unselectable style');
+        $('.ui-selecting').addClass('ui-selected').removeClass('ui-selecting');
+    });
+    
+    $('#selectable li').click(function(){
+        if(!_clicked){
+            _clicked = true;
+            $('.ui-selected').removeClass('ui-selected');
+            $('#selectable li').attr('unselectable', 'on').css('user-select', 'none');
+            $('#btn_select').show();
+        }
+        
+        if($(this).hasClass('ui-selecting')){
+            $(this).removeClass('ui-selecting');
+        }else{
+            $(this).addClass('ui-selecting');
+        }
+    });
+});  
+	</script>
+</body>
+</html>
