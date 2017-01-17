@@ -622,7 +622,7 @@
 		  			</div>	  		
 				  <div class="three wide field">
 					  <label>Gender</label>
-					    <select name="gender">
+					    <select name="gender" class="ui fluid dropdown">
 					      <option value="">Gender</option>
 					      <option value="1">Male</option>
 					      <option value="0">Female</option>
@@ -646,7 +646,7 @@
 		  			<img class="ui centered large image"src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth">
+ 				  	<select multiple name="teeth[]" class="ui fluid search dropdown" id="teeth">
  					<?php
  					$x=1; 
  					while ($x <= 32) 
@@ -678,13 +678,13 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Product</label>
-					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid dropdown" onchange="getID(this.value);">
+					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid search dropdown" onchange="getID(this.value);">
 					    
 					    </select>
 				  </div>
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items">
+					    <select  multiple name="items[]"  class="ui fluid search dropdown" id="items">
 					      
 					      <?php 
 					      echo '<option value=""></option>';
@@ -734,7 +734,7 @@
 						    </div>
 						  </div>
 						  <div class="five wide field">
-						  	<select name="shade2">
+						  	<select name="shade2" class="ui fluid search dropdown"> 
 						  		<option value="">Select Shade</option>
 						  		<option value="A1">A1</option>
 						  		<option value="A2">A2.5</option>

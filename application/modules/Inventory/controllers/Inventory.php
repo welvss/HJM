@@ -34,7 +34,9 @@ class Inventory extends MX_Controller
 			
 			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 			$data['items'] = $this->MdlInventory->getItem(array());
+			$data['casetype'] = $this->MdlOrder->getCaseType(array());
 			$this->load->view('app-inventory',$data);
+			$this->load->view('app-inventory-modals');
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
@@ -61,6 +63,28 @@ class Inventory extends MX_Controller
 
 								);
 						$this->MdlInventory->AddInventory($data);
+						redirect('Inventory');
+					
+		}
+						
+
+	}
+
+	public function AddProduct()
+	{
+	
+	
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+
+						$data=array(
+									'CaseTypeID'=>$_POST['CaseTypeID'],
+									'CaseTypeDesc'=>$_POST['CaseTypeDesc'],
+									'Price'=>$_POST['Price'],
+									'TotalOrder'=>0,
+									'Type'=>$_POST['Type'],
+								);
+						$this->MdlOrder->AddCaseType($data);
 						redirect('Inventory');
 					
 		}
@@ -112,6 +136,45 @@ class Inventory extends MX_Controller
 
 	}
 
+	public function EditProduct()
+	{
+	
+	
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+						//die($_POST['ItemID']);
+			if($_POST['CaseTypeID']==$_POST['CTID'])
+			{
+						$data=array(
+									'CaseTypeID'=>$_POST['CTID'],
+									'CaseTypeDesc'=>$_POST['CaseTypeDesc'],
+									'Price'=>$_POST['Price'],
+									'TotalOrder'=>$_POST['TotalOrder'],
+									'Type'=>$_POST['Type'],
+								);
+						$this->MdlOrder->EditCaseType($data);
+						redirect('Inventory');
+			}
+			else
+			{
+						$this->MdlOrder->DeleteCaseType($_POST['CTID']);
+						$data=array(
+									'CaseTypeID'=>$_POST['CaseTypeID'],
+									'CaseTypeDesc'=>$_POST['CaseTypeDesc'],
+									'Price'=>$_POST['Price'],
+									'TotalOrder'=>$_POST['TotalOrder'],
+									'Type'=>$_POST['Type'],
+								);
+						$this->MdlOrder->AddCaseType($data);
+						redirect('Inventory');
+			}
+
+					
+		}
+						
+
+	}
+
 	public function DeleteItem()
 	{
 		if($this->MdlInventory->DeleteItem($this->uri->segment(3)))
@@ -130,6 +193,24 @@ class Inventory extends MX_Controller
 			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
 			$data['item'] = $this->MdlInventory->getItem(array('ItemID'=>$this->uri->segment(3)));
 			$this->load->view('app-inventory-info',$data);
+			$this->load->view('app-inventory-modals');
+			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
+			$this->footer($data);
+		}
+	
+	
+	}
+
+	public function ProductInfo()
+	{	
+		
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  )
+		{	
+			$this->headercheck();
+			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
+			$data['casetype'] = $this->MdlOrder->getCaseType(array('CaseTypeID'=>$this->uri->segment(3)));
+			$this->load->view('app-inventory-productinfo',$data);
+			$this->load->view('app-inventory-modals');
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);
 		}
@@ -167,6 +248,25 @@ class Inventory extends MX_Controller
             }
             echo json_encode($data);
     }
+
+    public function checkProductCode()
+    {
+            $ItemCode_available = $this->MdlOrder->check_if_ProductCode_exists($_POST['CaseTypeID']);
+            if($ItemCode_available)
+            {
+                 $data['error']= "";
+                 $data['success']=false;
+            }
+            else
+            {
+                 $data['error']= '<div class="ui red message"><div class="header"><center>This Product Code is already taken. &nbsp;Please enter another Product Code.</center></div></div>';
+                 $data['success']=true;
+             
+   			
+            }
+            echo json_encode($data);
+    }
+
 
     public function getItems(){
 

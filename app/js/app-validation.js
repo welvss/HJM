@@ -151,6 +151,42 @@ function checkItemCode(val) {
   });
 }
 
+var ItemID= $('#CaseTypeID').val();
+function checkProductCode(val) {
+  $.ajax({
+  type: "POST",
+  url: "http://"+window.location.hostname+"/HJM/Inventory/checkProductCode",
+  data:'CaseTypeID='+val,
+  dataType: 'json',
+  cache: true,
+  success: function(data){
+    if(data.success==true && ItemID==val)
+    {
+      $('#errorproduct').html(" ");
+      document.getElementById('submitproduct').disabled = false;
+    }
+    else
+    if(data.success==true && ItemID!=val)
+    {
+      $('#errorproduct').html(data.error);
+      document.getElementById('submitproduct').disabled = true;
+    }
+    else
+    {
+      $('#errorproduct').html(data.error);
+      document.getElementById('submitproduct').disabled = false;
+    }
+  
+  },error: function(xhr, status, error,ajaxOptions, thrownErro) {
+              alert(error);
+               alert(xhr.status);
+                
+                  alert(xhr.responseText);
+            },
+
+  });
+}
+
 function getCaseType(val) {
   $.ajax({
   type: "POST",

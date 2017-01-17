@@ -46,8 +46,8 @@
 			<table class="ui table">
 				<thead>
 					<tr>
-						<th>Item Description</th>
-						<th>Teeth Number</th>
+						<th>Product ID</th>
+						<th>Product Description</th>
 						<th>Qty</th>
 						<th>Amount</th>
 						<th>Case Total</th>
@@ -62,27 +62,21 @@
 									'<tr>';
 									foreach ($items as $item) 
 									{
-										if($ii->ItemID==$item->ItemID)
+										if($ii->ItemID==$item->CaseTypeID){
 
-										echo '<td>'.$item->ItemDesc.'</td>';
+											echo '<td>'.$item->CaseTypeID.'</td>';
+											echo '<td>'.$item->CaseTypeDesc.'</td>';
+										}
 									}
 										
 			
 								
-									echo '<td>';
+									
 									 
-					  					$teeth = explode(',',$case->teeth);
-				  						$ctr= count($teeth);
-				  						$i=0;
-				  						foreach ($teeth as $tooth) {
-				  							if(++$i != $ctr)
-				  								echo $tooth.', ';
-				  							else
-				  								echo $tooth;
-				  						}
+					  					
 					  				
 					  				echo 
-					  					'</td>
+					  					'
 										<td>'.$ii->QTY.'</td>
 										<td>PHP '.$ii->Amount.'</td>
 										<td>PHP '.number_format($ii->SubTotal,2).'</td>

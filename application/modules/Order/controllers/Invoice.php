@@ -89,7 +89,7 @@ class Invoice extends MX_Controller
 	public function InvoiceSlip()
 	{	
 		$info = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
-		$data['items'] = $this->MdlInventory->getItem(array());
+		$data['items'] = $this->MdlOrder->getCaseType(array());
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$this->uri->segment(3)));
 		$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$this->uri->segment(3)));
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$info->DentistID));

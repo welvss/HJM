@@ -239,8 +239,18 @@
 		  	  						<button type="submit" class="ui button mode invoice-modal">
 											  Edit Invoice
 									</button>';
+								$approve=0;
+								foreach ($invoiceitems as $ii) 
+								{
+									
+										if($ii->ItemID==$case->CaseTypeID){
+											$approve=1;
+															
+										}
+									
+								}
 
-								if($invoice->datecreated!=null){
+								if($invoice->datecreated!=null&&$approve){
 									echo
 										form_open('Invoice/UpdateInvoiceStatus').form_hidden('InvoiceID',$invoice->InvoiceID).form_hidden('status',1).form_hidden('CaseID',$case->CaseID).form_hidden('DentistID',$dentist->DentistID).'
 
@@ -259,8 +269,8 @@
 	  	  			<table class="ui inverted blue table">
 						<thead>
 							<tr>
-								<th>Billing Item</th>
-								<th>Teeth Number</th>
+								<th>Product ID</th>
+								<th>Product Description</th>
 								<th>Qty</th>
 								<th>Amount</th>
 								<th>Case Total</th>
@@ -269,37 +279,35 @@
 						<tbody>
 							<?php
 								$sum=0;
+								$out =0;
 								foreach ($invoiceitems as $ii) 
 								{
-									echo
-									'<tr>';
-									
-											foreach ($items as $item){
-												if($ii->ItemID==$item->ItemID)
+									if($ii->ItemID==$case->CaseTypeID){
+										echo
+										'<tr>';
+										$out=1;
+												foreach ($ctypes as $ctype){
+													if($ii->ItemID==$ctype->CaseTypeID){
 
-												echo '<td>'.$item->ItemDesc.'</td>';
-											}
+														echo '<td>'.$ctype->CaseTypeID.'</td>';
+														echo '<td>'.$ctype->CaseTypeDesc.'</td>';
+													}
+												}
+													
+						
+											
 												
-					
-										
-											echo '<td>'.
-											 
-							  					
-							  					$case->teeth
-
-
-							  				
-							  					.'</td>
-												<td>'.$ii->QTY.'</td>
-												<td>PHP '.number_format($ii->Amount,2).'</td>
-												<td>PHP '.number_format($ii->SubTotal,2).'</td>
-											</tr>';
-										$sum=$sum+$ii->SubTotal;
-										
+													echo 
+													'<td>'.$ii->QTY.'</td>
+													<td>PHP '.number_format($ii->Amount,2).'</td>
+													<td>PHP '.number_format($ii->SubTotal,2).'</td>
+												</tr>';
+											$sum=$sum+$ii->SubTotal;
+									}
 							
 									
 								}
-							?>
+							?> 
 							
 						</tbody>
 					</table>
@@ -318,10 +326,10 @@
 							</div>
 							<div class="three wide column">
 								<div class="item">
-									PHP <?php echo number_format($invoice->Total,2);?>
+									PHP <?php echo ($out?number_format($invoice->Total,2):'0.00');?>
 								</div>
 								<div class="item">
-									<h2>PHP <?php echo number_format($invoice->Total,2);?></h2>
+									<h2>PHP <?php echo ($out?number_format($invoice->Total,2):'0.00');?></h2>
 								</div>
 							</div>
 						</div>
@@ -392,7 +400,7 @@
 		  			<img class="ui centered large image" src="<?php echo base_url();?>app/img/teeth-structure.png" alt="">
 		  			<div class="field">
  				  	<label>Teeth</label>
- 				  	<select multiple name="teeth[]" class="ui fluid dropdown" id="teeth" <?php if($invoice->status==1) echo 'disabled';?>>
+ 				  	<select multiple name="teeth[]" class="ui fluid search dropdown" id="teeth" <?php if($invoice->status==1) echo 'disabled';?>>
  				  	<?php 
  				  	$teeth = explode(',', $case->teeth);
  				  	$i =1;
@@ -460,7 +468,7 @@
 		  		<div class="ui vertical teal segment">
 		  		  <div class="eight wide field">
 					  <label>Product</label>
-					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid dropdown" onchange="getIDs(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <select name="CaseTypeID" id="CaseTypeID" class="ui fluid search dropdown" onchange="getIDs(this.value);" <?php if($invoice->status==1) echo 'disabled';?>>
 					    <?php 
 					      echo '<option value=""></option>';
 					      foreach ($casetype as $ct) {
@@ -474,7 +482,7 @@
 				  </div>
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <select  multiple name="items[]"  class="ui fluid search dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
 					      
 					    <?php 
 					    $caseitems = explode(',',$case->items);
@@ -555,7 +563,7 @@
 						    </div>
 						  </div>
 						  <div class="five wide field">
-						  	<select name="shade2" <?php if($invoice->status==1) echo 'disabled';?>>
+						  	<select name="shade2" class="ui fluid dropdown" <?php if($invoice->status==1) echo 'disabled';?>>
 						  		<option value=""></option>
 						  		<option value="A1"<?php if($case->shade2=="A1") echo ' selected';?>>A1</option>
 						  		<option value="A2.5"<?php if($case->shade2=="A2.5") echo ' selected';?>>A2.5</option>
@@ -867,21 +875,20 @@
 		  			<tbody id="Add">
 		  			<?php 
 		  			$ctr=1;
-		  			$caseitems = explode(',',$case->items);
-		  			$x=count($caseitems);
+		  			
+		  			$x=1;
 
-		  			foreach ($items as $item) 
+		  			foreach ($ctypes as $ctype) 
 		  			{
 		  				
-		  				foreach ($caseitems as $ci) 
-		  				{
-		  					if($ci==$item->ItemID)
+		  				
+		  					if($ctype->CaseTypeID==$case->CaseTypeID)
 		  					{
 				  				echo
 				  				'<tr id="Row'.$ctr.'">
 				  					<td>'.$ctr.'</td>
-				  					<td><input type="text" style="width: 100px"  name="invoice['.$ctr.'][ItemID]" value="'.$item->ItemID.'"></td>
-				  					<td id="ItemDesc">'.$item->ItemDesc.'</td>';
+				  					<td><input type="text" style="width: 100px"  name="invoice['.$ctr.'][ItemID]" value="'.$ctype->CaseTypeID.'"></td>
+				  					<td id="ItemDesc">'.$ctype->CaseTypeDesc.'</td>';
 				  					$available=false;
 				  					foreach ($invoiceitems as $ii) {
 				  						
@@ -896,7 +903,7 @@
 				  					if(!$available){
 				  						echo
 						  					'<td><input type="number" style="width: 100px" id="QTY'.$ctr.'" name="invoice['.$ctr.'][QTY]" onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');"  value="0" ><br></td>
-						  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');" value="'.$item->Price.'" ></td>
+						  					<td><input type="text" id="Amount'.$ctr.'" name="invoice['.$ctr.'][Amount]"  onkeyup="multiply('.$ctr.');addSubtotal('.$x.');numberCheck('.$ctr.');" value="'.$ctype->Price.'" ></td>
 						  					<td><input type="text" id="SubTotal'.$ctr.'" name="invoice['.$ctr.'][SubTotal]" value="0" /></td>';
 
 				  					}
@@ -907,7 +914,7 @@
 				  				</tr>';
 				  				$ctr++;
 			  				}
-			  			}
+			  			
 		  			}
 		  			?>
 		  			</tbody>

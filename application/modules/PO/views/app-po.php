@@ -328,7 +328,7 @@
 	  			<div class="two column row">
 	  				<div class="six wide column"></div>
 					<div class="three wide column">
-						<a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+						<!-- <a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a> -->
 					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">

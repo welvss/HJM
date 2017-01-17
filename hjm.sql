@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2017 at 06:21 AM
+-- Generation Time: Jan 18, 2017 at 01:34 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -164,7 +164,7 @@ INSERT INTO `tblcase` (`CaseID`, `Type`, `CaseTypeID`, `DentistID`, `orderdateti
 (99, 'RPD', 'TH', 12, '2016-11-13 13:27:14', 'Filimon', 'Usog', '1', 48, 1, 'A3.5', '', 0, 0, 1, 1, 1, 1, 0, 1, '1,2,3,4,5,6,7,8,9,10,11', 'FS-TN', '', '', '2016-12-02', '12:38:00', 3, '2016-11-14 00:00:00', '2016-12-01 00:00:00'),
 (100, 'RPD', 'OP', 28, '2016-11-07 19:00:34', 'Ricardo', 'Basallaje', '1', 39, 2, 'A3.5', '', 0, 1, 1, 1, 0, 0, 1, 1, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17', 'ES', '', '', '2016-11-28', '13:38:00', 3, '2016-11-08 00:00:00', '2016-11-27 00:00:00'),
 (101, 'FIXED', 'EM', 31, '2017-01-16 22:00:08', 'asadfas', 'dadf', '1', 123123, 4, 'A1', '', 0, 0, 0, 0, 0, 0, 0, 0, '1,2,3,4,5', 'CBM', '', 'http://localhost/HJM/app/uploads/f6d128d1ee5cbd90c1fc7346ce308ece.JPG', '2017-01-17', '12:31', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(102, 'FIXED', 'C', 31, '2017-01-17 06:15:44', 'fasdf', 'sdfasdf', '1', 23, 4, '', '					    	\r\n					    	', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '2017-01-18', '03:12', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(102, 'FIXED', 'C', 31, '2017-01-17 06:15:44', 'fasdf', 'sdfasdf', '1', 23, 4, '', '					    	\r\n					    	', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '2017-01-18', '03:12', 3, '2017-01-18 00:00:00', '2017-01-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -318,34 +318,36 @@ INSERT INTO `tblcase1` (`CaseID`, `Type`, `CaseTypeID`, `DentistID`, `orderdatet
 CREATE TABLE `tblcasetype` (
   `CaseTypeID` varchar(10) NOT NULL,
   `CaseTypeDesc` varchar(50) NOT NULL,
-  `Type` varchar(50) NOT NULL
+  `Type` varchar(50) NOT NULL,
+  `TotalOrder` int(11) NOT NULL,
+  `Price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblcasetype`
 --
 
-INSERT INTO `tblcasetype` (`CaseTypeID`, `CaseTypeDesc`, `Type`) VALUES
-('C', 'Ceramage', 'FIXED'),
-('CC', 'Casted Clasp', 'RPD'),
-('COM', 'Combination', 'RPD'),
-('D', 'Denture', 'RPD'),
-('EM', 'Emax', 'FIXED'),
-('EX', 'Expander', 'OTHERS'),
-('F', 'Flexible', 'RPD'),
-('I', 'Ivocap', 'RPD'),
-('IR', 'Invisible Retainer', 'OTHERS'),
-('LB', 'Lucitone Base', 'RPD'),
-('MG', 'Mouthguard', 'OTHERS'),
-('OP', 'One Piece', 'RPD'),
-('P', 'Porcelain', 'FIXED'),
-('PJ', 'Plastic Jacket', 'FIXED'),
-('R', 'Retainer', 'OTHERS'),
-('T', 'Temporary', 'FIXED'),
-('TH', 'Thermosen', 'RPD'),
-('TI', 'Tillite', 'FIXED'),
-('VE', 'Veneer', 'FIXED'),
-('Z', 'Zirconia', 'FIXED');
+INSERT INTO `tblcasetype` (`CaseTypeID`, `CaseTypeDesc`, `Type`, `TotalOrder`, `Price`) VALUES
+('C', 'Ceramage', 'FIXED', 4, 100),
+('CC', 'Casted Clasp', 'RPD', 0, 0),
+('COM', 'Combination', 'RPD', 0, 0),
+('D', 'Denture', 'RPD', 0, 0),
+('EM', 'Emax', 'FIXED', 0, 0),
+('EX', 'Expander', 'OTHERS', 0, 0),
+('F', 'Flexible', 'RPD', 0, 0),
+('I', 'Ivocap', 'RPD', 0, 0),
+('IR', 'Invisible Retainer', 'OTHERS', 0, 0),
+('LB', 'Lucitone Base', 'RPD', 0, 0),
+('MG', 'Mouthguard', 'OTHERS', 0, 0),
+('OP', 'One Piece', 'RPD', 0, 0),
+('P', 'Porcelain', 'FIXED', 0, 0),
+('PJ', 'Plastic Jacket', 'FIXED', 0, 0),
+('R', 'Retainer', 'OTHERS', 0, 0),
+('T', 'Temporary', 'FIXED', 0, 0),
+('TH', 'Thermosen', 'RPD', 0, 0),
+('TI', 'Tillite', 'FIXED', 0, 0),
+('VE', 'Veneer', 'FIXED', 0, 0),
+('Z', 'Zirconia', 'FIXED', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -530,7 +532,7 @@ INSERT INTO `tblinvoice` (`InvoiceID`, `DentistID`, `CaseID`, `datecreated`, `du
 (99, 12, 99, '2016-11-13 13:27:14', '2016-12-12', 1650, 1, 1),
 (100, 28, 100, '2016-11-07 19:00:34', '2016-12-08', 1140, 1, 1),
 (101, 31, 101, NULL, '', 0, 0, 0),
-(102, 31, 102, NULL, '', 0, 0, 0);
+(102, 31, 102, '2017-01-18 01:20:32', '2017-01-20', 200, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1046,8 @@ INSERT INTO `tblinvoiceitem` (`InvoiceID`, `ItemID`, `QTY`, `Amount`, `SubTotal`
 (99, 'FS-TN', 3, 25, 75),
 (100, 'CBM', 3, 55, 165),
 (100, 'E', 3, 250, 750),
-(100, 'ES', 5, 45, 225);
+(100, 'ES', 5, 45, 225),
+(102, 'C', 2, 100, 200);
 
 -- --------------------------------------------------------
 
@@ -1316,7 +1319,8 @@ INSERT INTO `tblinvoicepayment` (`PaymentID`, `InvoiceID`, `DentistID`, `datecre
 (247, 99, 12, '2016-11-14', '2016-11-14 19:07:00', 'Partial', 825),
 (248, 99, 12, '2016-12-12', '2016-12-12 12:38:00', 'Partial', 825),
 (249, 100, 28, '2016-11-07', '2016-11-07 19:00:34', 'New', 0),
-(250, 100, 28, '2016-12-08', '2016-12-08 13:38:00', 'Full', 1140);
+(250, 100, 28, '2016-12-08', '2016-12-08 13:38:00', 'Full', 1140),
+(251, 102, 31, '2017-01-18', '2017-01-18 01:20:44', 'New', 0);
 
 -- --------------------------------------------------------
 
@@ -1340,7 +1344,6 @@ CREATE TABLE `tblitem` (
 --
 
 INSERT INTO `tblitem` (`ItemID`, `SupplierID`, `ItemDesc`, `Price`, `QTY`, `CurrentQTY`, `QTYBelow`, `ReorderQTY`) VALUES
-('C', 5, 'Carvide', 160, 200, 125, 75, 125),
 ('CBM', 5, 'Carburandum', 55, 60, -13, 30, 30),
 ('E', 1, 'Expander', 250, 50, 9, 23, 25),
 ('ES', 5, 'Expansion Screw', 45, 65, -29, 30, 35),
@@ -1665,7 +1668,7 @@ ALTER TABLE `tblinvoice`
 -- AUTO_INCREMENT for table `tblinvoicepayment`
 --
 ALTER TABLE `tblinvoicepayment`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 --
 -- AUTO_INCREMENT for table `tblpo`
 --

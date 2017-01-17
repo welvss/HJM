@@ -248,29 +248,26 @@ class Order extends MX_Controller
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							//'completedon'=>date('Y-m-d') 
+							'completedon'=>date('Y-m-d') 
 							);
 				
 				$this->MdlOrder->UpdateOrderStatus($order);
 					
 
 					$invoiceitems= $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$_POST['InvoiceID']));
-					$items=$this->MdlInventory->getItem(array());
+					$ctypes = $this->MdlOrder->getCaseType();
 					
 					foreach ($invoiceitems as $invoiceitem){
 
-						foreach ($items as $item){
-							if($invoiceitem->ItemID==$item->ItemID){
+						foreach ($ctypes as $ctype) {
+							if($ctype->CaseTypeID==$invoiceitem->ItemID)
+							{
 								$data=array(
-									'ItemID'=>$invoiceitem->ItemID,
-									'CurrentQTY'=>($item->CurrentQTY)-($invoiceitem->QTY)
-									
-									);
-								
-								$this->MdlInventory->EditInventory($data);
-							
+										'CaseTypeID'=>$ctype->CaseTypeID,
+										'TotalOrder'=>($ctype->TotalOrder+$invoiceitem->QTY)
+										);
+								$this->MdlOrder->EditCaseType($data);
 							}
-
 						}
 
 					}
@@ -283,7 +280,7 @@ class Order extends MX_Controller
 				$order= array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							//'createdon'=>date('Y-m-d') 
+							'createdon'=>date('Y-m-d') 
 						);
 				
 				$this->MdlOrder->UpdateOrderStatus($order);	
@@ -298,7 +295,7 @@ class Order extends MX_Controller
 				$order = array(
 							'CaseID'=>$_POST['CaseID'],
 							'status_id' => $_POST['status_id'],
-							//'createdon'=> ''
+							'createdon'=> ''
 							);
 				
 				if($this->MdlOrder->UpdateOrderStatus($order))
@@ -476,6 +473,7 @@ class Order extends MX_Controller
 			$info = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	
 			$invoice = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['status']=$this->MdlOrder->getStatus(array('status_id'=>$info->status_id));
+			$data['ctypes'] = $this->MdlOrder->getCaseType();
 			$data['casetype'] = $this->MdlOrder->getCaseType(array('Type'=>$info->Type));
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));

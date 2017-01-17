@@ -219,6 +219,45 @@ class MdlOrder extends CI_Model {
 		
 	}
 
+	function EditCaseType($options = array())
+	{		
+		
+		
+		if(isset($options['CaseTypeDesc']))
+			$this->db->set('CaseTypeDesc', $options['CaseTypeDesc']);
+
+		if(isset($options['Type']))
+			$this->db->set('Type', $options['Type']);
+
+		if(isset($options['Price']))
+			$this->db->set('Price', $options['Price']);
+
+		if(isset($options['TotalOrder']))
+			$this->db->set('TotalOrder', $options['TotalOrder']);
+
+		
+		
+		$this->db->where('CaseTypeID', $options['CaseTypeID']);
+		$this->db->update('tblcasetype');
+		
+		return $this->db->affected_rows();
+		
+	}
+
+	function AddCaseType($options = array())
+	{
+		$this->db->insert('tblcasetype', $options);	
+		return $this->db->insert_id();
+		
+	}
+	
+	function DeleteCaseType($id)
+	{
+		$this->db->where('CaseTypeID', $id);
+		$this->db->delete('tblcasetype');	
+		return true;
+	}
+
 	function UpdateOrderStatus($options = array())
 	{		
 		
@@ -237,6 +276,20 @@ class MdlOrder extends CI_Model {
 		return $this->db->affected_rows();
 		
 	}
+
+	public function check_if_ProductCode_exists($ProductID)
+    {
+        $this->db->where('CaseTypeID',$ProductID);
+        $result = $this->db->get('tblcasetype');
+        if($result->num_rows()>0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 	
 	
 }

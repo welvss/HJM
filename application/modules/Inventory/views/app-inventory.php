@@ -1,35 +1,41 @@
 	  <!--App-content--> 
-	  <div class="ui grid home-grid">
-	  <div class="row app-content page-header header">
-	  		<div class="two wide column hidden"></div>
-	   		<div class="seven wide column"><h1 class=""><i class="cubes orange icon"></i>Inventory</h1></div>
-	   		<div class="five wide right aligned column">
-	   		<button class="ui orange circular icon button mode">
-			  		<i class="plus icon"></i>
-			</button>
-			Add New Item
-			</div>
-			<div class="one wide column hidden"></div>
-	  </div>  
-	  </div>
+	  	<div class="ui grid home-grid">
+            <div class="row app-content page-header header">
+                <div class="two wide column hidden"></div>
+                <div class="seven wide column">
+                    <h1 class=""><i class="cubes orange icon"></i>Inventory</h1></div>
+                <div class="five wide right aligned column">
+                    <div class="ui buttons">
+                        <button class="ui orange button icon mode"><i class="plus icon"></i>New Item</button>
+                        <button class="ui green button icon product"><i class="plus icon"></i>New Product</button>
+                        <button class="ui red button rqform">Requisition Form</button>
+                    </div>
+                </div>
+                <div class="one wide column hidden"></div>
+            </div>
+      	</div>
 	  <br><br><br><br>
-	  <div class="ui grid">
+	<div class="ui grid">
 	  	<div class="row">
 	  		<div class="thirteen wide column centered grid">
 	  		<div class="ui stacked teal segment">
 	  		<div class="row">
+	  			<div class="ui orange header">
+				   <i class="large cube icon"></i>
+				    Item Information
+				</div>
 	  			<div class="ui grid">
 	  				<div class="two column row">
 				    <div class="left floated column eight wide column">
 				    	<div class="ui search">
 						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
+						    <input class="prompt" type="text" placeholder="Find Items..." id="search-item">
 						    <i class="search icon"></i>
 						  </div>
 						  <div class="results"></div>
 						</div>
 				    </div>
-				    <div id="print">
+				    <div id="printitem" style="position: relative;left: -12px;">
 				    	
 				    	
 				    </div>
@@ -37,14 +43,17 @@
 	  			</div>
 	  		</div>
 	  		<br>
-	  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
+	  			<table id="inventory-itemtable" class="display ui blue table" cellspacing="0" width="100%">
 	  				<thead>
 	  					<tr>
+	  					
+
 	  						<th>Item Code</th>
 	  						<th>Item Description</th>
-	  						<th><center>Price</center></th>
+	  						<th><center>Cost</center></th>
 	  						<th><center>Current Qty</center></th>
 	  						<th><center>Total Capacity</center></th>
+	  						
 	  						
 	  					</tr>
 	  				</thead>
@@ -60,96 +69,76 @@
 	  						<td><center>'.$item->Price.'</center></td>
 	  						<td><center>'.$item->CurrentQTY.'</center></td>
 	  						<td><center>'.$item->QTY.'</center></td>
-	  	
 	  					</tr>';
 	  					}
 	  					?>
 	  				</tbody>
 	  			</table>
+
 	  		</div>
 	  		</div>
 	  	</div>
-	  </div>
-</div>
-<!--New Item Modal-->
-	<div class="ui modal small">
-		  <div class="ui orange header">
-		   <i class="large cube icon"></i>
-		    Item Information
-		  </div>
-		  <br><br>
-		  
-		  	<?php echo form_open('Inventory/AddInventory','class="ui form"');?>
-			<div class="ui centered grid" >
-				<div class="row">
-					<div class="one wide column hidden"></div>
-					<div class="fourteen wide column">
-						<div id="error"></div>
-					</div>
-					<div class="one wide column hidden"></div>
-				</div>
-				<div class="fifteen column centered row">
-					<div class="seven wide column">
-							<div class="field">
-								<label>Item Code</label>
-								<input type="text" name="ItemID" onkeyup="checkItemCode(this.value);">
-							</div>
-							<div class="sixteen wide field">
-								<label for="">Item Description</label>
-								<textarea row="1" name="ItemDesc"></textarea>
-							</div>
-							
-							<div class="field">
-								<label>Price</label>
-								<input type="text" name="Price">
-							</div>
-					</div>
-					<div class="eight wide column">
-						<!-- <div class="field">
-							<label>Supplier</label>
-							  <select class="ui dropdown" name="SupplierID">
-							  		<option value="">Select Supplier</option>
-							  	<?php 
-							  		foreach($suppliers as $supplier)
-							  		{
-							  			echo '<option value="'.$supplier->SupplierID.'">'.$supplier->company.'</option>';
-							  		}
-							    ?> 
-							    </select>
-						</div> -->
-						<div class="field">
-								<label>Max. Quantity</label>
-								<input type="text" name="QTY">
-							</div>
-							<div class="field">
-								<label>Alert Qty Falls Below</label>
-								<input type="text" name="QTYBelow">
-							</div>
-							<div class="field">
-								<label>Reorder Qty</label>
-								<input type="text" name="ReorderQTY">
-							</div>
-					</div>
-				</div>
-				<div class="two column row">
-					<div class="nine wide column hidden"></div>
-					<div class="right aligned six wide column">
-						  <div class="actions" id="footer-modal">
-						    <div class="ui grey deny button">
-						      Cancel
-						    </div>
-						    <button class="ui animated orange right button" tabindex="0" type="submit" value="submit" id="submit">
-							  <div class="visible content">Submit</div>
-							  <div class="hidden content">
-							    <i class="right arrow icon"></i>
-							  </div>
-							</button>
-						  </div>
-					</div>
-					<div class="one wide column hidden"></div>
-				</div>
-				<br>
-			</div>  
-			</form>
-			<br>
 	</div>
+	<div class="ui grid">
+	  	<div class="row">
+	  		<div class="thirteen wide column centered grid">
+	  		<div class="ui stacked teal segment">
+	  		<div class="row">
+	  			<div class="ui green header">
+				   <i class="large cube icon"></i>
+				    Product Information
+				</div>
+	  			<div class="ui grid">
+	  				<div class="two column row">
+				    <div class="left floated column eight wide column">
+				    	<div class="ui search">
+						  <div class="ui icon input">
+						    <input class="prompt" type="text" placeholder="Find Items..." id="search-product">
+						    <i class="search icon"></i>
+						  </div>
+						  <div class="results"></div>
+						</div>
+				    </div>
+				    <div id="printproduct" style="position: relative;left: -12px;">
+				    	
+				    	
+				    </div>
+				    </div>
+	  			</div>
+	  		</div>
+	  		<br>
+	  			<table id="inventory-producttable" class="display ui blue table" cellspacing="0" width="100%">
+	  				<thead>
+	  					<tr>
+	  						<th>Product Code</th>
+	  						<th>Product Description</th>
+	  						<th>Product Type</th>
+	  						<th><center>Price</center></th>
+	  						<th><center>Count of Order</center></th>
+	  						
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					<?php
+	  					foreach ($casetype as $ct) 
+	  					{
+	  						
+	  					echo
+	  					'<tr>
+	  						<td><a href="'.base_url('Inventory/ProductInfo/'.$ct->CaseTypeID).'">'.$ct->CaseTypeID.'</a></td>
+	  						<td>'.$ct->CaseTypeDesc.'</td>
+	  						<td>'.$ct->Type.'</td>
+	  						<td><center>'.$ct->Price.'</center></td>
+	  						<td><center>'.$ct->TotalOrder.'</center></td>
+	  					</tr>';
+	  					}
+	  					?>
+	  				</tbody>
+	  			</table>
+
+	  		</div>
+	  		</div>
+	  	</div>
+	</div>
+	<br><br><br><br><br>
+</div>

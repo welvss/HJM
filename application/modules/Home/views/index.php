@@ -150,7 +150,7 @@
       			<div class="address">
     					<h4>
               <i class="fa fa-2x fa-map-marker" aria-hidden="true"></i>
-              &nbsp;521 Int. Inocencio St., Pasay City</h4>
+              &nbsp;521 T.Innocencio, Pasay, Metro Manila</h4>
     					<h4>
               <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
               &nbsp;844-45-09 &nbsp;/&nbsp; 889-10-99 &nbsp;/&nbsp; 845-07-11</h4>
@@ -162,7 +162,7 @@
       		</div>
       		<div class="col-md-6 col-sm-12 col-xs-12 hjm-building" id="map">
       			<!-- <center>Google Maps Here.</center> -->
-           
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.932220740329!2d121.00122931522365!3d14.545868589837308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c969e7703aad%3A0x56d12c31572878f6!2s521+T.Innocencio%2C+Pasay%2C+Metro+Manila!5e0!3m2!1sen!2sph!4v1484658088260" width="100%" height="490" frameborder="0" style="border:0;margin:0;width: 105%;position: relative;margin-left: -13px;" allowfullscreen></iframe>
       		</div>
       	</div>
       </div><!--End Row-->
