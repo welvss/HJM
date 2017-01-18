@@ -97,6 +97,9 @@
 			    <div class="item invoice-modal">
 			    <i class="large file text outline icon blue"></i>
 			    New Purchase Order</div>
+			    <div class="item invoice-modal">
+			    <i class="large file text outline icon blue"></i>
+			    New Quotation</div>
 			  </div>
 			</div>
 			</div>
@@ -255,6 +258,195 @@
 	  </div>
 </div>
 <div class="ui modal fullscreen invoice">
+	  <form class="ui form">
+	  		<div class="ui inverted green segment">
+	  			  <div class="ui header">
+				  <i class="large add to cart icon"></i>
+					  New Purchase
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Supplier</label>
+								<input type="text" value="Deew Plantation">
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="hjmdentallaboratory@gmail.com">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui horizontal segments">
+						<div class="ui segment">
+							<div class="ui header">
+								<h3>PO#:</h3>
+								<h1>PO-GR@C3</h1>
+							</div>	
+						</div>
+						<div class="ui segment">
+							<div class="ui header">
+								Total
+								<h1>PHP 500.00</h1>
+							</div>	
+						</div>						
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Billing Address</label>
+	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
+	  						</div>
+	  						<div class="field">
+	  							<label>Purchase Order date</label>
+	  							<input type="date">
+	  						</div>
+	  						<div class="field">
+	  							<label>Requested Ship Date</label>
+	  							<input type="date">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  	<form class="ui form">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>#</th>
+		  					<th>ITEM</th>
+		  					<th>DESCRIPTION</th>
+		  					<th>QTY</th>
+		  					<th>Amount</th>
+		  					<th>Total</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				<tr>
+		  					<td>1</td>
+		  					<td>
+		  						<div class="ui selection dropdown">
+								  <input type="hidden" name="gender">
+								  <i class="dropdown icon"></i>
+								  <div class="default text">Default item dito</div>
+								  <div class="menu">
+								    <div class="item" data-value="1">Emax</div>
+								    <div class="item" data-value="0">Baymax</div>
+								  </div>
+								</div>
+		  					</td>
+		  					<td>
+		  					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  					</td>
+		  					<td>
+		  						<input type="number" style="width: 100px">
+		  					</td>
+		  					<td>
+		  						<input type="text">
+		  					</td>
+		  					<td>500</td>
+		  					<td><a href="#"><i class="trash icon"></i></a></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</form>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<button class="ui button green">
+		  			Add Row
+		  		</button>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="ten wide column">
+								<div class="eight wide field">
+									<label>Message displayed on PO</label>
+									<textarea row="2"></textarea>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									<h4>Subtotal</h4>
+								</div>
+								<br>
+								<div class="inline fields">
+									<div class="field">
+										<select class="ui dropdown">
+										  <option value="1">Discount Value</option>
+										  <option value="0">Discount Percent</option>
+										</select>
+									</div>
+									<div class="field">
+										<input type="text">
+									</div>
+									<div class="field">
+									<h4>PHP -200</h4>
+								</div>
+								</div>
+								<br>
+								<div class="item">
+									<h3>TOTAL</h3>
+								</div>
+							</div>
+							<div class="three wide column">
+								<div class="item">
+									<h4>PHP 500</h4>
+								</div>
+								<br><br>
+								<br><br><br>
+								<div class="item">
+									<h3>PHP 200</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						<a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
+		  </div>
+	</form>
+	</div>
+	<div class="ui modal fullscreen quotation">
 	  <form class="ui form">
 	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">

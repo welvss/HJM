@@ -357,7 +357,7 @@
 			</form>
 			<br>
 	</div>
-	<div class="ui modal rqformmodal small">
+	<div class="ui modal rqformmodal fullscreen">
 		  <div class="ui red header">
 		   <i class="large cube icon"></i>
 		    Requisition Form
@@ -365,23 +365,60 @@
 		  <br><br>
 		  <form class="ui form">
 			<div class="ui centered grid" >
-				<div class="fifteen column centered row">
-					<div class="seven wide column">
-							<div class="field">
-							<label>Item</label>
-							<select name="item" class="ui fluid dropdown">
-						      <option value=""></option>
-						      <option value="ep">Emax Porcelain (epjc)</option>
-						      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
-						      <option value="fw">One Piece (framework only)</option>
-						      <option value="dr">Denture Repair</option>
-						    </select>
-							</div>
-							<div class="field">
-								<label>Quantity</label>
-								<input type="number">
-							</div>
+				<div class="five wide column">
+					<div class="field">
+					<label><strong>Case</strong></label>
+					<select name="item" class="ui fluid search dropdown">
+						<option value=""></option>
+						<option value="ep">Emax Porcelain (epjc)</option>
+						<option value="pfm">Porcelain Fused to Metal-pfm2</option>
+						<option value="fw">One Piece (framework only)</option>
+						<option value="dr">Denture Repair</option>
+					</select>
 					</div>
+				</div>
+				<div class="fifteen column centered row">
+					<div class="fourteen wide column">
+							<table class="ui table">
+					  			<thead>
+					  				<tr>
+					  					<th>#</th>
+					  					<th>Item</th>
+					  					<th>Item Description</th>
+					  					<th>Quantity</th>
+					  					<th></th>
+					  				</tr>
+					  			</thead>
+					  			<tbody>
+					  				<tr>
+					  					<td>1</td>
+					  					<td>
+					  						<div class="field">
+											<select name="item" class="ui fluid search dropdown">
+										      <option value=""></option>
+										      <option value="ep">Emax Porcelain (epjc)</option>
+										      <option value="pfm">Porcelain Fused to Metal-pfm2</option>
+										      <option value="fw">One Piece (framework only)</option>
+										      <option value="dr">Denture Repair</option>
+										    </select>
+											</div>
+					  					</td>
+					  					<td>
+					  					Lorem ipsum dolor 
+					  					</td>
+					  					<td>
+					  						<div class="ui input">
+											  <input type="number">
+											</div>
+					  					</td>
+					  					<td><a href="#"><i class="trash icon"></i></a></td>
+					  				</tr>
+					  			</tbody>
+					  		</table>
+					</div>
+				</div>
+				<div class="row">
+					<button class="ui red button floated left">Add New Row</button>
 				</div>
 				<div class="two column row">
 					<div class="nine wide column hidden"></div>
