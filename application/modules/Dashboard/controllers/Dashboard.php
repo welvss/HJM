@@ -269,9 +269,9 @@ class Dashboard extends MX_Controller
    		if($_POST['emails']!=$_POST['email']){
    			$this->form_validation->set_rules('email','Email Address','valid_email|callback_check_email');
        	}
-        $this->form_validation->set_rules('firstname','First Name','alpha');
-        $this->form_validation->set_rules('middlename','Middle Name','alpha');
-        $this->form_validation->set_rules('lastname','Last Name','alpha');
+        $this->form_validation->set_rules('firstname','First Name','callback_check_name');
+        $this->form_validation->set_rules('middlename','Middle Name','callback_check_name');
+        $this->form_validation->set_rules('lastname','Last Name','callback_check_name');
         $this->form_validation->set_rules('website','Website','callback_check_website');
         $this->form_validation->set_rules('telephone','Telephone','numeric');
         $this->form_validation->set_rules('mobile','Mobile','numeric');
@@ -279,7 +279,7 @@ class Dashboard extends MX_Controller
        	
 
     	if($this->form_validation->run($this)){
-    		$data['error']= "";
+    		$data['error']= "<label style='color: #9F3A38;font-size: .92857143em;font-weight: 700'>*Required</label>";
     		$data['success']=false;
             
     		
@@ -292,6 +292,64 @@ class Dashboard extends MX_Controller
     	}
 
     	echo json_encode($data);
+    }
+
+    public function check_name($value)
+    {
+            
+            if($value=='')
+              return true;
+            if(!preg_match('/^([a-zA-Z ]+)$/', $value))
+            {
+                $this->form_validation->set_message('check_name','{field} field may only contain alphabetical characters.');
+                return false;
+            }
+            else
+            {
+                
+              
+              return true;
+        
+            }
+            
+    }
+    public function check_telephone($value)
+    {
+            
+            if($value=='')
+              return true;
+            if(!preg_match('/^[(\d{3})(\d{2})\s(\d{2})] $/', $value))
+            {
+                $this->form_validation->set_message('check_telephone','{field} field may only contain numeric characters.');
+                return false;
+            }
+            else
+            {
+                
+              
+              return true;
+        
+            }
+            
+    }
+    public function check_mobile($value)
+    {
+            
+            if($value=='')
+              return true;
+            if(!preg_match('/^([0-9+ ]+)$/', $value))
+            {
+                $this->form_validation->set_message('check_telephone','{field} field may only contain zero to nine(0-9) and dashes(-).');
+                return false;
+            }
+            else
+            {
+                
+              
+              return true;
+        
+            }
+            
     }
 
     public function check_email($email)

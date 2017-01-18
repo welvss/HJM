@@ -137,7 +137,7 @@ function Addrow(){
     $('#Amount'+y).val(0);
   if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
   {
-    alert(sanitized);
+    console.log(sanitized);
     $('#Amount'+y).val(sanitized);
   }*/
 }
@@ -214,9 +214,9 @@ function getInfo(val){
       $('#address').val(data.address);
       getItems($('#SupplierID').val());
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-              alert(xhr.status);
-              alert(xhr.responseText);
+              console.log(error);
+              console.log(xhr.status);
+              console.log(xhr.responseText);
             },
 
   });
@@ -234,10 +234,10 @@ function getItems(val){
       $('#items'+x).html(data);
       $('.ui.dropdown').dropdown();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -292,10 +292,10 @@ for( i=rows; i >=1; i--) {
         value=false;        
       }
     },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-                alert(error);
-                 alert(xhr.status);
+                console.log(error);
+                 console.log(xhr.status);
                   
-                    alert(xhr.responseText);
+                    console.log(xhr.responseText);
               },
 
     });

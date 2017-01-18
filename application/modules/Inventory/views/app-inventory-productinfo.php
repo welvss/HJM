@@ -65,9 +65,11 @@
 					<div class="nine wide column hidden"></div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
-						    <div class="ui grey deny button">
+						
+						     <a href="http://localhost/HJM/Inventory" class="ui grey deny button">
 						      Cancel
-						    </div>
+						    </a>
+						   
 						    <button class="ui animated blue right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Save</div>
 							  <div class="hidden content">

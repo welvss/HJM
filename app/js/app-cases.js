@@ -236,7 +236,7 @@ function numberCheck(y) {
       $('#Amount'+y).val(0);
     if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
     {
-      alert(sanitized);
+      console.log(sanitized);
       $('#Amount'+y).val(sanitized);
     }*/
   }
@@ -256,7 +256,7 @@ function letterCheck(y) {
       $('#Amount'+y).val(0);
     if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
     {
-      alert(sanitized);
+      console.log(sanitized);
       $('#Amount'+y).val(sanitized);
     }*/
 
@@ -312,10 +312,10 @@ function updateStatus(val){
   if(data.completedon!='')
     $('#completedon').html('<label>Completed On: </label>&nbsp; '+data.completedon);
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });

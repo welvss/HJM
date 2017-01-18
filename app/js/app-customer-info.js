@@ -118,16 +118,16 @@ function getCaseItems(val) {
   url:"http://"+window.location.hostname+"/HJM/Order/getCaseItems",
   data: dataString,
   success: function(data){
-    alert(data);
+    console.log(data);
     $("#dropdown").append(data.test);
 
     
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -154,10 +154,10 @@ function getInvoiceDetails(val) {
     $('#duedateval').val(data.duedate);
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });

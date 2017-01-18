@@ -155,7 +155,7 @@
 				  							<td><?php echo $case->Type;?></td>
 				  							<td><center><?php echo $case->teeth;?></center></td>
 				  							<td><center><?php echo $case->items;?></center></td>
-				  							<td><?php echo $case->shade1.' '.$case->shade2;?></td>
+				  							<td><?php echo ($case->shade1<4?$case->shade1:'').'&nbsp;'.$case->shade2;?></td>
 				  							<td><?php echo $case->description;?></td>
 				  							<td></td>
 				  						</tr>
@@ -759,7 +759,6 @@
 							</div>
 							  
 				  		</div>
-				  	</div>
 				  	</div>
 				  </div>
 	  			<div class="two column row">

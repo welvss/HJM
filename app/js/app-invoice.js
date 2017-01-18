@@ -59,7 +59,7 @@ function numberCheck(y) {
       $('#Amount'+y).val(0);
     if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
     {
-      alert(sanitized);
+      console.log(sanitized);
       $('#Amount'+y).val(sanitized);
     }*/
   }
@@ -79,7 +79,7 @@ function letterCheck(y) {
       $('#Amount'+y).val(0);
     if($('#Amount'+y).val()!='' && $('#Amount'+y).val()==0)
     {
-      alert(sanitized);
+      console.log(sanitized);
       $('#Amount'+y).val(sanitized);
     }*/
 
@@ -115,7 +115,7 @@ function deleteRow(val){
     $('#TotalSave').html('<input type hidden name="Total" id="sum" value="'+sum+'"/>PHP '+sum.toLocaleString());
     $('#Total').html('PHP '+sum.toLocaleString());
   }
-  alert(x);
+  console.log(x);
   x--;
   if($('#Item'+x).val()!='')
     document.getElementById('AddRow').disabled = false;
@@ -161,10 +161,10 @@ function getItems(val){
       $('#items'+x).html(data);
       $('.ui.dropdown').dropdown();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -180,10 +180,10 @@ function getItems(val){
       $('#items'+x).html(data);
       $('.ui.dropdown').dropdown();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -236,10 +236,10 @@ for( i=rows; i >=1; i--) {
         
       }
     },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-                alert(error);
-                 alert(xhr.status);
+                console.log(error);
+                 console.log(xhr.status);
                   
-                    alert(xhr.responseText);
+                    console.log(xhr.responseText);
               },
 
     });

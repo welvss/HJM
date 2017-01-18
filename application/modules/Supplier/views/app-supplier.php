@@ -103,7 +103,7 @@
 				<div class="row">
 					<div class="one wide column hidden"></div>
 					<div class="fourteen wide column">
-						<div id="error"></div>
+						<div id="error"><label style='color: #9F3A38;font-size: .92857143em;font-weight: 700'>*Required</label></div>
 					</div>
 					<div class="one wide column hidden"></div>
 				</div>
@@ -112,7 +112,7 @@
 						<div class="fourteen wide column">
 								  <div class="fields">
 								  <div class="two wide field">
-								  	<label>Title</label>
+								  	<label>Title <span style="color: #9F3A38;">*</span></label>
 								  	<select name="title" class="ui fluid dropdown">
 									  	<option value="">Select Title</option>
 									  	<option value="Mr.">Dr.</option>
@@ -123,7 +123,7 @@
 								  	</select>
 								  </div>
 								    <div class="two wide field">
-								      <label>First Name</label>
+								      <label>First Name <span style="color: #9F3A38;">*</span></label>
 								      <input type="text" placeholder="First Name" name="firstname" id="firstName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
@@ -131,7 +131,7 @@
 								      <input type="text" placeholder="Middle Name" name="middlename" id="middleName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="two wide field">
-								      <label>Last Name</label>
+								      <label>Last Name <span style="color: #9F3A38;">*</span></label>
 								      <input type="text" placeholder="Last Name" name="lastname" id="lastName" onkeyup="Inputvalidation('Supplier');">
 								    </div>
 								    <div class="eight wide field">
@@ -141,7 +141,7 @@
 								  </div>
 								  <div class="fields">
 									  <div class="eight wide field">
-									  	<label>Company Name</label>
+									  	<label>Company Name <span style="color: #9F3A38;">*</span></label>
 									  	<input type="text" placeholder="i.e. HJM Dental Laboratory" name="company">
 									  </div>
 									  <div class="four wide field">
@@ -183,7 +183,7 @@
 									 		<!--Billing Address -->
 									 		<div class="centered column">
 												  <div class="field">
-												    <label>Address</label>
+												    <label>Address <span style="color: #9F3A38;">*</span></label>
 												    <textarea rows="2" placeholder="Street" name="bstreet" id="street"></textarea>
 												  </div>
 												  <div class="two fields">

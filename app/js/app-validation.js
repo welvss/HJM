@@ -33,10 +33,10 @@ function Inputvalidation(loc) {
     }
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -67,10 +67,10 @@ function Casevalidation() {
     }
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -106,10 +106,10 @@ function Casevalidation() {
     }
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -142,10 +142,10 @@ function checkItemCode(val) {
     }
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -178,10 +178,10 @@ function checkProductCode(val) {
     }
   
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -202,10 +202,10 @@ function getCaseType(val) {
     $('#CaseTypeID').html(data);
     $('#items').hide();
   },error: function(xhr, status, error,ajaxOptions, thrownErro) {
-              alert(error);
-               alert(xhr.status);
+              console.log(error);
+               console.log(xhr.status);
                 
-                  alert(xhr.responseText);
+                  console.log(xhr.responseText);
             },
 
   });
@@ -237,6 +237,9 @@ function changeID(val){
 
 $(document).ready(function(){
 
+$(".deny.button").on('click',  function(event) {
+  $('.ui.form').form('reset');
+});
 
 $('.ui.form')
   .form({
@@ -246,7 +249,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your First name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -255,7 +258,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your Last name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -284,7 +287,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -293,7 +296,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -302,7 +305,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -311,7 +314,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -320,7 +323,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -329,7 +332,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your First name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -358,7 +361,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your Email Address'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -367,7 +370,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your Email Address'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -376,7 +379,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -385,7 +388,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -394,7 +397,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -403,7 +406,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -412,7 +415,16 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
+          }
+        ]
+      },
+      CaseTypeDesc: {
+        identifier: 'CaseTypeDesc',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -421,11 +433,11 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           },
           {
             type   : 'number',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -434,7 +446,7 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -443,11 +455,11 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           },
           {
             type   : 'integer',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -456,11 +468,11 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           },
           {
             type   : 'integer',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
@@ -469,16 +481,20 @@ $('.ui.form')
         rules: [
           {
             type   : 'empty',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           },
           {
             type   : 'integer',
-            prompt : 'Please enter your name'
+            prompt : 'Field Required.'
           }
         ]
       },
+
       
-    }
+    },
+    inline : true,
+    on     : 'submit'
+
   });
 });
 
