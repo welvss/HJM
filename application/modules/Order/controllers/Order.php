@@ -346,7 +346,14 @@ class Order extends MX_Controller
 
 
 	                	}
-                }
+                	}else
+                	if(!empty($_POST['base64'])&&isset($_POST['base64'])){
+                		$data=array(
+										'CaseID' => $_POST['CaseID'] , 
+										'file' => $_POST['base64']
+									);
+							$this->MdlOrder->modifyOrder($data);
+                	}
 
 							$data=array(
 										'CaseID' => $_POST['CaseID'] , 
