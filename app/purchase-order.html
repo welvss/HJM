@@ -97,7 +97,7 @@
 			    <div class="item invoice-modal">
 			    <i class="large file text outline icon blue"></i>
 			    New Purchase Order</div>
-			    <div class="item invoice-modal">
+			    <div class="item quotation-modal">
 			    <i class="large file text outline icon blue"></i>
 			    New Quotation</div>
 			  </div>
@@ -448,10 +448,10 @@
 	</div>
 	<div class="ui modal fullscreen quotation">
 	  <form class="ui form">
-	  		<div class="ui inverted green segment">
+	  		<div class="ui inverted purple segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
-					  New Purchase
+					  Request for Quotation
 				  </div>
 	  		</div>
 	  		<div class="ui grid">
@@ -474,16 +474,10 @@
 						<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui header">
-								<h3>PO#:</h3>
-								<h1>PO-GR@C3</h1>
+								<h3>RFQ#:</h3>
+								<h1>RFQ-GR@C3</h1>
 							</div>	
-						</div>
-						<div class="ui segment">
-							<div class="ui header">
-								Total
-								<h1>PHP 500.00</h1>
-							</div>	
-						</div>						
+						</div>					
 						</div>
 					</div>
 				</div>
@@ -498,11 +492,11 @@
 	  							 <textarea rows="1">521 Int. Inocencio St. Pasay City</textarea>
 	  						</div>
 	  						<div class="field">
-	  							<label>Purchase Order date</label>
+	  							<label>Request for Quotation date</label>
 	  							<input type="date">
 	  						</div>
 	  						<div class="field">
-	  							<label>Requested Ship Date</label>
+	  							<label>Requested for Quotatoin date required</label>
 	  							<input type="date">
 	  						</div>
 	  					</div>
@@ -521,8 +515,6 @@
 		  					<th>ITEM</th>
 		  					<th>DESCRIPTION</th>
 		  					<th>QTY</th>
-		  					<th>Amount</th>
-		  					<th>Total</th>
 		  					<th></th>
 		  				</tr>
 		  			</thead>
@@ -546,10 +538,6 @@
 		  					<td>
 		  						<input type="number" style="width: 100px">
 		  					</td>
-		  					<td>
-		  						<input type="text">
-		  					</td>
-		  					<td>500</td>
 		  					<td><a href="#"><i class="trash icon"></i></a></td>
 		  				</tr>
 		  			</tbody>
@@ -559,7 +547,7 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<button class="ui button green">
+		  		<button class="ui button purple">
 		  			Add Row
 		  		</button>
 		  	</div>
@@ -574,54 +562,20 @@
 									<textarea row="2"></textarea>
 								</div>
 							</div>
-							<div class="three wide column">
-								<div class="item">
-									<h4>Subtotal</h4>
-								</div>
-								<br>
-								<div class="inline fields">
-									<div class="field">
-										<select class="ui dropdown">
-										  <option value="1">Discount Value</option>
-										  <option value="0">Discount Percent</option>
-										</select>
-									</div>
-									<div class="field">
-										<input type="text">
-									</div>
-									<div class="field">
-									<h4>PHP -200</h4>
-								</div>
-								</div>
-								<br>
-								<div class="item">
-									<h3>TOTAL</h3>
-								</div>
-							</div>
-							<div class="three wide column">
-								<div class="item">
-									<h4>PHP 500</h4>
-								</div>
-								<br><br>
-								<br><br><br>
-								<div class="item">
-									<h3>PHP 200</h3>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 	  			<div class="two column row">
 	  				<div class="six wide column"></div>
 					<div class="three wide column">
-						<a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+						<a href="rfq-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Request for Quotation form</a>
 					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
-						    <button class="ui animated green right button" tabindex="0" type="submit" value="submit">
+						    <button class="ui animated purple right button" tabindex="0" type="submit" value="submit">
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>

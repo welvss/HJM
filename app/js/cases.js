@@ -17,6 +17,12 @@ $( document ).ready(function() {
  .modal('show')
  ;
   });
+  $(".quotation-modal").click(function(){
+    $('.quotation.modal')
+    .modal('setting', 'transition', 'fade down')
+ .modal('show')
+ ;
+  });
 
   $('.menu .item')
   .tab()
