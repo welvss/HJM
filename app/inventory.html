@@ -98,142 +98,226 @@
 	  <div class="ui grid">
 	  	<div class="row">
 	  		<div class="thirteen wide column centered grid">
-	  		<div class="ui stacked teal segment">
-	  		<div class="row">
-	  			<div class="ui grid">
-	  				<div class="two column row">
-				    <div class="left floated column eight wide column">
-				    	<div class="ui search">
-						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
-						    <i class="search icon"></i>
-						  </div>
-						  <div class="results"></div>
-						</div>
-				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
-				    </div>
-				    </div>
-	  			</div>
-	  		</div>
-	  		<br>
-	  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
-	  				<thead>
-	  					<tr>
-	  						<th>Item Code</th>
-	  						<th>Item Description</th>
-	  						<th>Cost</th>
-	  						<th>Current Qty</th>
-	  						<th>Action</th>
-	  					</tr>
-	  				</thead>
-	  				<tbody>
-	  					<tr>
-	  						<td><a href="inventory-edit.html">EM</a></td>
-	  						<td>Emax</td>
-	  						<td>500</td>
-	  						<td>80</td>
-	  						<td>
-	  							<a href="#"><i class="trash icon"></i></a>
-	  						</td>
-	  					</tr>
-	  				</tbody>
-	  			</table>
-	  		</div>
-	  		</div>
-	  	</div>
-	  	<!--Product-->
-	  	<div class="row">
-	  		<div class="thirteen wide column centered grid">
-	  		<div class="ui stacked teal segment">
-	  		<div class="row">
-	  			<div class="ui grid">
-	  				<div class="two column row">
-				    <div class="left floated column eight wide column">
-				    	<div class="ui search">
-						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
-						    <i class="search icon"></i>
-						  </div>
-						  <div class="results"></div>
-						</div>
-				    </div>
-				    <div class="right floated right aligned eight wide column">
-				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
-				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
-				    	<a class="ui icon top left pointing dropdown">
-						  <i class="setting big icon"></i>
-						  <div class="menu">
-						    <div class="header">Columns</div>
-						    <div class="ui checkbox input">
-							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Phone</label>
-							</div>
-							<div class="ui checkbox input">
-							  <input type="checkbox" name="example">
-							  <label>Email</label>
-							</div>
-							<div class="ui divider"></div>
-							<div class="item">
-								Close
-							</div>
-						  </div>
-						</a>
-				    </div>
-				    </div>
-	  			</div>
-	  		</div>
-	  		<br>
-	  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
-	  				<thead>
-	  					<tr>
-	  						<th>Product Code</th>
-	  						<th>Product Description</th>
-	  						<th>Price</th>
-	  						<th>Count of Order</th>
-	  						<th>Action</th>
-	  					</tr>
-	  				</thead>
-	  				<tbody>
-	  					<tr>
-	  						<td><a href="inventory-edit.html">EM</a></td>
-	  						<td>Emax</td>
-	  						<td>500</td>
-	  						<td>80</td>
-	  						<td>
-	  							<a href="#"><i class="trash icon"></i></a>
-	  						</td>
-	  					</tr>
-	  				</tbody>
-	  			</table>
+	  		<div class="ui stacked inverted orange segment">
+	  			<div class="ui top attached inverted orange tabular menu">
+				  <a class="item active" data-tab="first">Items</a>
+				  <a class="item" data-tab="second">Products</a>
+				  <a class="item" data-tab="third">Requistions</a>
+				</div>
+				<div class="ui bottom attached tab segment active" data-tab="first">
+				  <div class="ui stacked teal segment">
+				  	<div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  	</div>
+				  	<br>
+				  	<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
+				  				<thead>
+				  					<tr>
+				  						<th>Item Code</th>
+				  						<th>Item Description</th>
+				  						<th>Cost</th>
+				  						<th>Current Qty</th>
+				  						<th>Action</th>
+				  					</tr>
+				  				</thead>
+				  				<tbody>
+				  					<tr>
+				  						<td><a href="inventory-edit.html">EM</a></td>
+				  						<td>Emax</td>
+				  						<td>500</td>
+				  						<td>80</td>
+				  						<td>
+				  							<a href="#"><i class="trash icon"></i></a>
+				  						</td>
+				  					</tr>
+				  				</tbody>
+				  	</table>
+				  </div>
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="second">
+				  <div class="row">
+				  		<div class="thirteen wide column centered grid">
+				  		<div class="ui stacked teal segment">
+				  		<div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+				  		<br>
+				  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
+				  				<thead>
+				  					<tr>
+				  						<th>Product Code</th>
+				  						<th>Product Description</th>
+				  						<th>Price</th>
+				  						<th>Count of Order</th>
+				  						<th>Action</th>
+				  					</tr>
+				  				</thead>
+				  				<tbody>
+				  					<tr>
+				  						<td><a href="inventory-product-edit.html">EM</a></td>
+				  						<td>Emax</td>
+				  						<td>500</td>
+				  						<td>80</td>
+				  						<td>
+				  							<a href="#"><i class="trash icon"></i></a>
+				  						</td>
+				  					</tr>
+				  				</tbody>
+				  			</table>
+				  		</div>
+				  		</div>
+				  </div>
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="third">
+				  <div class="row">
+				  		<div class="thirteen wide column centered grid">
+				  		<div class="ui stacked teal segment">
+				  		<div class="row">
+				  			<div class="ui grid">
+				  				<div class="two column row">
+							    <div class="left floated column eight wide column">
+							    	<div class="ui search">
+									  <div class="ui icon input">
+									    <input class="prompt" type="text" placeholder="Find Items..." id="search-customer">
+									    <i class="search icon"></i>
+									  </div>
+									  <div class="results"></div>
+									</div>
+							    </div>
+							    <div class="right floated right aligned eight wide column">
+							    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+							    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+							    	<a class="ui icon top left pointing dropdown">
+									  <i class="setting big icon"></i>
+									  <div class="menu">
+									    <div class="header">Columns</div>
+									    <div class="ui checkbox input">
+										  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Phone</label>
+										</div>
+										<div class="ui checkbox input">
+										  <input type="checkbox" name="example">
+										  <label>Email</label>
+										</div>
+										<div class="ui divider"></div>
+										<div class="item">
+											Close
+										</div>
+									  </div>
+									</a>
+							    </div>
+							    </div>
+				  			</div>
+				  		</div>
+				  		<br>
+				  			<table id="inventory-table" class="display ui blue table" cellspacing="0" width="100%">
+				  				<thead>
+				  					<tr>
+				  						<th>Requisition Code</th>
+				  						<th>Case Number</th>
+				  						<th>Item</th>
+				  						<th>Quantity</th>
+				  						<th>Date Requested</th>
+				  						<th>Action</th>
+				  					</tr>
+				  				</thead>
+				  				<tbody>
+				  					<tr>
+				  						<td><a href="inventory-edit.html">EM</a></td>
+				  						<td>C-203</td>
+				  						<td>Emax</td>
+				  						<td>4</td>
+				  						<td>01/02/17</td>
+				  						<td>
+				  							<a href="#"><i class="trash icon"></i></a>
+				  						</td>
+				  					</tr>
+				  				</tbody>
+				  			</table>
+				  		</div>
+				  		</div>
+				  </div>
+				</div>
 	  		</div>
 	  		</div>
 	  	</div>

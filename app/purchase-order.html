@@ -154,7 +154,113 @@
 	  <div class="ui centered grid">
 	  <div class="fifteen wide column">
 	  <div class="row">
-	  			<div class="ui grid">
+	  <div class="ui inverted green segment">
+	  	<div class="ui top attached tabular inverted green menu">
+		  <a class="active item" data-tab="first">Purchase Orders</a>
+		  <a class="item" data-tab="second">Quotations</a>
+		</div>
+		<!--PO TAB-->
+		<div class="ui bottom attached active tab segment" data-tab="first">
+		   <div class="ui grid">
+	  				<div class="two column row">
+				    <div class="left floated column eight wide column">
+				    	<div class="ui search">
+						  <div class="ui icon input">
+						    <input class="prompt" type="text" placeholder="Find Purchaser Order..." id="search-case">
+						    <i class="search icon"></i>
+						  </div>
+						  <div class="results"></div>
+						</div>
+				    </div>
+				    <div class="right floated right aligned eight wide column">
+				    	<a href="#" data-content="Print Customer List" class="popup"><i class="print big icon"></i></a>
+				    	<a href="#" data-content="Export Customer List " class="popup"><i class="file excel outline big icon"></i></a>
+				    	<a class="ui icon top left pointing dropdown">
+						  <i class="setting big icon"></i>
+						  <div class="menu">
+						    <div class="header">Columns</div>
+						    <div class="ui checkbox input">
+							  <input type="checkbox" class="toggle-vis" data-column="2" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Phone</label>
+							</div>
+							<div class="ui checkbox input">
+							  <input type="checkbox" name="example">
+							  <label>Email</label>
+							</div>
+							<div class="ui divider"></div>
+							<div class="item">
+								Close
+							</div>
+						  </div>
+						</a>
+				    </div>
+				    </div>
+	  			</div>
+	  <br>
+	  	<table id="main-case" class="display ui blue table" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>PO#</th>
+					<th>Supplier Contact Person</th>
+					<th>Supplier Company</th>
+					<th>Create Date</th>
+					<th>Amount</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="#">#SERDS-M0KW1D</a></td>
+					<td><a href="#">420</a></td>
+					<td>
+						<h4 class="ui image header">
+							          <img src="img/hjm-logo.png" class="ui mini rounded image">
+							          <div class="content">
+							            <a href="app-customer-info.html">Dr. Mark Serojihos </a>
+							            <div class="sub header">HJM Dental Laboratory
+							          </div>
+							        </div>
+							    </h4>
+					</td>
+					<td> 12/12/12</td>
+					<td>
+ 						<p>1000.00$</p>					
+					</td>
+					<td>
+						<div class="ui form">
+							<div class="ten wide field">
+							 <select>
+							  <option value="New">Draft</option>
+							  <option value="In Production">Approved<i class="green check icon"></i></option>
+							  <option value="Completed">Partially Received</option>
+							  <option value="On Hold">Received</option>
+							 </select>
+							</div>
+					    </div>					
+					</td>
+					<td>
+						<a href="purchase-order-print.html">
+			  			<i class="file icon"></i>
+			  			View
+			  			</a>
+			  			&nbsp;
+			  			<a href="#" class="invoice-modal">
+			  			<i class="orange write icon"></i>
+			  			Edit
+			  			</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<!--RFQ TAB-->
+		<div class="ui bottom attached tab segment" data-tab="second">
+		   <div class="ui grid">
 	  				<div class="two column row">
 				    <div class="left floated column eight wide column">
 				    	<div class="ui search">
@@ -193,17 +299,14 @@
 				    </div>
 				    </div>
 	  			</div>
-	  </div>
 	  <br>
 	  	<table id="main-case" class="display ui blue table" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>PO#</th>
+					<th>RFQ#</th>
 					<th>Supplier Contact Person</th>
 					<th>Supplier Company</th>
 					<th>Create Date</th>
-					<th>Amount</th>
-					<th>Status</th>
 					<th>ACTION</th>
 				</tr>
 			</thead>
@@ -223,37 +326,17 @@
 					</td>
 					<td> 12/12/12</td>
 					<td>
- 						<div class="ui form">
-							<div class="ten wide field">
-							 <select>
-							  <option value="New">Draft</option>
-							  <option value="In Production">Approved<i class="green check icon"></i></option>
-							  <option value="Completed">Partially Received</option>
-							  <option value="On Hold">Received</option>
-							 </select>
-							</div>
-					    </div>						
-					</td>
-					<td>
-						<a href="#">
+						<a href="rfq-print.html">
 			  			<i class="file icon"></i>
 			  			View
 			  			</a>				
 					</td>
-					<td>
-						<a href="#" class="green">
-			  			<i class="green check icon"></i>
-			  			Update
-			  			</a>
-			  			&nbsp;
-			  			<a href="#">
-			  			<i class="orange write icon"></i>
-			  			Edit
-			  			</a>
-					</td>
 				</tr>
 			</tbody>
 		</table>
+		</div>
+	  </div>
+	  </div>
 	  </div>
 	  </div>
 </div>
