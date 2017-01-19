@@ -80,7 +80,8 @@ class Supplier extends MX_Controller
 						$SupplierID=$this->MdlSupplier->AddSupplier($supplier);
 
 
-						redirect('Supplier');
+						// redirect('Supplier');
+						echo "Supplier successfully added!";
 
 
 	}

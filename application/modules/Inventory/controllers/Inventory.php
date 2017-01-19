@@ -33,6 +33,7 @@ class Inventory extends MX_Controller
 		{
 			
 			$data['suppliers'] = $this->MdlSupplier->getSupplier();	
+			$data['cases'] = $this->MdlOrder->getOrder(array('status_id'=>2));
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['casetype'] = $this->MdlOrder->getCaseType(array());
 			$this->load->view('app-inventory',$data);
@@ -58,12 +59,11 @@ class Inventory extends MX_Controller
 									'Price'=>$_POST['Price'],
 									'QTY'=>$_POST['QTY'],
 									'QTYBelow'=>$_POST['QTYBelow'],
-									'ReorderQTY'=>$_POST['ReorderQTY'],
-									'SupplierID'=>$_POST['SupplierID']
+									'ReorderQTY'=>$_POST['ReorderQTY']
 
 								);
 						$this->MdlInventory->AddInventory($data);
-						redirect('Inventory');
+						echo "Item successfully added!";
 					
 		}
 						
@@ -85,10 +85,61 @@ class Inventory extends MX_Controller
 									'Type'=>$_POST['Type'],
 								);
 						$this->MdlOrder->AddCaseType($data);
-						redirect('Inventory');
+						echo "Product successfully added!";
 					
 		}
 						
+
+	}
+
+	public function requestItem()
+	{
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
+		{
+			
+			$data = array(
+					'CaseID'=>$_POST['CaseID'],
+					'DateCreated'=>date('Y-m-d H:i:s')
+
+					);
+			$ReqID=$this->MdlInventory->AddReq($data);
+
+			$x=1;
+			foreach ($_POST['rf'] as $rf){
+				if($rf['ItemID']!=''){
+					$rf[$x] = array(
+							'ReqID' => $ReqID,
+							'ItemID' => $rf['ItemID'],
+							'QTY' => $rf['QTY'],
+							);
+					$this->MdlInventory->AddReqItem($rf[$x]);
+					$x++;
+				}
+			}
+
+			$items=$this->MdlInventory->getItem(array());
+					
+			foreach ($_POST['rf'] as $rf){
+
+				foreach ($items as $item){
+					if($rf['ItemID']==$item->ItemID){
+						$data=array(
+							'ItemID'=>$rf['ItemID'],
+							'CurrentQTY'=>($item->CurrentQTY-$rf['QTY'])
+							);
+						$this->MdlInventory->EditInventory($data);
+					
+					}
+				}
+
+			}
+
+			echo "Request Created!";	
+
+
+		}
+
+
 
 	}
 
@@ -270,10 +321,10 @@ class Inventory extends MX_Controller
 
     public function getItems(){
 
-    	$data=$this->MdlInventory->getItem(array('SupplierID'=>$_POST['SupplierID']));
-    			
+    	$data=$this->MdlInventory->getItem();
+    		echo '<option value="">Select Item</option>';
 	    	foreach ($data as $datus) {
-	    		echo  '<div class="item" data-value="'.$datus->ItemID.'">'.$datus->ItemID.'</div>';
+	    		echo  '<option value="'.$datus->ItemID.'">'.$datus->ItemID.'</option>';
 	    	}
 		
 		

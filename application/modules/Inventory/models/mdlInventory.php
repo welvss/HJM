@@ -104,6 +104,22 @@ class MdlInventory extends CI_Model {
 		return $this->db->insert_id();
 		
 	}
+
+
+	function AddReq($options = array())
+	{
+		$this->db->insert('tblrequisition', $options);	
+		return $this->db->insert_id();
+		
+	}
+
+
+	function AddReqItem($options = array())
+	{
+		$this->db->insert('tblrequisitionItem', $options);	
+		return $this->db->insert_id();
+		
+	}
 	
 	function DeleteItem($id)
 	{

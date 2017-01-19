@@ -2,13 +2,13 @@ $( document ).ready(function() {
  
  $(".mode").click(function(){
   	$('.edit-customer.modal')
-  	.modal('setting', 'transition', 'vertical flip')
+  	.modal('setting', 'transition', 'vertical flip').modal({autofocus: false})
   	.modal('show');
   });
 
   $(".case-modal").click(function(){
   	   		 $('.case.modal')
- .modal('setting', 'transition', 'fade down')
+ .modal('setting', 'transition', 'fade down').modal({autofocus: false})
  .modal('show')
  ;
   });

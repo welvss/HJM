@@ -98,7 +98,7 @@
 		   <i class="large green truck icon"></i>
 		    Supplier Information
 		  </div>
-		  <?php echo form_open('Supplier/AddSupplier','class="ui form"');?>
+		  <?php echo form_open('Supplier/AddSupplier','class="ui form" onSubmit="return false"');?>
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>

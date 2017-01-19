@@ -2,7 +2,7 @@
 $( document ).ready(function() {
   
   $(".mode").click(function(){
-    $('.ui.modal').modal('show');
+    $('.ui.modal').modal({autofocus: false}).modal('show');
   });
   $('.menu .item')
   .tab()

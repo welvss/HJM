@@ -24,11 +24,13 @@ function Inputvalidation(loc) {
     if(data.success==true)
     {
       $('#error').html(data.error);
+      $('#requiredasterisk').hide();
       document.getElementById('submit').disabled = true;
     }
     else
     {
       $('#error').html(data.error);
+      $('#requiredasterisk').hide();
       document.getElementById('submit').disabled = false;
     }
   
@@ -463,6 +465,26 @@ $('.ui.form')
           }
         ]
       },
+      CaseID: {
+        identifier: 'CaseID',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Field Required.'
+          }
+         
+        ]
+      },
+      Item: {
+        identifier: 'Item',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Field Required.'
+          }
+         
+        ]
+      },
       QTYBelow: {
         identifier: 'QTYBelow',
         rules: [
@@ -566,6 +588,55 @@ $('.ui.form')
           $('#ship-baranggay').val("");
         } 
     });
+
+$('form.ui.form').on('submit', function(){
+    var thiss = $(this);
+    var url=$(this).attr('action');
+    var type = $(this).attr('method');
+    var data = $(this).serialize();
+     console.log(data);
+     console.log(type);
+     console.log(thiss);
+    setTimeout(function(){
+      
+      var field =$('form.ui.form');
+      if(!field.hasClass('error')){
+        thiss.ajaxSubmit({
+          url:url,
+          type:type,
+          data:data,
+          cache:false,
+          beforeSubmit: function(data){
+            $("form.ui.form").addClass('loading');
+            
+          },
+          complete: function(data){
+            // alert(data);
+          },
+          success: function(data){
+              $("form.ui.form").removeClass('loading');
+              $("#error").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>"+data+"</p></div>");
+              $("#errorproduct").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>"+data+"</p></div>");
+              $("#errorrequest").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>"+data+"</p></div>");
+              $("form.ui.form").form('clear');
+              setTimeout(function(){
+                location.reload();
+              },800);
+              
+          },
+          error: function() {
+              $("form.ui.form").removeClass('loading');
+              $("#error").html("<div class='ui error message'><div class='header'>Submission Fail</div><p>Something went wrong.</p'</div>");
+              $("#errorproduct").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>"+data+"</p></div>");
+              $("#errorrequest").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>"+data+"</p></div>");
+          }
+          
+        }); // end ajax
+        
+        return false;
+      }
+    },100);
+});
 
 
 

@@ -113,12 +113,13 @@
 		   <i class="large doctor icon"></i>
 		    Dentist Information
 		  </div>
-		  <?php echo form_open('Customer/AddDentist', 'class="ui form segment"');?>
+		  <?php echo form_open('Customer/AddDentist', 'class="ui form" onSubmit="return false"');?>
 			<div class="ui grid" id="add-dentist-modal">
 				<div class="row">
 					<div class="one wide column hidden"></div>
 					<div class="fourteen wide column">
-						<div id="error"><label style="color: #9F3A38;font-size: .92857143em;font-weight: 700">*Required</label></div>
+						<label style="color: #9F3A38;font-size: .92857143em;font-weight: 700" id="requiredasterisk">*Required</label>
+						<div id="error"></div>
 					</div>
 					<div class="one wide column hidden"></div>
 				</div>
@@ -227,7 +228,7 @@
 												  	</div>
 												  	<div class="field">
 												  		<input type="text" placeholder="Baranggay" id="ship-baranggay" name="shipbrgy">
-												  		<
+												  		
 												  	</div>
 												  </div>
 												  <div class="ui checkbox">

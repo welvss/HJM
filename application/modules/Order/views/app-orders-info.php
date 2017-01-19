@@ -604,11 +604,12 @@
 		  		<div class="ui vertical teal segment">
 		  			<div class="eight wide field">
 			  			<div class="eight wide field">
-						  <label>Description</label>
-						  	<center>
+			  				<div class="field">
+						  		<label>Description</label>
+						  	
 						    	<textarea name="description" style="width: 440px;height:220px; resize: none;" <?php if($invoice->status==1) echo 'readonly';?>><?php echo $case->description;?></textarea>
-						    </center>
-					  	</div>
+						    </div>
+						    
 		  			</div>
 		  		</div>
 		  	</div>

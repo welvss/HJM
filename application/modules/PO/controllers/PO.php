@@ -35,6 +35,7 @@ class PO extends MX_Controller
 			$data['Approved'] = $this->MdlPO->countPO(array('POStatusID'=>2));
 			$data['PR'] = $this->MdlPO->countPO(array('POStatusID'=>3));
 			$data['Received'] = $this->MdlPO->countPO(array('POStatusID'=>4));
+			$data['items'] = $this->MdlInventory->getItem(array());
 			$this->load->view('app-po',$data);
 			$data['script']='<script src="'.base_url().'app/js/app-po.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';
 			$this->footer($data);

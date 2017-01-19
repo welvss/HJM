@@ -748,12 +748,11 @@
 		  			<div class="ui vertical teal segment">
 		  				<div class="eight wide field">
 			  				<div class="eight wide field">
-						  	<label>Description</label>
-						  		<center>
-						    	<textarea name="description" style="width: 440px;height:220px; resize: none;">
-						    	
-						    	</textarea>
-						    	</center>
+			  					<div class="field">
+						  			<label>Description</label>
+						  		
+						    		<textarea name="description" style="width: 440px;height:220px; resize: none;"></textarea>
+						    	</div>
 					  		</div>
 		  				</div>
 		  			</div>

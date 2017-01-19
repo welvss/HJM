@@ -278,7 +278,7 @@ class Customer extends MX_Controller
 			
 						
 		    }
-		    redirect('Customer');
+		    echo "Customer successfully added!";
 	
 
 

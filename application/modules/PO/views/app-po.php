@@ -265,14 +265,16 @@
 		  				<tr id="Row1">
 		  					<td>1</td>
 		  					<td >
-								<div class="ui selection dropdown" id="Idropdown">
-								  <input type="hidden" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
-								  <i class="dropdown icon"></i>
-								  <div class="default text">Select Item</div>
-								  <div class="menu" id="items1">
-								 
-								  </div>
-								</div>
+								<select class="ui search dropdown Item" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
+									<option value="">Select Item</option>
+								  <
+								 	<?php
+                                        foreach ($items as $item) 
+                                        {
+                                            echo '<option value="'.$item->ItemID.'">'.$item->ItemID.'</option>';
+                                        }
+                                    ?>
+								  </select>
 								  
 		  					</td>
 		  					<td id="ItemDesc1">
@@ -282,10 +284,10 @@
 		  						<input type="number" style="width: 100px" name="po[1][QTY]" id="QTY1" onkeyup="multiply(1);addSubtotal(1);">
 		  					</td>
 		  					<td>
-		  						<input type="text" name="po[1][Amount]"  id="Amount1" onkeyup="multiply(1);addSubtotal(1);numberCheck(1);">
+		  						<input type="text" name="po[1][Amount]"  id="Amount1" onkeyup="multiply(1);addSubtotal(1);numberCheck(1);" value="0">
 		  					</td>
 		  					<td>
-		  						<input type="text" name="po[1][SubTotal]" id="SubTotal1">
+		  						<input type="text" name="po[1][SubTotal]" id="SubTotal1" value="0">
 		  					</td>
 		  					<td></td>
 		  				</tr>
