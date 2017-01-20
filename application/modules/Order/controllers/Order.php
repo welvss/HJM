@@ -67,9 +67,10 @@ class Order extends MX_Controller
 		
 		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE)
 		{				
-				if(isset($_POST['submit']))
-				{
-					if($_FILES['file']['name']!='')
+				
+				
+
+					if(isset($_FILES['file'])&&!empty($_FILES['file']))
 					{	
 
 						$config['upload_path']          = './app/uploads/';
@@ -93,9 +94,10 @@ class Order extends MX_Controller
 	                	}
                 	}
 
-	            else{
-	            	$file=false;
-	            }
+		            else{
+		            	$file=false;
+		            }
+
 	                			
 								$data=array(
 										'DentistID'=>$_POST['DentistID'],
@@ -153,10 +155,7 @@ class Order extends MX_Controller
 									
 								}
 						
-					
-				}
-				else
-					redirect('Order');
+
 				
 		}
 		else

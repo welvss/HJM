@@ -103,13 +103,11 @@ $(document).ready(function() {
             "scrollY": '40vh',
             "scrollCollapse": true,
             "paging": false,
-            'aoColumnDefs': [
-                 
-           { aTargets: [ 2 ,3], bSortable: false },
-          
-           { aTargets: [ '_all' ], bSortable: true },
-         /* 1st one, start by the right */
-            ]
+           'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1, -2] /* 1st one, start by the right */
+            }]
+
         });
         reqtable.buttons().container().appendTo('#printreq');
 

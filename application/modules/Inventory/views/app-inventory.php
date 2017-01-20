@@ -199,23 +199,21 @@
 					  						<td>
 					  							<center>';
 
-						  						foreach ($reqitems as $reqitem) {
-						  							foreach ($items as $item) {
-						  								if($reqitem->ItemID==$item->ItemID){
-						  									$itemdesc = $item->ItemDesc;
-						  								}
-						  							}
-						  							echo
-						  							'<div>'
-						  								.$itemdesc.' - '.$reqitem->ItemID.
-						  							'</div>';
-						  						}
+						  						foreach ($reqitems as
+						  						$reqitem) {     foreach
+						  						($items as $item) {         
+						  						if($reqitem->ItemID==$item->
+						  						ItemID){
+						  						$itemdesc = $item->ItemDesc;
+						  						}     }     echo     '<div>'
+						  						.$itemdesc.' -
+						  						'.$reqitem->QTY.' pc(s)
+						  						</div>'; }
 					  							
 					  					echo
 					  							'</center>
 					  						</td>
-					  						<td>4</td>
-					  						<td>'.date('l F d, Y h:i A', strtotime($request->DateCreated)).'</td>
+					  						<td><center>'.date('l F d, Y h:i A', strtotime($request->DateCreated)).'</center></td>
 					  						
 					  					</tr>';
 					  				}
