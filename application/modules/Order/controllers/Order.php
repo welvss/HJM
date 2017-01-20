@@ -143,7 +143,8 @@ class Order extends MX_Controller
 								else
 								{
 									if($_POST['module']==2)
-										redirect('Order');
+										//redirect('Order');
+										echo "Case successfully added!";
 
 
 									if($_POST['module']==1)

@@ -36,6 +36,8 @@ class Inventory extends MX_Controller
 			$data['cases'] = $this->MdlOrder->getOrder(array('status_id'=>2));
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['casetype'] = $this->MdlOrder->getCaseType(array());
+			$data['requests'] = $this->MdlInventory->getReq(array());
+			$data['reqitems'] = $this->MdlInventory->getReqItem(array());
 			$this->load->view('app-inventory',$data);
 			$this->load->view('app-inventory-modals');
 			$data['script']='<script src="'.base_url().'app/js/inventory.js"></script><script src="'.base_url().'app/js/app-validation.js"></script>';

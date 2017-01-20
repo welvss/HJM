@@ -60,6 +60,78 @@ class MdlInventory extends CI_Model {
 			return $query->result();
 	}
 
+	function getReq($options = array())
+	{
+		//verification
+		
+		if(isset($options['ReqID']))
+			$this->db->where('ReqID', $options['ReqID']);
+
+		if(isset($options['CaseID']))
+			$this->db->where('CaseID', $options['CaseID']);
+
+		if(isset($options['DateCreated']))
+			$this->db->like('DateCreated', $options['DateCreated']);
+			
+
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+
+
+		$query = $this->db->get("tblrequisition");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		if(isset($options['ReqID']))
+			return $query->row(0);
+		//die($this->db->last_query());
+
+		return $query->result();
+	}
+
+	function getReqItem($options = array())
+	{
+		//verification
+		
+		if(isset($options['ReqID']))
+			$this->db->where('ReqID', $options['ReqID']);
+
+		if(isset($options['ItemID']))
+			$this->db->where('ItemID', $options['ItemID']);
+
+		if(isset($options['QTY']))
+			$this->db->like('QTY', $options['QTY']);
+			
+
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+
+
+		$query = $this->db->get("tblrequisitionitem");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		// if(isset($options['ReqID']))
+		// 	return $query->row(0);
+		//die($this->db->last_query());
+
+		return $query->result();
+	}
+
 	function EditInventory($options = array())
 	{		
 		

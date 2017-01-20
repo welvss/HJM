@@ -184,3 +184,7 @@ color: red;
 .dataTables_filter {
      display: none;
 }
+
+.dataTables_scrollHeadInner, .dataTables_scrollHeadInner table {
+	width: 100% !important;
+}

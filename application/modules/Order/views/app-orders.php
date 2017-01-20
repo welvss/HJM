@@ -218,6 +218,10 @@
 					    New Case Entry
 				  </div>
 	  		</div>
+	  		<div class="fourteen wide column">
+				<label style="color: #9F3A38;font-size: .92857143em;font-weight: 700" id="requiredasterisk">*Required</label>
+				<div id="error"></div>
+			</div>
 		  <div class="ui horizontal teal segments">
 			  <div class="ui teal segment">
 			  	<label>Case Number:</label>

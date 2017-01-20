@@ -3,6 +3,10 @@ var y = 0;
 var rows = document.getElementById("Add").getElementsByTagName("tr").length;
 
 $(document).ready(function() {
+     datatables();
+    $('.item.datatables').on('click',function(event) {
+        datatables();
+    });
 
     $(".mode").click(function() {
         $('.ui.modal.itemmodal').modal('show');
@@ -47,51 +51,88 @@ $(document).ready(function() {
         $('.sidebar')
             .sidebar('toggle');
     });
-    var itemtable = $('#inventory-itemtable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [{
-            extend: 'print',
-            text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
 
 
-        }, ],
-        "scrollY": '40vh',
-        "scrollCollapse": true,
-        "paging": false,
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': [-1, -2, -3] /* 1st one, start by the right */
-        }]
-    });
-    itemtable.buttons().container().appendTo('#printitem');
-
-    var producttable = $('#inventory-producttable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [{
-            extend: 'print',
-            text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+    function datatables(){
+        var itemtable = $('#inventory-itemtable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'print',
+                text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
 
 
-        }, ],
-        "scrollY": '40vh',
-        "scrollCollapse": true,
-        "paging": false,
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': [-1, -2] /* 1st one, start by the right */
-        }]
-    });
-    producttable.buttons().container().appendTo('#printproduct');
+            }, ],
+            "scrollY": '40vh',
+            "scrollCollapse": true,
+            "paging": false,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1, -2, -3] /* 1st one, start by the right */
+            }]
+        });
+        itemtable.buttons().container().appendTo('#printitem');
 
-    var dataTable = $('#inventory-producttable').dataTable();
-    $("#search-product").keyup(function() {
-        dataTable.fnFilter(this.value);
-    });
 
-    var dataTables = $('#inventory-itemtable').dataTable();
-    $("#search-item").keyup(function() {
-        dataTables.fnFilter(this.value);
-    });
+
+        var producttable = $('#inventory-producttable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'print',
+                text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+
+
+            }, ],
+            "scrollY": '40vh',
+            "scrollCollapse": true,
+            "paging": false,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1, -2] /* 1st one, start by the right */
+            }]
+        });
+        producttable.buttons().container().appendTo('#printproduct');
+
+        var reqtable = $('#inventory-requisitiontable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'print',
+                text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+
+
+            }, ],
+            "scrollY": '40vh',
+            "scrollCollapse": true,
+            "paging": false,
+            'aoColumnDefs': [
+                 
+           { aTargets: [ 2 ,3], bSortable: false },
+          
+           { aTargets: [ '_all' ], bSortable: true },
+         /* 1st one, start by the right */
+            ]
+        });
+        reqtable.buttons().container().appendTo('#printreq');
+
+        var dataTable = $('#inventory-producttable').dataTable();
+        $("#search-product").keyup(function() {
+            dataTable.fnFilter(this.value);
+        });
+
+        var dataTables = $('#inventory-itemtable').dataTable();
+        $("#search-item").keyup(function() {
+            dataTables.fnFilter(this.value);
+        });
+
+         var dataTables2 = $('#inventory-requisitiontable').dataTable();
+        $("#search-request").keyup(function() {
+            dataTables2.fnFilter(this.value);
+        });
+    }
+
+
+
+
+
 
     $('.popup')
         .popup();
@@ -119,7 +160,7 @@ $(document).ready(function() {
 
     });
 
-
+    
 
 
 

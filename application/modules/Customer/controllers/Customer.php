@@ -204,7 +204,7 @@ class Customer extends MX_Controller
 	
 
 	public function AddDentist()
-	{
+	{		
 			if($this->input->post('website')=="www.")
 				$ws="";
 			else
@@ -242,8 +242,9 @@ class Customer extends MX_Controller
 									'shipbrgy' => $brgy,
 									'notes' => $_POST['notes'] );
 						
-						$DentistID=$this->MdlCustomer->AddDentist($dentist);
+						
 					if(!empty($_POST['email'])&&isset($_POST['email'])){	
+						
 						$length = 5;
 						$alphabets = range('A','Z');
 					    $numbers = range('0','9');
@@ -265,20 +266,28 @@ class Customer extends MX_Controller
 									'email' => $_POST['email'],
 									'password'=>$password
 								);
-						$this->send_new_email($email);
-						$user= array(
-								'DentistID'=>$DentistID,
-								'username' => $_POST['email'],
-								'password'=>md5($password)
-							);
-						$this->MdlCustomer->AddUser($user);
+						if($this->send_new_email($email)){
+
+							$DentistID=$this->MdlCustomer->AddDentist($dentist);
+							$user= array(
+									'DentistID'=>$DentistID,
+									'username' => $_POST['email'],
+									'password'=>md5($password)
+								);
+							$this->MdlCustomer->AddUser($user);
+							echo "Customer successfully added!";
+						}
+					}
+					else {
+						$DentistID=$this->MdlCustomer->AddDentist($dentist);
+						echo "Customer successfully added!";
 					}
 						
 						
 			
 						
 		    }
-		    echo "Customer successfully added!";
+		   
 	
 
 
@@ -287,9 +296,10 @@ class Customer extends MX_Controller
 	}
 
 	function send_new_email($options=array()){
+
       $this->load->library('email');
 
-      $this->email->from('hjm@pup-taguig.net', 'HJM Dental Laboratory');
+      $this->email->from("support@hjmdentallab.com", 'HJM Dental Laboratory');
       $this->email->to($options['email']);
       $this->email->subject('HJM Dental Laboratory Management System User Account');
 
@@ -309,6 +319,7 @@ class Customer extends MX_Controller
       if(!$this->email->send()){
         
         show_error($this->email->print_debugger());
+        die(show_error($this->email->print_debugger()));
       }
       else
         return true;
