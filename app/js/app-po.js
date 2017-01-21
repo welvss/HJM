@@ -16,6 +16,12 @@ $(document).ready(function() {
             .modal('setting', 'transition', 'fade down').modal({ autofocus: false })
             .modal('show');
     });
+    $(".quotation-modal").click(function() {
+        $('.quotation.modal')
+            .modal('setting', 'transition', 'fade down')
+            .modal({ autofocus: false })
+            .modal('show');
+    });
 
     $('.menu .item')
         .tab();
@@ -54,10 +60,37 @@ $(document).ready(function() {
             /* 1st one, start by the right */
         }]
     });
+
     table.buttons().container().appendTo('#print');
     var dataTable = $('#main-case').dataTable();
     $("#search-case").keyup(function() {
         dataTable.fnFilter(this.value);
+    });
+
+
+    var tablequote = $('#quote').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'print',
+            text: '<i class="blue right floated right aligned eight wide column print big icon"></i>',
+
+
+        }, ],
+        "scrollY": '40vh',
+        "scrollCollapse": true,
+        "paging": false,
+        'aoColumnDefs': [{
+            'bSortable': true,
+            'aTargets': [-1, -2],
+            /* 1st one, start by the right */
+        }]
+    });
+
+
+    tablequote.buttons().container().appendTo('#printquote');
+    var dataTablequote = $('#quote').dataTable();
+    $("#search-quote").keyup(function() {
+        dataTablequote.fnFilter(this.value);
     });
 
     $('.popup')
@@ -106,7 +139,7 @@ function Addrow() {
     if ($('#Item' + x).val() != '') {
         x++;
         var id = $('#SupplierID').val();
-        $('#Add').append('<tr id="Row' + x + '"><td>' + x + '</td><td ><select class="ui search fluid dropdown" id="Item' + x + '"  name="po[' + x + '][ItemID]" onchange="getItemDesc(this.value,' + x + ');"></td><td id="ItemDesc' + x + '"></td><td><input type="number" style="width: 100px" id="QTY' + x + '" name="po[' + x + '][QTY]" onkeyup="multiply(' + x + ');addSubtotal(' + x + ');" value="0"></td><td><input type="text" id="Amount' + x + '" name="po[' + x + '][Amount]"  onkeyup="multiply(' + x + ');addSubtotal(' + x + ');numberCheck(' + x + ');" value="0"></td><td ><input type="text" id="SubTotal' + x + '" name="po[' + x + '][SubTotal]" value="0"></td><td><a href="#" onClick="deleteRow(' + x + ')"><i class="trash icon" id="Bin' + x + '"></i></a></td></tr>');
+        $('#Add').append('<tr id="Row' + x + '"><td>' + x + '</td><td ><select class="ui search fluid dropdown itemselect" id="Item' + x + '"  name="po[' + x + '][ItemID]"></select></td><td id="ItemDesc' + x + '"></td><td><input type="number" style="width: 100px" id="QTY' + x + '" name="po[' + x + '][QTY]" onkeyup="multiply(' + x + ');addSubtotal(' + x + ');" value="0"></td><td><input type="text" id="Amount' + x + '" name="po[' + x + '][Amount]"  onkeyup="multiply(' + x + ');addSubtotal(' + x + ');numberCheck(' + x + ');" value="0"></td><td ><input type="text" id="SubTotal' + x + '" name="po[' + x + '][SubTotal]" value="0"></td><td><a href="#" onClick="deleteRow(' + x + ')"><i class="trash icon" id="Bin' + x + '"></i></a></td></tr>');
         document.getElementById('AddRow').disabled = true;
         $('#Bin' + (x - 1)).hide();
         getItems(id);
@@ -190,7 +223,7 @@ function multiply(x) {
     $('#Total' + (x)).val(y);
 
     //add them and output it
-};
+}
 
 
 
@@ -219,12 +252,12 @@ function getInfo(val) {
 
 
 
-function getItems(val) {
+function getItems() {
 
     $.ajax({
         type: "POST",
         url: "http://" + window.location.hostname + "/HJM/Inventory/getItems",
-        data: 'SupplierID=' + val,
+        data: 'Count=' + x,
         success: function(data) {
             $('#Item' + x).html(data);
             $('.ui.dropdown').dropdown();
@@ -238,7 +271,30 @@ function getItems(val) {
 
     });
 }
+$(document).ready(function() {
+    $(".supplierselect").on('change',  function(event) {
+        $("#email"+$('option:selected', this).data('path')).val($('option:selected', this).data('email'));
+        $("#address"+$('option:selected', this).data('path')).val($('option:selected', this).data('fulladdress'));
+        console.log($(this).attr("data-path"));
+    });
 
+
+
+    $(document).delegate(".itemselect","change",function(e){
+
+        $("#ItemDesc"+$('option:selected', this).data('id')).text($('option:selected', this).data('description'));
+        $("#QTY"+x).val($('option:selected', this).data('qty'));
+        document.getElementById('AddRow').disabled = false;
+        document.getElementById('QTY' + x).disabled = false;
+        document.getElementById('Amount' + x).disabled = false;
+        document.getElementById('Amount' + x).value = 0;
+        document.getElementById('SubTotal' + x).disabled = false;
+        document.getElementById('SubTotal' + x).va
+        document.getElementById('AddRow').disabled = false;
+        console.log($('option:selected', this).data('qty'));
+    });
+
+});
 function getItemDesc(val, y) {
 
     var i;

@@ -14,6 +14,9 @@
 				    <div class="item invoice-modal">
 				    <i class="large file text outline icon blue"></i>
 				    New Purchase Order</div>
+				    <div class="item quotation-modal">
+                    <i class="large file text outline icon blue"></i> 
+                    New Quotation</div>
 				  </div>
 				</div>
 			</div>
@@ -58,125 +61,234 @@
 		  </div>
 	  </div>
 	  <!--Tab-->
-	  <div class="ui centered grid">
-	  <div class="fifteen wide column">
-	  <div class="row">
-	  			<div class="ui grid">
-	  				<div class="two column row">
-				    <div class="left floated column eight wide column">
-				    	<div class="ui search">
-						  <div class="ui icon input">
-						    <input class="prompt" type="text" placeholder="Find Case..." id="search-case">
-						    <i class="search icon"></i>
-						  </div>
-						  <div class="results"></div>
+<div class="ui centered grid">
+        <div class="fifteen wide column">
+            <div class="row">
+                <div class="ui inverted green segment">
+                    <div class="ui top attached tabular inverted green menu">
+                        <a class="active item" data-tab="first">Purchase Orders</a>
+                        <a class="item" data-tab="second">Quotations</a>
+                    </div>	  	
+					<div class="ui bottom attached active tab segment" data-tab="first">
+						<div class="ui grid">
+				  				<div class="two column row">
+								    <div class="left floated column eight wide column">
+								    	<div class="ui search">
+										  <div class="ui icon input">
+										    <input class="prompt" type="text" placeholder="Find Purchase Order..." id="search-case">
+										    <i class="search icon"></i>
+										  </div>
+										  <div class="results"></div>
+										</div>
+								    </div>
+							    	<div id="print" style="position: relative;left: -12px;"></div>
+							    </div>
 						</div>
-				    </div>
-				    <div id="print"></div>
-				    </div>
-	  			</div>
-	  </div>
-	  <br>
-	  	<table id="main-case" class="display ui blue table" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>PO#</th>
-					<th>Supplier Company</th>
-					<th>Date Created</th>
-					<th>Requested Ship Date</th>
-					<th><center>Status</center></th>
-					<th><center>ACTION</center></th>
-				</tr>
-			</thead>
-			<tbody>
-			<?php 
-			foreach($pos as $po){
-				echo
-				'<tr>
-					<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
-					<td>
-						<h4 class="ui image header">
-							          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
-							          <div class="content">';
-							          foreach($suppliers as $supplier){
-								          if($po->SupplierID == $supplier->SupplierID)
-								          	echo
-								            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
-								            <div class="sub header">HJM Dental Laboratory';
-							          }
-							echo    '</div>
-							        </div>
-							    </h4>
-					</td>
-					<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
-					<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
-					<td><center>';
-							 foreach ($status as $stat) {
-							 	if($stat->POStatusID==$po->POStatusID){
-							 		if($po->POStatusID==1)
-							 			echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
-							 		else
-							 		if($po->POStatusID==2)
-							 			echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
-							 		else
-							 		if($po->POStatusID=3)
-							 			echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
-							 	}
-							 	
-							 }
-							  
-						echo 
-						'
-						</center>			
-					</td>
-					<td>
-					<center>';
-						if($po->POStatusID<3){
-							echo
-							'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
-				  			<i class="green check icon"></i>
-				  			Update
-				  			</a>
-				  			&nbsp;';
-				  		}
-				  		else{
-				  			echo
-							'<button class="ui button blue" class="green" disabled>
-				  			<i class="green check icon"></i>
-				  			Update
-				  			</button>
-				  			&nbsp;';
+					  	<br>
+					  	<table id="main-case" class="display ui blue table" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>PO#</th>
+									<th>Supplier Company</th>
+									<th>Date Created</th>
+									<th>Requested Ship Date</th>
+									<th><center>Status</center></th>
+									<th><center>ACTION</center></th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php 
+							foreach($pos as $po){
+								echo
+								'<tr>
+									<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
+									<td>
+										<h4 class="ui image header">
+											          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+											          <div class="content">';
+											          foreach($suppliers as $supplier){
+												          if($po->SupplierID == $supplier->SupplierID)
+												          	echo
+												            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
+												            <div class="sub header">HJM Dental Laboratory';
+											          }
+											echo    '</div>
+											        </div>
+											    </h4>
+									</td>
+									<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
+									<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
+									<td><center>';
+											 foreach ($status as $stat) {
+											 	if($stat->POStatusID==$po->POStatusID){
+											 		if($po->POStatusID==1)
+											 			echo '<div style="color:green;"><b>'.strtoupper($stat->status).'</b></div>';
+											 		else
+											 		if($po->POStatusID==2)
+											 			echo '<div style="color:purple;"><b>'.strtoupper($stat->status).'</b></div>';
+											 		else
+											 		if($po->POStatusID=3)
+											 			echo '<div style="color:blue;"><b>'.strtoupper($stat->status).'</b></div>';
+											 	}
+											 	
+											 }
+											  
+										echo 
+										'
+										</center>			
+									</td>
+									<td>
+									<center>';
+										if($po->POStatusID<3){
+											echo
+											'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
+								  			<i class="green check icon"></i>
+								  			Update
+								  			</a>
+								  			&nbsp;';
+								  		}
+								  		else{
+								  			echo
+											'<button class="ui button blue" class="green" disabled>
+								  			<i class="green check icon"></i>
+								  			Update
+								  			</button>
+								  			&nbsp;';
 
-				  		}
-			  			if($po->POStatusID>1){
-				  			echo
-							'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
-				  			<i class="file icon"></i>
-				  			View
-				  			</a>';
-			  			}
-			  			else{
-			  				echo
-							'<button class="ui button blue" disabled>
-				  			<i class="file icon"></i>
-				  			View
-				  			</button>';
-			  			}
-			  							
-					echo
-			  		'</center>	
-					</td>
-				</tr>';
-			}
-			?>
-			</tbody>
-		</table>
-	  </div>
-	  </div>
+								  		}
+							  			if($po->POStatusID>1){
+								  			echo
+											'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
+								  			<i class="file icon"></i>
+								  			View
+								  			</a>';
+							  			}
+							  			else{
+							  				echo
+											'<button class="ui button blue" disabled>
+								  			<i class="file icon"></i>
+								  			View
+								  			</button>';
+							  			}
+							  							
+									echo
+							  		'</center>	
+									</td>
+								</tr>';
+							}
+							?>
+							</tbody>
+						</table>
+					</div>
+					<div class="ui bottom attached  tab segment" data-tab="second">
+							<div class="ui grid">
+							  				<div class="two column row">
+											    <div class="left floated column eight wide column">
+											    	<div class="ui search">
+													  <div class="ui icon input">
+													    <input class="prompt" type="text" placeholder="Find Quotation..." id="search-quote">
+													    <i class="search icon"></i>
+													  </div>
+													  <div class="results"></div>
+													</div>
+											    </div>
+										    	<div id="printquote" style="position: relative;left: -12px;"></div>
+										    </div>
+							</div>
+						  	<br>
+						  	<table id="quote" class="display ui blue table" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>RFQ#</th>
+										<th>Supplier Company</th>
+										<th>Date Created</th>
+										<th>Quotation Date Required</th>
+										<th><center>ACTION</center></th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php 
+								foreach($pos as $po){
+									echo
+									'<tr>
+										<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
+										<td>
+											<h4 class="ui image header">
+												          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
+												          <div class="content">';
+												          foreach($suppliers as $supplier){
+													          if($po->SupplierID == $supplier->SupplierID)
+													          	echo
+													            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
+													            <div class="sub header">HJM Dental Laboratory';
+												          }
+												echo    '</div>
+												        </div>
+												    </h4>
+										</td>
+										<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
+										<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
+										
+										<td>
+										<center>';
+											if($po->POStatusID<3){
+												echo
+												'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
+									  			<i class="green check icon"></i>
+									  			Update
+									  			</a>
+									  			&nbsp;';
+									  		}
+									  		else{
+									  			echo
+												'<button class="ui button blue" class="green" disabled>
+									  			<i class="green check icon"></i>
+									  			Update
+									  			</button>
+									  			&nbsp;';
+
+									  		}
+								  			if($po->POStatusID>1){
+									  			echo
+												'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
+									  			<i class="file icon"></i>
+									  			View
+									  			</a>';
+								  			}
+								  			else{
+								  				echo
+												'<button class="ui button blue" disabled>
+									  			<i class="file icon"></i>
+									  			View
+									  			</button>';
+								  			}
+								  							
+										echo
+								  		'</center>	
+										</td>
+									</tr>';
+								}
+								?>
+								</tbody>
+							</table>
+					</div>
+	  
+   
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+	
+</script>
+<!-- PO MODAL -->
+<script type="text/javascript">
+
+</script>
 <div class="ui modal fullscreen invoice">
 	 
-	  <?php echo form_open('PO/AddPO','class="ui form"');?>
+	  <?php echo form_open('PO/AddPO','class="ui form" onSubmit="return false"');?>
 	  		<div class="ui inverted green segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
@@ -184,27 +296,35 @@
 				  </div>
 	  		</div>
 	  		<div class="ui grid">
+	  		<div class="row">
+					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						<label style="color: #9F3A38;font-size: .92857143em;font-weight: 700" id="requiredasterisk">*Required</label>
+						<div id="error"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
 		  		<div class="two column row">
 					<div class="column">
 						<div class="ui segment">
 							<div class="inline fields">
 							<div class="eight wide field">
 								<label>Supplier</label>
-								<div class="ui selection dropdown" id="dropdown1">
-								  <input type="hidden" name="SupplierID"   id="SupplierID" onchange="getInfo();">
-								  <i class="dropdown icon"></i>
-								  <div class="default text">Select Supplier</div>
-								  <div class="menu">
+								<select class="ui selection search dropdown supplierselect" name="SupplierID" id="SupplierID">
+									<option value="">Select Supplier</option>
+								  
 								  	<?php foreach ($suppliers as $supplier) {
-								  		echo '<div class="item" data-value="'.$supplier->SupplierID.'">'.$supplier->company.'</div>';
+								  		echo '<option value="'.$supplier->SupplierID.'" data-path="po" data-email="'.$supplier->email.'" data-fulladdress="'.$supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity.'">'.$supplier->company.'</option>';
 								  	}
 								    ?>
-								  </div>
-								</div>
+								</select>
+
+								
 							</div>
+
 							<div class="eight wide field">
 								<label>Email</label>
-								<input type="text" value="" readonly id="email">
+								<input type="text" value="" readonly id="emailpo">
 							</div>
 							</div>
 						</div>
@@ -234,7 +354,7 @@
 	  					<div class="fields">
 	  						<div class="four wide field">
 	  							<label>Billing Address</label>
-	  							 <textarea rows="2" readonly id="address"></textarea>
+	  							 <textarea rows="2" readonly id="addresspo"></textarea>
 	  						</div>
 	  						<div class="field">
 	  							<label>Requested Ship Date</label>
@@ -265,13 +385,13 @@
 		  				<tr id="Row1">
 		  					<td>1</td>
 		  					<td >
-								<select class="ui search dropdown Item" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
+								<select class="ui search dropdown Item itemselect" id="Item1"  name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
 									<option value="">Select Item</option>
 								  <
 								 	<?php
                                         foreach ($items as $item) 
                                         {
-                                            echo '<option value="'.$item->ItemID.'">'.$item->ItemID.'</option>';
+                                            echo '<option value="'.$item->ItemID.'" data-id="1" data-description="'.$item->ItemDesc.'" data-qty="'.$item->ReorderQTY.'">'.$item->ItemID.'</option>';
                                         }
                                     ?>
 								  </select>
@@ -338,6 +458,7 @@
 						      Cancel
 						    </div>
 						    <button class="ui animated green right button" tabindex="0" name="submit" type="submit" value="submit" >
+						    <input name="submit" type="hidden" value="submit" >
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
 							    <i class="right arrow icon"></i>
@@ -352,3 +473,172 @@
 	</form>
 	<br><br>
 	</div>
+
+<!-- END PO MODAL -->
+
+
+<!-- QUOTATION MODAL -->
+
+<!-- <div class="ui modal fullscreen quotation">
+	 
+	  <?php echo form_open('PO/AddQuote','class="ui form"');?>
+	  		<div class="ui inverted purple segment">
+	  			  <div class="ui header">
+				  <i class="large add to cart icon"></i>
+					  Request for Quotation
+				  </div>
+	  		</div>
+	  		<div class="ui grid">
+		  		<div class="two column row">
+					<div class="column">
+						<div class="ui segment">
+							<div class="inline fields">
+							<div class="eight wide field">
+								<label>Supplier</label>
+								<select class="ui selection search dropdown supplierselect" name="SupplierID" id="SupplierID">
+									<option value="">Select Supplier</option>
+								  
+								  	<?php foreach ($suppliers as $supplier) {
+								  		echo '<option value="'.$supplier->SupplierID.'" data-path="po" data-email="'.$supplier->email.'" data-fulladdress="'.$supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity.'">'.$supplier->company.'</option>';
+								  	}
+								    ?>
+								</select>
+							</div>
+							<div class="eight wide field">
+								<label>Email</label>
+								<input type="text" value="" readonly id="email">
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui horizontal segments">
+						<div class="ui segment">
+							<div class="ui header">
+								<h3>RFQ#:</h3>
+								<h1>RFQ-<?php echo $count+1;?></h1>
+							</div>	
+						</div>
+										
+						</div>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ui centered grid">
+	  			<div class="row">
+	  				<div class="fifteen wide column">
+	  					<div class="fields">
+	  						<div class="four wide field">
+	  							<label>Billing Address</label>
+	  							 <textarea rows="2" readonly id="address"></textarea>
+	  						</div>
+	  						<div class="field">
+	  							<label>Requested Quotation Date equired</label>
+	  							<input type="date" id="duedate" name="shipdate" class="datepicker">
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+
+		  <div class="ui centered grid">
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  	<form class="ui form">
+		  		<table class="ui table">
+		  			<thead>
+		  				<tr>
+		  					<th>#</th>
+		  					<th>ITEM</th>
+		  					<th>DESCRIPTION</th>
+		  					<th>QTY</th>
+		  					<th></th>
+		  				</tr>
+		  			</thead>
+		  			<tbody id="Add">
+		  				<tr id="Row1">
+		  					<td>1</td>
+		  					<td >
+								<select class="ui search dropdown Item" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
+									<option value="">Select Item</option>
+								  <
+								 	<?php
+                                        foreach ($items as $item) 
+                                        {
+                                            echo '<option value="'.$item->ItemID.'">'.$item->ItemID.'</option>';
+                                        }
+                                    ?>
+								  </select>
+								  
+		  					</td>
+		  					<td id="QuoteItemDesc1">
+		  					
+		  					</td>
+		  					<td>
+		  						<input type="number" style="width: 100px" name="po[1][QTY]" id="QuoteQTY1" onkeyup="multiply(1);addSubtotal(1);">
+		  					</td>
+		  					<td></td>
+		  				</tr>
+		  			</tbody>
+		  		</table>
+		  	</form>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="fifteen wide column">
+		  		<button class="ui button blue" id="QuoteAddRow" onclick="Addrow();">
+		  			Add Row
+		  		</button>
+		  	</div>
+		  </div>
+				<div class="row">
+					<div class="fifteen wide column">
+						<hr>
+						<div class="ui grid">
+							<div class="eight wide column">
+								<div class="field">
+									<label>Message displayed on Invoice</label>
+									<textarea></textarea>
+								</div>
+							</div>
+							<div class="two wide column hidden">
+							</div>
+							<div class="three wide right aligned column">
+								<h4>Subtotal</h4>
+								<h2>Total</h2>
+							</div>
+							<div class="three wide column">
+								<h4 id="TotalSave"></h4>
+								<h2 id="Total"></h2>
+
+							</div>
+						</div>
+					</div>
+				</div>
+	  			<div class="two column row">
+	  				<div class="six wide column"></div>
+					<div class="three wide column">
+						 <a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+					</div>
+					<div class="right aligned six wide column">
+						  <div class="actions" id="footer-modal">
+						    <div class="ui grey deny button">
+						      Cancel
+						    </div>
+						    <button class="ui animated purple right button" tabindex="0" name="submit" type="submit" value="submit" >
+							  <div class="visible content">Submit</div>
+							  <div class="hidden content">
+							    <i class="right arrow icon"></i>
+							  </div>
+							</button>
+						  </div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
+	 		 <br><br>
+		  </div>
+	</form>
+	<br><br>
+	</div>
+ -->

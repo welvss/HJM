@@ -105,7 +105,7 @@ class PO extends MX_Controller
 							}
 						}				
 
-						redirect('PO');
+						echo "Purchase Order successfully added!";
 					
 	
 		}	

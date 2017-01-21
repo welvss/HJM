@@ -555,17 +555,19 @@ $('form.ui.form').on('submit', function() {
                     // alert(data);
                 },
                 success: function(data) {
+                    $("#requiredasterisk").hide();
                     $("form.ui.form").removeClass('loading');
                     $("#error").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
                     $("#errorproduct").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
                     $("#errorrequest").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
-                    // $("form.ui.form").form('clear');
-                    // setTimeout(function() {
-                    //     location.reload();
-                    // }, 800);
+                    $("form.ui.form").form('clear');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 800);
 
                 },
                 error: function(xhr, status, error, ajaxOptions, thrownErro) {
+                    $("#requiredasterisk").hide();
                     $("form.ui.form").removeClass('loading');
                     console.log(xhr.responseText);
                     $("#error").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
