@@ -226,8 +226,10 @@
 												        </div>
 												    </h4>
 										</td>
-										<td style="text-align:center;">'.date('l F d, Y h:i A', strtotime($quote->DateCreated)).'</td>
-										<td style="text-align:center;">'.date('l F d, Y ', strtotime($quote->DateRequired)).'</td>
+										<td style="text-align:center;">'.date('l F d, Y h:i A', strtotime($quote->DateCreated)).
+										'</td>
+										<td style="text-align:center;">'.date('l F d, Y ', strtotime($quote->DateRequired)).
+										'</td>
 										
 										<td>
 									
