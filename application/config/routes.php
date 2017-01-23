@@ -53,10 +53,3 @@ $route['default_controller'] = 'Home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['Invoice'] = "Order/Invoice";
-$route['Invoice/addInvoice'] = "Order/Invoice/addInvoice";
-$route['Invoice/AddInvoicePayment'] = "Order/Invoice/AddInvoicePayment";
-$route['Invoice/InvoiceSlip'] = "Order/Invoice/InvoiceSlip";
-$route['Invoice/getInvoiceCount'] = "Order/Invoice/getInvoiceCount";
-$route['Invoice/InvoiceSlip/(:any)'] ="Order/Invoice/InvoiceSlip/$1";
-$route['Invoice/UpdateInvoiceStatus'] ="Order/Invoice/UpdateInvoiceStatus";

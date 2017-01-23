@@ -27,6 +27,7 @@ class Dashboard extends MX_Controller
     $this->load->module('Customer');
     $this->load->module('PO');
     $this->load->module('Order');
+    $this->load->module('Invoice');
     $this->load->module('Supplier');
     $this->load->model('MdlDashboard');
     $this->load->model('MdlCustomer');
