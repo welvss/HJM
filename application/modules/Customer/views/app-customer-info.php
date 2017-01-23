@@ -162,6 +162,7 @@
 			  							$count++;
 			  						}
 			  					}
+			  
 				  				echo
 				  					'<tr>
 				  						<td>'.date('l F d, Y', strtotime($invo->datecreated)).'</td>
@@ -944,7 +945,7 @@
 
 	<div class="ui modal fullscreen payment">
 	
-		<?php echo form_open('Invoice/AddInvoicePayment','class="ui form"');?>
+		<?php echo form_open('Invoice/AddInvoicePayment','class="ui form" onSubmit="return false"');?>
 	  		<div class="ui inverted blue segment">
 	  			  <div class="ui header">
 				  <i class="large dollar icon"></i>
@@ -973,7 +974,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								Amount Received
-								<h1 id="sum"></h1>
+								<h1 id="sumreceived"></h1>
 							</div>							
 						</div>
 					</div>
@@ -981,6 +982,14 @@
 	  		</div>
 
 	  		<div class="ui centered grid">
+	  			<div class="row">
+					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						
+						<div id="errorpayment"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
 	  			<div class="row">
 	  				<div class="fifteen wide column">
 	  					<div class="fields">

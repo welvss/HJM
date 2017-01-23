@@ -19,7 +19,7 @@
               <br>
               <p>Sign In to <strong>HJM Dental Laboratory</strong></p>
             </div>
-            <?php echo form_open('Home/login_validation');?>
+            <?php echo form_open('LoginAuthentication');?>
             <div class="col-md-offset-4 col-md-4 col-md-offset-4">
               <div class="form-group">
                 <label for="usr">Username</label>

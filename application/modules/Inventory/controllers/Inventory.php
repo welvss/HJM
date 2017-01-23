@@ -326,7 +326,7 @@ class Inventory extends MX_Controller
     	$data=$this->MdlInventory->getItem();
     		echo '<option value="">Select Item</option>';
 	    	foreach ($data as $datus) {
-	    	echo	'<option value="'.$datus->ItemID.'" data-id="'.$_POST['Count'].'" data-description="'.$datus->ItemDesc.'" data-qty="'.$datus->ReorderQTY.'">'.$datus->ItemID.'</option>';
+	    	echo	'<option value="'.$datus->ItemID.'" data-id="'.$_POST['Count'].'" data-path="'.$_POST['path'].'" data-description="'.$datus->ItemDesc.'" data-qty="'.$datus->ReorderQTY.'">'.$datus->ItemID.'</option>';
 	    	}
 		
 		

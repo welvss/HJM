@@ -48,7 +48,7 @@
           <li><a class="hvr-underline-from-center" href="<?php echo base_url();?>">Home</a></li>
           <li><a class="hvr-underline-from-center" href="#">About</a></li>
           <li><a class="hvr-underline-from-center" href="#">Services</a></li>
-          <li><a class="hvr-underline-from-center" href="<?php echo base_url('Home/Login');?>">Dentist Access</a></li>
+          <li><a class="hvr-underline-from-center" href="<?php echo base_url('Login');?>">Dentist Access</a></li>
           <li><a class="hvr-underline-from-center" href="#">Contact us</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
