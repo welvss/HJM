@@ -146,7 +146,7 @@ function getInvoiceDetails(val) {
   success: function(data){
     $('#InvoiceIDHidden').html('<input type="hidden" name="InvoiceID" value="'+data.InvoiceID+'">');
     $('#InvoiceIDOut').html('Invoice #'+data.InvoiceID+' '+data.datecreated);
-    $('#sum').html('PHP '+data.sum);
+    $('#sumreceived').html('PHP '+data.sum);
     $('#totalout').html('PHP '+data.total);
     $('#duedateout').html(data.duedate);
     $('#balance').html('PHP '+data.balance);

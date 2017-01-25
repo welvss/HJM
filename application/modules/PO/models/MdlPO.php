@@ -29,6 +29,18 @@ class MdlPO extends CI_Model {
 
 	}
 
+	function countQuote($options=array())
+	{
+		if(isset($options['QuoteID']))
+			$this->db->where('QuoteID',$options['QuoteID']);
+
+		
+
+
+		return $query = $this->db->count_all_results('tblquote');
+
+	}
+
 
 	function getPOStatus($options = array())
 	{
@@ -67,6 +79,41 @@ class MdlPO extends CI_Model {
 
 
 	
+
+	function getQuote($options = array())
+	{
+		//verification
+		if(isset($options['QuoteID']))
+			$this->db->where('QuoteID', $options['QuoteID']);
+
+		if(isset($options['SupplierID']))
+			$this->db->where('SupplierID', $options['SupplierID']);
+		
+		if(isset($options['DateCreated']))
+			$this->db->like('DateCreated', $options['DateCreated']);
+
+		if(isset($options['DateRequired']))
+			$this->db->like('DateRequired', $options['DateRequired']);
+
+		if(isset($options['limit']) && isset($options['offset']))
+			$this->db->limit($options['limit'], $options['offset']);
+		
+		else if(isset($options['limit']))
+			$this->db->limit($options['limit']);
+		
+		if(isset($options['sort_by']) && $options['sort_by'] != '' && isset($options['sort_direction']))
+			$this->db->order_by($options['sort_by'], $options['sort_direction']);
+		
+		$query = $this->db->get("tblquote");
+		
+		if(isset($options['count']))
+			return $query->num_rows();
+		
+		if(isset($options['QuoteID']))
+			return $query->row(0);
+		//die($this->db->last_query());
+		return $query->result();
+	}
 
 	function getPO($options = array())
 	{
@@ -140,6 +187,20 @@ class MdlPO extends CI_Model {
 			return $query->row(0);
 		
 		return $query->result();
+		 
+	}
+
+	function AddQuote($options = array())
+	{
+		$this->db->insert('tblquote', $options);	
+		return $this->db->insert_id();
+		
+	}
+
+	function addQuoteItem($options = array())
+	{
+		$this->db->insert('tblquoteitem', $options);	
+		return $this->db->insert_id();
 		
 	}
 
@@ -151,6 +212,7 @@ class MdlPO extends CI_Model {
 		
 	}
 
+	
 	function addPOItem($options = array())
 	{
 		$this->db->insert('tblpoitem', $options);	

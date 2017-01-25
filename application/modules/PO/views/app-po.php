@@ -110,7 +110,7 @@
 												          if($po->SupplierID == $supplier->SupplierID)
 												          	echo
 												            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
-												            <div class="sub header">HJM Dental Laboratory';
+												            <div class="sub header">'.$supplier->company;
 											          }
 											echo    '</div>
 											        </div>
@@ -201,70 +201,38 @@
 									<tr>
 										<th>RFQ#</th>
 										<th>Supplier Company</th>
-										<th>Date Created</th>
-										<th>Quotation Date Required</th>
+										<th><center>Date Created</center></th>
+										<th><center>Quotation Date Required</center></th>
 										<th><center>ACTION</center></th>
 									</tr>
 								</thead>
 								<tbody>
 								<?php 
-								foreach($pos as $po){
+								foreach($quotes as $quote){
 									echo
 									'<tr>
-										<td><a href="'.base_url().'PO/Info/'.$po->POID.'">PO-'.$po->POID.'</a></td>
-										<td>
+										<td><a href="#">RFQ-'.$quote->QuoteID.'</a></td>
+										<td width="20%">
 											<h4 class="ui image header">
 												          <img src="'.base_url().'app/img/hjm-logo.png" class="ui mini rounded image">
 												          <div class="content">';
 												          foreach($suppliers as $supplier){
-													          if($po->SupplierID == $supplier->SupplierID)
+													          if($quote->SupplierID == $supplier->SupplierID)
 													          	echo
 													            '<a href="'.base_url().'Supplier/Info/'.$supplier->SupplierID.'">'.$supplier->title.' '.$supplier->firstname.' '.$supplier->lastname.'</a>
-													            <div class="sub header">HJM Dental Laboratory';
+													            <div class="sub header">'.$supplier->company;
 												          }
 												echo    '</div>
 												        </div>
 												    </h4>
 										</td>
-										<td>'.date('l F d, Y h:i A', strtotime($po->orderdatetime)).'</td>
-										<td>'.date('l F d, Y ', strtotime($po->shipdate)).'</td>
+										<td style="text-align:center;">'.date('l F d, Y h:i A', strtotime($quote->DateCreated)).
+										'</td>
+										<td style="text-align:center;">'.date('l F d, Y ', strtotime($quote->DateRequired)).
+										'</td>
 										
 										<td>
-										<center>';
-											if($po->POStatusID<3){
-												echo
-												'<a class="ui button blue" href="'.base_url().'PO/Info/'.$po->POID.'" class="green">
-									  			<i class="green check icon"></i>
-									  			Update
-									  			</a>
-									  			&nbsp;';
-									  		}
-									  		else{
-									  			echo
-												'<button class="ui button blue" class="green" disabled>
-									  			<i class="green check icon"></i>
-									  			Update
-									  			</button>
-									  			&nbsp;';
-
-									  		}
-								  			if($po->POStatusID>1){
-									  			echo
-												'<a class="ui button blue" href="'.base_url().'PO/POSlip/'.$po->POID.'">
-									  			<i class="file icon"></i>
-									  			View
-									  			</a>';
-								  			}
-								  			else{
-								  				echo
-												'<button class="ui button blue" disabled>
-									  			<i class="file icon"></i>
-									  			View
-									  			</button>';
-								  			}
-								  							
-										echo
-								  		'</center>	
+									
 										</td>
 									</tr>';
 								}
@@ -296,7 +264,7 @@
 				  </div>
 	  		</div>
 	  		<div class="ui grid">
-	  		<div class="row">
+	  			<div class="row">
 					<div class="one wide column hidden"></div>
 					<div class="fourteen wide column">
 						<label style="color: #9F3A38;font-size: .92857143em;font-weight: 700" id="requiredasterisk">*Required</label>
@@ -309,7 +277,7 @@
 						<div class="ui segment">
 							<div class="inline fields">
 							<div class="eight wide field">
-								<label>Supplier</label>
+								<label>Supplier <span style="color: #9F3A38;font-weight: 700" >*</span></label>
 								<select class="ui selection search dropdown supplierselect" name="SupplierID" id="SupplierID">
 									<option value="">Select Supplier</option>
 								  
@@ -357,7 +325,7 @@
 	  							 <textarea rows="2" readonly id="addresspo"></textarea>
 	  						</div>
 	  						<div class="field">
-	  							<label>Requested Ship Date</label>
+	  							<label>Requested Ship Date <span style="color: #9F3A38;font-weight: 700" >*</span></label>
 	  							<input type="date" id="duedate" name="shipdate" class="datepicker">
 	  						</div>
 	  					</div>
@@ -391,7 +359,7 @@
 								 	<?php
                                         foreach ($items as $item) 
                                         {
-                                            echo '<option value="'.$item->ItemID.'" data-id="1" data-description="'.$item->ItemDesc.'" data-qty="'.$item->ReorderQTY.'">'.$item->ItemID.'</option>';
+                                            echo '<option value="'.$item->ItemID.'" data-path="po" data-id="1" data-description="'.$item->ItemDesc.'" data-qty="'.$item->ReorderQTY.'">'.$item->ItemID.'</option>';
                                         }
                                     ?>
 								  </select>
@@ -418,7 +386,7 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<button class="ui button blue" id="AddRow" onclick="Addrow();">
+		  		<button class="ui button blue" id="AddRow" onclick="Addrow('po');">
 		  			Add Row
 		  		</button>
 		  	</div>
@@ -479,9 +447,9 @@
 
 <!-- QUOTATION MODAL -->
 
-<!-- <div class="ui modal fullscreen quotation">
+<div class="ui modal fullscreen quotation">
 	 
-	  <?php echo form_open('PO/AddQuote','class="ui form"');?>
+	  <?php echo form_open('PO/AddQuote','class="ui form" onSubmit="return false"');?>
 	  		<div class="ui inverted purple segment">
 	  			  <div class="ui header">
 				  <i class="large add to cart icon"></i>
@@ -489,24 +457,32 @@
 				  </div>
 	  		</div>
 	  		<div class="ui grid">
+	  			<div class="row">
+					<div class="one wide column hidden"></div>
+					<div class="fourteen wide column">
+						<label style="color: #9F3A38;font-size: .92857143em;font-weight: 700" id="requiredasteriskquote">*Required</label>
+						<div id="errorquote"></div>
+					</div>
+					<div class="one wide column hidden"></div>
+				</div>
 		  		<div class="two column row">
 					<div class="column">
 						<div class="ui segment">
 							<div class="inline fields">
 							<div class="eight wide field">
-								<label>Supplier</label>
+								<label>Supplier <label style="color: #9F3A38;font-weight: 700">*</label></label>
 								<select class="ui selection search dropdown supplierselect" name="SupplierID" id="SupplierID">
 									<option value="">Select Supplier</option>
 								  
 								  	<?php foreach ($suppliers as $supplier) {
-								  		echo '<option value="'.$supplier->SupplierID.'" data-path="po" data-email="'.$supplier->email.'" data-fulladdress="'.$supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity.'">'.$supplier->company.'</option>';
+								  		echo '<option value="'.$supplier->SupplierID.'" data-path="quote" data-email="'.$supplier->email.'" data-fulladdress="'.$supplier->bstreet.', '.$supplier->bbrgy.', '.$supplier->bcity.'">'.$supplier->company.'</option>';
 								  	}
 								    ?>
 								</select>
 							</div>
 							<div class="eight wide field">
 								<label>Email</label>
-								<input type="text" value="" readonly id="email">
+								<input type="text" value="" readonly id="emailquote">
 							</div>
 							</div>
 						</div>
@@ -516,7 +492,7 @@
 						<div class="ui segment">
 							<div class="ui header">
 								<h3>RFQ#:</h3>
-								<h1>RFQ-<?php echo $count+1;?></h1>
+								<h1>RFQ-<?php echo $countquote+1;?></h1>
 							</div>	
 						</div>
 										
@@ -531,11 +507,11 @@
 	  					<div class="fields">
 	  						<div class="four wide field">
 	  							<label>Billing Address</label>
-	  							 <textarea rows="2" readonly id="address"></textarea>
+	  							 <textarea rows="2" readonly id="addressquote"></textarea>
 	  						</div>
 	  						<div class="field">
-	  							<label>Requested Quotation Date equired</label>
-	  							<input type="date" id="duedate" name="shipdate" class="datepicker">
+	  							<label>Requested Quotation Date Required <span style="color: #9F3A38;font-weight: 700" >*</span></label>
+	  							<input type="date" id="duedate" name="DateRequired" class="datepicker">
 	  						</div>
 	  					</div>
 	  				</div>
@@ -556,17 +532,17 @@
 		  					<th></th>
 		  				</tr>
 		  			</thead>
-		  			<tbody id="Add">
-		  				<tr id="Row1">
+		  			<tbody id="QuoteAdd">
+		  				<tr id="QuoteRow1">
 		  					<td>1</td>
 		  					<td >
-								<select class="ui search dropdown Item" id="Item1" name="po[1][ItemID]" onchange="getItemDesc(this.value,1);">
+								<select class="ui search dropdown itemselect" id="QuoteItem1" name="quote[1][ItemID]" onchange="getItemDesc(this.value,1);">
 									<option value="">Select Item</option>
 								  <
 								 	<?php
                                         foreach ($items as $item) 
                                         {
-                                            echo '<option value="'.$item->ItemID.'">'.$item->ItemID.'</option>';
+                                            echo '<option value="'.$item->ItemID.'" data-id="1" data-path="quote" data-description="'.$item->ItemDesc.'">'.$item->ItemID.'</option>';
                                         }
                                     ?>
 								  </select>
@@ -576,7 +552,7 @@
 		  					
 		  					</td>
 		  					<td>
-		  						<input type="number" style="width: 100px" name="po[1][QTY]" id="QuoteQTY1" onkeyup="multiply(1);addSubtotal(1);">
+		  						<input type="number" style="width: 100px" name="quote[1][QTY]" id="QuoteQTY1" onkeyup="multiply(1);addSubtotal(1);">
 		  					</td>
 		  					<td></td>
 		  				</tr>
@@ -587,7 +563,7 @@
 		  </div>
 		  <div class="row">
 		  	<div class="fifteen wide column">
-		  		<button class="ui button blue" id="QuoteAddRow" onclick="Addrow();">
+		  		<button class="ui button purple" id="QuoteAddRow" data-path="quote" onclick="return false;">
 		  			Add Row
 		  		</button>
 		  	</div>
@@ -604,28 +580,21 @@
 							</div>
 							<div class="two wide column hidden">
 							</div>
-							<div class="three wide right aligned column">
-								<h4>Subtotal</h4>
-								<h2>Total</h2>
-							</div>
-							<div class="three wide column">
-								<h4 id="TotalSave"></h4>
-								<h2 id="Total"></h2>
-
-							</div>
+							
 						</div>
 					</div>
 				</div>
 	  			<div class="two column row">
 	  				<div class="six wide column"></div>
 					<div class="three wide column">
-						 <a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a>
+						<!--  <a href="purchase-order-print.html" data-content="Print PO" class="popup"><i class="print big icon"></i>Print Purchase Order</a> -->
 					</div>
 					<div class="right aligned six wide column">
 						  <div class="actions" id="footer-modal">
 						    <div class="ui grey deny button">
 						      Cancel
 						    </div>
+						    <input type="hidden" name="submit" value="submit">
 						    <button class="ui animated purple right button" tabindex="0" name="submit" type="submit" value="submit" >
 							  <div class="visible content">Submit</div>
 							  <div class="hidden content">
@@ -641,4 +610,3 @@
 	</form>
 	<br><br>
 	</div>
- -->

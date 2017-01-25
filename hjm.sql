@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2017 at 12:07 PM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Jan 23, 2017 at 04:59 AM
+-- Server version: 5.6.24
+-- PHP Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `hjm`
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `tblcase`
 --
 
-CREATE TABLE `tblcase` (
+CREATE TABLE IF NOT EXISTS `tblcase` (
   `CaseID` int(11) NOT NULL,
   `Type` varchar(500) NOT NULL,
   `CaseTypeID` varchar(10) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `tblcase` (
 -- Table structure for table `tblcase1`
 --
 
-CREATE TABLE `tblcase1` (
+CREATE TABLE IF NOT EXISTS `tblcase1` (
   `CaseID` int(11) NOT NULL,
   `Type` varchar(500) NOT NULL,
   `CaseTypeID` varchar(10) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `tblcase1` (
   `status_id` int(50) NOT NULL DEFAULT '1',
   `createdon` datetime DEFAULT '0000-00-00 00:00:00',
   `completedon` datetime DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblcase1`
@@ -207,7 +207,7 @@ INSERT INTO `tblcase1` (`CaseID`, `Type`, `CaseTypeID`, `DentistID`, `orderdatet
 -- Table structure for table `tblcasetype`
 --
 
-CREATE TABLE `tblcasetype` (
+CREATE TABLE IF NOT EXISTS `tblcasetype` (
   `CaseTypeID` varchar(10) NOT NULL,
   `CaseTypeDesc` varchar(50) NOT NULL,
   `Type` varchar(50) NOT NULL,
@@ -247,7 +247,7 @@ INSERT INTO `tblcasetype` (`CaseTypeID`, `CaseTypeDesc`, `Type`, `TotalOrder`, `
 -- Table structure for table `tbldentist`
 --
 
-CREATE TABLE `tbldentist` (
+CREATE TABLE IF NOT EXISTS `tbldentist` (
   `DentistID` int(11) NOT NULL,
   `title` varchar(10) NOT NULL,
   `firstname` varchar(100) NOT NULL,
@@ -268,7 +268,7 @@ CREATE TABLE `tbldentist` (
   `notes` text NOT NULL,
   `image` varchar(500) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbldentist`
@@ -298,17 +298,7 @@ INSERT INTO `tbldentist` (`DentistID`, `title`, `firstname`, `middlename`, `last
 (27, 'Dra.', 'Rowena', 'A', 'Concepcion', 'Concepcion Dental House', 'Wengconcepcion@gmail.com', '2540002', '09228287841', '', '', '2015 F.B Harisson Street Pasay City', 'Harisson', 'Pasay', '2015 F.B Harisson Street Pasay City', 'Harisson', 'Pasay', '', '', 1),
 (28, 'Dra.', 'Ruth Caringal', ' ', 'Zagada', 'RUTH CARINGAL- ZAGADA DENTAL CLINIC', 'ruthcaringaldent@gmail.com', '8873289', '09195039187', '', '', '2020 - B Edison St., San Isidro, Makati City', 'San Isidro', 'Makati', '2020 - B Edison St., San Isidro, Makati City', 'San Isidro', 'Makati', '', '', 1),
 (29, 'Dra.', 'Jean', 'A', 'Bautista', 'U R Beauteethful Dental Clinic', 'beauteethful@gmail.com', '4256879', '09178887977', '', 'http://', 'Unit B 2/F Marasigan Bldg. cor A. Matha and 12th Sts. Villamor Airbase Village, Pasay City', 'Villamor Airbase Village', 'Pasay', 'Unit B 2/F Marasigan Bldg. cor A. Matha and 12th Sts. Villamor Airbase Village, Pasay City', 'Villamor Airbase Village', 'Pasay', '', '', 1),
-(30, 'Dra.', 'Michelle Ann', 'A', 'Soriano', 'MA Soriano Dental Care', 'masorianodental@gmail.com', '4584328', '09156250937', '', '', '214 74th St., J. Luna Pasay City', 'J. Luna', 'Pasay', '214 74th St., J. Luna Pasay City', 'J. Luna', 'Pasay', '', '', 1),
-(31, 'Dr.', 'asfasdf', '', 'asdfasdf', 'asdfasdf', 'jgabagacina@gmail.com', '', '', '', '', 'asdfasdf', 'aasdfasdf', 'asdfasdf', 'asdfasdf', 'aasdfasdf', 'asdfasdf', '', '', 1),
-(32, 'Dr.', 'fasdf', 'asdf', 'asdfasdf', 'asdfasdfasdf', '', '', '', '', '', 'asdfasdf', 'asdfasdf', 'asdfadsf', '', '', '', '', '', 1),
-(33, 'Dr.', 'adfasd', '', 'fasdfasdf', 'asdfasdf', '', '', '', '', '', 'asdfasd', 'asdfasdf', 'fasdf', '', '', '', '', '', 1),
-(34, 'Dr.', 'test', '', 'asdf', 'asdfasdfasdf', '', '', '', '', '', 'asfdasdf', 'asdfasdf', 'asdfasdf', '', '', '', '', '', 1),
-(35, 'Mr.', 'Sasya', '', 'Grey', 'asfasdfasdf', '', '', '', '', '', 'sdfasdf', 'asdfasdf', 'fasdf', '', '', '', '', '', 1),
-(36, 'Dr.', 'asdfa', '', 'asdfasfd', 'asfasdf', '', '', '', '', '', 'asdfasdf', 'asdf', 'asdfasdf', '', '', '', '', '', 1),
-(37, 'Dr.', 'asdf', '', 'asdf', 'asfd', '', '', '', '', '', 'asdf', 'asdf', 'asdf', '', '', '', '', '', 1),
-(38, 'Dr.', 'asdf', '', 'asdf', 'asfd', '', '', '', '', '', 'asdf', 'asdf', 'asdf', '', '', '', '', '', 1),
-(39, 'Dr.', 'fasdf', '', 'asdf', 'asdfasdf', '', '', '', '', '', 'fasdf', 'asdfasdf', 'asdfas', '', '', '', '', '', 1),
-(40, 'Dra.', 'cgfgfjgfjgfj', '', 'ftyrfytry', 'dfgdfgdhg', '', '', '', '', '', 'dfgdfgdhg', 'dfgdfgdhg', 'dfgdfgdhg', '', '', '', '', '', 1);
+(30, 'Dra.', 'Michelle Ann', 'A', 'Soriano', 'MA Soriano Dental Care', 'masorianodental@gmail.com', '4584328', '09156250937', '', '', '214 74th St., J. Luna Pasay City', 'J. Luna', 'Pasay', '214 74th St., J. Luna Pasay City', 'J. Luna', 'Pasay', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -316,7 +306,7 @@ INSERT INTO `tbldentist` (`DentistID`, `title`, `firstname`, `middlename`, `last
 -- Table structure for table `tblinvoice`
 --
 
-CREATE TABLE `tblinvoice` (
+CREATE TABLE IF NOT EXISTS `tblinvoice` (
   `InvoiceID` int(11) NOT NULL,
   `DentistID` int(11) NOT NULL,
   `CaseID` int(11) NOT NULL,
@@ -333,7 +323,7 @@ CREATE TABLE `tblinvoice` (
 -- Table structure for table `tblinvoice1`
 --
 
-CREATE TABLE `tblinvoice1` (
+CREATE TABLE IF NOT EXISTS `tblinvoice1` (
   `InvoiceID` int(11) NOT NULL,
   `DentistID` int(11) NOT NULL,
   `CaseID` int(11) NOT NULL,
@@ -456,7 +446,7 @@ INSERT INTO `tblinvoice1` (`InvoiceID`, `DentistID`, `CaseID`, `datecreated`, `d
 -- Table structure for table `tblinvoiceitem`
 --
 
-CREATE TABLE `tblinvoiceitem` (
+CREATE TABLE IF NOT EXISTS `tblinvoiceitem` (
   `InvoiceID` int(11) NOT NULL,
   `ItemID` varchar(50) NOT NULL,
   `QTY` int(11) NOT NULL,
@@ -470,7 +460,7 @@ CREATE TABLE `tblinvoiceitem` (
 -- Table structure for table `tblinvoicepayment`
 --
 
-CREATE TABLE `tblinvoicepayment` (
+CREATE TABLE IF NOT EXISTS `tblinvoicepayment` (
   `PaymentID` int(11) NOT NULL,
   `InvoiceID` int(11) NOT NULL,
   `DentistID` int(11) NOT NULL,
@@ -486,7 +476,7 @@ CREATE TABLE `tblinvoicepayment` (
 -- Table structure for table `tblitem`
 --
 
-CREATE TABLE `tblitem` (
+CREATE TABLE IF NOT EXISTS `tblitem` (
   `ItemID` varchar(50) NOT NULL,
   `SupplierID` int(11) NOT NULL,
   `ItemDesc` varchar(500) NOT NULL,
@@ -502,11 +492,11 @@ CREATE TABLE `tblitem` (
 --
 
 INSERT INTO `tblitem` (`ItemID`, `SupplierID`, `ItemDesc`, `Price`, `QTY`, `CurrentQTY`, `QTYBelow`, `ReorderQTY`) VALUES
-('CBM', 5, 'Carburandum', 55, 60, 0, 30, 30),
-('E', 1, 'Expander', 250, 50, 0, 23, 25),
+('CBM', 5, 'Carburandum', 55, 60, -12, 30, 30),
+('E', 1, 'Expander', 250, 50, -12, 23, 25),
 ('ES', 5, 'Expansion Screw', 45, 65, 0, 30, 35),
 ('FS-TK', 3, 'Flat Stone (Thick)', 35, 75, 0, 25, 50),
-('FS-TN', 3, 'Flat Stone (Thin)', 25, 50, 0, 25, 25),
+('FS-TN', 3, 'Flat Stone (Thin)', 25, 50, -23, 25, 25),
 ('FW', 4, 'Felt Wheel', 50, 50, 0, 25, 25),
 ('H', 5, 'Hexagel', 200, 33, 0, 18, 15),
 ('IP', 3, 'Ivocap Powder', 180, 40, 0, 27, 18),
@@ -536,7 +526,7 @@ INSERT INTO `tblitem` (`ItemID`, `SupplierID`, `ItemDesc`, `Price`, `QTY`, `Curr
 -- Table structure for table `tblpo`
 --
 
-CREATE TABLE `tblpo` (
+CREATE TABLE IF NOT EXISTS `tblpo` (
   `POID` int(11) NOT NULL,
   `SupplierID` int(11) NOT NULL,
   `POStatusID` int(11) NOT NULL DEFAULT '1',
@@ -552,7 +542,7 @@ CREATE TABLE `tblpo` (
 -- Table structure for table `tblpoitem`
 --
 
-CREATE TABLE `tblpoitem` (
+CREATE TABLE IF NOT EXISTS `tblpoitem` (
   `POID` int(11) NOT NULL,
   `ItemID` varchar(50) NOT NULL,
   `QTY` int(11) NOT NULL,
@@ -566,10 +556,10 @@ CREATE TABLE `tblpoitem` (
 -- Table structure for table `tblpostatus`
 --
 
-CREATE TABLE `tblpostatus` (
+CREATE TABLE IF NOT EXISTS `tblpostatus` (
   `POStatusID` int(11) NOT NULL,
   `status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblpostatus`
@@ -583,10 +573,35 @@ INSERT INTO `tblpostatus` (`POStatusID`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblquote`
+--
+
+CREATE TABLE IF NOT EXISTS `tblquote` (
+  `QuoteID` int(11) NOT NULL,
+  `SupplierID` int(11) NOT NULL,
+  `DateCreated` datetime NOT NULL,
+  `DateRequired` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblquoteitem`
+--
+
+CREATE TABLE IF NOT EXISTS `tblquoteitem` (
+  `QuoteID` int(11) NOT NULL,
+  `ItemID` varchar(500) NOT NULL,
+  `QTY` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblrequisition`
 --
 
-CREATE TABLE `tblrequisition` (
+CREATE TABLE IF NOT EXISTS `tblrequisition` (
   `ReqID` int(11) NOT NULL,
   `CaseID` int(11) NOT NULL,
   `DateCreated` datetime NOT NULL
@@ -598,7 +613,7 @@ CREATE TABLE `tblrequisition` (
 -- Table structure for table `tblrequisitionitem`
 --
 
-CREATE TABLE `tblrequisitionitem` (
+CREATE TABLE IF NOT EXISTS `tblrequisitionitem` (
   `ReqID` int(11) NOT NULL,
   `ItemID` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `QTY` int(11) NOT NULL
@@ -610,10 +625,10 @@ CREATE TABLE `tblrequisitionitem` (
 -- Table structure for table `tblstatus`
 --
 
-CREATE TABLE `tblstatus` (
+CREATE TABLE IF NOT EXISTS `tblstatus` (
   `status_id` int(11) NOT NULL,
   `status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblstatus`
@@ -631,7 +646,7 @@ INSERT INTO `tblstatus` (`status_id`, `status`) VALUES
 -- Table structure for table `tblsupplier`
 --
 
-CREATE TABLE `tblsupplier` (
+CREATE TABLE IF NOT EXISTS `tblsupplier` (
   `SupplierID` int(11) NOT NULL,
   `title` varchar(10) NOT NULL,
   `firstname` varchar(100) NOT NULL,
@@ -647,7 +662,7 @@ CREATE TABLE `tblsupplier` (
   `bbrgy` varchar(100) NOT NULL,
   `bcity` varchar(100) NOT NULL,
   `notes` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblsupplier`
@@ -667,13 +682,13 @@ INSERT INTO `tblsupplier` (`SupplierID`, `title`, `firstname`, `middlename`, `la
 -- Table structure for table `tbluser`
 --
 
-CREATE TABLE `tbluser` (
+CREATE TABLE IF NOT EXISTS `tbluser` (
   `UserID` int(11) NOT NULL,
   `DentistID` int(11) NOT NULL,
   `username` varchar(500) NOT NULL,
   `password` varchar(500) NOT NULL,
   `ps_id` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbluser`
@@ -681,8 +696,7 @@ CREATE TABLE `tbluser` (
 
 INSERT INTO `tbluser` (`UserID`, `DentistID`, `username`, `password`, `ps_id`) VALUES
 (1, 1, 'administrator', '200ceb26807d6bf99fd6f4f0d1ca54d4', 2),
-(2, 8, 'client', 'ae2b1fca515949e5d54fb22b8ed95575', 1),
-(3, 31, 'jgabagacina@gmail.com', '03ea847ef28f97dfc4cd3f335080fbfb', 1);
+(2, 8, 'client', 'ae2b1fca515949e5d54fb22b8ed95575', 1);
 
 --
 -- Indexes for dumped tables
@@ -692,19 +706,13 @@ INSERT INTO `tbluser` (`UserID`, `DentistID`, `username`, `password`, `ps_id`) V
 -- Indexes for table `tblcase`
 --
 ALTER TABLE `tblcase`
-  ADD PRIMARY KEY (`CaseID`),
-  ADD KEY `DentistID` (`DentistID`),
-  ADD KEY `status_id` (`status_id`),
-  ADD KEY `CaseTypeID` (`CaseTypeID`);
+  ADD PRIMARY KEY (`CaseID`), ADD KEY `DentistID` (`DentistID`), ADD KEY `status_id` (`status_id`), ADD KEY `CaseTypeID` (`CaseTypeID`);
 
 --
 -- Indexes for table `tblcase1`
 --
 ALTER TABLE `tblcase1`
-  ADD PRIMARY KEY (`CaseID`),
-  ADD KEY `DentistID` (`DentistID`),
-  ADD KEY `status_id` (`status_id`),
-  ADD KEY `CaseTypeID` (`CaseTypeID`);
+  ADD PRIMARY KEY (`CaseID`), ADD KEY `DentistID` (`DentistID`), ADD KEY `status_id` (`status_id`), ADD KEY `CaseTypeID` (`CaseTypeID`);
 
 --
 -- Indexes for table `tblcasetype`
@@ -722,64 +730,55 @@ ALTER TABLE `tbldentist`
 -- Indexes for table `tblinvoice`
 --
 ALTER TABLE `tblinvoice`
-  ADD PRIMARY KEY (`InvoiceID`),
-  ADD UNIQUE KEY `InvoiceID` (`InvoiceID`),
-  ADD KEY `CaseID` (`CaseID`),
-  ADD KEY `DentistID` (`DentistID`);
+  ADD PRIMARY KEY (`InvoiceID`), ADD UNIQUE KEY `InvoiceID` (`InvoiceID`), ADD KEY `CaseID` (`CaseID`), ADD KEY `DentistID` (`DentistID`);
 
 --
 -- Indexes for table `tblinvoice1`
 --
 ALTER TABLE `tblinvoice1`
-  ADD PRIMARY KEY (`InvoiceID`),
-  ADD UNIQUE KEY `InvoiceID` (`InvoiceID`),
-  ADD KEY `CaseID` (`CaseID`),
-  ADD KEY `DentistID` (`DentistID`);
+  ADD PRIMARY KEY (`InvoiceID`), ADD UNIQUE KEY `InvoiceID` (`InvoiceID`), ADD KEY `CaseID` (`CaseID`), ADD KEY `DentistID` (`DentistID`);
 
 --
 -- Indexes for table `tblinvoiceitem`
 --
 ALTER TABLE `tblinvoiceitem`
-  ADD KEY `InvoiceID` (`InvoiceID`),
-  ADD KEY `ItemID` (`ItemID`);
+  ADD KEY `InvoiceID` (`InvoiceID`), ADD KEY `ItemID` (`ItemID`);
 
 --
 -- Indexes for table `tblinvoicepayment`
 --
 ALTER TABLE `tblinvoicepayment`
-  ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `DentistID` (`DentistID`),
-  ADD KEY `InvoiceID` (`InvoiceID`);
+  ADD PRIMARY KEY (`PaymentID`), ADD KEY `DentistID` (`DentistID`), ADD KEY `InvoiceID` (`InvoiceID`);
 
 --
 -- Indexes for table `tblitem`
 --
 ALTER TABLE `tblitem`
-  ADD PRIMARY KEY (`ItemID`),
-  ADD KEY `SupplierID` (`SupplierID`);
+  ADD PRIMARY KEY (`ItemID`), ADD KEY `SupplierID` (`SupplierID`);
 
 --
 -- Indexes for table `tblpo`
 --
 ALTER TABLE `tblpo`
-  ADD PRIMARY KEY (`POID`),
-  ADD KEY `DentistID` (`SupplierID`),
-  ADD KEY `status_id` (`Total`),
-  ADD KEY `POStatusID` (`POStatusID`),
-  ADD KEY `Total` (`Total`) USING BTREE;
+  ADD PRIMARY KEY (`POID`), ADD KEY `DentistID` (`SupplierID`), ADD KEY `status_id` (`Total`), ADD KEY `POStatusID` (`POStatusID`), ADD KEY `Total` (`Total`) USING BTREE;
 
 --
 -- Indexes for table `tblpoitem`
 --
 ALTER TABLE `tblpoitem`
-  ADD KEY `ItemID` (`ItemID`),
-  ADD KEY `POID` (`POID`);
+  ADD KEY `ItemID` (`ItemID`), ADD KEY `POID` (`POID`);
 
 --
 -- Indexes for table `tblpostatus`
 --
 ALTER TABLE `tblpostatus`
   ADD PRIMARY KEY (`POStatusID`);
+
+--
+-- Indexes for table `tblquote`
+--
+ALTER TABLE `tblquote`
+  ADD PRIMARY KEY (`QuoteID`);
 
 --
 -- Indexes for table `tblrequisition`
@@ -803,9 +802,7 @@ ALTER TABLE `tblsupplier`
 -- Indexes for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  ADD PRIMARY KEY (`UserID`),
-  ADD UNIQUE KEY `DentistID` (`DentistID`),
-  ADD UNIQUE KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`UserID`), ADD UNIQUE KEY `DentistID` (`DentistID`), ADD UNIQUE KEY `UserID` (`UserID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -820,12 +817,12 @@ ALTER TABLE `tblcase`
 -- AUTO_INCREMENT for table `tblcase1`
 --
 ALTER TABLE `tblcase1`
-  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `tbldentist`
 --
 ALTER TABLE `tbldentist`
-  MODIFY `DentistID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `DentistID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `tblinvoice`
 --
@@ -845,7 +842,12 @@ ALTER TABLE `tblpo`
 -- AUTO_INCREMENT for table `tblpostatus`
 --
 ALTER TABLE `tblpostatus`
-  MODIFY `POStatusID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `POStatusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tblquote`
+--
+ALTER TABLE `tblquote`
+  MODIFY `QuoteID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblrequisition`
 --
@@ -855,17 +857,17 @@ ALTER TABLE `tblrequisition`
 -- AUTO_INCREMENT for table `tblstatus`
 --
 ALTER TABLE `tblstatus`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblsupplier`
 --
 ALTER TABLE `tblsupplier`
-  MODIFY `SupplierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `SupplierID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

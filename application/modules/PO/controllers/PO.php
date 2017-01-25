@@ -28,7 +28,9 @@ class PO extends MX_Controller
 		{
 
 			$data['pos'] = $this->MdlPO->getPO(array());
+			$data['quotes'] = $this->MdlPO->getQuote(array());
 			$data['count'] = $this->MdlPO->countPO(array());
+			$data['countquote'] = $this->MdlPO->countQuote(array());
 			$data['suppliers'] = $this->MdlSupplier->getSupplier(array());
 			$data['status'] = $this->MdlPO-> getPOStatus(array());
 			$data['Draft'] = $this->MdlPO->countPO(array('POStatusID'=>1));
@@ -107,6 +109,46 @@ class PO extends MX_Controller
 
 						echo "Purchase Order successfully added!";
 					
+	
+		}	
+	
+
+	}
+
+	public function AddQuote()
+	{
+	
+
+		if($this->session->userdata('ps_id')==2 && $this->session->userdata('is_logged_in') == TRUE  ){
+						
+
+					if($_POST['submit']){
+						$data=array(
+									'SupplierID'=>$_POST['SupplierID'],
+									'DateCreated'=>date('Y-m-d H:i:s'),
+									'DateRequired'=>$_POST['DateRequired']
+								);
+						$QuoteID=$this->MdlPO->AddQuote($data);
+
+						
+
+						//Item Insert
+						$x=1;
+						foreach ($_POST['quote'] as $po){
+							if($po['ItemID']!=''){
+								$po[$x] = array(
+									'QuoteID' => $QuoteID,
+									'ItemID' => $po['ItemID'],
+									'QTY' => $po['QTY'],
+									
+								);
+								$this->MdlPO->addQuoteItem($po[$x]);
+								$x++;
+							}
+						}				
+
+						echo "Quotation successfully added!";
+					}
 	
 		}	
 	

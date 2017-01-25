@@ -187,15 +187,9 @@ class Invoice extends MX_Controller
 									'timecreated'=> date('Y-m-d H:i:s'),
 									'datecreated'=>date('Y-m-d'),
 						);
-						$this->MdlInvoice->addInvoicePayment($data);	
-						redirect('Customer/Info/'.$_POST['DentistID']);
-						
-					
-						
-	
-			
-			
-		//}
+						if($this->MdlInvoice->addInvoicePayment($data)>0)
+							echo "Transaction successfully created!";	
+
 
 	}
 

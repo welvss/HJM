@@ -556,10 +556,13 @@ $('form.ui.form').on('submit', function() {
                 },
                 success: function(data) {
                     $("#requiredasterisk").hide();
+                    $("#requiredasteriskquote").hide();
                     $("form.ui.form").removeClass('loading');
                     $("#error").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
                     $("#errorproduct").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
+                    $("#errorpayment").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
                     $("#errorrequest").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
+                    $("#errorquote").html("<div class='ui success message'><div class='header'>Submission Complete</div><p>" + data + "</p></div>");
                     $("form.ui.form").form('clear');
                     setTimeout(function() {
                         location.reload();
@@ -571,8 +574,10 @@ $('form.ui.form').on('submit', function() {
                     $("form.ui.form").removeClass('loading');
                     console.log(xhr.responseText);
                     $("#error").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
+                    $("#errorpayment").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
                     $("#errorproduct").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
                     $("#errorrequest").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
+                    $("#errorquote").html("<div class='ui negative message'><div class='header'>Submission Fail</div><p>Something went wrong to the server.</p></div>");
                 }
 
 
