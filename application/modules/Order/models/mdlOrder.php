@@ -22,7 +22,18 @@ class MdlOrder extends CI_Model {
 		return $query->result();
 	}
 
+	function getTeeth($options = array())
+	{
+		if(isset($options['BrandID']))
+			$this->db->where('BrandID',$options['BrandID']);
 
+		$query = $this->db->get("tblteeth");
+		
+		if(isset($options['BrandID']))
+			return $query->row(0);
+		
+		return $query->result();
+	}
 	
 	function getCaseType($options = array())
 	{

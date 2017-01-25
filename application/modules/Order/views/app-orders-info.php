@@ -480,50 +480,23 @@
 					    ?>
 					    </select>
 				  </div>
-		  		  <div class="eight wide field">
+				   <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid search dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
+					    <select  name="items"  class="ui fluid search dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
 					      
-					    <?php 
-					    $caseitems = explode(',',$case->items);
-					     $bool=false;
-					     $positive=false;
-					     
-					     
-					    foreach ($items as $item) 
-					    {
-			
-							    foreach ($caseitems as $ci) 
-							    {
-							    	if($ci==$item->ItemID)
-							   			$positive=true;
-							   		
-							   		
-							    }
-							    if($positive)
-							    {
-							    	echo '<option value="'.$item->ItemID.'" selected>'.$item->ItemDesc.'</option>';
-							    	 $positive=false;
-							    }
-							    else
-							    {
-			 						echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
-			 						
-			 					}
-			 				
-			 				if($caseitems==null)
-			 					echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
-
-			 				
-					 	}
-					 	
-
-					 	
-			 			
+					      <?php 
+					      echo '<option value="">Select Item</option>';
+					      foreach ($teeth as $tooth) {
+					      	if($case->items==$tooth->BrandID)
+					      		echo '<option value="'.$tooth->BrandID.'" selected>'.$tooth->BrandDesc.'</option>';
+					      	else
+					      		echo '<option value="'.$tooth->BrandID.'">'.$tooth->BrandDesc.'</option>';
+					      }
 					      
 					     ?>
 					    </select>
 				  </div>
+		  		  
 		  		</div>
 		  		<div class="ui vertical segment">
 		  		  <div class="eight wide field">
@@ -848,9 +821,18 @@
 	  							 <textarea rows="2"><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></textarea>
 	  						</div>
 	  						<div class="field">
+							   	<label>Created Date</label>
+							    <input type="date" name="orderdate" placeholder="Last Name" id="duedate">
+							  </div>
+							  <div class="field">
+							    <label>Created Time</label>
+							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime" class="datepicker">
+							  </div>
+	  						<div class="field">
 	  							<label>Due Date</label>
 	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>" class="datepicker">
 	  						</div>
+
 	  					</div>
 	  				</div>
 	  			</div>

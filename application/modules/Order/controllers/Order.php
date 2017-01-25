@@ -45,7 +45,7 @@ class Order extends MX_Controller
 			$data['status'] = $this->MdlOrder->getStatus();
 			$data['invoice'] = $this->MdlInvoice->getInvoice();
 			$data['dentists'] = $this->MdlCustomer->getDentist(array());
-			
+			$data['teeth'] = $this->MdlOrder->getTeeth();
 			$data['items'] = $this->MdlInventory->getItem(array());
 			$data['New'] = $this->MdlOrder->getOrder(array('status_id'=>1,'count'=>''));
 			$data['IP'] = $this->MdlOrder->getOrder(array('status_id'=>2,'count'=>''));
@@ -121,9 +121,9 @@ class Order extends MX_Controller
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
 										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
-										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
+										'items' => $_POST['items'],
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : $_POST['base64'] ),
-										'orderdatetime'=> date('Y-m-d H:i:s'),
+										'orderdatetime'=> date('Y-m-d H:i:s',strtotime($_POST['orderdate'].' '.$_POST['ordertime'])),
 										'description'=> $_POST['description'],
 
 										//'file' => $upload_data['file_name']
@@ -211,7 +211,7 @@ class Order extends MX_Controller
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
 										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
-										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
+										'items' => $_POST['items'],
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' ),
 										'orderdatetime'=> date('Y-m-d H:i:s'),
 										'description'=> $_POST['description'],
@@ -377,7 +377,7 @@ class Order extends MX_Controller
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
 										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
-										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
+										'items' => $_POST['items'],
 										'description'=> $_POST['description']
 									);
 							$this->MdlOrder->modifyOrder($data);
@@ -443,7 +443,7 @@ class Order extends MX_Controller
 										'Articulator' => $_POST['Articulator'],
 										'OD' => $_POST['OD'],
 										'teeth' => (!empty($_POST['teeth'])&&isset($_POST['teeth'])?implode(',',$_POST['teeth']):''),
-										'items' => (!empty($_POST['items'])&&isset($_POST['items'])?implode(',',$_POST['items']):''),
+										'items' => $_POST['items'],
 										'file' => ( $file ? base_url('app/uploads/'.$datus['file_name']) : '' )
 
 										//'file' => $upload_data['file_name']
@@ -483,6 +483,7 @@ class Order extends MX_Controller
 			$data['ctypes'] = $this->MdlOrder->getCaseType();
 			$data['casetype'] = $this->MdlOrder->getCaseType(array('Type'=>$info->Type));
 			$data['items'] = $this->MdlInventory->getItem(array());
+			$data['teeth'] = $this->MdlOrder->getTeeth();
 			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice->InvoiceID));
 			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	

@@ -118,6 +118,7 @@ class Customer extends MX_Controller
 		$data['casetype'] = $this->MdlOrder->getCaseType();
 		//$data['sum']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'DentistID'=>$this->uri->segment(3),'status'=>1,'notduedate'=> date("Y-m-d")));
 		//$data['overdue']=$this->MdlInvoice->addInvoiceTotal(array('paid'=>0,'duedate'=> date("Y-m-d"),'status'=>1,'DentistID'=>$this->uri->segment(3)));
+		$data['teeth'] = $this->MdlOrder->getTeeth();
 		$data['Count']	= $this->MdlOrder->getOrder(array('count'=>''));
 		$data['dentist'] = $this->MdlCustomer->getDentist(array('DentistID'=>$this->uri->segment(3)));	
 		$data['invoice'] = $this->MdlInvoice->getInvoice(array('DentistID'=>$this->uri->segment(3)));

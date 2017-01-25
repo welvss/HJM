@@ -683,14 +683,14 @@
 					    
 					    </select>
 				  </div>
-		  		  <div class="eight wide field">
+		  		 <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid search dropdown" id="items">
+					    <select  name="items"  class="ui fluid search dropdown" id="items">
 					      
 					      <?php 
-					      echo '<option value=""></option>';
-					      foreach ($items as $item) {
-					      	echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+					      echo '<option value="">Select Item</option>';
+					      foreach ($teeth as $tooth) {
+					      	echo '<option value="'.$tooth->BrandID.'">'.$tooth->BrandDesc.'</option>';
 					      }
 					      
 					     ?>

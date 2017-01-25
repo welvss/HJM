@@ -105,7 +105,7 @@ class Invoice extends MX_Controller
 						
 						$data=array(
 									'InvoiceID' => $_POST['InvoiceID'],
-									'datecreated'=>date('Y-m-d H:i:s'),
+									'datecreated'=>date('Y-m-d H:i:s',strtotime($_POST['orderdate'].' '.$_POST['ordertime'])),
 									'duedate' => $_POST['duedate'],
 									'Total'=>$_POST['Total']
 

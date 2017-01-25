@@ -313,12 +313,12 @@
 				  </div>
 		  		  <div class="eight wide field">
 					  <label>Item</label>
-					    <select  multiple name="items[]"  class="ui fluid search dropdown" id="items">
+					    <select  name="items"  class="ui fluid search dropdown" id="items">
 					      
 					      <?php 
-					      echo '<option value=""></option>';
-					      foreach ($items as $item) {
-					      	echo '<option value="'.$item->ItemID.'">'.$item->ItemDesc.'</option>';
+					      echo '<option value="">Select Item</option>';
+					      foreach ($teeth as $tooth) {
+					      	echo '<option value="'.$tooth->BrandID.'">'.$tooth->BrandDesc.'</option>';
 					      }
 					      
 					     ?>
@@ -549,7 +549,19 @@
 							<div class="ui header dues">
 					  				Due
 					  		</div>
+					  		<div class="fields dues">
+								<div class="field">
+							   	<label>Created Date</label>
+							    <input type="date" name="orderdate" placeholder="Last Name" id="duedate">
+							  </div>
+							  <div class="field">
+							    <label>Created Time</label>
+							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime" class="datepicker">
+							  </div>
+								
+							</div>
 							<div class="fields dues">
+								
 								<div class="field">
 							    <label>Due Date</label>
 							    <input type="date" name="duedate" placeholder="Last Name" id="duedate">
