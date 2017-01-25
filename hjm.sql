@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2017 at 11:34 PM
+-- Generation Time: Jan 19, 2017 at 12:07 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -57,15 +57,6 @@ CREATE TABLE `tblcase` (
   `createdon` datetime DEFAULT '0000-00-00 00:00:00',
   `completedon` datetime DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tblcase`
---
-
-INSERT INTO `tblcase` (`CaseID`, `Type`, `CaseTypeID`, `DentistID`, `orderdatetime`, `patientfirstname`, `patientlastname`, `gender`, `age`, `shade1`, `shade2`, `description`, `Tray`, `SG`, `BW`, `MC`, `OC`, `Photos`, `Articulator`, `OD`, `teeth`, `items`, `notes`, `file`, `duedate`, `duetime`, `status_id`, `createdon`, `completedon`) VALUES
-(1, 'RPD', 'CC', 8, '2017-01-25 22:45:31', '', '', '', 0, 4, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', 'CBM', '', '', '2017-01-25', '00:31', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'RPD', 'D', 8, '2017-01-25 22:54:18', '', '', '', 0, 4, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', 'E,ES', '', '', '2017-01-23', '03:12', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'RPD', 'COM', 8, '2017-01-17 13:31:00', '', '', '', 0, 4, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', 'CBM', '', '', '2017-01-22', '03:12', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -336,15 +327,6 @@ CREATE TABLE `tblinvoice` (
   `paid` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tblinvoice`
---
-
-INSERT INTO `tblinvoice` (`InvoiceID`, `DentistID`, `CaseID`, `datecreated`, `duedate`, `Total`, `status`, `paid`) VALUES
-(1, 8, 1, NULL, '', 0, 0, 0),
-(2, 8, 2, '2017-01-11 12:31:00', '2017-01-19', 2, 1, 0),
-(3, 8, 3, NULL, '', 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -482,13 +464,6 @@ CREATE TABLE `tblinvoiceitem` (
   `SubTotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tblinvoiceitem`
---
-
-INSERT INTO `tblinvoiceitem` (`InvoiceID`, `ItemID`, `QTY`, `Amount`, `SubTotal`) VALUES
-(2, 'D', 1, 2, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -504,13 +479,6 @@ CREATE TABLE `tblinvoicepayment` (
   `PaymentMethod` varchar(60) NOT NULL,
   `Amount` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tblinvoicepayment`
---
-
-INSERT INTO `tblinvoicepayment` (`PaymentID`, `InvoiceID`, `DentistID`, `datecreated`, `timecreated`, `PaymentMethod`, `Amount`) VALUES
-(1, 2, 8, '2017-01-25', '2017-01-25 23:09:29', 'New', 0);
 
 -- --------------------------------------------------------
 
@@ -578,17 +546,6 @@ CREATE TABLE `tblpo` (
   `Total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tblpo`
---
-
-INSERT INTO `tblpo` (`POID`, `SupplierID`, `POStatusID`, `orderdatetime`, `shipdate`, `receivedate`, `Total`) VALUES
-(1, 1, 1, '2017-01-21 12:33:37', '2017-01-17', NULL, 25),
-(2, 1, 1, '2017-01-21 12:35:30', '0123-02-13', NULL, 35),
-(3, 2, 1, '2017-01-21 12:36:58', '2017-01-03', NULL, 25),
-(4, 2, 1, '2017-01-21 12:38:54', '2017-01-02', NULL, 35),
-(5, 2, 1, '2017-01-21 12:39:21', '2017-01-02', NULL, 25);
-
 -- --------------------------------------------------------
 
 --
@@ -602,17 +559,6 @@ CREATE TABLE `tblpoitem` (
   `Amount` float NOT NULL,
   `SubTotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tblpoitem`
---
-
-INSERT INTO `tblpoitem` (`POID`, `ItemID`, `QTY`, `Amount`, `SubTotal`) VALUES
-(1, 'E', 25, 1, 25),
-(2, 'ES', 35, 1, 35),
-(3, 'E', 25, 1, 25),
-(4, 'ES', 35, 1, 35),
-(5, 'E', 25, 1, 25);
 
 -- --------------------------------------------------------
 
@@ -714,37 +660,6 @@ INSERT INTO `tblsupplier` (`SupplierID`, `title`, `firstname`, `middlename`, `la
 (6, 'Mr.', 'asdf', '', 'asdf', 'asdfasdf', '', '', '', '', '', 'asdf', 'asdfasdf', 'asdf', ''),
 (7, 'Mr.', 'asdf', '', 'asf', 'asdfasdf', '', '', '', '', '', 'asdf', 'asdfasdfasfasd', 'asdfasdf', ''),
 (8, 'Mr.', 'asdf', '', 'asdf', 'asdf', '', '', '', '', '', 'asdf', 'asdf', 'asfd', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblteeth`
---
-
-CREATE TABLE `tblteeth` (
-  `BrandID` varchar(5) NOT NULL,
-  `BrandDesc` varchar(17) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tblteeth`
---
-
-INSERT INTO `tblteeth` (`BrandID`, `BrandDesc`) VALUES
-('ACE', 'Ace Px'),
-('BPLA', 'Bioform Plastic'),
-('BPOR', 'Bioform Porcelain'),
-('BTONE', 'Biotone Ipn'),
-('CMU', 'Cosmu'),
-('CPOR', 'China Porcelain'),
-('IVO', 'Ivoclar'),
-('JT', 'Justi'),
-('LEE', 'Leeformaton'),
-('ML', 'Monaliza'),
-('NACE', 'New Ace'),
-('NDENT', 'Naturadent'),
-('NTONE', 'Naturatone'),
-('VITA', 'Vitanorm');
 
 -- --------------------------------------------------------
 
@@ -885,12 +800,6 @@ ALTER TABLE `tblsupplier`
   ADD PRIMARY KEY (`SupplierID`);
 
 --
--- Indexes for table `tblteeth`
---
-ALTER TABLE `tblteeth`
-  ADD PRIMARY KEY (`BrandID`);
-
---
 -- Indexes for table `tbluser`
 --
 ALTER TABLE `tbluser`
@@ -906,7 +815,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tblcase`
 --
 ALTER TABLE `tblcase`
-  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CaseID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblcase1`
 --
@@ -921,17 +830,17 @@ ALTER TABLE `tbldentist`
 -- AUTO_INCREMENT for table `tblinvoice`
 --
 ALTER TABLE `tblinvoice`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblinvoicepayment`
 --
 ALTER TABLE `tblinvoicepayment`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblpo`
 --
 ALTER TABLE `tblpo`
-  MODIFY `POID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `POID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblpostatus`
 --
