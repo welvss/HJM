@@ -46,11 +46,11 @@
 		  	  							<div class="ui middle aligned divided list">
 		  	  								<div class="item" id="createdon">
 		  	  									<label>Created On: </label>&nbsp;
-		  	  									 <?php echo (strtotime($case->createdon)!=0 ? date('m/d/Y', strtotime($case->createdon)) : "--/--/----");?>
+		  	  									 <?php echo (strtotime($case->createdon)>0 ? date('m/d/Y', strtotime($case->createdon)) : "--/--/----");?>
 		  	  								</div>
 		  	  								<div class="item" id="completedon">
 		  	  									<label>Completed On: </label>&nbsp;
-		  	  									<?php echo (strtotime($case->completedon)!=0 ? date('m/d/Y', strtotime($case->completedon)) : "--/--/----");?>
+		  	  									<?php echo (strtotime($case->completedon)>0 ? date('m/d/Y', strtotime($case->completedon)) : "--/--/----");?>
 		  	  								</div>
 		  	  							</div>
 		  	  						</div>
@@ -480,13 +480,13 @@
 					    ?>
 					    </select>
 				  </div>
-				   <div class="eight wide field">
+		  		  <div class="eight wide field">
 					  <label>Item</label>
 					    <select  name="items"  class="ui fluid search dropdown" id="items" <?php if($invoice->status==1) echo 'disabled';?>>
 					      
 					      <?php 
 					      echo '<option value="">Select Item</option>';
-					      foreach ($teeth as $tooth) {
+					      foreach ($teeths as $tooth) {
 					      	if($case->items==$tooth->BrandID)
 					      		echo '<option value="'.$tooth->BrandID.'" selected>'.$tooth->BrandDesc.'</option>';
 					      	else
@@ -496,7 +496,6 @@
 					     ?>
 					    </select>
 				  </div>
-		  		  
 		  		</div>
 		  		<div class="ui vertical segment">
 		  		  <div class="eight wide field">
@@ -583,9 +582,10 @@
 						    	<textarea name="description" style="width: 440px;height:220px; resize: none;" <?php if($invoice->status==1) echo 'readonly';?>><?php echo $case->description;?></textarea>
 						    </div>
 						    
+		  				</div>
 		  			</div>
 		  		</div>
-		  	</div>
+		  </div>
 		  </div>
 		  		<div class="row">
 		  		<div class="column">
@@ -821,18 +821,17 @@
 	  							 <textarea rows="2"><?php echo $dentist->bstreet.', '.$dentist->bbrgy.', '.$dentist->bcity;?></textarea>
 	  						</div>
 	  						<div class="field">
+	  							<label>Due Date</label>
+	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>" class="datepicker">
+	  						</div>
+	  						<div class="field">
 							   	<label>Created Date</label>
 							    <input type="date" name="orderdate" placeholder="Last Name" id="duedate">
 							  </div>
 							  <div class="field">
 							    <label>Created Time</label>
-							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime" class="datepicker">
+							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime">
 							  </div>
-	  						<div class="field">
-	  							<label>Due Date</label>
-	  							<input type="date" name="duedate" value="<?php echo $invoice->duedate;?>" class="datepicker">
-	  						</div>
-
 	  					</div>
 	  				</div>
 	  			</div>

@@ -483,7 +483,7 @@ class Order extends MX_Controller
 			$data['ctypes'] = $this->MdlOrder->getCaseType();
 			$data['casetype'] = $this->MdlOrder->getCaseType(array('Type'=>$info->Type));
 			$data['items'] = $this->MdlInventory->getItem(array());
-			$data['teeth'] = $this->MdlOrder->getTeeth();
+			$data['teeths'] = $this->MdlOrder->getTeeth(array());
 			$data['invoice'] = $this->MdlInvoice->getInvoice(array('CaseID'=>$this->uri->segment(3)));
 			$data['invoiceitems'] = $this->MdlInvoice->getInvoiceItem(array('InvoiceID'=>$invoice->InvoiceID));
 			$data['case'] = $this->MdlOrder->getOrder(array('CaseID'=>$this->uri->segment(3)));	

@@ -147,12 +147,13 @@ class Invoice extends MX_Controller
 					);
 		
 		$this->MdlInvoice->addInvoice($invoice);
+		$invoice = $this->MdlInvoice->getInvoice(array('InvoiceID'=>$_POST['InvoiceID']));
 		$data=array(
 					'InvoiceID' => $_POST['InvoiceID'],
 					'DentistID'=>$_POST['DentistID'],
 					'PaymentMethod' =>'New',
-					'timecreated'=> date('Y-m-d H:i:s'),
-					'datecreated'=>date('Y-m-d'),
+					'timecreated'=> date('Y-m-d H:i:s',strtotime($invoice->datecreated)),
+					'datecreated'=>date('Y-m-d' ,strtotime($invoice->datecreated)),
 					 
 
 								);
@@ -184,8 +185,8 @@ class Invoice extends MX_Controller
 									'DentistID'=>$_POST['DentistID'],
 									'PaymentMethod' => (($_POST['Balance']-$_POST['Amount'])==0?'Full':'Partial'),
 									'Amount'=>$_POST['Amount'],
-									'timecreated'=> date('Y-m-d H:i:s'),
-									'datecreated'=>date('Y-m-d'),
+									'timecreated'=> date('Y-m-d H:i:s',strtotime($_POST['orderdate'].' '.$_POST['ordertime'])),
+									'datecreated'=>date('Y-m-d',strtotime($_POST['orderdate'])),
 						);
 						if($this->MdlInvoice->addInvoicePayment($data)>0)
 							echo "Transaction successfully created!";	

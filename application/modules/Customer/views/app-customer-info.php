@@ -967,11 +967,22 @@
 								<label>Email</label>
 								<input type="text" value="<?php echo $dentist->email;?> ">
 							</div>
-							</div>
+
+
 						</div>
 					</div>
+
 					<div class="right aligned column">
 						<div class="ui segment">
+							<div class="eight wide field">
+							   	<label>Created Date</label>
+							    <input type="date" name="orderdate" placeholder="Last Name" id="duedate">
+							  </div>
+							  <div class="eight wide field">
+							    <label>Created Time</label>
+							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime">
+							  </div>
+							</div>
 							<div class="ui header">
 								Amount Received
 								<h1 id="sumreceived"></h1>

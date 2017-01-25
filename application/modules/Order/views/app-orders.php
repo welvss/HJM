@@ -317,7 +317,7 @@
 					      
 					      <?php 
 					      echo '<option value="">Select Item</option>';
-					      foreach ($teeth as $tooth) {
+					      foreach ($teeths as $tooth) {
 					      	echo '<option value="'.$tooth->BrandID.'">'.$tooth->BrandDesc.'</option>';
 					      }
 					      
