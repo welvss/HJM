@@ -188,7 +188,7 @@ class MdlInventory extends CI_Model {
 
 	function AddReqItem($options = array())
 	{
-		$this->db->insert('tblrequisitionItem', $options);	
+		$this->db->insert('tblrequisitionitem', $options);	
 		return $this->db->insert_id();
 		
 	}

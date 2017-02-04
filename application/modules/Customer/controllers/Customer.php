@@ -561,7 +561,7 @@ class Customer extends MX_Controller
 		$data['duedate'] = date('l F d, Y', strtotime($info->duedate));
 		$data['datecreated'] = '('.date('l F d, Y', strtotime($info->datecreated)).')';
 		$data['total'] =  number_format(($info->Total),2);
-		$data['balance'] =  number_format(($info->Total-$sum),2);
+		$data['balance'] =  ($info->Total-$sum);
 		$data['sum'] = number_format(($sum),2);
 		echo json_encode($data);
 

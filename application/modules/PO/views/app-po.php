@@ -294,6 +294,7 @@
 								<label>Email</label>
 								<input type="text" value="" readonly id="emailpo">
 							</div>
+
 							</div>
 						</div>
 					</div>
@@ -328,6 +329,14 @@
 	  							<label>Requested Ship Date <span style="color: #9F3A38;font-weight: 700" >*</span></label>
 	  							<input type="date" id="duedate" name="shipdate" class="datepicker">
 	  						</div>
+	  						<div class="field">
+							   	<label>Created Date</label>
+							    <input type="date" name="orderdate" placeholder="Last Name" id="duedate">
+							  </div>
+							  <div class="field">
+							    <label>Created Time</label>
+							    <input type="time" name="ordertime" placeholder="Last Name" id="duetime" class="datepicker">
+							  </div>
 	  					</div>
 	  				</div>
 	  			</div>
@@ -484,6 +493,7 @@
 								<label>Email</label>
 								<input type="text" value="" readonly id="emailquote">
 							</div>
+							
 							</div>
 						</div>
 					</div>
@@ -513,6 +523,7 @@
 	  							<label>Requested Quotation Date Required <span style="color: #9F3A38;font-weight: 700" >*</span></label>
 	  							<input type="date" id="duedate" name="DateRequired" class="datepicker">
 	  						</div>
+
 	  					</div>
 	  				</div>
 	  			</div>

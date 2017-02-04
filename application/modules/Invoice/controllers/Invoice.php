@@ -130,13 +130,7 @@ class Invoice extends MX_Controller
 						}
 					
 						redirect('Order/Info/'.$_POST['CaseID']);
-						
-					
-						
-	
-			
-			
-		//}
+
 
 	}
 

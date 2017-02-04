@@ -83,7 +83,7 @@ class PO extends MX_Controller
 					if($_POST['submit'])
 						$data=array(
 									'SupplierID'=>$_POST['SupplierID'],
-									'orderdatetime'=>date('Y-m-d H:i:s'),
+									'orderdatetime'=>date('Y-m-d H:i:s',strtotime($_POST['orderdate'].' '.$_POST['ordertime'])),
 									'shipdate' => $_POST['shipdate'],
 									'Total'=> $_POST['Total']
 								);

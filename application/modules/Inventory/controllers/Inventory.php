@@ -105,17 +105,21 @@ class Inventory extends MX_Controller
 
 					);
 			$ReqID=$this->MdlInventory->AddReq($data);
-
+			
+			
 			$x=1;
 			foreach ($_POST['rf'] as $rf){
+			
 				if($rf['ItemID']!=''){
-					$rf[$x] = array(
+					$rf = array(
 							'ReqID' => $ReqID,
 							'ItemID' => $rf['ItemID'],
 							'QTY' => $rf['QTY'],
 							);
-					$this->MdlInventory->AddReqItem($rf[$x]);
-					$x++;
+
+					
+					$this->MdlInventory->AddReqItem($rf);
+					
 				}
 			}
 
@@ -335,6 +339,56 @@ class Inventory extends MX_Controller
 	public function countInventory(){
 		 $data=$this->MdlInventory->getItem(array('CurrentQTY'=>''));
 		 echo $data;
+	}
+
+
+	public function autoReq(){
+		$exist=1;
+		$cases=$this->MdlOrder->getOrder();
+		$requests=$this->MdlInventory->getReq(array());
+		$items = $this->MdlInventory->getItem(array());
+		foreach ($cases as $case ) {
+			
+
+				$data = array(
+						'CaseID'=>$case->CaseID,
+						'DateCreated'=>date('Y-m-d H:i:s',strtotime($case->orderdatetime))
+
+						);
+				$ReqID=$this->MdlInventory->AddReq($data);
+				
+				$x=1;
+				$count=mt_rand(7,13);
+				
+				foreach ($items as $item){
+					
+					if($x<=$count){
+						$qty=mt_rand(1,9);
+						$rf = array(
+								'ReqID' => $ReqID,
+								'ItemID' => $item->ItemID,
+								'QTY' => $qty,
+								);
+
+						
+						$this->MdlInventory->AddReqItem($rf);
+						// $data=array(
+						// 	'ItemID'=>$item->ItemID,
+						// 	'CurrentQTY'=>$item->CurrentQTY-$qty
+						// 	);
+						// $this->MdlInventory->EditInventory($data);
+						$x++;
+						
+					}
+						
+					
+				}
+
+					
+			
+			
+			
+		}
 	}
 }
 ?>
